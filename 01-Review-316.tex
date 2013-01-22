@@ -1,0 +1,364 @@
+
+\noindent This chapter covers the following ideas.
+
+
+\begin{enumerate}
+
+\item Graph basic functions by hand. Compute derivatives and integrals, in particular using the product rule, quotient rule, chain rule, integration by $u$-substitution, and integration by parts (the tabular method is useful for simplifying notation). Explain how to find a Laplace transform. 
+\item Explain how to verify a function is a solution to an ODE, and illustrate how to solve separable ODEs.
+\item Explain how to use the language of functions in high dimensions and how to compute derivatives using a matrix. Illustrate the chain rule in high dimensions with matrix multiplication.
+\item Graph the gradient of a function together with several level curves to illustrate that the gradient is normal to level curves.
+\item Explain how to test if a differential form is exact (a vector field is conservative) and how to find a potential. 
+
+\end{enumerate}
+
+\section{Basics}
+We need to review our ability to graph functions with multiple inputs and/or outputs.  The next few problems ask you to practice some skills that will be crucial as the course progresses.
+
+\begin{problem}
+Construct graphs of the following functions. Explain how to obtain each graph by transforming and rescaling the first. Then state the amplitude and period of the function.
+\begin{enumerate}
+\item $y=\sin(x)$
+\item $y=5\sin(x)+1$
+\item $y=4\sin(3(x-\pi))+2$
+\item $y=4\sin(3x-\pi)+2$
+\end{enumerate}
+\end{problem}
+
+
+\begin{problem}
+Consider the function $f(x)=e^{-x}$.
+\begin{enumerate}
+ \item Construct graphs of $y=f(x)$  and $y=2f(-(x+3))-1$.
+ \item State $\lim_{x\to \infty} f(x)$ and $\lim_{x\to -\infty} f(x)$ from your graph.
+ \item Compute $\lim_{x\to \infty} x f(x)$ and $\lim_{x\to \infty} x^2f(x)$. [Hint: L'Hopital's rule will help.]
+\end{enumerate}  
+\end{problem}
+
+As the semester progresses, we'll need the functions 
+$$\cosh x = \frac{e^x+e^{-x}}{2}\quad\quad \text{and} \sinh x= \frac{e^x-e^{-x}}{2}.$$  
+These functions are the hyperbolic trig functions, and we say the hyperbolic sine of $x$ when we write $\sinh x$.
+These functions are very similar to sine and cosine functions, and have very similarly properties.  
+
+\begin{problem}
+Three useful facts about the trig functions are 
+(1) $\frac{d}{dx}\sin x=\cos x$, 
+(2) $\frac{d}{dx}\cos x=-\sin x$, and 
+(3) $\cos^2 x+\sin^2 x = 1$. 
+Use the definitions above to show the following:
+\begin{enumerate}
+\item $\frac{d}{dx}\sinh x=\cosh x$, 
+\item $\frac{d}{dx}\cosh x=\sinh x$, and 
+\item $\cosh^2 x-\sinh^2 x = 1$. 
+\end{enumerate}
+[Hint: Start by replacing the hyperbolic function with its definition in terms of exponentials. Then perform the computations.]
+\end{problem}
+
+\begin{problem}
+The three facts from the previous problem are crucial tools need to prove that $\frac{d}{dx}\tan x =\sec^2x$. 
+\begin{enumerate}
+ \item Use the quotient rule to give a formula for $\frac{d}{dx}\tanh x$ in terms of hyperbolic trig functions. 
+ \item Similarly obtain a formula for the derivative of $\text{sech}\, x = \frac{1}{\cosh x}$. 
+ \item What is $\frac{d}{dx}\text{csch}\, x$?
+\end{enumerate}
+\end{problem}
+
+You might ask why these function are called the hyperbolic trig functions.  What does a hyperbola have to do with anything?
+\begin{problem}
+Each pair of parametric equations traces out a curve in the $xy$ plane.  Given a Cartesian equation of the curve by eliminating the parameter $t$, and then graph the curve. 
+\begin{enumerate}
+ \item $x=\cos t$, $y=\sin t$, $-2\pi<t<2\pi$.
+ \item $x=\cosh t$, $y=\sinh t$, $-\infty<t<\infty$.
+\end{enumerate}
+Give a reason as to why do we call $\cosh$ the hyperbolic cosine.
+\end{problem}
+
+
+\begin{problem}
+ Use implicit differentiation to find the derivative of $y=sinh^{-1}x$. Your answer should not involve any hyperbolic trig functions, and should be in terms of $x$. [Hint: First write $x=sinh(y)$, and then implicitly differentiate both sides.  You'll need the key identity from a few problems above to help you finish.]
+\end{problem}
+
+The problems above asked you to review your differentiation skills.  You'll want to make sure you can use the basic rules of differentiation (such as the power, product, quotient, and chain rules). The next few problems will help you review your integration techniques, and you will apply them to two new ideas.
+
+\begin{problem}
+Compute the three integrals 
+$$\int x e^{-x^2}dx
+\quad\quad\text{and}\quad\quad 
+\int_0^1 x e^{-x^2}dx
+\quad\quad\text{and}\quad\quad 
+\int_0^\infty x e^{-x^2}dx.$$
+\end{problem}
+If you have never used the tabular method to perform integration-by-parts, I strongly suggest that you open the online text and read a few examples (see the bottom of page 2). 
+
+
+\begin{problem}
+Compute $\ds \int x\sin (5x) dx$ and $\ds \int x^2\sin (5x) dx$.
+\end{problem}
+
+\begin{problem}
+Compute $\ds \int \tanh^{-1}x dx$. The derivative of $\tanh^{-1}x$ is $\ds\frac{1}{1-x^2}$.
+\end{problem}
+
+
+\section{Laplace Transforms}
+\begin{definition}[The Laplace Transform]
+Let $f(t)$ be a function that is defined for all $t\geq 0$.  Using the function $f(t)$, we define the Laplace transform of $f$ to be a few function $F$ where for each $s$ we obtain the value by computing the integral
+\marginpar{Note that the Laplace transform of a function with independent variable $t$ is another function with a different independent variable $s$. After integration, all $t$'s will be removed from $F(s)$.  You can of course use any other letters besides $t$ and $s$.}
+$$F(s) = \mathscr{L}\{f(t)\}=\int_0^\infty e^{-st}f(t)dt.$$
+The domain of $F$ is the set of all $s$ such that the improper integral above converges.
+The function $f(t)$ is called the inverse Laplace transform of $F(s)$, and we write $f(t)=\mathscr{L}^{-1}(F(s))$.
+\end{definition}
+
+We will use the Laplace transform throughout the semester to help us solve many problems related to mechanical systems, electrical networks, and more. The mechanical and electrical engineers in this course will use Laplace transforms in many future courses. Our goal in the problems that follow is to practice integration-by-parts.  As an extra bonus, we'll learn the Laplace transforms of some basic functions.
+
+
+\begin{problem}
+Compute the integral $\ds\int_0^\infty e^{-st}dt,$ and state for which $s$ the integral converges. 
+What is the Laplace transform of $f(t)=1$? (If the last question seems redundant, then horray.)
+\end{problem}
+\begin{problem}
+Compute the Laplace transform of $f(t)=e^{2t}$, and state the domain.  
+Then compute the Laplace transform of $f(t)=e^{3t}$ and state the domain.
+Finally, compute the Laplace transform of $f(t)=e^{at}$ for any $a$, and state the domain.
+\end{problem}
+
+\begin{problem}
+ Suppose $s>0$ and $n$ is a positive integer.  Explain why $$\lim_{t\to\infty}\frac{t^n}{e^{st}}=0.$$ Use this fact to prove that the Laplace transform of $t^2$ is $$\ds\mathscr{L}\{t^2\} \frac{2}{s^3}.$$ [You'll need to do integration-by-parts twice, try the tabular method.]
+\end{problem}
+
+
+\begin{problem}
+ In the previous problems, you showed that 
+$$\ds\mathscr{L}\{t^0\} = \frac{1}{s^1}
+\quad\quad \text{and}\quad\quad 
+\mathscr{L}\{t^2\} = \frac{2}{s^3}.$$ 
+Show that the Laplace transform of $t$ is $\ds\mathscr{L}\{t^1\} = \frac{1}{s^2}$.
+Then compute the Laplace transforms of $t^3$, $t^4$, and so on until you see a pattern. 
+Use this pattern to state the Laplace transform of $t^10$ and $t^n$, provided $n$ is a positive integer.
+[Hint: Try the tabular method of integration-by-parts. After evaluating at 0 and $\infty$, all terms but 1 will be zero.]
+\end{problem}
+
+\begin{theorem}
+Since integration can be done term-by-term, and constants can be pulled out of the integral, we have the crucial fact that $$\mathscr{L}\{af(t)+bg(t)\}=a\mathscr{L}\{f(t)\}+b\mathscr{L}\{g(t)\}$$ for functions $f,g$ and constants $a,b$.  
+\end{theorem}
+
+\begin{problem}
+Without integrating, rather using the results above, compute the Laplace transform $L(3+5t^2-6e^{8t})$, and state the domain. 
+\end{problem}
+
+\begin{problem}
+Recall that $\ds\cosh t = \frac{e^t+e^{-t}}{2}$ and $\ds\sinh t = \frac{e^t-e^{-t}}{2}$. 
+Use this to prove that $$\mathscr{L}\{\cosh a t\} = \frac{s}{s^2-a^2}\quad \quad \text{and}\quad\quad\mathscr{L}\{\sinh a t\} = \frac{a}{s^2-a^2}.$$
+\end{problem}
+
+
+
+\section{Ordinary Differential Equations}
+A differential equation is an equation which involves derivatives (of any order) of some function.  For example, the equation $y''+xy^\prime+\sin(xy)=xy^2$ is a differential equation. An \textbf{ordinary differential equation (ODE)} is a differential equation involving an unknown function $y$ which depends on only one independent variable (often $x$ or $t$). A partial differential equation involves an unknown function $y$ that depends on more than one variable (such as $y(x,t)$). The order of an ODE is the order of the highest derivative in the ODE. A solution to an ODE on an interval $(a,b)$ is a function $y(x)$ which satisfies the ODE on $(a,b)$. 
+\begin{example}
+The first order ODE $y'(x) = 2x$, or just $y'=2x$, has unknown function $y$ with independent variable $x$. A solution on $(-\infty,\infty)$ is the function $y=x^2+C$ for any constant $C$. We obtain this solution by simply integrating both sides. Notice that there are infinitely many solutions to this ODE. 
+\end{example}
+
+Typically a solution to an ODE involves an arbitrary constant $C$. There is often an entire family of curves which satisfy a differential equation, and the constant $C$ just tells us which curve to pick. A \textbf{general solution} of an ODE is an infinite class of solutions of the ODE. A \textbf{particular solution} is one of the infinitely many solutions of an ODE. 
+
+Often an ODE comes with an \textbf{initial condition} $y(x_0)=y_0$ for some values $x_0$ and $y_0$. We can use these initial conditions to find a particular solution of the ODE. An ODE, together with an initial condition, is called an \textbf{initial value problem (IVP)}.  
+
+\begin{example}
+The IVP $y' = 2x$, $y(2)=1$, has the general solution $y=x^2+C$ from the previous problem. Since $y=1$ when $x=2$, we have $1=2^2+C$ which means $C=-3$. Hence the solution to our IVP is $y=x^2-3$.
+\end{example}
+
+\begin{problem}
+Consider the ordinary differential equation $y''+9y=0$. By computing derivatives, show that $y(t) = A\cos (3t)+B\sin (3t)$ is a general solution to the ODE, where $A$ and $B$ are arbitrary constants. If we know that $y(0)=1$ and $y'(0)=2$, determine the values of $A$ and $B$.
+\end{problem}
+
+
+\begin{problem}
+Consider the ordinary differential equation $\ds y\frac{dy}{dx} = x^2$.  Find a general solution to this ODE by integrating both sides with respect to $x$. State an interval on which your solution is valid. 
+\end{problem}
+
+They could introduce the entire method of separation by parts without me telling them what to do.  I just need to ask them to do an integral.  Afterward, I could ask them to solve an ODE.  Put it in the same problem. 
+
+\begin{problem}
+Consider the ODE given by $y' = 4ty$. Find a general solution to this ODE.  [Hint: Rewrite $y'$ as $\ds \frac{dy}{dt}$.  Then put all the terms that involve $y$ on one side of the equation, and the terms that involve $t$ on the other.  Then it should be similar to the previous problem.]
+\end{problem}
+
+\begin{problem}
+Solve the IVP given by $\ds y' = \frac{x^2-1}{y^4+1}$, where $y(0)=1$. 
+\end{problem}
+
+
+
+
+
+
+
+
+\section{General Functions and Derivatives}
+Recall that to compute partial derivatives, we hold all but one variable constant and then differentiate with respect to that variable. Partial derivatives can be organized into a matrix $Df$ where columns represents the partial derivative of $f$ with respect to each variable. This matrix, called the derivative or total derivative, takes us into our study of linear algebra. 
+Some examples of functions and their derivatives appear in Table \ref{derivativetable}. When the output dimension is one, the matrix has only one row and the derivative is often called the gradient of $f$, written $\nabla f$.  
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+Function&Derivative\\ \hline\hline
+{$f(x)=x^2$}& {$Df(x) = \begin{bmatrix}2x\end{bmatrix} $}\\ \hline
+{$\vec r(t) = (3\cos(t),2\sin(t))$}&  {$D\vec r(t) = \begin{bmatrix}-3\sin t\\ 2\cos t\end{bmatrix} $}\\ \hline
+{$\vec r(t) = (\cos(t),\sin(t),t)$}&  {$D\vec r(t) = \begin{bmatrix}-\sin t \\ \cos t \\ 1\end{bmatrix} $}\\ \hline
+{$f(x,y)=9-x^2-y^2$}&  {$Df(x,y) =\nabla f(x,y) = \begin{bmatrix}-2x & -2y\end{bmatrix} $}\\ \hline
+{$f(x,y,z)=x^2+y+xz^2$}&  {$Df(x,y,z) = \nabla f(x,y,z) = \begin{bmatrix}2x+z^2 & 1 &2xz\end{bmatrix} $}\\ \hline
+{$\vec F(x,y)=(-y,x)$}&  {$D\vec F(x,y) = \begin{bmatrix}0&-1\\ 1&0\end{bmatrix} $}\\ \hline
+{$\vec F(r,\theta,z)=(r\cos\theta,r\sin\theta,z)$}&  {$D\vec F(r,\theta,z) = 
+\begin{bmatrix}
+\cos \theta &-r\sin\theta&0\\ 
+\sin\theta&r\cos\theta&0\\ 
+0&0&1
+\end{bmatrix} $}\\ \hline
+{$\vec r (u,v)=(u,v,9-u^2-v^2)$}&  {$D\vec r(u,v) = \begin{bmatrix}1&0\\ 0&1\\ -2u&-2v\end{bmatrix} $}\\ \hline
+\end{tabular}
+\end{center}
+\caption{\label{derivativetable} The table above shows the (matrix) derivative of various functions.  Each column of the matrix corresponds a partial derivative of the function. When the output of a function is a vector, partial derivatives are vectors which are placed in columns of the matrix. The order of the columns matches the order in which you list the variables.}
+\end{table}
+
+In multivariate calculus, we focused our time on learning to graph, differentiate, and analyze each of the types of functions in the table above. The next few problems ask you to review this.
+
+\begin{problem}
+Let $\vec r(t) = \left<t^2-1, 2t+3\right>$.  
+Construct a graph of $\vec r(t)$, and 
+compute the derivative $D\vec r(t)$. 
+\end{problem}
+
+\begin{problem}
+Let $f(x,y) = 4-x^-y^2$.  
+Construct a 3D graph of $z=f(x,y)$.  
+\marginpar{Recall that a level curve of $z=f(x,y)$ is curve in the $xy$ plane where the output $z$ is constant.}
+Also construct a graph of several level curves.
+Then compute the derivative $Df(x,y)$. 
+\end{problem}
+
+\begin{problem}
+Let $\vec r(t) = \left<3\cos t, 2\sin t, t\right>$.  
+Construct a 3D graph of $\vec r(t)$, and 
+compute the derivative $D\vec r(t)$. 
+\end{problem}
+
+\begin{problem}
+Let $\vec F(x,y) = (y,-2x)$.  
+Construct a 2D graph of this vector field, and 
+compute the derivative $D\vec F(x,y)$. 
+\end{problem}
+
+
+
+
+
+\subsection{The General Chain Rule}
+The chain rule in first semester calculus states that $$(f\circ g)'(x) = f' (g(x))g'(x).$$  You may remember this as  
+``the derivative of the outside function times the derivative of the inside function.''  
+In multivariable calculus, most textbooks use a tree rule to develop the formula 
+$$\frac{df}{dt} = f_xx_t +f_yy_t$$ for a function $f(x,y)$, where $x$ and $y$ depend on $t$ (so that {$\vec r(t)=(x(t),y(t))$ is a curve in the $xy$ plane). 
+Written in matrix form, the chain rule is simply $$\frac{df}{dt} = \begin{bmatrix}f_x&f_y\end{bmatrix}\begin{bmatrix}x_t\\ y_t\end{bmatrix} = Df\cdot Dr,$$ which is the (matrix) product of the derivatives, just as it was in first semester calculus. You are welcome to tackle the following problems by using the tree rule or matrix product. 
+
+\begin{problem}
+Suppose that $f(x,y)=x^2+3xy$, where $x=t^2+1$ and $y=\sin t$, so we could write $\vec r(t) = (t^2+1, \sin t)$. 
+\begin{enumerate}
+ \item Compute $Df(x,y)$, $\dfrac{dx}{dt}$, and $D\vec r(t)$. (You should have two matrices.)
+ \item Compute $\frac{df}{dt}$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Suppose that $f(x,y) = x+3y$ and that $\dfrac{dx}{dt}=\cos t$ and $\dfrac{dy}{dt} = e^t$.  Compute $\frac{df}{dt}$. 
+\end{problem}
+
+\begin{problem}
+Suppose that $z=f(x,y)$ and that $\dfrac{\partial f}{\partial x} = 3x^2y$ and  $\dfrac{\partial f}{\partial y} = x^3y-e^y$.  Also suppose that $x=\sqrt{t}$ and $y = \ln t$.  Compute $\frac{df}{dt}$. 
+\end{problem}
+
+\begin{problem}
+Suppose that $z=f(x,y)$ is a differential function of two variables. Suppose that $\vec r(t)$ is a parametrization of a level curve of $f$. We can write the level curve in vector form as $\vec r(t) = (x(t),y(t))$, or in parametric form $x=x(t)$ and $y=y(t)$. 
+\begin{enumerate}
+ \item If $f(\vec r(0))=7$, then what is $f(\vec r(2))$?
+ \item Why does $\frac{df}{dt}=\nabla f(x,y)\cdot \dfrac{d\vec r}{dt}$?
+ \item Why is the gradient of $f$ normal to level curves? \marginpar{Recall that the word normal means there is a 90 degree angle between the gradient and the level curve.} 
+\end{enumerate}
+
+\end{problem}
+
+Before proceeding, let's practice with an examples to visually remind us that the gradient is normal to level curves.  This key fact will help us solve most of the differential equations we encounter in the course.
+
+%\begin{problem}
+%Consider the function $f(x,y) = x+2y$. Start by computing the gradient. Then construct a graph which contains several level curves of $f$, as well as the gradient at several points on each level curve.
+%\end{problem}
+
+\begin{problem}
+Consider the function $f(x,y) = x^2-y$.    Start by computing the gradient. Then construct a graph which contains several level curves of $f$, as well as the gradient at several points on each level curve.
+\end{problem}
+
+\section{Potentials of Vector Fields and Differential Forms}
+When the output dimension of a function is one, so we would write {$f:{\mathbb{R}}^n\to {\mathbb{R}}^1$}, then we call the derivative the gradient and write {$\vec \nabla f = (f_x,f_y,f_z)$}. 
+Notice that this is a vector field.  Taking a derivative gives us a vector field. Is every vector field the derivative of some function?  Hopefully you remember that the answer to this question is ``No.''
+
+If a vector field $\vec F = (M,N)$ (or in 3D $\vec F = (M,N,P)$) is the gradient of some some function $f$ (so that {$\vec \nabla f= \vec F$}), then we say that the vector field {$\vec F$} is a gradient field (or conservative vector field). We say that $f$ is a potential for the vector field $\vec F$ when $\nabla f=\vec F$. In this section, we'll review how to determine if a vector field has a potential, as well as how to find a potential.  
+
+\begin{problem}
+Let $\vec F = (M,N)=(2x+y, x+4y)$. Find a potential for $\vec F$ by doing the following.
+\begin{enumerate}
+ \item If we suppose $M=2x+y$ is the partial of $f$ with respect to $x$, then $f_x = 2x+y$.  Find a function $f$ whose partial with respect to $x$ is $M$. 
+ \item If we suppose $N=x+4y$ is the partial of $f$ with respect to $y$, then $f_y = x+4y$.  Find a function $f$ whose partial with respect to $y$ is $N$.
+ \item What is a potential for $\vec F$? Prove your answer is correct by computing the gradient of your answer. 
+\end{enumerate}
+\end{problem}
+
+By taking derivatives, there is a test that tells you if a function will have a potential. Some textbooks call it the test for a conservative field.  
+\begin{problem}[Test for a conservative vector field.]
+\marginpar{The test for a conservative vector field states states more than what you showed in this problem. It states that if $\vec F$ is a continuously differentiable vector field on a simply connected domain, then (1) if $\vec F$ has  potential, then certain pairs of partials must be equal, and (2) if those pairs of partial derivatives are equal, then the $\vec F$ has a potential. We will not prove part (2).}Let's prove the test for a conservative vector field in both 2 and 3 dimensions.
+\begin{enumerate}
+ \item  Suppose that $\vec F(x,y)=(M,N)$ is a continuously differentiable vector field on the entire plane.  Suppose further that $\vec F$ has a potential $f$.  The derivative of $\vec F$ is $$D\vec F(x,y) = 
+\begin{pmatrix}
+M_x&M_y\\
+N_x&N_y                                                                                                                                                                                \end{pmatrix}.
+$$
+Some of the entries in this matrix must be equal?  Which ones? Explain. [If you're not sure, try taking the derivative of the problem above.]
+
+\item Suppose that $\vec F(x,y,z)=(M,N,P)$ is a continuously differentiable vector field on all of space.  Suppose further that $\vec F$ has a potential $f$.  State the derivative of $\vec F$, and then state which pairs of entries must be equal. 
+\end{enumerate}
+\end{problem}
+
+
+\begin{problem}
+For each vector field below, either give a potential, or explain why no potential exists.
+\begin{enumerate}
+ \item $\vec F=(4x+5y,5x+6y)$
+ \item $\vec F= (2x-y,x+3y)$
+ \item $\ds\vec F= \left(4x+\frac{2y}{1+4x^2},\arctan(2x)\right)$
+ \item $\vec F= (3y+2yz, 3x+2xz+6z,2xy+6y)$ 
+\end{enumerate}
+\end{problem}
+
+
+We'll finish by introducing the vocabulary of differential forms. 
+We'll use this vocabulary throughout the semester as we study differential equations. 
+The vocabulary of vector fields parallels the vocabulary of differential forms. 
+\begin{definition}[Differential Forms]
+Assume that $f,M,N,P$ are all functions of three variables $x,y,z$. Similar definitions hold in all dimensions.
+\begin{itemize}
+\item A differential form is an expression of the form $Mdx+Ndy+Pdz$ (just as a vector field is a function  $\vec F=(M,N,P)$).
+\item The differential of a function {$f$} is the expression {$df = f_xdx+f_ydy+f_zdz$} (just as the gradient is $\vec \nabla F = (f_x,f_y,f_z)$).
+\item \marginpar{A differential form is exact precisely when the corresponding vector field is a gradient field.}%
+If a differential form is the differential of a function {$f$}, then the differential form is said to be exact (just as we say a vector field is a gradient field). Again, the function {$f$} is called a potential for the differential form. 
+\end{itemize} 
+\end{definition}
+Notice that {$Mdx+Ndy+Pdz$} is exact if and only if {$\vec F = (M,N,P)$} is a gradient field. The language of differential forms is practically the same as the language of conservative vector fields.  Why do we have different sets of words for the same idea?  That happens all the time when different groups of people work on seeming different problems, only to discover years later that they have been working on the same problem. If both sets of vocabulary stick, it's often because both have advantages. We have many different notations for the derivative (such as $y'$, $\frac{dy}{dx}$, and $Df$),  and each notation has advantages. The language of differential forms is best suited when studying differential equations.
+
+\begin{problem}
+For each differential form below, state if the differential form is exact. If it is exact, give a potential. 
+\begin{enumerate}
+ \item $(2x+3y)dx+(4x+5y)dy$
+ \item $(2x-y)dx+(3y-x)dy$
+ \item $\ds\left(4x+\frac{3y}{1+9x^2}\right) dx+\arctan(3x)dy$
+ \item $(3y+2yz)dx+ (3x+2xz+6z)dy+(2xy+5y)dz$ 
+\end{enumerate}
+\end{problem}
+
+
