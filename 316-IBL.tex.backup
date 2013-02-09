@@ -25,8 +25,11 @@
 \usepackage{multicol}
 \usepackage{enumitem}
 \usepackage{microtype}
+\usepackage{pstricks}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
+
+\newcommand{\myscale}{1}
 
 \usepackage{comment}
 
@@ -34,7 +37,6 @@
 \bmw{\section{Wrap Up}
 Once you have finished the problems in the section and feel comfortable with the ideas, create a short one page lesson plan that contains examples of the key ideas.  You will get a chance to teach from this lesson plan prior to taking the exam. Then log on to I-Learn and download the quiz. Once you have taken the quiz, upload your work to I-Learn and then download the key to see how you did. If you still need to work on mastering some of the ideas, please do so and then demonstrate your mastery though the quiz corrections.}
 }
-\newcommand{\myscale}{1}
 
 \usepackage{graphicx}
 \usepackage{wrapfig}
@@ -151,6 +153,9 @@ Once you have finished the problems in the section and feel comfortable with the
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\blank}[1]{\raisebox{0pt}[14pt]{\rule{#1}{1pt}}}
 
+\newcommand{\pvec}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\newcommand{\nvec}[1]{\begin{matrix} #1 \end{matrix}}
+
 %------------------------------------------------------------------------------------------------------------
 
 \usepackage{color}
@@ -195,6 +200,10 @@ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisc
 
 \chapter{Linear Algebra Arithmetic}
 \input{02-Arithmetic}
+\wrapup
+
+\chapter{Linear Algebra Applications}
+\input{03-Applications}
 \wrapup
 
 \end{document}
