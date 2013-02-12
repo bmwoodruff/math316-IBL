@@ -391,11 +391,11 @@ Find the inverse Laplace transform of $F(s) = \dfrac{2s+1}{s^2+9} + \dfrac{5s+7}
 The real power behind the Laplace transform comes from the last formula in the table. 
 \begin{theorem}[The Laplace Transform of a Derivative] \label{laplace transform of a derivative}
  Suppose that $y(t)$ is a differentiable function defined on $[0,\infty)$ such that $\ds\lim_{t\to \infty}\frac{y(t)}{e^{st}}=0$ for some $s$. We say that $y(t)$ does not grow faster than some exponential, as the function $e^{st}$ grows faster that $y(t)$ (otherwise the limit would not be zero).  If this is the case, then the Laplace transform of $y'$ is
- $$\mathscr{L}\{y'(t)\} = s \mathscr{L}\{y'(t)\} - y(0) = sY - y(0).$$
+ $$\mathscr{L}\{y'(t)\} = s \mathscr{L}\{y(t)\} - y(0) = sY - y(0).$$
 \end{theorem}
 
 \begin{problem}
- Prove the previous theorem.  In other words, show that $\mathscr{L}\{y'(t)\} = s \mathscr{L}\{y'(t)\} - y(0) = sY - y(0).$  [Hint, use integration by parts once, and don't forget to use the bounds.]
+ Prove the previous theorem.  In other words, show that $\mathscr{L}\{y'(t)\} = s \mathscr{L}\{y(t)\} - y(0) = sY - y(0).$  [Hint, use integration by parts once, and don't forget to use the bounds.]
 \end{problem}
 
 Before illustrating the key value of this theorem, let's fill in the only remaining rules in our Laplace transform table that we have not yet developed. 
