@@ -27,6 +27,20 @@ Applications&14&10,11,13,14,17,46,50,51,52,54,57&9-18,44-65\\ \hline
 
 \end{document}
 
+
+Start with the big picture.  Where are we headed. Show them that we'll be learning to solve ODE's that are non homogeneous. 
+Maybe have them develop the ODEs for mass-spring systems that are driven.  Also have them develop an ODE for an electrical network. 
+
+To introduce, start by solving a matrix equation.  Solve Ax=0, and then Ax=b (in the same problem).  Ask them what the difference is.  Have them create their own example next (make sure there is more than one solution).  What do they notice.
+
+Then have the prove general facts about matrices.  If x and y are both solutions to Ax=b, then x-y is a solution to Ax=0.  (maybe change the variables). 
+Now we jump to ODEs.  Have them solve a simple one, using Laplace transforms.  Have them check if the same pattern holds.
+Have them prove the general pattern. If y_1 and y_2 are solutions, then their difference solves the homogeneous ODE.  
+This gives us a tool.  All we need to do is find a single solution, and then we're done.
+
+
+
+
 \section{An example - Hooke's Law}
 Second order non homogeneous linear ODEs occur in mass-spring systems when there is an outside force, such as a machine applying pressure, bumps in a road causing vertical motion on shock absorbers, etc. If a spring is involved in some kind of moving object, then forces will be applied to the spring from outside the system. If we let $r(t)$ represent the external force (sometimes called the driving, or input force), then the sum of the forces acting on the spring is $-ky-cy'+r(t)$, so Newton's 2nd law $F=ma = my''$ gives the differential equation $my''=-cy'-ky+r(t)$, or $my''+cy'+ky=r(t)$.  The solution $y(t)$ is called the output or response of the system to the driving force.  Solving such a system in general can be a difficult task.  We will discuss the ideas behind solving such ODE's in general first, and then focus on a special case where the driving force is periodic of the form $r(t)=F_0\cos \omega t$. Near the end of this book in the Fourier series chapter, we will show how the solutions to this simple periodic force can give solutions to any period force. 
 

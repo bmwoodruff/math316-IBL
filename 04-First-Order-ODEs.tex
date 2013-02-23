@@ -293,7 +293,7 @@ We can solve most of the differential equations we tackle this semester by obtai
 \begin{problem}
  Consider the ODE $y'=\sin(x+y)$. There is no way that you'll get an integrating factor out of this by using our formulas for $F(x)$ and $F(y)$.  The problem is the $x+y$.  We now do a substitution.
 \begin{enumerate}
- \item Write the ODE in the differential form $$\begin{bmatrix}M&N\end{bmatrix}\begin{bmatrix}dx//dy\end{bmatrix}=0.$$
+ \item Write the ODE in the differential form $$\begin{bmatrix}M&N\end{bmatrix}\begin{bmatrix}dx\\dy\end{bmatrix}=0.$$
  \item Let $x=x$ and $u=x+y$ (this is a coordinate transformation). Explain why we have
 $$\begin{bmatrix}dx\\dy\end{bmatrix}=\begin{bmatrix}1&0\\-1&1\end{bmatrix}\begin{bmatrix}dx\\du\end{bmatrix}.$$
  \item Show that the ODE can be written in the form $(-\sin u - 1)dx+du=0$.  Then use either separation of variables (or the sledgehammer) to solve the ODE.  Don't forget to substitute back in when you're done.
@@ -301,7 +301,7 @@ $$\begin{bmatrix}dx\\dy\end{bmatrix}=\begin{bmatrix}1&0\\-1&1\end{bmatrix}\begin
 \end{problem}
   
 The last problem introduced the key idea.  If you have an ODE in the form 
-$$\begin{bmatrix}M&N\end{bmatrix}\begin{bmatrix}dx//dy\end{bmatrix}=0,$$
+$$\begin{bmatrix}M&N\end{bmatrix}\begin{bmatrix}dx\\dy\end{bmatrix}=0,$$
 then an appropriate substitution $x=x$, $y=g(x,u)$ will give us the ODE
 $$\begin{bmatrix}M&N\end{bmatrix}\begin{bmatrix}1&0\\g_x&g_u\end{bmatrix}\begin{bmatrix}dx\\du\end{bmatrix}=0.$$
 If we can find an integrating factor $F(x)$ or $F(u)$ which makes 
@@ -361,7 +361,8 @@ $\cos(wt)$  &$\dfrac{s}{s^2+\omega^2}$ 			&$s>0$\\\hline
 $\sin(wt)$  &$\dfrac{\omega}{s^2+\omega^2}$ 			&$s>0$\\\hline
 $\cosh(wt)$ &$\dfrac{s}{s^2-\omega^2}$ 			&$s>|\omega|$\\\hline
 $\sinh(wt)$ &$\dfrac{\omega}{s^2-\omega^2}$ 			&$s>|\omega|$\\\hline
-$y'$					&$\begin{array}{rl}s\mathscr{L}\{y\}-y(0)\\ =sY-y(0)\end{array}$ 						&\\\hline
+$y$     	&$\mathscr{L}\{y\}=Y$ 					&\\\hline
+$y'$		&$\begin{array}{rl}s\mathscr{L}\{y\}-y(0)\\ =sY-y(0)\end{array}$ &\\\hline
 \end{tabular}
 
 \caption{Table of Laplace Transforms}
@@ -416,7 +417,7 @@ We'll now use Theorem \ref{laplace transform of a derivative} to solve some ODEs
 \end{problem}
 Did you see the process above?  Rather than integrate, we just (1) computed the Laplace transform of both sides, (2) solved an algebraic equation for $Y$, and then (3) obtained the inverse Laplace transform to get $Y$.  
 
-Here's a parable to compare to using Laplace transforms.  You are inside a house that has a single door leading to the downstairs.  You are on the main floor, and need to get downstairs.  The door is locked and you don't know where the key is (you can't figure out how to solve the ODE).  You (1) decide to walk out the front door (you apply the Laplace transform).  Then you (2) walk around the house and find the back door entrance to the basement (you solve for $Y$).  Then (3) you walk up to the locked door and unlock it from the others side (you find the inverse transform).
+Here's a parable to compare to using Laplace transforms.  You are inside a house that has a single door leading to the downstairs.  You are on the main floor, and need to get downstairs.  The door is locked and you don't know where the key is (you can't figure out how to solve the ODE).  You (1) decide to walk out the front door (you apply the Laplace transform).  Then you (2) walk around the house and find the back door entrance to the basement (you solve for $Y$, and maybe apply a partial fraction decomposition).  Then (3) you walk up to the locked door and unlock it from the other side (you find the inverse transform).
 
 The Laplace transform replaces the problem of integrating with an algebraic problem (often easier to solve). We'll be using it throughout the semester to help us see patterns, and unlock difficult problems.  It works best when the ODE is linear.
 
@@ -491,7 +492,7 @@ Let's end the chapter by considering another application. In Problem \ref{expone
 \end{problem}
  
 \begin{question}
- Why can't we use a Laplace transform to solve $y'=-a(y-M)y$?
+ Why can't we (yet) use a Laplace transform to solve $y'=-a(y-M)y$?
 \end{question}
 
 

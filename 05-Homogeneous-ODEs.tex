@@ -26,7 +26,7 @@ Wronskian and Theory&8*&9,10,18,20,43,48,53,58&5-10, 13-20, 31,36-64\\ \hline
 \end{tabular}
 \end{center}
 
-*The problems in these sections are quick problems. It is important to do lots of them to learn the pattern used to solve ODEs. You may be able to finish 7 or more problems in under minutes or less.  Please do more, so that when you encounter these kinds of problems in the future you can immediately give an answer and move forward.
+*The problems in these sections are quick problems. It is important to do lots of them to learn the pattern used to solve ODEs. You may be able to finish 7 or more problems in 15 minutes or less.  Please do more, so that when you encounter these kinds of problems in the future you can immediately give an answer and move forward.
 
 
 \section{Some Physical Models}
@@ -72,7 +72,7 @@ We place the spring horizontally, and put the mass on a frictionless track. We l
 \begin{itemize}
  \item Draw a picture of a horizontal track. On the left end of the track, put a wall. Put a on object, like a square block, in the center of your track and draw a spring that connects the wall to the block.
  \item Explain why $mx''(t)=-kx(t)$. We generally just write $mx''=-kx$ (the $t$ is assumed).  
- \item If it takes $8 \text{ N} = 4$kg m/s$^2$ to move the object whose mass is 4 kg, what is the spring constant $k$?  How far would a $12$ N force cause the object to move?
+ \item If it takes $8 \text{ N} = 8$kg m/s$^2$ to move the object whose mass is 4 kg about $.3$ m, what is the spring constant $k$?  How far would a $12$ N force cause the object to move? Does the mass of the object matter?
 \end{itemize}
 \end{problem}
 
@@ -220,7 +220,7 @@ The previous problem showed us how to tackle a problem where the roots of the ch
 \begin{problem}
  Consider the ODE $y''+6y'+9y=0$.  
 \begin{enumerate}
- \item What are the zeros of the characteristic equation? From these zeros, guess a general solution.
+ \item What are the zeros of the characteristic equation? From these zeros, guess a general solution. (It's OK if you're wrong.)
  \item Compute the Laplace transform of both sides of ODE. Then solve for $Y$ and show that 
 $$Y = \frac{A(s+3)+B}{(s+3)^2} =  \frac{A}{(s+3)}+\frac{B}{(s+3)^2}. $$
  \item Compute the inverse Laplace transform of each part that you are able to compute, and explain why we can't perform the inverse Laplace transform of the other parts. 
@@ -258,10 +258,11 @@ $$Y(s-a) = \int_0^\infty e^{-st}[?] dt.$$ This gives you a formula $\mathscr{L}\
 $y(t)$ & $Y(s)$ & provided\\
 \hline\hline
 $1$					&$\dfrac{1}{s}$ 							&$s>0$\\\hline
+$t$				&$\dfrac{1}{s^{2}}$ 			&$s>0$\\\hline
 $t^n$				&$\dfrac{n!}{s^{n+1}}$ 			&$s>0$\\\hline
 $e^{at}$		&$\dfrac{1}{s-a}$ 			&$s>a$\\\hline
 $y'$					&$sY-y(0)$ 						&\\\hline
-$y'''$					&$s^2Y-sy(0)-y'(0)$ 						&\\\hline
+$y''$					&$s^2Y-sy(0)-y'(0)$ 						&\\\hline
 \end{tabular}
 \quad
 \begin{tabular}[t]{|c|cc|}
@@ -272,7 +273,8 @@ $\cos(\omega t)$  &$\dfrac{s}{s^2+\omega^2}$ 			&$s>0$\\\hline
 $\sin(\omega t)$  &$\dfrac{\omega}{s^2+\omega^2}$ 			&$s>0$\\\hline
 $\cosh(\omega t)$ &$\dfrac{s}{s^2-\omega^2}$ 			&$s>|\omega|$\\\hline
 $\sinh(\omega t)$ &$\dfrac{\omega}{s^2-\omega^2}$ 			&$s>|\omega|$\\\hline
-$e^{at}f(t)$  &$Y(s-a)$ 						&\\\hline
+$y(t)$  &$Y(s)$ 						&\\\hline
+$e^{at}y(t)$  &$Y(s-a)$ 						&\\\hline
 \end{tabular}
 
 \caption{Table of Laplace Transforms}
@@ -295,6 +297,27 @@ Complete each of the following:
  \item Consider the ODE $y''+4y'+3y=0$. Find the characteristic polynomial, complete the square, and state a general solution.  
 \end{enumerate}
 \end{problem}
+
+Before we get to far, let's practice the $s$ shifting theorem for Laplace transforms.
+\begin{problem*}[5.16 and 1/2]
+ Complete the following:
+\begin{enumerate}
+ \item Find the Laplace transform of the following:
+\begin{enumerate}
+ \item $t^3$ and $ t^3 e^{4t}$
+ \item $\cos(2t)$ and $e^{-3t}\cos(2t)$
+ \item $3\sin(7t)$ and $3e^{-5t}\sin(7t)$ 
+\end{enumerate}
+ \item Find the inverse Laplace transform of the following:
+\begin{enumerate}
+ \item $\dfrac{3}{s^4}$ and $\dfrac{3}{(s-5)^4}$
+ \item $\dfrac{s+3}{(s+3)^2+4}$ and $\dfrac{1}{(s+3)^2+4}$
+ \item $\dfrac{s}{(s+3)^2+4}$.
+\end{enumerate}
+\end{enumerate}
+
+\end{problem*}
+
 
 \begin{problem}
  Consider the ODE $y''+6y'+11y=0$.  
@@ -320,15 +343,31 @@ We can now solve EVERY second order homogeneous constant coefficient ODE.  All w
 \begin{enumerate}
  \item If the roots are real and $\lambda_1 \neq \lambda_2$, then $y(t) = $\rule{1in}{.5pt}.
  \item If the roots are real and $\lambda_1  =   \lambda_2$, then $y(t) = $\rule{1in}{.5pt}.
- \item If the roots are complex where $\lambda = a\pm bi$, then $y(t) = $\rule{1in}{.5pt}. \\
- If $a=0$, then the solution is simply $y(t) = $\rule{1in}{.5pt}.
+ \item If the roots are complex where $\lambda = c\pm di$, then $y(t) = $\rule{1in}{.5pt}. \\
+ If $c=0$, then the solution is simply $y(t) = $\rule{1in}{.5pt}.
 \end{enumerate}
 
 \end{problem}
 
+
+\begin{problem*}[5.19 Improved]
+ Suppose that we have a second order ODE, and we have already computed the roots of the characteristic polynomial to be $\lambda_1$ and $\lambda_2$. 
+\begin{enumerate}
+ \item If $\lambda_1=-3$ and $\lambda_2=-5$, then $y(t) = $\rule{1in}{.5pt}.\\
+ If the roots are real and $\lambda_1 \neq \lambda_2$, then $y(t) = $\rule{1in}{.5pt}.
+ \item If $\lambda_1=-3$ and $\lambda_2=-3$, then $y(t) = $\rule{1in}{.5pt}\\
+ If the roots are real and $\lambda_1  =   \lambda_2$, then $y(t) = $\rule{1in}{.5pt}.
+ \item If $\lambda_1 = -2+3i$ and $\lambda_2=-2-3i$, then $y(t) = $\rule{1in}{.5pt}. \\
+ If the roots are complex where $\lambda = a\pm bi$, then $y(t) = $\rule{1in}{.5pt}.
+ \item If $\lambda_1 = 5i$ and $\lambda_2=-5i$, then $y(t) = $\rule{1in}{.5pt}. \\
+ If the roots are purely imaginary so that $\lambda = bi$, then $y(t) = $\rule{1in}{.5pt}.
+\end{enumerate}
+
+\end{problem*}
+
 Have you noticed that every general solution above is a linear combination of two independent solutions?  Recall that we say a differential operator is linear if $L(y_1+y_2) = L(y_1)+L(y_2)$ and $L(cy_1)=cL(y_1)$ for functions $y_1$ and coefficients $c$.  
 \begin{problem}[Superposition Principle]
- Suppose that $y_1$ and $y_2$ are both solutions a linear differential equation $y''+a y'+by=0$.  Consider the linear operator $L(y) = y''+ay'+by$.  Prove that any linear combination of $y_1$ and $y_2$ is also a solution to the ODE $L(y)=0$. (Hint:  Look at the last few problems in chapter 3, or just prove this directly.)  
+ Suppose that $y_1$ and $y_2$ are both solutions to a linear differential equation $ay''+b y'+cy=0$.  Consider the linear operator $L(y) = ay''+by'+cy$.  Prove that any linear combination of $y_1$ and $y_2$ is also a solution to the ODE $L(y)=0$. (Hint:  Look at the last few problems in chapter 3, or just prove this directly.)  
 
  Many people refer to this fact as the superposition principle. To get a solution to a second order homogeneous ODE, all you need is two independent solutions. The general solution is any linear combination of them.
 \end{problem}
@@ -336,7 +375,7 @@ Have you noticed that every general solution above is a linear combination of tw
 Now that we have a general solution, let's show how to quickly obtain the solution to an IVP. The key principle, is to first obtain a general solution. Differentiate your general solution, and then use your initial conditions to find the unknown constants.
 
 \begin{problem}
- Consider the IVP $y''+6y'+5y=0$, with $y(0)=4$ and $y'(0)=5$.  Obtain a general solution. Then compute $y'(t)$. Use the initial conditions to solve for the unknown constants in your general solution. 
+ Consider the IVP $y''+6y'+5y=0$, with $y(0)=4$ and $y'(0)=5$.  Obtain a general solution. Then compute $y'(t)$. Plug the initial conditions into both $y$ and $y'$ to solve for the unknown constants in your general solution. 
 \end{problem}
 
 \begin{problem}
