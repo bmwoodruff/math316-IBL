@@ -1,0 +1,787 @@
+
+
+This chapter covers the following ideas. When you create your lesson plan, it should contain examples which illustrate these key ideas. Before you take the quiz on this unit, meet with another student out of class and teach each other from the examples on your lesson plan. 
+
+\begin{enumerate}
+\item Compute MacLaurin series for various common functions, either directly by taking derivatives, or by solving ODEs.
+\item Use the power series method to solve ODEs where $x=0$ is an ordinary point.
+\item Explain how to use the ratio test to find the radius of convergence of a power series. 
+%\item Derive Euler's formula, and use it to explain why complex roots $a\pm bi$ of 2nd order ODE result in the solutions  $e^{ax}\cos(bx)$ and $e^{ax}\sin(bx)$.
+\item Explain the Frobenius method and use it to solve ODEs where $x=0$ is a regular singular point.
+\item Be able to classify $x=0$ as an ordinary, singular, and/or regular singular point of an ODE. 
+\item Define the Gamma function and show how it generalizes the factorial. Be able to compute the Gamma function at any multiple of $\frac{1}{2}$. 
+\end{enumerate}
+
+You'll find extra practice problems at the end of this chapter.  You can use these to gain practice with the ideas.  Handwritten solutions are available online.  \href{https://content.byui.edu/file/664390b8-e9cc-43a4-9f3c-70362f8b9735/1/08-Power-Series-Preparation-Solutions.pdf}{Click for solutions.}
+
+\section{MacLaurin Series}
+
+\subsection{MacLaurin Series and ODEs}
+As we proceed in this unit, we'll be looking for patterns.  When you are looking for patterns, one key rule is to avoid simplifying.  Instead of writing $2\cdot 3=6$, just leave it as $2\cdot 3$.  If notice a pattern, like $2\cdot 3\cdot 4 \cdot 5$, then write $5!$ instead of 120. If you will resist the urge to simplify, you'll find a lot of patterns immediately pop out.  
+
+\begin{problem}
+ Consider the function $f(x) = e^x$. In this problem we would like to approximate $f(x)$ using various polynomials. We'd like to make sure that the function and its derivatives match the polynomial and its derivatives.
+\begin{enumerate}
+ \item Let's approximate $f(x)$ using a 4th degree polynomial.  Write the polynomial as 
+$$P_4(x) = a_0+a_1x^1+a_2x^2+a_3x^3+a_4x^4,$$
+ where the coefficients $a_0,a_1,\ldots, a_4$ are unknown (we'll discover them in a bit). 
+ Compute the first 4 derivatives of $P_4(x)$ and the first 4 derivatives of $f(x)$. As there are 5 unknowns, we need 5 equations. Let's require that $f$ and $P_4$, together with their derivatives, match at $x=0$. This gives us the 5 equations 
+\begin{align*}
+f(0)&=P_4(0),\\
+f'(0)&=P'_4(0),\\
+f''(0)&=P''_4(0),\\
+f'''(0)&=P'''_4(0), \text{ and}\\
+f''''(0)&=P''''_4(0).
+\end{align*}
+Use these equations to solve for the unknown constants.
+\item If you wanted a 7th degree polynomial, what should the coefficients $a_5$, $a_6$, and $a_7$ equal?
+\end{enumerate}
+
+\end{problem}
+
+In this chapter, our goal is to solve ODEs where the coefficients are no longer constant. We'll learn how to solve a mass-spring problem where the mass is changing, the spring constant errodes over time, or the friction coefficient increases as we tighten a dashpot.  We'll also gain the key ideas need to deal with rocket problems where the mass decreases because fuel burns up.  To solve these problems, we're going to start approximating functions with polynomials. We'll be using really large polynomials. We'll then solving the problems using these polynomials.  The only catch is that we'll start using polynomials that are arbitrarily large.  These polynomials are called Taylor polynomials.  When we consider an infinitely long polynomial, we call it a Taylor series, or MacLaurin series.  We'll get a formal definition in a bit.
+
+\begin{problem}
+ We already know the solution to the ODE $y'-y=0$ (see part 1).  Let's find this solution using a series approach.
+ Suppose we write
+ $$y =  a_0+a_1x^1+a_2x^2+a_3x^3+a_4x^4 + a_5x^5 + \cdots,$$
+ where the polynomial continues on for as long as we want (why not forever). We'll use this polynomial to find a solution. 
+\begin{enumerate}
+ \item Solve the ODE $y'-y=0$ by any method you would like. The characteristic equation might make this really fast.
+ \item Now consider the series (infinitely long polynomial) above.  Compute $y'$ by computing the derivative (so $y' = 0+a_1+2a_2x+\cdots$). Write out the first 7 terms or so.
+ \item Now subtract $y$ from $y'$. You can combine the two infinite sums by adding coefficients that are multiplied by collecting the coefficients on the same powers of $x$. You'll get an infinitely long sum of the form 
+$$(a_1-a_0)+(2a_2-a_1)x+(?)x^2+(?)x^3+\cdots . $$
+ Carry this out 7 terms.  What pattern do you see?
+ \item Because $y'-y=0$, and $0=0+0x+0x^2+0x^3+\cdots$, you should now have an infinitely large system of equations by equating coefficients. The first two equations are $a_1-a_0=0$ and $2a_2-a_1=0$. If you let $a_0=c$, then solve for $a_1$, $a_2$, $a_3$, and so on in terms of $c$. What is $a_n$ in terms of $c$?  
+\end{enumerate}
+
+\end{problem}
+
+The last two problems dealt with the function $e^x$.  Let's now turn our attention to $\cos x$ and $\sin x$. 
+\begin{problem}
+Let $f(x) = \cos x$.  
+\begin{enumerate}
+ \item Find a 6th degree polynomial to approximate cosine. So let $$P(x) = a_0+a_1x^1+a_2x^2+a_3x^3+a_4x^4 + a_5x^5 +a_6x^6.$$  Now require that $f$ and $P$ have the same values at $x=0$, and that the first 6 derivatives of both $f$ and $P$ have the same values at $x=0$.  You might want to organize your work in table (keep track of $f$, its first 6 derivatives, and their values at $x=0$, as well as $P$, its first 6 derivatives, and their values at $x=0$). What pattern do you see?
+ \item Guess what the 20th degree polynomial would be. 
+ \item If $x=2$, use a calculator to compute $\cos(2)$ as well as $P(2)$ for your 6th degree polynomial.  We'll compute $P(2)$ for your 20th degree polynomial in class. 
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+ We know the solution to the IVP $y''+y=0$, $y(0)=c$, $y'(0)=d$ is $y(t)=c\cos(t)+d\sin(t)$. Suppose that
+ $$y =  a_0+a_1x^1+a_2x^2+a_3x^3+a_4x^4 + a_5x^5 + \cdots.$$
+\begin{enumerate}
+ \item Compute both $y'$ and $y''$ by taking the derivative, term-by-term, of the infinitely long series.  REMEMBER, DO NOT SIMPLIFY.  So you should have something like $$y'' = 2\cdot 1 a_2+ 3\cdot 2a_3x+\cdots.$$ Continue this out 7 terms.
+ \item We want to solve $y''+y=0$, so add together $y''$ and $y$.  Group together terms that are multiplied by the same power of $x$, so your answer will look something like 
+$$y''+y = (2\cdot 1 a_2+a_0) + (3\cdot 2a_3+a_1)x+(?)x^2+(?)x^3\cdots.$$
+Carry this out 7 terms.
+ \item If $y(0)=c$, then what is $a_0$?  If $y'(0)=d$, then what is $a_1$? 
+ \item Write $a_2$, $a_3$, $a_4$, and so on, in terms of $c$ and $d$. Can you guess the Taylor series for $\sin x$? 
+\end{enumerate}
+
+\end{problem}
+
+
+\begin{problem}[MacLaurin Series]
+ Suppose we write $f(x)$ as the series $$f(x)=a_0+a_1x^1+a_2x^2+a_3x^3+a_4x^4 + a_5x^5 + \cdots.$$
+ \begin{enumerate}
+  \item Compute the first 4 derivatives of $f$ and evaluate them at $0$.  What pattern do you see?  State the $n$th derivative of $f$ evaluated at $x=0$, which we write as $f^{(n)}(0)$. 
+ \item Solve for the coefficient $a_n$ in terms of the $n$th derivative of $f$.
+ \item Let $f(x)=\sin x$.  Compute the first 8 derivatives of $\sin x$ and evaluate each at $x=0$.  Then use the pattern you see to state what $a_n$ equals for each $n$ if we write $$\sin x = a_0+a_1x^1+a_2x^2+a_3x^3+a_4x^4 + a_5x^5 + \cdots.$$ Carry out your sum until you hit $x^9$. If you continue forever, we call this infinite polynomial the MacLaurin series of $\sin(x)$.  
+ \end{enumerate}
+
+\end{problem}
+
+Based on your results to the previous problem, we make the following definitions.
+\begin{definition}[MacLaurin Series]
+Let $f(x)$ be a function.  We define the MacLaurin series of $f(x)$ to be the infinite series 
+$$a_0+a_1x^1+a_2x^2+a_3x^3+a_4x^4 + a_5x^5 + \cdots = \sum_{n=0}^\infty a_n x^n$$
+where $\ds a_n=\frac{f^{(n)}(0)}{n!}$. We use the notation $f^{(n)}(x)$ to denote the $n$th derivative. Note that $0!=1$, and that $f^{(0)}(x)$ is the 0th derivative (so original function).  With this notation, we could write the MacLaurin series as 
+$$f(0)+f'(0)x^1+\frac{f''(0)}{2!}x^2+\frac{f''''(0)}{3!}x^3+\frac{f^{(4)}(0)}{4!}x^4 + \frac{f^{(5)}(0)}{5!}x^5 + \cdots = \sum_{n=0}^\infty \frac{f^{(n)}(0)}{n!} x^n.$$  
+\end{definition}
+\begin{definition}[Power Series]
+A power series is an expression of the form
+$$a_0+a_1x^1+a_2x^2+a_3x^3+a_4x^4 + a_5x^5 + \cdots = \sum_{n=0}^\infty a_n x^n,$$
+where $a_n$ is any real number. It's a power series because we create an infinite series using powers of $x$. 
+\end{definition}
+A MacLaurin series is a power series.  We'll often start with a power series, and then look for the function $f(x)$ whose MacLaurin series is the power series we started with. 
+
+The MacLaurin series of a function depends on the value of the function and its derivatives at $x=0$.  Sometimes, you would rather compute the function and its derivatives at another spot.  We won't have much use for doing this in our course, but for completeness, you should see the full definition of a Taylor series centered at $x=c$. 
+
+\begin{definition}[Taylor Series centered at $x=c$]
+ Let $f(x)$ be a function.  We define the Taylor series of $f(x)$ centered at $x=c$ to be the infinite series 
+$$a_0+a_1(x-c)^1+a_2(x-c)^2+a_3(x-c)^3+a_(x-c)x^4 + \cdots = \sum_{n=0}^\infty a_n (x-c)^n$$
+where $\ds a_n=\frac{f^{(n)}(c)}{n!}$. The MacLaurin series is the Taylor series centered at $x=0$.
+\end{definition}
+
+
+
+Let's compute a few more MacLaurin series.
+
+\begin{problem}[MacLaurin series for $\cosh x$ and $\sinh x$]
+ Obtain the first 10 terms of the MacLaurin series for both $\cosh x$ and $\sinh x$.  Do so by using the formula $\ds a_n=\frac{f^{(n)}(0)}{n!}$.  Write out the two series.  What patterns do you see.  Write down a formula for the coefficient $a_n$ for both $\cosh x$ and $\sinh x$. 
+\end{problem}
+
+The next problem shows you how to obtain the MacLaurin series for $\cosh x$ and $\sinh x$ in a different way. 
+
+\begin{problem}
+Consider the IVP given by $y''-y=0$, with $y(0)=A$ and $y'(0)=B$.
+\begin{enumerate}
+ \item Show, using Laplace transforms, that the solution to this IVP is $y(x) = A\cosh x+B\sinh x$.
+ \item We'll now obtain the solution using power series. Suppose $$y=a_0+a_1x^1+a_2x^2+a_3x^3+a_4x^4 + a_5x^5 + \cdots. $$
+ Compute $y'$ and $y''$. Substitute $y$ and $y''$ into the ODE $y''-y =0$, and group together terms that are multiplied by the same power of $x$.  You should have something of the form 
+$$(2a_2-a_0) + (3\cdot 2a_3 - a_1)x + (?)x^2 + \cdots = 0+0x+0x^2.$$
+ \item Use the initial conditions to explain why $a_0=A$ and $a_1=B$.  Then solve for $a_2$, $a_3$, and so on, in terms of $A$ and $B$. Keep going until you see a pattern for $a_n$.
+ \item You now have the solution $y$.  Some of the coefficients depend on $A$.  Some depend on $B$.  Group together the terms that involve $A$ and the terms that involve $B$, and write your solution in the form  
+ $$y=A(1+\frac{1}{2!}x^2+\cdots)+B(x+\frac{1}{3!}x^3+\cdots). $$
+ Please carry out each series at least 5 terms.
+\end{enumerate}
+\end{problem}
+
+We have so far developed the following MacLaurin series:
+\begin{align*}
+\ds e^x &= 1+x+\frac{1}{2!}x^2+\frac{1}{3!}x^3+\frac{1}{4!}x^4+\frac{1}{5!}x^5+\cdots\\
+\ds \cos(x) & = 1-\frac{1}{2!}x^2+\frac{1}{4!}x^4-\frac{1}{6!}x^6+\frac{1}{8!}x^8+\cdots\\
+\ds \sin(x) & = x-\frac{1}{3!}x^3+\frac{1}{5!}x^5-\frac{1}{7!}x^7+\frac{1}{9!}x^9+\cdots\\
+\ds \cosh(x) & = 1+\frac{1}{2!}x^2+\frac{1}{4!}x^4+\frac{1}{6!}x^6+\frac{1}{8!}x^8+\cdots\\
+\ds \sinh(x) & = x+\frac{1}{3!}x^3+\frac{1}{5!}x^5+\frac{1}{7!}x^7+\frac{1}{9!}x^9+\cdots.
+\end{align*}
+
+\begin{problem}[Euler's Formula]
+\marginpar{The equation $$e^{ix}=\cos x+i\sin x$$ is called Euler's formula.}%
+Use the MacLaurin series above to show that we can express $e^{ix}$ in the form $$e^{ix}=\cos x+i\sin x$$ and that 
+$$\cosh(ix) = \cos x.$$
+Then use the first fact to compute $e^{i\pi}$. 
+What does $\sinh(ix)$ equal, if written in terms of $\sin x$?
+\end{problem}
+
+% \begin{problem}
+%  Solve an ODE with imaginary roots.  Give 2 solutions (one real, one with complex exponentials).  Then have them obtain the coefficients. Use Euler's formula to get from one to the other.
+% \end{problem}
+
+We'll return to Euler's formula in a minute.  Before we do so, let's examine a different function. 
+\begin{problem}
+ Consider the IVP $(x+1)y'=1$, $y(0)=0$.  Is it linear?  Is it homogeneous?  Does it have constant coefficients?  Solve the ODE first by using separation of variables. Then solve the ODE using a power series (assume $y=a_0+a_1x+a_2x^2+\cdots$, compute $y'$, plug these into the ODE, and then solve for the unknown constants $a_0$, $a_1$, $a_2$, etc.). From your answer, what are the first 5 terms in the the MacLaurin series of $\ln(x+1)$?
+\end{problem}
+
+\begin{problem}
+ Find a 9th degree polynomial to approximate $\ln(x+1)$. Do this by computing the first 9 derivatives of $\ln(x+1)$ or by computing the first 4 and noticing a pattern when you plug in 0. The formula $a_n=\frac{f^{(n)}(0)}{n!}$ will give you to coefficients. 
+ Then use your polynomial to estimate $\ln 1.2$, $\ln(1-.8)=\ln(.2)$ and $\ln 2.5$. Use a computer to draw $\ln(x+1)$ and your 9th degree polynomial. For which values of $x$ do you think the polynomial will do a poor job approximating $\ln(x+1)$.  Why do you think this?  Will increasing the degree of your approximation ever help you approximate $\ln 2.5$? 
+\end{problem}
+
+
+We've now turned multiple functions into power series. Polynomials are extremely easy to differentiate and integrate.  What happens if we differentiate or integrate a power series. Do we get the power series of the derivative of the function?
+\begin{problem}
+ For each function below, compute the derivative of the function, and the derivative of the power series.  Write your solution in summation notation. Then answer the question at the end.
+\begin{enumerate}
+ \item $\ds e^x = 1+x+\frac{1}{2!}x^2+\frac{1}{3!}x^3+\frac{1}{4!}x^4+\frac{1}{5!}x^5+\cdots =\sum_{n=0}^\infty \frac{1}{n!}x^n$
+ \item $\ds \sin x = x-\frac{1}{3!}x^3+\frac{1}{5!}x^5-\frac{1}{7!}x^7+\cdots =\sum_{n=0}^\infty \frac{(-1)^n}{(2n+1)!}x^{2n+1}$
+ \item $\ds \ln(x+1) = x-\frac{1}{2}x^2+\frac{1}{3}x^3-\frac{1}{4}x^4+\frac{1}{5}x^5+\cdots = \sum_{n=1}^\infty \frac{(-1)^n}{n}x^{n}$.  
+\end{enumerate}
+What function has the MacLaurin series $1+x+x^2+x^3+x^4+x^5+\cdots$. [Hint: If you modify the derivative on part 3 slightly, you should get this.]
+\end{problem}
+
+
+\begin{problem}
+In the last problem you showed that $\ds\frac{1}{1+x}=1-x+x^2-x^3+x^4-x^5+\cdots$.  Let's obtain the MacLaurin series for $\arctan x$. 
+\begin{enumerate}
+ \item Compute the first 3 derivatives of $f(x) = \arctan x$. Use this to obtain the third degree Taylor polynomial of $\arctan x$, centered at $x=0$.
+ \item We know that $\int \frac{1}{1+x^2}dx = \arctan x$.  Replace each $x$ with $x^2$ in  $\ds\frac{1}{1+x}=1-x+x^2-x^3+x^4-x^5+\cdots$, and then integrate to obtain a power series for $\arctan x$. Write your answer with summation notation. Does it match your first answer?
+ \item We know that $\arctan(1) = \pi/4$. Plug in $x=1$ to the 15th degree polynomial to obtain an approximation of $\pi$. If you have software, put $x=1$ into the 1000th degree polynomial to obtain an approximation for $\pi$.  Don't forget to multiply by $4$, as $\arctan(1)=\pi/4$.  
+\end{enumerate}
+\end{problem}
+
+
+\begin{problem}
+ Let's solve the IVP $(x^2+1)y'=1$, $y(0)=0$ in two ways. 
+\begin{enumerate}
+ \item Use the power series method. Let $\ds y = \sum_{n=0}^\infty a_nx^n$, compute $y'$, plug these into the ODE, collect coefficients of the same powers of $x$, and then solve for the unknowns $a_n$.
+ \item Use separation of variables. 
+\end{enumerate}
+Compare your solution here with the previous problem.
+\end{problem}
+
+
+\begin{problem}
+ Solve the ODE $y'+2xy=0$ by using power series.  Your initial condition will just be $y(0)=a_0$. After you have a solution, look at the table of known power series and try to match the solution you got to one of our known power series (you might have to replace $x$ with something). Then use separation of variables to solve the ODE, and check if you are correct.  
+\end{problem}
+
+In the previous problem, the power series solution results in a series that we can match with a series we already recognize.  We might have to replace $x$ with $x^2$, but the power series is still quite manageable.  Things won't always be this nice. 
+
+\begin{problem}
+ Solve the ODE $y^{\prime\prime}+2xy^\prime+y=0$ by using power series. Your initial conditions are $y(0)=a_0$ and $y'(0)=a_1$. When you're done, write your solution as
+\marginpar{You won't find either $y_1$ or $y_2$ on the list of power series we recognize.}
+ $$y(x) =a_0 (y_1(x))+a_1(y_2(x))$$ where $y_1$ and $y_2$ are power series. Just give the first 4 terms of $y_1$ and $y_2$, together with a rule that would allow us to compute more terms if needed (so how could I find $a_{10}$ if I knew $a_8$ and $a_9$, or better yet, how could I find $a_{n+2}$ if I knew $a_n$ and $a_{n+1}$). 
+\end{problem}
+
+The next problem suggests a sigma notation way to solve all the power series problems. Some of you will immediately recognize the value of using this approach, and start using it exclusively.  Some of you would rather not use this approach.  I'm fine either way, though by the end of the chapter you'll see the need for this approach.
+
+\begin{problem}
+ Complete each of the following:
+\begin{enumerate}
+ \item Compute both $\ds \sum_{n=4}^6 (n-3)^2$ and $\ds \sum_{s=1}^3 s^2$.  Which is easier?
+ \item Consider the sum $\ds \sum_{n=3}^{10} x^{n-2}$. If we let $s=n-2$, then rewrite the sum as $\ds \sum_{s=?}^? x^s$ (find the ?). Check your answer by writing out the first few terms, and the last term, of both series. We call this index shifting.
+ \item Rewrite the sum $\ds \sum_{n=2}^\infty n(n-1)x^{n-2}$ so that $x^{n-2}$ is replaced with $x^{s}$ (i.e. let $n-2=s$ and then shift the index). Check you are correct by writing out the first few terms of both.
+\end{enumerate}
+
+\end{problem}
+
+Let's introduce this method with a problem you've already solved using power series.
+\begin{problem}
+ Consider the ODE $y''+4y=0$.  We know the solution is $y(x) = A\cos(2x)+\frac{B}{2}\sin(2x)$.  However, let's solve this using power series, summation notation, and index shifting. We start by assuming 
+$\ds y = \sum_{n=0}^\infty a_n x^n$.  
+\begin{enumerate}
+ \item Compute both $y'$ and $y''$ using summation notation. Show that the second derivative is
+$$\ds y'' = \sum_{n=0}^\infty n(n-1)a_nx^{n-2} =\sum_{n=1}^\infty n(n-1)a_nx^{n-2} =\sum_{n=2}^\infty n(n-1)a_nx^{n-2}. $$
+Why can we allow the sum to start at 0, 1, or 2?  We'll most often have it start at $2$.
+ \item Plugging our sums into the ODE $y''+4y=0$ gives the equation 
+$$\sum_{n=2}^\infty n(n-1)a_nx^{n-2} + 4\ds \sum_{n=0}^\infty a_n x^n=0.$$
+ If all the powers of $x$ in this equation were the same, we could easily collect the coefficients of like powers of $x$.  
+ So let $s=n-2$ for the first sum, and let $s=n$ for the second sum. 
+ Rewrite your summation formula now in terms of $s$, giving
+$$\sum_{s=?}^\infty ?a_?x^{s} + \ds \sum_{s=0}^\infty 4a_s x^s=0+0x+0x^2+\cdots.$$
+ \item 
+When $s=0$, we obtain the coefficients in front of $x^0$ in both sums. Use this to show $a_2 = -\frac{4}{2}$.
+Let $s=1$ to show $a_3 = -\frac{4}{3\cdot 2}$. [Remember that right hand side is zero.]
+ \item For any $s\geq 0$, show that $a_{s+2}=-\frac{4}{(s+2)(s+1)}a_s$. This is called a recurrence relation. Then let $s=2,3,4,5,6,\ldots$ to rapidly find $a_4, a_5, a_6, \ldots$.
+ \item Write your solution for $y$ in the form $y = a_0(y_1)+a_1(y_2)$, where $y_1$ and $y_2$ are power series. Show the first 4 terms of each series.      
+\end{enumerate}
+
+\end{problem}
+
+Let's now solve a problem that we've never tackled before. 
+\begin{problem}
+ Consider the ODE $y''+2xy=0$.  Solve this ODE using a power series.  We start by assuming $\ds y = \sum_{n=0}^\infty a_n x^n$.  
+ \begin{enumerate}
+  \item Compute $y'$ and $y''$ as you did in the previous problem.  Plug them into your ODE and obtain an equation with sigma notation. Your powers of $x$ will not match, so we index shift.
+  \item Your left sum should have an $n-2$ as a power of $x$.  Your right sum should have an $n+1$.  Let's shift $n-2$ to become $s+1$. So in the left sum, let $n-2=s+1$, and then write your equation in the form 
+  $$\sum_{s=?}^\infty ?a_?x^{s+1} + \ds \sum_{n=0}^\infty 2a_s x^{s+1}=0+0x+0x^2+\cdots.$$
+  \item When $s=-1$, the left sum should contribute a term, but the right sum does not.  Use this to find $a_2$.
+  \item When $s\geq 0$, both sums contribute a term. Give a formula for $a_{s+3}$ in terms of $a_s$ (called a recurrence relation). Use this formula to compute $a_3$, $a_4$, $a_5$, $a_6$, $a_7$, $a_8$. 
+  \item Write out the first 6 nonzero terms of your series solution.
+ \end{enumerate}
+
+\end{problem}
+
+
+Did you notice the pattern in the previous two problems?  We assume $y$ is a power series.  We then differentiate the series and plug in the derivatives to our ODE.  We then index shift so that each sum has the same power above $x$. Often, it's easiest if you index shift so that the lowest ones all match the largest.  Once the powers all match, we can start finding coefficients.  If one series starts at a different spot than another, we take care of those cases first. Once we start getting a term from each series, we obtain a recurrence relation and use it to get $a_n$ for as many $n$ as we want.  Then we can write out as many terms of the solution as requested. 
+
+\begin{problem}
+ Consider the ODE $y''+3xy'+2y=0$. Solve this ODE using power series methods. Write your answer by give the first 8 nonzero terms of the series, and make sure you state a recurrence relation that will give more coefficients of the series.
+[Hint:  You'll probably  need to use $s=n-2$ for one series, and $s=n$ for the others.]
+\end{problem}
+
+\begin{problem}
+ Consider the ODE $(1+x^3)y''+3x^2y'+2xy=0$. Solve this ODE using power series methods. Write your answer by give the first 6 nonzero terms of the series. State a recurrence relation that will give more coefficients of the series. What is $a_{62}$, the coefficient in front of $x^{62}$?
+[Hint: I'd let $s+1=n-2$ somewhere above.]
+\end{problem}
+
+
+
+\section{Radius of Convergence}
+You've now seen the power series technique used to solve many problems.  Sometimes the power series does a good job of approximating the function.  Sometimes, it does a really bad job. How can we determine the difference between when a power series does a good job, and when it does a bad job?  That's the content of this section.
+
+\begin{problem}[Geometric Series]
+ Consider the infinite series \marginpar{This series is called a geometric series. You can obtain the next terms in the series by multiplying by the common ration $r$.}
+$$a+ar+ar^2+ar^3+ar^4+\cdots +ar^n+\cdots = \sum_{n=0}^\infty ar^n.$$
+If we add up the first $k$ terms, we obtain the $k$th partial sum 
+$$\ds S_k = a+ar+ar^2+ar^3+ar^4+\cdots +ar^{k-1} = \sum_{n=0}^{k-1}ar^n.$$
+Our goal on this problem is to determine for which $a$ and $r$ we can compute the limit as $k\to \infty$ of the partial sums, and obtain a value.  
+\begin{enumerate}
+ \item Show that $S_k = \frac{a(1-r^k)}{1-r}$. [Hint: Consider the difference $s_k-rs_k$. Just write out each. Lots should cancel.]
+ \item Compute $\ds\lim_{k\to\infty}S_k$.  For which $a$ and $r$ does this limit exist, and for which does it not exist. Explain.
+ \item We have seen the power series given by  
+$$1+x+x^2+x^3+x^4+\cdots.$$
+ If we want to know what this infinite sum approaches, we could compute the partial sums and then find the limit of the partial sums.  The partial sums are $S_1=1$, $S_2=1+x$, $S_3=1+x+x^2$, etc. What is the limit as $k\to\infty$ of these partials sum? For which $x$ does this limit not exist? [Hint: What are $a$ and $r$ from part $2$. You already did this in part 2.]
+\end{enumerate}
+
+\end{problem}
+
+
+We now have a way to determine the sum of an infinite series. We just look at the partial sums, and then compute their limit (provided it exists). This means we can go back to all the power series we created and ask, ``Which of these power series actually have sum that matches the function we started with.'' Let's make some definitions.
+
+\begin{definition}[Converges and Diverges]
+ Consider the infinite series $$b_0+b_1+b_2+b_3+b_4 +\cdots = \ds\sum_{n=0}^\infty b_n.$$  
+\begin{itemize}
+ \item The $k$th partial sum of this series is the sum of the first $k$ terms.  So we have $S_1=b_0$, $S_2=b_0+b_1$, $S_3=b_0+b_1+b_2$, etcetera.  
+ \item We say the series converges if $\ds\lim_{k\to\infty}S_k$ exists. In this case, we say the series converges to this limit.
+ \item We say the series diverges if $\ds\lim_{k\to\infty}S_k$ does not exist.
+\end{itemize}
+\end{definition}
+
+This next problem helps you discover the Ratio test, which is one of the most powerful tests for determining if a power series converges or diverges. 
+
+\begin{problem}
+ Consider again the geometric series 
+$$a+ar+ar^2+ar^3+ar^4+\cdots +ar^k+\cdots = \sum_{k=0}^\infty ar^k.$$
+ \begin{enumerate}
+  \item If we write this series in the form $\sum_{k=0}^\infty b_k$, then what is $b_k$? \marginpar{For the geometric series, the number $r$ is called the common ratio.} Then compute the quotient $\ds\frac{b_{k+1}}{b_k}$ and explain why the series converges precisely when $\left|\ds\frac{b_{k+1}}{b_k}\right|<1$.  
+  \item Consider now the infinite series 
+$$-1^2\frac{1}{2}+2^2\left(\frac{1}{2}\right)^2-3^2\left(\frac{1}{2}\right)^3+\cdots+n^2\left(\frac{-1}{2}\right)^n+\cdots = \sum_{n=1}^\infty n^2\left(\frac{-1}{2}\right)^n.$$\
+  Compute $\left|\dfrac{b_{n+1}}{b_n}\right|$ for $n=1,2,3$, and then show $\ds\lim_{n\to\infty}\left|\frac{b_{n+1}}{b_n}\right|=\frac{1}{2}$.  
+ \item\marginpar{As me in class to show you how to obtain this result exactly, by taking derivatives of known power series.}%
+ Do you think this series will converge or diverge? Use the Mathematica code ``Sum[n\verb|^|2*(-1/2)\verb|^|n, \{n, 0, 10\}] // N'' to examine the 10th partial sum, and then the 20th, and so on.  Does the series appear to converge or diverge?
+ \end{enumerate}
+
+\end{problem}
+
+If you've forgotten how to compute limits, use this to review.
+
+\begin{review*}
+ Compute each of the following limits.
+\begin{multicols}{3}
+ \begin{enumerate}
+ \item $\ds \lim_{n\to\infty}\frac{3n^2+5n+4}{2n^2+8n+7}$
+ \item $\ds \lim_{n\to\infty}\frac{(1/2)^{2(n+1)}}{(1/2)^{2n}}$
+ \item $\ds \lim_{n\to\infty}\frac{1/(n+1)!}{1/n!}$
+\end{enumerate}
+\end{multicols}
+See\footnote{
+\begin{enumerate}
+ \item The polynomials have the same degree, so you just have to divide their leading coefficients.  This gives the limit as $\frac{3}{2}$. 
+ \item We compute $$\frac{(1/2)^{2(n+1)}}{(1/2)^{2n}} = \frac{(2)^{2n}}{(2)^{2(n+1)}} = \frac{(2)^{2n}}{(2)^{2n+2}} = \frac{(2)^{2n}}{(2)^{2n}2^2} = \frac{1}{4}.$$ Computing a limit gives $1/4$.
+ \item We write $$\frac{1/(n+1)!}{1/n!} = \frac{(n)!}{(n+1)!} = \frac{n(n-1)\cdots 3\cdot 2\cdot 1}{(n+1)n(n-1)\cdots 3\cdot 2\cdot 1} =\frac{1}{n+1}.$$ The limit is 0.
+\end{enumerate}
+
+} for answers.
+\end{review*}
+
+
+
+We'll generalize the problem above into a powerful test used to determine when a power series converges or diverges.
+\begin{theorem}[The Ratio Test]
+ Consider the infinite series $$b_0+b_1+b_2+b_3+b_4 +\cdots = \ds\sum_{n=0}^\infty b_n.$$  
+ Compute the limit $L = \ds\lim_{n\to\infty}\left|\frac{b_{n+1}}{b_n}\right|$, which represents the limiting ratio of consecutive terms. 
+\begin{itemize}
+ \item If the ratio $L$ is smaller than $1$, then the terms in the series eventually start shrinking so quickly that the series converges.
+ \item If the ratio $L$ is greater than $1$, then the terms in the series eventually start growing so quickly that the series diverges.
+ \item If the limit $L$ does not exist, or if the limiting ratio is $1$, then the ratio test fails. 
+\end{itemize}
+\end{theorem}
+The ratio test basically says that as long as the ratio of consecutive terms eventually stays below 1, then the series will converge. So if we have a power series of the form $\ds\sum_{n=0}^\infty a_n x^n$, then all we need to do is find for which $x$ we have $$ \lim_{n\to\infty}\left|\frac{a_{n+1}x^{n+1}}{a_nx^n}\right|<1.$$ 
+
+\note{The students struggle with this. Even after having 3 days of in class practice with this idea - while people are writing up their prep, the students can't do this.  I have to find a way to get this in a way they can succeed.  HOw?  I don't know.  With Eric, it seems that the key was to divide by the largest power of $x$, not to take the quotient of the leading coefficients.  Change everything to this approach.}
+\begin{problem}
+For each power series below, use the ratio test to determine for which $x$ the series with converge.
+\begin{enumerate}
+\begin{multicols}{4}
+ \item $\ds\sum_{n=0}^\infty \frac{n2^n}{3^{n+1}}x^n$
+ \item $\ds\sum_{n=0}^\infty \frac{(-1)^n}{n!}x^n$
+ \item $\ds\sum_{n=1}^\infty \frac{3^{n}}{n^2 4^{n}}x^{2n}$
+ \item $\ds\sum_{n=0}^\infty \frac{n!}{10^n}x^n$
+\end{multicols}
+\end{enumerate}
+\end{problem}
+
+Each answer above should result in an interval, or single point, which we call the interval of convergence.  If the interval of convergence is $(-3,3)$, then we say that the radius of convergence is $R=3$.  If the interval is $(-\infty,\infty)$, then the radius of convergence is $R=\infty$. If you ended up with a single point, then the radius is $R=0$. The radius of convergence is half the width of the interval of convergence. 
+
+\begin{definition}[Interval and Radius of Convergence. Analytic versus Singular]
+ Consider the power series $\ds\sum_{n=0}^\infty a_n (x-c)^n$ centered at $x=c$.
+\begin{itemize}
+ \item The values of $x$ for which the series converges is called the interval of convergence. This interval may be the single point $x=c$, or it will be an interval of real numbers whose center is at $x=c$, or it may be all real numbers.
+ \item The radius of convergence is half the width of the interval of convergence. 
+ \item We say that a function is analytic at $x=c$ if it has a power series representation centered at $x=c$ with a nonzero radius of convergence. If a function is not analytic at $x=c$, then we say the function is singular at $x=c$.  
+\end{itemize}
+\end{definition}
+
+
+\begin{problem}
+\marginpar{Make sure you read the definition above. This problem has the exact same instructions as the the previous, rather it just uses the new vocabulary from the definition above.}%
+ Find the interval and radius of convergence for each power series below. Is the function analytic or singular at $x=c$. 
+\begin{enumerate}
+\begin{multicols}{2}
+ \item $\ds\sum_{n=0}^\infty \frac{n^2+1}{n+2}\left(\frac{x}{3}\right)^{2n}$, $c=0$
+ \item $\ds\sum_{n=0}^\infty \frac{1}{n}\left(x-2\right)^{n}$, $c=2$
+ \item $\ds\sum_{n=0}^\infty (2n)!\left(x-1\right)^{n}$, $c=0$
+ \item $\ds\sum_{n=0}^\infty n\left(2x-3\right)^{4n}$, $c=3/2$
+ \end{multicols}
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+ Find the radius of convergence of the MacLaurin series for each of the following functions.
+\begin{enumerate}
+\begin{multicols}{4}
+\item $\cos x$
+\item $e^{3x}$
+\item $\arctan(x)$ 
+\item $\ln(1+2x)$
+\end{multicols}
+\end{enumerate}
+
+\end{problem}
+
+
+ 
+\section{Special Functions}
+
+We've seen the power series method work for many problems now where the coefficients are not constants.  Will this method work for every problem with variable coefficients? No. Why would it fail?  Let's considering a few more power series problems, and discover why it would fail. For some, the power series method will work.  For others, it will not.  By the time we're done with this section, we'll know what to look for.  It all has to do with certain coefficients being analytic at $x=0$. 
+
+\begin{problem}[Legendre Polynomials]
+\marginpar{Legendre's ODE is $$(1-x^2)y''-2xy'+(n)(n+1)y=0.$$ This ODE shows up when solving Laplace's equation in spherical coordinates (studying heat, waves, gravity, and/or electric/static potentials).  When $n$ is an integer, one of the solutions will terminate in a polynomial of degree $n$.  These polynomials are called Legendre polynomials.}
+ Consider the ODE $$(1-x^2)y'' - 2xy'+20y=0.$$
+\begin{enumerate}
+ \item Use the power series method to solve this ODE. Give all the coefficients up to $a_6$.  What is $a_{20}$? 
+ \item Write your solution in the form $y(x) = a_0y_1(x)+a_1y_2(x)$. If $y(0)=1$ and $y'(0)=0$, what is the solution?
+ \item Now solve the IVP $(1-x^2)y'' - 2xy'+6y=0$, $y(0)=0$, $y'(0)=1$.  Show that the solution is a polynomial. 
+\end{enumerate}
+ 
+\end{problem}
+
+As in the problem above, sometimes the power series method gives you a polynomial, because the series stops. In the next problem, the power series method will fail, but you should find that with a slight modification (multiply the power series by $x^\lambda$), you quickly get two solutions that each have only one term. The entire solution should then be a linear combination of these two solutions.
+
+\begin{review*}
+ Suppose that a 2nd order homogeneous ODE has a solution $y_1(x) = e^{-3x}$.  Suppose that another solution is $y_2(x) = e^{-2x}$. State a general solution to this ODE. See \footnote{
+If the ODE is homogeneous, then the solution is a linear combination of two linearly independent solutions, namely 
+$$y(x) =c_1e^{-3x}+c_2e^{-2x}.$$ 
+The solutions $y_1$ and $y_2$ are linearly independent, because the only solution to $c_1 e^{-3x}+c_2e^{-2x}=0$ is $c_1=c_2=0$.  This is because it is impossible to write one of the functions as a multiple of the other.
+We obtain solutions by summing together linearly independent solutions.
+}. 
+\end{review*}
+
+
+\begin{problem}[Euler-Cauchy Equation]\marginpar{Any ODE of the form $ax^2y''+bxy'+cy=0$, where $a,b,c$ are constants, is called an Euler-Cauchy ODE.}%
+Consider the ODE $$2x^2y''+5xy'+y=0.$$  
+\begin{enumerate}
+ \item Let's first try the power series, so suppose $\ds y=\sum_{n=0}^\infty a_0 x^n$. Compute both derivatives and plug them into the ODE. Use this to explain why the only solution that the power series method will get you is $y=0$.
+ \item \marginpar{Frobenius suggested that we multiply a power series by $x^\lambda$ to get a solution. He also gave conditions on the ODE that state when this method is needed, and when it will succeed. }%
+Earlier in the semester we noticed that sometimes to get a solution, we had to multiply by a power of $x$. Let's see if this works with power series as well.  Suppose instead that $$\ds y=x^\lambda \sum_{n=0}^\infty a_0 x^n = \sum_{n=0}^\infty a_0 x^{n+\lambda}.$$ 
+ Compute both derivatives and plug them into the ODE. Make sure you explain why you cannot change your sum so that it starts at $n=1$, as we did in the power series method. With each derivative, your sums will still start at 0.  
+ \item If $n=0$, you should get that either $a_0=0$, or that a polynomial equals zero. If we set this polynomial equal to zero, we call the corresponding equation the indicial equation.  Find the values of $\lambda$ that solve the indicial equation. You should get two values for $\lambda$. Let's call the largest value $\lambda_1$, and the smallest value $\lambda_2$. 
+ \item If you replace each $\lambda$ with $\lambda_1$, show that $a_n=0$ for every $n\geq 1$.  Then  repeat with $\lambda=\lambda_2$ and show that $a_n=0$ for $n\geq 1$.  
+ \item \marginpar{See Problem \ref{superposition principle} if you forgot the superposition principle. You can check your work with Mathematica, or here's a \href{http://www.wolframalpha.com/input/?i=dsolve+2x\%5E2+y\%27\%27+\%2B5x+y\%27+\%2By\%3D0}{link to WolframAlpha}.}
+You should now have two solutions to this ODE.  Use the superposition principle to state a solution to the ODE.  Make sure you check your work with the \href{http://www.wolframalpha.com/input/?i=dsolve+2x\%5E2+y\%27\%27+\%2B5x+y\%27+\%2By\%3D0}{link to WolframAlpha}, or use Mathematica.
+\end{enumerate}
+
+\end{problem}
+
+Why did the power series method fail in the previous problem?  The answer lies in a quick computation.  If we take the ODE 
+$2x^2y''+5xy'+y=0$
+and divide by the leading coefficient of $y''$, we obtain 
+$$y''+\frac{5}{2x}y'+\frac{1}{2x^2}y=0.$$
+The coefficients of the ODE, namely $\dfrac{5}{2x}$ and $\dfrac{1}{2x^2}$ are now not defined at $x=0$, hence not analytic at $x=0$.  To guaranteed that the power series method will succeed and give the entire general solution, these coefficients must be analytic at $x=0$.  Let's try one more, and then introduce some vocabulary.   
+
+\begin{problem}[Bessel Equation]
+ Consider the ODE  $$x^2y''+xy'+(x^2-9)y=0.$$
+\begin{enumerate}
+ \item Rewrite the ODE so that the coefficient in front of $y''$ is a one.  Then state the other coefficients, and show that they are not analytic at $x=0$. [Hint: See the previous paragraph.]
+ \item Since the power series method may not give both solutions, let's multiply the series by $x^\lambda$ (Frobenius's idea) and suppose that $$\ds y=x^\lambda \sum_{n=0}^\infty a_0 x^n = \sum_{n=0}^\infty a_0 x^{n+\lambda}.$$ Compute both derivatives and plug them into the ODE. Multiply the coefficients $x^2$, $x$, and $x^2-9$ into the sums, splitting the $x^2-9$ product into two sums. You'll want to index shift one sum, as you'll have an $x^{n+\lambda+2}$ in one spot.
+ \item When $n=0$, the equation (with coefficients $a_0$) gives you the indicial equation. Show that $\lambda = \pm 3$. We'll let $\lambda_1=3$ and $\lambda_2=-3$.  Frobenius always chose $\lambda_1$ to be the larger of these roots.
+ \item Let $\lambda =3$, and then solve for the other coefficients $a_1$, $a_2$, $a_3$, $a_4$, etc. State the solution, making sure to list the first 4 nonzero terms. 
+ \item If you let $\lambda = -3$, show that all the coefficients are zero. 
+\end{enumerate}
+
+\end{problem}
+
+In the previous problem, we were only able to obtain one solution $y_1$ to the ODE. Frobenius showed how to obtain another linearly independent solution, and gave an algorithm for obtaining that solution.  If the roots of the indicial equation have a difference that is not an integer, then our current method will give the second solution. However with Bessel's equation above, we got the roots to be $\pm 3$, which differ by the integer 6.  This is why we did not find a second solution. You are welcome to study this topic more on your own, if and when you need it. 
+
+Let's now focus on when we should use the power series method, and when we should use the Frobenius method. Let's introduce some vocabulary, and state some facts without proof.
+
+\begin{definition}[Ordinary, Singular, Regular Singular]
+Consider the ODE 
+$$y''+b(x)y'+c(x)y=0.$$
+Notice that the coefficient in front of $y''$ is one. Some people call this form of an ODE the standard form.
+\begin{itemize}
+ \item As a reminder, we say that a function is analytic at $x=c$ if it has a power series solution centered at $x=c$ with a positive radius of convergence.  Polynomials, exponentials, trig function, and rational functions whose denominator is not zero at $x=c$ are all analytic.
+ \item If $b(x)$ and $c(x)$ are both analytic at $x=0$, then the solution $y$ to the ODE is analytic. We say that $x=0$ is an ordinary point of the ODE. The power series method will yield a complete solution. 
+ \item If either $b(x)$ or $c(x)$ are not analytic at $x=0$, then we say that $x=0$ is a singular point of the ODE.  The power series method is not guaranteed to work. You can try it, and you might get lucky. 
+ \item If $x=0$ is a singular point, and both $xb(x)$ and $x^2c(x)$ are analytic, then we say $x=0$ is a regular singular point of the ODE. We can use the Frobenius method to solve ODEs at regular singular points. The big idea is to guess a solution of the form $\ds y = x^\lambda \sum_{n=0}^\infty a_n x^n$ and then solve for $\lambda$ and the remaining coefficients as in the power series method.  
+ \item The indicial equation is the first equation resulting from matching coefficients in the Frobenius method. It's roots $\lambda_1$ and $\lambda_2$ are sometimes called the exponents of the ODE.
+\end{itemize}
+We could also define ordinary, singular, and regular singular points at $x=c$ by considering power series representations centered at $x=c$ instead of $x=0$.
+\end{definition}
+
+The next problem asks you to use the vocabulary above to determine which method you should use to solve the ODE.
+
+\begin{problem}
+ For each ODE, write the ODE in standard form.  Then determine if the point $x=0$ is an ordinary point or a singular point.  If it is an ordinary point of the ODE, determine if it is a regular singular point. To solve the ODE, should you use the power series method, the Frobenius method, or neither?
+\begin{enumerate}
+ \item $x^2y''+xy'+(x^2-v^2)y=0$ where $v$ is a constant.
+ \item $x^2y''+ax^3y'+x^2e^{bx}y=0$ where $a$ and $b$ are constants.
+ \item $x^2y''+cy'+x^ny=0$ where $c$ is a constant, and $n$ is a positive integer. 
+ \item $\dfrac{d}{dx}\left((1-x^2)y'\right)=-\lambda y$ where $\lambda$ is a constant.\marginpar{Ask me in class about how this relates to eigenvalues and Legendre's equation.} [Hint: Use the product rule to expand the derivative. Then write the ODE in standard form.]
+\end{enumerate}
+\end{problem}
+
+Let's end this section with one final problem. In this problem, the difference between the roots of the indicial equation will
+\begin{problem}
+ Consider the ODE $$8x^2y''+10xy'+(x-1)y=0.$$
+\begin{enumerate}
+ \item Show that $x=0$ is a regular singular point of this ODE.
+ \item State the indicial equation, and obtain the zeros.  You should have $\lambda_1=1/4$.  What is $\lambda_2$?
+ \item  \marginpar{The Mathematica technology introduction will help you check your work.  Just look in the Special Functions section.}% 
+When $\lambda=\lambda_1$, obtain the first 3 nonzero terms of the solution, which we'll call $y_1$. 
+ \item When $\lambda=\lambda_2$, obtain the first 3 nonzero terms of the solution, which we'll call $y_2$. 
+ \item State the general solution to this ODE. 
+\end{enumerate}
+
+\end{problem}
+ 
+There are a lot of special functions that we have not even touched on.  You could spend years studying all the special functions that have already been discovered and classified.  This section gave you an introduction to the techniques needed to solve these ODEs.
+
+\subsection{The Gamma Function}
+\marginpar{The symbol $\Gamma$ is the uppercase greek letter Gamma. That's why we capitalize the ``G'' in the Gamma function.}%
+We'll end this chapter with one last special function, the Gamma function $\Gamma(x)$. This function generalizes the factorial.  We've already learned that the Laplace transform of $t^n$ is $\mathscr{L}\{t^n\} = \dfrac{n!}{s^{n+1}}$.  This formula only works if we require $n$ to be an integer.  So what about the Laplace transform of something like $\sqrt{t}$? Once we've defined the Gamma function, we'll have the formula $$\mathscr{L}\{t^n\} = \dfrac{\Gamma(n+1)}{s^{n+1}}.$$
+
+\begin{definition}[The Gamma Function $\Gamma(t)$]
+ We define the Gamma function to be 
+$$\Gamma(t) = \int_0^\infty x^{t-1}e^{-x} dx.$$ 
+As $x$ is a dummy variable, we could have also written
+$\Gamma(t) = \int_0^\infty p^{t-1}e^{-p} dp$ or
+$\Gamma(x) = \int_0^\infty p^{x-1}e^{-p} dp$.
+\end{definition}
+
+\begin{problem}
+ Do the following:
+\begin{enumerate}
+ \item Show that $\Gamma(1)=1$. You are welcome to skip to the last part right now.   
+ \item Show that $\Gamma(2)=1$ and that $\Gamma(3)=2$. 
+ \item Compute $\Gamma(4)$ and then make a conjecture for $\Gamma(5)$, $\Gamma(6)$, and $\Gamma(7)$. Use software to check if you are correct.
+ \item Now show that for any $n$, we know that $\Gamma(n+1)=n\Gamma(n)$. Now use this rule to repeat parts 2 and 3 above. 
+\end{enumerate}
+
+\end{problem}
+
+The Gamma function is a generalization of the factorial function. In order to evaluate the gamma function at non integers, we would need to compute the integral that defines the Gamma function.  This is in general a very nontrivial task.  The next problem shows you how to do this. If you've forgotten how to 
+
+\begin{problem}[$\Gamma(1/2)=\sqrt{\pi}$]
+In this problem we'll prove that $\Gamma(1/2)=\sqrt{pi}$.  First, notice that by definition we have 
+$$\Gamma(1/2) = \int_0^\infty x^{-1/2}e^{x}dx.$$
+\begin{enumerate}
+ \item Let $u=x^{1/2}$. Use this $u$-substitution to explain why 
+$$
+\Gamma(1/2)=\int_0^\infty x^{-1/2}e^{-x}dx = 
+2\int_0^\infty e^{-u^2}du = 2I
+.$$
+ If we could compute the integral $I=\int_0^\infty e^{-u^2}du$, we'd be done. There is no way however to compute this integral exactly, unless we employ higher dimensional tools.
+\item Explain why we can write
+$$
+I^2=\left(\int_0^\infty e^{-u^2}du\right)^2 
+= \int_0^\infty e^{-x^2}dx\int_0^\infty e^{-y^2}dy 
+= \int_0^\infty\int_0^\infty e^{-(x^2+y^2)}dxdy.
+$$
+  \item Convert this integral to a double integral in polar coordinates (what is the Jacobian) and then evaluate the integral. This gives you $I^2$. Solve for $\Gamma(1/2)$.  
+\end{enumerate}
+
+ 
+\end{problem}
+
+
+\begin{problem}
+ We know that $\Gamma(1/2) = \sqrt{\pi}$, and we know that $\Gamma(n+1)=n\Gamma(n)$.  Use this to compute $\Gamma(3/2)$, $\Gamma(5/2)$, and $\Gamma(11/2)$. Then state the Laplace transform of $t^{9/2}$.  [Hint: You may have to repeatedly apply the rule $\Gamma(n+1)=n\Gamma(n)$, as we have $3/2=1/2+1$, and $5/2=3/2+1$, and so on.]
+\end{problem}
+
+
+%Have a rocket take off (1-t)... leads to special functions.
+%Connect Bessel to wave equations (if time).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newgeometry{left=1in,right=1in,top=1in,bottom=1in}
+
+
+\section{Extra Practice Problems}
+
+Extra homework for this unit is right here.
+Make sure you try a few of each type of problem, ASAP. I suggest that the first night you try one of each type of problem. It's OK if you get stuck and don't know what to do, as long as you decide to learn how to do it and then return to the ones where you got stuck. Eventually do enough of each type to master the ideas.  The only section in Schaum's with relevant problems is chapter 27.  Handwritten solutions are available online.  \href{https://content.byui.edu/file/664390b8-e9cc-43a4-9f3c-70362f8b9735/1/08-Power-Series-Preparation-Solutions.pdf}{Click for solutions.}
+
+Most engineering textbooks assume you have seen Taylor series and power series before (in math 113), but many of you have not. If you have your old Math 215 book, you can find many relevant problems and explanations in the section on the Ratio Test and Taylor Series.  
+
+Here are a few key functions and their Taylor series centered at $x=0$ (their MacLaurin series).
+\begin{center}
+\begin{tabular}{|c|c|c||c|c|c|}\hline
+$f(x)$ & MacLaurin Series & Radius&$f(x)$ & MacLaurin Series & Radius\\\hline
+$\ds e^x$ & $ \ds\sum_{n=0}^\infty \frac{1}{n!}x^n$& $R=\infty$&
+$\ds \frac{1}{1-x} $&$   \ds\sum_{n=0}^\infty x^n$& $R=1$\\\hline
+$\ds \cos(x) $&$  \ds \sum_{n=0}^\infty \frac{(-1)^n}{(2n)!}x^{2n}$& $R=\infty$&
+$\ds \cosh(x) $&$   \ds\sum_{n=0}^\infty \frac{1}{(2n)!}x^{2n}$& $R=\infty$\\\hline
+$\ds \sin(x) $&$   \ds\sum_{n=0}^\infty \frac{(-1)^n}{(2n+1)!}x^{2n+1}$& $R=\infty$&
+$\ds \sinh(x)$&$  \ds\sum_{n=0}^\infty \frac{1}{(2n+1)!}x^{2n+1}$& $R=\infty$\\\hline
+\end{tabular} 
+\end{center}
+
+
+
+
+\begin{multicols}{2}
+
+\begin{enumerate}
+
+\item [(I)] For each of the following, find a Taylor polynomial of degree $n$ centered at $x=c$ of the function $f(x)$.
+\begin{multicols}{2}
+\item $e^{4x}, n=3, c=0$
+\item $\cos(x), n=4, c=\pi$
+\item $\cos(2x), n=4, c=0$
+\item $\sin(\frac12 x), n=5, c=0$
+\item $\frac{1}{x}, n=3, c=1$
+\item $\ln x, n=3, c=1$
+\item $\ln (1-x), n=4, c=0$
+\item $\ln (1+x), n=4, c=0$
+\end{multicols}
+
+
+
+
+
+
+\item [(II)] Find the radius of convergence of each power series.
+\begin{multicols}{2}
+\item $\ds \sum_{n=0}^\infty \frac{1}{3^n}x^n$
+\item $\ds \sum_{n=0}^\infty \frac{(-1)^n}{4^{n+1}}x^{n}$
+\item $\ds \sum_{n=0}^\infty \frac{n}{2^n}x^{3n}$
+\item $\ds \sum_{n=0}^\infty \frac{3n+1}{n^2+4}x^n$
+\item $\ds \sum_{n=0}^\infty \frac{(-4)^n n}{n^2+1}x^{2n}$
+\item $\ds \sum_{n=0}^\infty \frac{n}{2^n}x^{2n}$
+\item $\ds \sum_{n=0}^\infty \frac{(-1)^n}{n!}x^{n}$
+\item $\ds \sum_{n=0}^\infty \frac{n!}{10^n}x^{2n}$
+\end{multicols}
+
+
+
+
+
+\item [(III)] For each function, find the MacLaurin series and state the radius of convergence.
+\begin{multicols}{2}
+\item $f(x)=e^x$
+\item $f(x)=\cos x$
+\item $f(x)=\sin x$
+\item $\ds f(x)=\frac{1}{1-x}$
+\item $\ds f(x)=\frac{1}{1+x}$
+\item $f(x)=\cosh x$
+\item $f(x)=\sinh x$
+\end{multicols}
+
+
+
+
+
+
+\item [(IV)] Prove the following formulas are true by considering power series. These formulas will allow us to eliminate complex numbers in future sections.
+\item $e^{ix}=\cos x + i\sin x$ (called Euler's formula)
+\begin{multicols}{2}
+\item $\cosh(ix) = \cos x$
+\item $\cos(ix) = \cosh x$
+\item $\sinh(ix) = i\sin x$
+\item $\sin(ix) = i\sinh x$
+\end{multicols}
+
+
+
+
+
+
+
+\item [(V)] Use MacLaurin series of known functions to find the MacLaurin series of these functions (by integrating, differentiating, composing, or multiplying together two power series). Then state the radius of convergence.
+\item $f(x)={x^2}{e^{3x}}$
+\item $f(x)=\frac{x^2}{e^{3x}}$ [hint, use negative exponents]
+\item $f(x)=\cos 4x$
+\item $f(x)=x\sin(2x)$ 
+\item $f(x)=\frac{x}{1+x}$
+\item $f(x)=\frac{1}{1+x^2}$
+\item $f(x)=\arctan x$ [hint, integrate the previous]
+\item $f(x)=\arctan (3x)$ 
+
+
+
+
+
+\item [(VI)] Shift the indices on each sum so that it begins at $n=0$.
+\begin{multicols}{2}
+\item $\ds\sum_{n=3}^6 n+2$ 
+\item $\ds\sum_{n=2}^8 n^2$ 
+\item $\ds\sum_{n=4}^\infty 2^n$ 
+\item $\ds\sum_{n=2}^\infty x^n$ 
+\item $\ds\sum_{n=1}^\infty n a_n x^{n}$ 
+\item $\ds\sum_{n=2}^\infty n (n-1) a_n x^{n-2}$ 
+\end{multicols}
+
+
+
+
+
+
+\item [(VII)] Solve the following ODEs by the power series method. With some, initial conditions are given (meaning you know $y(0)=a_0$ and $y^\prime(0)=a_1$). Identify the function whose MacLaurin series equals the power series you obtain.
+\item $y^{\prime}=3y$
+\item $y^{\prime}=2xy$
+\item $y^{\prime\prime}+4y=0$
+\item $y^{\prime\prime}-9y=0, y(0)=2, y^\prime(0)=3$
+\item $y^{\prime\prime}+4y^{\prime}+3y=0, y(0)=1, y^\prime(0)=-1$
+
+
+
+\item [(VII)] Determine whether the given values of $x$ are ordinary points or singular points of the given ODE.
+\item Chapter 27, problems 26-34 (these are really quick).
+
+
+\item [(VIII)] Solve the following ODEs by the power series method.  State the recurrence relation used to generate the terms of your solution, and write out the first 5 nonzero terms of your solution.
+\item Chapter 27, problems 35-47 (or from the worked problems).
+
+
+
+
+
+
+\end{enumerate}
+\end{multicols}
+
+\section{Extra Practice Solutions}
+Handwritten solutions are available online.  \href{https://content.byui.edu/file/664390b8-e9cc-43a4-9f3c-70362f8b9735/1/08-Power-Series-Preparation-Solutions.pdf}{Click for solutions.}
+
+\section{Special Functions}
+Here are some extra practice problems related to the Frobenius method and other special functions. Section numbers correspond to problems from Schaum's Outlines \textit{Differential Equations} by Richard Bronson. The suggested problems are a minimum set of problems to attempt. 
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+Concept	&Relevant Problems\\\hline
+Frobenius Method*&28:1-4, 5-10, 12,14,16,18-20\\ \hline
+Legendre Polynomials&27:11-13; 29:4,6,8,11,12,15 \\ \hline
+Bessel Functions&30:9,11,12,26, 27,\\ \hline
+Gamma Functions& 30:1-8, 24, 25\\ \hline
+Substitutions&28:22-23, 34-38; 30:30,31 \\ \hline
+\end{tabular}
+\end{center}
+
+\href{https://content.byui.edu/file/664390b8-e9cc-43a4-9f3c-70362f8b9735/1/09-Special-Functions-Preparation-Solutions.pdf}{Click here for some handwritten solutions to many of the problems above. }
+
+\restoregeometry
+
+
+
+

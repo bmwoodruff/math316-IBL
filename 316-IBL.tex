@@ -44,6 +44,7 @@ Once you have finished the problems in the section and feel comfortable with the
 \newcommand{\ds}{\displaystyle}
 \newcommand{\dfdx}[1]{\frac{d#1}{dx}}
 \newcommand{\ddx}{\frac{d}{dx}}
+\newcommand{\WA}[1]{\marginpar{\href{#1}{See WolframAlpha}}}
 
 
 \let\oldmarginpar\marginpar
@@ -116,8 +117,10 @@ Once you have finished the problems in the section and feel comfortable with the
 \theoremstyle{problem}
 \newtheorem{problemnum}{Problem}[chapter]
 \newtheorem*{problemnum*}{Problem}
+\newtheorem*{reviewnum*}{Review}
 \newenvironment{problem}[1][]{\begin{problemnum}[#1]}{\end{problemnum}\nopagebreak\hrule\bigskip}
 \newenvironment{problem*}[1][]{\begin{problemnum*}[#1]}{\end{problemnum*}\nopagebreak\hrule\bigskip}
+\newenvironment{review*}[1][]{\begin{reviewnum*}[#1]}{\end{reviewnum*}\nopagebreak\hrule\bigskip}
 
 
 % Abbreviations
@@ -218,8 +221,32 @@ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisc
 \input{06-Non-Homogeneous-ODEs}
 \wrapup
 
+\chapter{Laplace Transforms}
+\input{07-Laplace-Transforms}
+\wrapup
+
+\chapter{Power Series}
+\input{08-Power-Series}
+\wrapup
+
+\chapter{Systems of ODEs}
+\input{09-Systems-of-ODEs}
+\wrapup
+\input{09-Systems-of-ODEs-Problems}
+
+\chapter{Fourier Series and PDEs}
+\input{10-Fourier-Series}
+\wrapup
+\input{10-Fourier-Series-Problems}
+
+
 \end{document}
 
-\begin{comment}
-\end{comment}
-\end{document}
+
+
+What is our goal in this class?  I need an introduction.  Here's one way of describing the goal.
+
+Our goal - predict the future.  We want to be able to say exactly what the current will be in a wire after 3 minutes, 10 minutes, or 3 days, of plugging the wire into the wall.  We want to know exactly where a pebble will be as it falls from the top of a waterfall.  We want to know exactly where an object attached to a spring will be, 10 seconds after hitting it with a hammer.  We want to be able to predict the future, and be 100\% correct. If we can predict the future, we have power. But we don't want to stop there.  If we can make these tiny predictions, then we can combine electricity, gravity, springs, and more, and build really cool things.  If we can predict where something will be in the future, then we could use this to build an automated car. We could plan an automated trip to Pluto. We could visit other solar systems.  We could send men to mars. We could build bombs that can dodge anti-missile technology and hit their intended target. We could do so much, if we could only predict the future.  We could predict the weather patterns for the next year. We could know the exact time and location of earthquakes, tornadoes, hurricanes, and more.  If we can predict the future, we have power.  That's exactly what we're doing in this class. We're going to learn how to predict the future. It all boils down to math.  Mathematicians have been hung over the centuries for heresy.  I'm going to tell you now that we can, and will, predict the future. Not the entire future, but small bits and pieces.  I'll then leave it up to you to go and dream of cool things you can build with this new ability to predict the future.
+
+The more you put into this course, the more you will get out.  If, as a class, we all prepare, we'll have some amazing things happen.  You will learn more from this course than I could have ever dreamed.  We'll explore roads that perhaps I've never even explored. This all depends on you. Let's agree now to work together.
+

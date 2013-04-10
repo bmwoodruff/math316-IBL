@@ -1,0 +1,582 @@
+\noindent This chapter covers the following ideas.
+
+\begin{enumerate}
+
+\item Explain how to compute Laplace transforms and inverse Laplace transforms. Explain and use both shifting theorems, and be able to prove them. 
+\item Use Laplace transforms to solve IVPs.
+\item Describe the Dirac delta function, and use it to solve ODEs. Illustrate what the Dirac delta function does to a system by applying it to examples in mass-spring systems and electrical networks.
+\item Explain what a convolution is, and how it relates to Laplace transforms.
+
+\end{enumerate}
+
+You can find additional practice problems in Schaum's Outlines \textit{Differential Equations} by Richard Bronson.
+You'll find relevant problems in chapters 21 -24, as well as some extra practice problems at the end of this chapter. 
+Do enough of each type that you feel comfortable with the ideas. 
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{cc}
+\begin{tabular}[t]{|c|cc|}
+\hline
+$f(t)$ & $F(s)$ & provided\\
+\hline\hline
+$1$					&$\dfrac{1}{s}$ 							&$s>0$\\\hline
+$t^n$				&$\dfrac{n!}{s^{n+1}}$ 			&$s>0$\\\hline
+$e^{at}$		&$\dfrac{1}{s-a}$ 			&$s>a$\\\hline
+$y'$					&$sY-y(0)$ 						&\\\hline
+$y''$					&$s^2Y-sy(0)-y'(0)$ 						&\\\hline
+%$y'''$					&$s^3Y-s^2y(0)-sy'(0)-y''(0)$ 						&\\\hline
+$e^{at}f(t)$  &$F(s-a)$ 						&\\\hline
+$f(t)*g(t)$  &$F(s)G(s)$ 						&\\\hline
+\end{tabular}
+&
+\begin{tabular}[t]{|c|cc|}
+\hline
+$f(t)$ & $F(s)$ & provided\\
+\hline\hline
+$\cos(wt)$  &$\dfrac{s}{s^2+\omega^2}$ 			&$s>0$\\\hline
+$\sin(wt)$  &$\dfrac{\omega}{s^2+\omega^2}$ 			&$s>0$\\\hline
+$\cosh(wt)$ &$\dfrac{s}{s^2-\omega^2}$ 			&$s>|\omega|$\\\hline
+$\sinh(wt)$ &$\dfrac{\omega}{s^2-\omega^2}$ 			&$s>|\omega|$\\\hline
+$u(t-a)$  &$\frac{1}{s}e^{-as}$ 						&\\\hline
+$\delta(t-a)$  &$e^{-as}$ 						&\\\hline
+$f(t-a)u(t-a)$  &$\mathscr{L}(f(t))e^{-as}$ 						&\\
+$f(t)u(t-a)$  &$\mathscr{L}(f(t+a))e^{-as}$ 						&\\
+\hline
+\end{tabular}
+\end{tabular}
+\end{center}
+\caption{Table of Laplace Transforms\label{big laplace table}. Note that the $s$ shifting theorem $\mathscr{L}(e^{at}f(t))=F(s-a)$ has a positive $a$ in the exponent, while the $t$ shifting theorem $\mathscr{L}(f(t-a)u(t-a))=\mathscr{L}(f(t))e^{-as}$ has a negative $a$ in the exponent.
+}
+\end{table}
+
+
+You must practice lots of problems to gain a feel for patterns.  Many of the problems in 21-23 are fast. Please take a few minutes every day to just flat out practice with the basics (kind of like when you were learning the times tables - they get really fast if you just practice them). When you feel like you have the basics down, see if you can complete chapters 21 and 22 in less than an hour. If one stumps you, skip it and come back later.  
+
+Once you feel confident, chapters 23 (on convolutions and the heaviside function) and 24 (solving IVPS) will help you use the Laplace transforms to solve ODEs. At the end of this chapter are some additional problems to help you cement your understanding. Table \ref{big laplace table} summarizes the transforms we use most often.
+
+\section{Review}
+Our real goal in this chapter is to learn how to handle non differentiable changes in an ODE.  We'll find that Laplace transforms provide us with extremely nice tools to solve problems of this type.  Before we jump in, let's review how to solve a couple ODEs with Laplace transforms, and perhaps make some connections that we haven't yet made. 
+
+\begin{review*}
+ Compute the inverse Laplace transform of $Y = \frac{3s+8}{(s+1)^2+16}$. See
+\footnote{
+We can rewrite $Y$ as 
+$$Y 
+= \frac{3(s+1)-3+8}{(s+1)^2-16}
+= \frac{3(s+1)}{(s+1)^2-16}+\frac{5}{(s+1)^2-16}\frac44.
+$$
+The inverse Laplace transform is then 
+$$y(t) = 3e^{-t}\cosh(4t)+\frac{5}{4}e^{-t}\sinh(4t).$$
+}.
+\end{review*}
+
+
+\begin{problem}
+\marginpar{We've solve inverse transforms such as this one multiple times. If you need to refresh, please head to chapters 21 and 22 in Schaum's, and just practice the problems where answers are provided.}%
+ Compute the inverse Laplace transform of $$\ds Y =\frac{5}{(s+3)^3} + \frac{2s+3}{(s+4)^2+9} + \frac{3s+1}{(s+2)^2-49}.$$ 
+Use the rules for $\cosh$ and $\sinh$ to tackle the last terms, rather than doing a partial fraction decomposition.  The goal of this problem is to make sure you have the $s$-shifting theorem mastered.
+%See 
+% \footnote{We have
+% $$\begin{array}{rl}
+% \ds Y 
+% &=\frac{5}{(s+3)^3} + \frac{2(s+4)-8+3}{(s+4)^2+9} + \frac{3(s+2)-6+1}{(s+2)^2-49}\\ 
+% &=\frac{5}{(s+3)^3}\frac{2}{2} + \frac{2(s+4)}{(s+4)^2+9} +\frac{-5}{(s+4)^2+9}\frac{3}{3} + \frac{3(s+2)}{(s+2)^2-49}+ \frac{-5}{(s+2)^2-49}\frac{7}{7} 
+% \end{array}$$
+% The inverse transform is 
+% $$\ds y(t) 
+% = \frac{5}{2} t^2e^{-3t} 
+%  + 2e^{-4t}\cos(3t) 
+%  +\frac{-5}{3}e^{-4t}\sin(3t) 
+%  +3 e^{-2t}\cosh(7t)
+%  +\frac{-5}{7} e^{-2t}\sinh(7t).
+% $$
+% }.
+\end{problem}
+
+\begin{problem}
+ Consider the IVP $y''+6y'+8y = 0$, $y(0)=2$, $y'(0)=3$.
+\begin{enumerate}
+ \item Use Laplace transforms to solve the IVP.  Write your answer as a linear combination of $e^{-2t}$ and $e^{-4t}$.  
+ \item Use Laplace transforms to solve the IVP. Note that we could complete the square to write $s^2+6s+8=(s+3)^2-1$.  Write your answer as a linear combination of $e^{-3t}\cosh(t)$ and $e^{-3t}\sinh(t)$.
+ \item Remember that $\ds \cosh(t) = \frac{e^t+e^{-t}}{2}$ and $\ds \sinh(t) = \frac{e^t-e^{-t}}{2}$. Use this to show how your second solution is really the same as your first.
+\end{enumerate}
+
+\end{problem}
+
+\begin{problem}
+ Consider the IVP $y''+7y'+10y = 0$, $y(0)=4$, $y'(0)=-3$.
+\begin{enumerate}
+ \item Use Laplace transforms to solve the IVP.  Write your answer as a linear combination of $e^{-2t}$ and $e^{-5t}$.  
+ \item Complete the square on $s^2+7s+10$ and use the Laplace transform with $\cosh$ and $\sinh$ rules to solve the IVP.
+ \item Which is easier?
+\end{enumerate}
+
+\end{problem}
+
+
+The last two problems should have reviewed the main ideas used in solving Laplace transforms.  In addition, I hope you see how useful it is to know the transforms for $\cosh\omega t$ and $\sinh\omega t$.  They can greatly simplify some computations.
+
+\section{Piecewise Defined Functions}
+
+We now turn to perhaps the key reason Laplace transforms were invented.  We can use them to obtain quick solutions to problems with discontinuous external forces.  Let's start by examining a $RL$ circuit with a battery, because it keeps the computations simple.
+
+\begin{problem}
+ Consider an $RL$ circuit with $R=1$ ohms and $L=1$ Henry.  At time zero, there is no battery in the system.  After 2 seconds,  we connect a battery $E=12 V$ to the circuit.  Two seconds after connecting the battery, we disconnect it.  Our goal is to determine the current in the wire exactly 2 second after we disconnect the battery.
+\begin{enumerate}
+ \item During the first  two seconds, we need to solve the IVP $I'+I=0$ where $I(0)=0$.  Solve this IVP and use your solution to show that the current after 2 seconds is $I(2)=0$.
+ \item Between $t=2$ and $t=4$, we know $E=12$.  Solve the IVP $I'+I=12$, $I(2)=0$. What is $I(4)$, the current right when the battery gets removed? Your answer will involve the constant $e^{2}$.
+ \item When we remove the battery, the ODE is $I'+I=0$. We know the initial condition $I(4)$ from the last part.  Solve the IVP, and state $I(6)$. 
+ \item We can now predict the current at any time $t$. Use piecewise function notation to state the current in the form
+$$I(t) = 
+\begin{cases}
+ 0 & 0\leq t< 2\\
+ 12-12e^{2}e^{-t} & 2\leq t< 4\\
+ ? & 4\leq t\\
+\end{cases}
+.$$ 
+\end{enumerate}
+\end{problem}
+
+In the previous problem, we found the current using the initial conditions $I(0)=0$, $I(2)=0$, and $I(4)=?$. Another way to tackle this problem is to move our reference frame, letting $t=0$ correspond to the beginning of each change. The computations are often simpler, and we then just have to shift the reference frame back when we finish the problem. 
+
+\begin{problem}
+ Consider again the same $RL$ circuit with $R=1$ ohms and $L=1$ Henry.  At time zero, there is no battery in the system.  After 2 seconds,  we connect a battery $E=12 V$ to the circuit.  Two seconds after connecting the battery, we disconnect it.  Our goal is to determine the current in the wire exactly 2 second after we disconnect the battery. We'll solve this problem by always making $t=0$ the start of each IVP.
+\begin{enumerate}
+ \item During the first  two seconds, we need to solve the IVP $I'+I=0$ where $I(0)=0$.  Solve this IVP and use your solution to show that the current after 2 seconds is $I(2)=0$.
+ \item Between 2 and 4 seconds, we know $E=12$. Letting $t=0$ correspond to 2 seconds, solve the IVP $I'+I=12$, $I(0)=0$. What is $I(2)$, the current right when the battery gets removed?
+ \item When we remove the battery, the ODE is $I'+I=0$. Let $t=0$ correspond to 4 seconds, and then we know the initial condition $I(0)$ from the last part.  Solve the IVP, and state the current $I(2)$ after 6 seconds. 
+ \item Use piecewise function notation to state the current at any time $t$. Remember to shift your solutions from the 2nd and 3rd part. Your answer will look like 
+$$I(t) = 
+\begin{cases}
+ 0 & 0\leq t< 2\\
+ 12-12e^{-(t-2)} & 2\leq t< 4\\
+ ? & 4\leq t\\
+\end{cases}
+.$$ 
+\end{enumerate}
+\end{problem}
+
+The electromotive force in the previous problem ($E(t)$) was a piecewise defined force. It was zero, then 12, then 0. Using piecewise notation, we would write this as
+$$E(t) =
+\begin{cases}
+ 0 & 0\leq t<2\\
+ 12 & 2\leq t<4\\
+ 0 & 4\leq t
+\end{cases}
+,$$
+and we could graph the function $E(t)$ using the figure to the right.
+\marginpar{
+\begin{tikzpicture}[scale=.5]
+%\draw[step=1cm,gray,very thin,dashed] (-1,-1) grid (7,3);
+\draw (-1,0) -- (7,0);
+\draw (0,-1) -- (0,3);
+\draw[very thick] (0,0) -- (2,0);
+\draw[dashed] (2,0) -- (2,2);
+\draw[very thick] (2,2) -- (4,2);
+\draw[dashed] (4,2) -- (4,0);
+\draw[very thick] (4,0) -- (7,0);
+\end{tikzpicture}
+}
+We need a nice clean way to work with piecewise defined external forces.  We also need to become comfortable graphing and working with these kinds of forces.
+
+\begin{problem}
+% Give them a piecewise defined function, have them graph it.  Then give them a graph, and have them define the function.
+Consider the functions 
+$$
+f(t) = 
+\begin{cases}
+ 2t & 0\leq t< 2\\
+ -t^2+4t & 2\leq t< 4\\
+ 18-3t& 4\leq t< 6\\
+ t^2-12t+35& 6\leq t< 8
+\end{cases}
+\quad\text{and}
+\quad
+g(t) = 
+\begin{cases}
+ 2t & 0\leq t< 2\\
+ 4-(t-2)^2 & 2\leq t< 4\\
+ 6-3(t-4)& 4\leq t< 6\\
+ (t-6)^2-1& 6\leq t< 8
+\end{cases}.
+$$
+\begin{enumerate}
+ \item Graph $f(t)$ in the $ty$ plane. 
+ \item Graph $g(t)$ in the $ty$ plane. 
+ \item Graph $y=2t$, $y=4-t^2$, $y=6-3t$, and $y=t^2-1$ in the $ty$ plane.  What does this have to do with the above?
+\end{enumerate}
+
+\end{problem}
+
+\subsection{The Heaviside function $u(t-a)$}
+
+We now define the key function that allows us to work with piecewise defined functions.  Some people call this the Heaviside function, some call it the unit step function. This is a simple function that jumps up a single unit at a specified value of $t$. 
+\begin{definition}[Heaviside or Unit Step Function]
+\marginpar{In our work, it won't matter what we define $u(0)$ to equal. Here, we define $u(0)=1$, but we could have just as easily define $u(0)=0$ or $u(0)=1/2$.  This last option, the 1/2, comes in handy when working with Fourier series.}
+We define the Heaviside, or unit step function, to be the function
+$$u(t) = \begin{cases}0 &t<0 \\ 1 &0\leq t\end{cases}.$$ 
+We'll most often shift this function right $a$ units (so we replace $t$ with $t-a$, which means we could write
+$$u(t-a) = \begin{cases}0 &t-a<0 \\ 1 &0\leq t-a\end{cases}= \begin{cases}0 &t<a \\ 1 &a\leq t\end{cases}.$$ 
+\end{definition}
+Why does this function matter.  It's like an on/off function.  If you multiply $f(t)$ by $u(t-a)$, then the function $f(t)u(t-a)$ is zero to the left of $a$, and is equal to $f(t)$ after $a$. If $a=3$, then look below for the graph of $y=u(t-3)$.
+\marginpar{Mathematica uses the name ``HeavisideTheta'' for the Heaviside function.  You'll see the symbol $\theta$ show up as the name of a function. }
+\begin{center}
+\begin{tikzpicture}[xscale=1,yscale=1]
+\draw[very thick,<-,gray] (-1,0)--(3,0);
+\draw[very thick,->,gray] (3,1)--(8,1);
+\draw[->,gray] (0,0)--(0,2);
+\draw[->,gray] (0,0)--(0,-1);
+\draw[->,gray] (0,0)--(-1,0);
+\draw[->,gray] (0,0)--(9,0);
+\foreach \x in {0,...,8}
+	\draw[gray] (\x,4pt) -- (\x,-4pt);
+\foreach \y in {0,...,1}
+	\draw[gray] (2pt,\y) -- (-2pt,\y);
+\path (5,1.5) node {$y=u(t-3)$};
+\draw (3,0) circle (3pt);
+\filldraw (3,1) circle (3pt);
+\end{tikzpicture}  
+\end{center}
+  
+
+\begin{problem}
+ Construct a graph of each of the following:
+\begin{enumerate}
+ \item $f(t) = u(t-4) - u(t-7)$\marginpar{WolframAlpha and I are having issues when it comes to plotting Heavisides.  I can plot the first one just fine, but as soon as I times it by $(10-t)$, it tries to plot a surface.  As such, \href{http://aleph.sagemath.org/?z=eJwrSyzSUC9R1-RK0yjRtNUwNNAt0dTSyEhNLMsszkxJ1SjRNdHUReaaa2pycRXk5JdogHToaJToGOhYaGoCAP0RFH0=&lang=sage}{please use this link to Sage to check your work.} Make sure you can explain how the graphs are made (not just give them).}
+ \item $g(t) = (10-t)(u(t-4) - u(t-7))$
+ \item $h(t) = (10-(t-4))(u(t-4) - u(t-7))$ (How does this differ from the previous?)
+ \item $k(t) = t^2 (u(t-3) - u(t-5))$
+ \item $l(t) = (t-3)^2( u(t-3) - u(t-5))$ (How does this differ from the previous?)
+\end{enumerate}
+\href{http://aleph.sagemath.org/?z=eJwrSyzSUC9R1-RK0yjRtNUwNNAt0dTSyEhNLMsszkxJ1SjRNdHUReaaa2pycRXk5JdogHToaJToGOhYaGoCAP0RFH0=&lang=sage}{Make sure you check your solution by following the link to Sage.}
+\end{problem}
+
+\begin{problem}
+% I need something that would show them the reason for $t$ shifting.  Have them concatenate 3 graphs. Give them some crazy ugly thing that is TONS simpler if you first shift each piece.  Then graph it. 
+The graphs of $f(t)=9-t^2$ for $0\leq t\leq3$, and $g(t)=3t$ for $0\leq t\leq 2$, and $h(t) = 6-2t$ for $0\leq t\leq 2$ are connected together (when one ends, the others starts) to give the following graph.
+\begin{center}
+\begin{tikzpicture}[xscale=.5,yscale=.2]
+\draw plot[variable=\t,samples=20,domain=0:3] ({\t},{9-\t*\t});
+\draw plot[variable=\t,samples=20,domain=3:5] ({\t},{3*(\t-3)});
+\draw plot[variable=\t,samples=20,domain=5:8] ({\t},{6-2*(\t-5)});
+\draw[->,gray] (0,0)--(0,10);
+\draw[->,gray] (0,0)--(0,-1);
+\draw[->,gray] (0,0)--(-1,0);
+\draw[->,gray] (0,0)--(11,0);
+\foreach \x in {-1,...,10}
+	\draw[gray] (\x,4pt) -- (\x,-4pt);
+\foreach \y in {-1,...,9}
+	\draw[gray] (2pt,\y) -- (-2pt,\y);
+\end{tikzpicture}  
+\end{center}
+\begin{enumerate}
+ \item Write this function using piecewise function notation.
+ \item Write this function using Heaviside notation. You'll want to use the idea that $u(t-a)-u(t-b)$ turns a function on at $a$ and off at $b$. 
+ \item When you think you have the function, \href{http://aleph.sagemath.org/?z=eJwrSyzSUC9R1-RK0yjRtNUwNNAt0dTSyEhNLMsszkxJ1SjRNdHUReaaa2pycRXk5JdogHToaJToGOhYaGoCAP0RFH0=&lang=sage}{use this Sage link to check if you are correct} (you'll have to type in your function). 
+
+ Feel free to use Mathematica instead, if you have downloaded and installed it.  Remember that BYU-I students can now install Mathematica on their personal machines for free. Please head to I-Learn for instructions.  You can then download the Mathematica Technology Introduction, and you'll see how to code HeavisideTheta functions in Mathematica. 
+\end{enumerate}
+
+\end{problem}
+
+Did you notice in your work above that it was a lot easier to graph a piecewise defined function when everything was shifted to the starting point.  It's much easier to graph $f(t-a)u(t-a)$ than it is to graph $f(t)u(t-a)$.  We'll find that this remains true as well, when we start applying Laplace transforms.  
+
+It's time to look at the Laplace transform of the Heaviside function. The next problem is the key to why Laplace transforms work so nicely with piecewise defined functions.  We'll compute the Laplace transform of both $f(t-a)u(t-a)$ and $f(t)u(t-a)$.  Then we'll practice on a few problems.
+
+\begin{problem}[$t$-shifting Theorem]
+ Suppose that $y=f(t)$ is a function for which you can find the Laplace transform.
+ Show, using the definition of the Laplace transform, that 
+$$\mathscr{L}\{f(t-a)u(t-a)\} = \mathscr{L}\{f(t)\}e^{-as}.$$
+In particular, this means that $\mathscr{L}\{1u(t-a)\}=\frac{1}{s}e^{-as}$.  Then show that
+$$\mathscr{L}\{f(t)u(t-a)\} = \mathscr{L}\{f(t+a)\}e^{-as}.$$
+[Hint: Just write down the definition of the Laplace transform. You'll have to do a $u$ substitution, but you'll probably want to use a different variable, like $w$. Remember that $u(t-a)=0$ if you are below $a$, which should allow you to remove $u(t-a)$ from any integral, after updating the bounds.]
+\end{problem}
+
+\begin{problem}
+ Compute the Laplace transforms of each of the following functions. \marginpar{See Schaum's chapter 22 for lots more practice.  Please do a bunch of these until you feel like you have the idea down.  Each problem takes just a tiny bit of time. Unless you practice this a bunch, you'll be lost and spend gobs of time on the upcoming problems.}
+ \begin{enumerate}
+  \item $f(t) = 3u(t-4)$
+  \item $f(t) = 3(t-4)\,u(t-4)$
+  \item $f(t) = 3t\,u(t-4)$ [Hint: $3t=3(t-4)+12$]
+  \item $f(t) = (t-3)^2u(t-3)$
+  \item $f(t) = t^2(u(t-2)-u(t-5))$
+ \end{enumerate}
+\end{problem}
+
+\begin{problem}
+ Compute the inverse Laplace transform of each of the following functions.
+ \begin{enumerate}
+\begin{multicols}{4}  \item $\dfrac{4}{s^3}e^{-2s}$
+  \item $\dfrac{4}{(s+5)^3}e^{-2s}$
+  \item $\dfrac{2s+1}{s^2+9}e^{-\pi s/6}$
+  \item $\dfrac{3s+4}{(s+2)^2+16}e^{-5s}$
+ \end{multicols}
+ \end{enumerate}
+\end{problem}
+
+
+We are now ready to solve Laplace transform problems with the Heaviside function.  The simplest example is an $RL$ circuit.  To get to $RC$ and $RLC$ circuits, we'll need to discuss the derivative of the Heaviside function (which technically doesn't exist).
+
+\begin{problem}
+ Consider an $RL$ circuit with $R=4$ and $L=1$. At $t=0$ there is no current in the wire.  Two seconds in, we connect a 9V battery to the circuit.  Three seconds later ($t=5$) we remove the battery.  This gives us the electromotive force as $E(t) = 9(u(t-2)-u(t-5))$.  We need to solve the IVP
+$$1I'+4I=9(u(t-2)-u(t-5)), \quad I(0)=0.$$
+Use Laplace transforms to predict the current $I(t)$ at any time $t$. You'll want to ignore the $e^{-as}$ terms when you perform any needed partial fraction decompositions.
+\end{problem}
+
+\begin{problem}
+ Consider an $RL$ circuit with $R=5$ and $L=1$. We connected a variable voltage source to the circuit and start to ramp up the power.  Our electromotive force is $E(t)=t$ volts. After 12 seconds, we loose power and $E(t)$ drops to zero. Solve for the current in the wire at any time $t$.
+
+[Hint: The electromotive force is $E(t) = t - tu(t-12)$, which means we solve
+$$I'+5I=t - tu(t-12), \quad I(0)=0.$$
+Use Laplace transforms and the $t$-shifting theorem to complete this.]
+\end{problem}
+
+
+\begin{problem}
+ Consider a vertical mass spring system, where we attach a magnetic brick to the bottom of the spring. Let $y=0$ be the equilibrium height of the brick after accounting for gravity (so we can ignore the force of gravity). 
+Suppose that $m = 1$, $c = 0$, and $k=4$. The spring is pushed upwards 1 unit, and then let go from rest. After 3 seconds, an electromagnet pulls down on the spring with a force of 7 (the units all agree). We can model this using $r(t)=-7u(t-3)$.  Solve the ODE $y''+4y=-7u(t-3)$. Check your solution with Mathematica or Sage. 
+\end{problem}
+
+\begin{problem}
+ We decide to launch a rocket.  We attach an engine to the rocket, and light it. Neglect the mass of the fuel, or think ``it's a battery powered rocket.'')   The mass of the rocket and engine we'll assume is $4$ kg. Let's launch the rocket in space, so we can ignore the force due to gravity. \marginpar{Ask me in class to show you how to modify this to add in gravity, or come by and show me what you would do. It's a pretty fun switch.)} Since we are in space, we don't have air resistance, so instead let's assume that we've put some Jello out in space, and the rocket plans to fly through the Jello (something to slow it down). Assume that the force due to the Jello's resistance is proportional to the velocity of the rocket, with proportionality constant $8$ kg/s.  When we light the engine, for the first 2 seconds the force ramps up, following a linear path until it gives a force of $10$ N after 2 seconds.  Then for 15 more seconds the rocket maintains a force of $10$ N.  The force then starts to ramp down linearly, taking an additional 5 seconds until the force drops to zero. A picture of this force is below.
+\begin{center}
+\begin{tikzpicture}[xscale=.2,yscale=.2]
+\draw plot[variable=\t,samples=20,domain=0:2] ({\t},{5*\t});
+\draw plot[variable=\t,samples=20,domain=2:17] ({\t},{10});
+\draw plot[variable=\t,samples=20,domain=17:22] ({\t},{10-2*(\t-17)});
+\draw[->,gray] (0,0)--(0,11);
+\draw[->,gray] (0,0)--(0,-1);
+\draw[->,gray] (0,0)--(-1,0);
+\draw[->,gray] (0,0)--(23,0);
+\foreach \x in {-1,...,22}
+	\draw[gray] (\x,4pt) -- (\x,-4pt);
+\foreach \y in {-1,...,10}
+	\draw[gray] (4pt,\y) -- (-4pt,\y);
+\end{tikzpicture}  
+\end{center}
+
+\begin{enumerate}
+ \item Set up an initial value problem whose solutions is the position of the rocket after any time $t$. The right hand side should be written in terms of Heaviside functions, where the discontinuities occur after 2, 17, and 22 seconds.
+ \item Use Laplace transforms and technology to solve your IVP. Let the computer do all the solving.  The goal is to just GET a solution, and then we'll interpret it.
+ \item The rocket will eventually get stuck in the Jello.  How far will it travel before the rocket stops moving?
+\end{enumerate}
+
+\end{problem}
+
+
+
+
+
+
+\subsection{The Dirac-Delta distribution $\delta(t-a)$ and impulses. }
+
+We've been solving mass-spring problems with magnets. What if we instead hit the system with a hammer?  
+We could place a magnet underneath a magnet brick, and pull the brick down. We'd have to leave the magnet on for a while to get the brick to come down. 
+Alternately, we could hit the brick with a hammer.  The blow occurs almost instantly, and yet could result in the exact same downward pull as the magnet.
+The next problem has you develop the connection between magnets and hammer blows. You should see that a hammer blow is like having an infinitely strong magnet on for no time.   
+
+\begin{problem}
+ Consider a mass-spring system with $m=1$ kg, $c=3$ kg/s, and $k=2$ kg/s$^2$.  Initially the system is at rest (so $y(0)=0$ and $y'(0)=0$). We turn on a magnet underneath the brick. We'll vary the strength of the magnet, and the time we leave the magnet on, and then solve the IVP $y''+3y'+2y=r(t)$, $y(0)=0$, $y'(0)=0$. 
+\begin{enumerate}
+ \item\marginpar{
+You can solve all of the IVPs in this problem all at once, if you are willing to work with symbols.  You just have to solve
+$$y''+3y'+2y=-\frac{10}{h} +\frac{10}{h} u(t-h).$$
+because all the forces are constant, the forward transforms are quite quick. Let $s=0,1,2$ to get the coefficients of any partial fraction decompositions.
+}%
+ Solve the IVP if the magnet pulls down with a force of 10 N for 1 second so that $r(t)=-10+10u(t-1))$.
+ \item Solve the IVP if the magnet pulls down with a force of 20 N for 1/2 seconds so that $r(t)=-20+20u(t-1/2))$.
+ \item Solve the IVP if the magnet pulls down with a force of 40 N for 1/4 seconds so that $r(t)=-40+40u(t-1/4))$.
+ \item Use a computer to graph $y(t)$ for each problem above for $0\leq t\leq 10$.  On each graph, estimate how far down the spring moves before bouncing back up and coming to rest. 
+\end{enumerate}
+[Hint: If you use the Mathematica introduction, then you can quickly check all your answers, and see the graphs instantly.  Just open the Laplace transform section, expand the ``Springs'' section, and then type in your IVP. You'll see all the steps involved in solving this by hand, as well as the plot of $y(t)$. The by-hand solution is not bad at all, but graphing by hand could be.]
+\end{problem}
+
+\begin{problem}
+Consider the function $f_h(t) = 
+\begin{cases}
+ \frac{1}{h} & 0\leq t<h\\
+0 & \text{otherwise}
+\end{cases}.$ This function represents a pulse of strength $1/h$ for $h$ seconds.  We would like to examine what happens to this function as $h\to 0$ (so that we have a really strong pulse held for almost no time).
+\begin{enumerate}
+ \item For $h=1$, draw the function $f_1(t)$ for $0\leq t\leq 2$ and compute $\int_0^\infty f_1(t)dt$. 
+ \item Repeat the previous part if $h=1/2$, $h=1/4$, and $h=1/10$.
+ \item If $u(t)$ is the Heaviside function, then compute both $\dfrac{u(h)-0}{h}$ and $u(h)$ at $h=1,1/2,1/4,1/10$.
+ \item What patterns do you see?  If someone asked you to compute $\lim_{h\to 0}f_h(t)$ and $\lim_{h\to 0}\int_0^\infty f_h(t)dt$, what would you give as answers?
+\end{enumerate}
+\end{problem}
+
+Because of our work above, let's make a definition
+\begin{definition}[Dirac Delta Distribution (or function)]
+We define the Dirac delta distribution to be the ``function'' 
+$$\delta(t-a) = \begin{cases}0 &t\neq a\\\infty &t=a\end{cases}.$$ 
+It's not really a function, because the output is $\infty$ at a single point.
+We'll require that the Dirac Delta distribution satisfies the integral sifting properties
+$$\int_0^\infty \delta(t-a)dt = 1 \quad \quad \text{and}\quad\quad \int_0^\infty g(t)\delta(t-a)dt = g(a).$$
+When you time a function by the dirac delta and integrate, you eliminate everything except the function at that single point.
+\end{definition}
+
+\begin{problem}[$\mathscr{L}\{\delta(t-a)\} = e^{-as}$]
+Prove that the  Laplace transform of the Dirac delta distribution is $\mathscr{L}\{\delta(t-a)\} = e^{-as}$ (look at the definition above).
+
+Then consider the IVP $y^\prime = \delta(t-5),y(0)=0$.  Use $\mathscr{L}\{\delta(t-a)\} = e^{-as}$ to solve this IVP and find the function whose derivative is $\delta(t-5)$. Use your solution to give a function whose derivative is $5\delta(t-3)$. 
+\end{problem}
+
+From the previous problem, you should have observed that the derivative of the Heaviside function is the Dirac delta function. 
+\begin{theorem}
+ If $u(t-a)$ is the Heaviside function, and $\delta(t-a)$ is the Dirac delta function, then 
+$$\frac{d}{dt}u(t-a) = \delta(t-a).$$
+The derivative of a Heaviside is a Dirac delta. 
+\end{theorem}
+
+We now have all the tools we need to solve some pretty cool electricity and mass-spring problems.  We couldn't tackle any capacitors in our problem before now, because we need have to compute $E'(t)$.  Now that we have derivatives of Heavisides, we can compute Laplace transforms.
+
+\begin{problem}
+Consider an $RC$ circuit with $R=2$ and $C=1/8$.  
+Suppose that capacitor has no charge on it, and there is no current flowing at $t=0$.  At $t=2$, we connect a 12 V battery to the circuit.  Then at $t=7$ we remove the battery.  Set up an IVP that would give the current at any time $t$, and then solve the IVP.  Use software to construct a graph of your solution. [Hint: There are no partial fraction decompositions in this one, so it should be REALLY fast.] 
+\end{problem}
+
+\begin{problem}
+Consider a mass spring system with no friction.  Let $m=1$ and $k=9$. We'll examine what happens if a hammer hits the system.
+Suppose the spring is initially at rest at equilibrium.  After 3 seconds, a hammer hits the spring downwards with a force of $10$ N (so $r(t) = -10\delta (t-3)$). The mass-spring system starts to oscillate. Set up and solve an IVP what would give the position of the spring at any time $t$, and state the amplitude of the oscillation. [Again, there are no partial fraction decompositions on this problem, so it should go quite fast.]
+\end{problem}
+
+\begin{problem}
+Consider an $RLC$ circuit, with $R=6$, $L=1$, and $C=1/10$. Suppose that at $t=0$ there is no charge on the capacitor, and no current in the wire. We attach a variable voltage source to the RLC circuit, $E(t) = 2t$, and ramp up the power for the first 6 seconds.  After 6 seconds, the voltage drops to zero.  This gives us $E(t) = 2t(1-u(t-6))$.  Set up and solve an IVP that would give the current in the wire after $t$ seconds. 
+\end{problem}
+
+\begin{problem*}
+\marginpar{If you have had strength of materials, then this problem connects how you use use Heaviside and Dirac delta to tackle all the problems in strengths. You can also use this to solve problems in Statics. You can use it to solve any problem where you have a distributed load (use Heavisides to turn it on and off), and a point force (Dirac delta).} If you have a beam, and you know there is a distributed load on the beam, with a point force applied at another spot on the beam, can you compute the shear stress and the moment at any point in the beam?  This is exactly the same question as finding the  Velocity and position of an object, provided you know the acceleration on the rocket (some external driving force turned on/off based on time) and the rocket is hit by hammers, or meteors (dirac delta) at various points along its path.
+
+Come see me if you'ld like to see this application. We won't have time to discuss this (we lost a day last Friday because so many of you were busy with other exams).
+\end{problem*}
+
+%I'd really like to do this in the future.  Maybe a cub scout space derby, ask how far the rocket travels.  Maybe a rocket in space, ask what speed it reaches.  Do a rocket from the ground, and ask how high it reaches.  I would like to see ALL of these.  Incorporate them into #15.  Currently 15 is great because mathematica has some really bad Oscillations because of round off error.
+%\begin{problem}
+%Have them set up 2-3 IVPS. Just state the IVP. We'll solve them in class and look at the solutions.  Maybe they should guess what the graph looks like, and then we'll check in class if they are correct. (or they can use software to solve).
+%\end{problem}
+
+
+\section{Convolutions}
+
+We've already seen that the Laplace transform of the product $f\cdot g$ of two functions is not the product of the Laplace transform of each ($L(fg)\neq L(f)L(g)$). Is there some kind of product rule for transforms?  This question lead mathematicians to invent what we now call a convolution.  They discovered that the Laplace inverse of $H(s) = L(f)L(g)$ is equal to the quantity $h(t) = f * g (t) = \int_0^t f(p)g(t-p)dp$. We call this the convolution of $f$ and $g$. The last problem of this chapter has you prove why. The variable $p$ is a dummy variable of integration, and we could call it anything else (some books use $\tau$, but I find it really hard to distinguish between $t$ and $\tau$ when I'm writing on paper, so I use $p$ instead). 
+\begin{definition}[Convolutions]
+ If $f(t)$ and $g(t)$ are function, then we define the convolution of $f$ and $g$ to be 
+$$ (f * g) (t) = \int_0^t f(p)g(t-p)dp.$$
+\end{definition}
+\begin{theorem}[The Convolution Theorem]\label{the convolution theorem}
+ If $f(t)$ and $g(t)$ have Laplace transforms $F(s)$ and $G(s)$, then the inverse Laplace transform of $F(s)G(s)$ is the convolution
+$$\mathscr{L}\{F(s)G(s)\} = (f * g)(t).$$
+This is as close as we get to an inverse product rule for Laplace transforms. 
+\end{theorem}
+
+We need to practice the convolution theorem.  It's just an integral.
+\begin{problem}
+Do the following:
+\begin{enumerate}
+ \item Show that $1*1 = t$. You'll need to compute $\ds \int_0^t f(p)g(t-p)dp = \int_0^t 1\cdot 1 dp$. 
+ \item Compute $1*t$ and $t*1$. You'll need to compute $\ds \int_0^t f(p)g(t-p)dp = \int_0^t 1\cdot (t-p) dp$ and $\ds \int_0^t f(p)g(t-p)dp = \int_0^t p\cdot 1 dp$. 
+ \item Compute $t*t$. Compare this to the inverse transform of $\frac{1}{s^2}\frac{1}{s^2}$.
+ \item Compute $\sin(t)*t$. 
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Compute $t*e^{-3t}$ and $e^{-3t}*t$. Which is easier? What is the Laplace inverse of $\dfrac{1}{s^2}\dfrac{1}{s+3}$?
+\end{problem}
+
+\begin{problem}
+Complete each of the following:
+\begin{enumerate}
+ \item  Compute the convolution $\sin(2t)*1$. Then solve the IVP $y''+4y = 1$, $y(0)=0$, $y'(0)=0$. 
+ \item  Compute the convolution $\sin(3t)*t$. Then solve the IVP $y''+9y = t$, $y(0)=0$, $y'(0)=0$. 
+\end{enumerate}
+\end{problem}
+
+
+\begin{problem}
+ We've been using the modification rule when we have double complex roots. Use convolutions to find the Laplace inverse of $$\dfrac{1}{(s^2+9)^2}=\dfrac{1}{s^2+9}\dfrac{1}{s^2+9}.$$
+\end{problem}
+
+\begin{problem}
+ Consider the IVP $y''+5y'+6y=0$, $y(0)=0$, and $y'(0)=1$. Solve this IVP in three ways.
+\begin{enumerate}
+ \item Laplace both sides, and then use a convolution (no partial fraction decomposition) to obtain a solution.
+ \item Laplace both sides, but use a partial fraction decomposition.
+ \item Obtain the homogeneous solution using the characteristic equation, and then use the initial conditions to obtain the constants.
+\end{enumerate}
+  We'll compare your three solutions in class, and discuss why someone would care about the convolution approach (if you don't see why it's so cool as you use it).
+\end{problem}
+
+If you'd like to know WHY the convolution theorem works, please complete the next problem. It requires that you can swap the order of integration on a double integral.
+
+\begin{problem}
+ Prove the convolution theorem (Theorem \ref{the convolution theorem}).  Here are some hints.
+\begin{itemize}
+ \item Let $F(s) = \int_0^\infty f(t) e^{-st}dt$ and then use $G(s) = \int_0^\infty g(w)e^{-sw}dw$. (Why can I use $w$ instead of $t$?)
+ \item Explain why $$F(s)G(s) = \int_0^\infty\int_0^\infty f(t) g(w) e^{-s(t+w)}\, dw\, dt.$$
+ \item Do a $p$ substitution $p=t+w$ on the inside integral.  You should have something like 
+$$F(s)G(s) = \int_0^\infty\int_t^\infty ?e^{-s(p)}\, dp\, dt.$$
+ \item Swap the order of integration so that $t$ is inside and $p$ is outside.  This will require that you draw the region of integration in the $tp$ plane.
+ \item Show that 
+$$F(s)G(s) = \int_0^\infty\left[\int_0^p f(t) g(t-p) \, dt \right]e^{-sp}\, dp.$$ Why does this complete the theorem?
+
+\end{itemize}
+
+\end{problem}
+
+
+
+
+
+
+\section{Extra Problems}
+Make sure you try some of each type of problem from chapters 21-24 (except for the last set of problems in 23).  The new ideas involve convolutions and the Heaviside (unit step) function in 23.  Once you have tried some of each of these, use this page to give you more practice.  
+
+
+%\begin{multicols}{2}
+\begin{enumerate}
+\item[I] Find the Laplace transform of each of the following, and use Mathematica to check your answer.
+\item $f(x) = 8e^{-3x}\cos 2x -4e^{4x}\sin 5x+3e^{7x}x^5$
+\item $f(x) = xu(x-4)+\delta(x-6)$
+\item $f(x) = e^{3x}u(x-2)+7\delta(x-4)$
+
+\item[II] Find the inverse Laplace transform of each of the following, and use Mathematica to check your answer. Many of these will require you to use a partial fraction decomposition.
+\item $\dfrac{s}{(s+3)^2+25}+\dfrac{2}{(s-2)^4}e^{-3s}$
+\item $\dfrac{s}{s^2+4s+13}e^{-4s}$
+\item $\dfrac{1}{s(s^2+1)}e^{-5s}$
+\item $\dfrac{1}{s^2(s^2+1)}e^{-3s}$
+\item $\dfrac{2s+1}{(s-1)^2(s+1)}e^{-7s}$
+\item $\dfrac{1}{(s-1)(s+2)(s-3)}e^{-4s}$
+
+\item[III] Use Laplace transforms to find the position $y(t)$ of an object or current current $I(t)$ in each of the following scenarios. I will give you the constants $m,c,k$ and the driving force $r(t)$, or I will give you the inductance $L$, resistance $R$, capacitance $C$, and voltage source $E(t)$, as well as any relevant initial conditions.  Your job is to use Laplace transforms to find the solution. Use Mathematica to check your solution, and draw the graph of $y(t)$ or $I(t)$ and the steady-state (steady periodic) solution to see how the Heaviside and Dirac delta functions affect the graph. The point here is to see these two new functions affect solutions. I suggest that you do all of these problems with the computer, so you can quickly see the effects of a Heaviside function or Dirac delta distribution.
+\item $m = 1, c = 0, k=4, r(t)=u(t-1), y(0)=1,y^\prime(0)=0$
+\item $m = 1, c = 0, k=4, r(t)=\delta(t-3), y(0)=1,y^\prime(0)=0$
+\item $m = 1, c = 0, k=4, r(t)=7u(t-3), y(0)=1,y^\prime(0)=0$
+\item $m = 1, c = 0, k=4, r(t)=7u(t-3)+11\delta(t-5), y(0)=1,y^\prime(0)=0$
+\item $m = 1, c = 0, k=4, r(t)=7t u(t-3), y(0)=1,y^\prime(0)=0$
+\item $m = 1, c = 0, k=4, r(t)=7, y(0)=1,y^\prime(0)=0$
+\item $m = 1, c = 0, k=4, r(t)=7, y(\pi)=1,y^\prime(\pi)=0$
+
+\item $m = 1, c = 3, k=2, r(t)=u(t-2), y(0)=0,y^\prime(0)=0$
+\item $m = 1, c = 3, k=2, r(t)=\delta(t-2), y(0)=0,y^\prime(0)=0$
+\item $m = 1, c = 3, k=2, r(t)=4u(t-1), y(0)=0,y^\prime(0)=0$
+\item $m = 1, c = 3, k=2, r(t)=4u(t-1)+10\delta(t-2), y(0)=0,y^\prime(0)=0$
+\item $m = 1, c = 3, k=2, r(t)=4t u(t-1), y(0)=0,y^\prime(0)=0$
+
+\item $L = 0, R = 2, C=1/5, E(t)=12 u(t-2), Q(0)=0$ (use first order ODE)
+\item $L = 1, R = 2, C=0, E(t)=12 u(t-2), I(0)=0$ (use first order ODE)
+\item $L = 1, R = 2, C=1/5, E(t)=12, Q(0)=0,I(0)=0$ (first find $I^\prime(0)$.)
+\item $L = 1, R = 2, C=1/5, E(t)=12 u(t-2), Q(0)=0,I(0)=0$
+\item $L = 1, R = 2, C=1/5, E(t)=e^{3t} u(t-2), Q(0)=0,I(0)=0$
+\item $L = 1, R = 2, C=1/5, E(t)=4\cos (3t), Q(0)=0,I(0)=0$
+\item $L = 1, R = 4, C=1/4, E(t)=u(t-3), Q(0)=0,I(0)=0$
+\item $L = 1, R = 4, C=1/4, E(t)=e^{-2t}, Q(0)=0,I(0)=0$
+
+
+
+\end{enumerate}
+
+
+
+

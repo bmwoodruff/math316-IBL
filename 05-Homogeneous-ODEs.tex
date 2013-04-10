@@ -38,7 +38,7 @@ For our first model, let's look at how we can obtain the position of an object i
 In multivariate calculus, we encountered the differential equation $y''=-g$. In this differential equation, the only force $F_T=my''$ acting on an object in projectile motion is the force of gravity $F_G=-mg$. Equating these two gives us the ODE $my''=-mg$, or just $y''=-g$.  If we have initial position $y(0)=y_0$ and initial speed $y'(0)=v_0$, then the solution is $y=-\frac{1}{2}gt^2+v_0t+y_0$. We found that solution by integrating twice. 
 \end{example}
 We don't have to neglect air resistance anymore.  We could talk about sky diving (risky), dropping bombs (deadly), throwing math books off a roof (illegal), putting a satellite into geosynchronous orbit (useful), or dropping a pebble from the top of a waterfall (head to Yellowstone and try it - sounds like we need a field trip). The next problem asks you to revisit the example above, but now add in air resistance.
-\begin{problem}
+\begin{problem}\label{pebble from falls}
  Joe hikes up to the top of Lower Falls in Yellowstone.  His hope is to gauge the height $h$ of the waterfall.  He plans to drop a pebble from the top, and time how long it takes for the pebble to hit the ground. He'll need a model that predicts the height of the pebble at any time $t$.
 
  For this to work, Joe has to make some assumptions.  His assumptions might be way off, but that's how science works. We start with assumptions and then turn those assumptions into differential equations. Here's what Joe assumes:
@@ -366,7 +366,7 @@ We can now solve EVERY second order homogeneous constant coefficient ODE.  All w
 \end{problem*}
 
 Have you noticed that every general solution above is a linear combination of two independent solutions?  Recall that we say a differential operator is linear if $L(y_1+y_2) = L(y_1)+L(y_2)$ and $L(cy_1)=cL(y_1)$ for functions $y_1$ and coefficients $c$.  
-\begin{problem}[Superposition Principle]
+\begin{problem}[Superposition Principle]\label{superposition principle}
  Suppose that $y_1$ and $y_2$ are both solutions to a linear differential equation $ay''+b y'+cy=0$.  Consider the linear operator $L(y) = ay''+by'+cy$.  Prove that any linear combination of $y_1$ and $y_2$ is also a solution to the ODE $L(y)=0$. (Hint:  Look at the last few problems in chapter 3, or just prove this directly.)  
 
  Many people refer to this fact as the superposition principle. To get a solution to a second order homogeneous ODE, all you need is two independent solutions. The general solution is any linear combination of them.
@@ -385,6 +385,8 @@ Now that we have a general solution, let's show how to quickly obtain the soluti
 \begin{problem}
  Consider the IVP $y''+2y'+5y=0$, with $y(0)=4$ and $y'(0)=5$.  Obtain a general solution. Then compute $y'(t)$. Use the initial conditions to solve for the unknown constants in your general solution. 
 \end{problem}
+
+
 
 
 \section{Mass-Spring Systems}
@@ -452,7 +454,18 @@ In the previous sections, we focused mainly on second order ODEs.  We started by
 \end{problem}
 
 
-\section{Existence and Uniqueness - the Wronskian}
+\section{Existence and Uniqueness}
 
+One of the key theorems pertaining to ODEs is that under sufficient conditions (see Wikipedia) an ODE must have a solution, and that solution must be unique.  This means that if two people come up with a solution in different ways, then those solutions must agree.  Let's use this to build some connections between trigonometry and complex exponentials.
 
-This section will be added to soon.
+\begin{problem}
+ Consider the ODE $y''+9y=0$. This models the undamped motion of a spring where $m=1$ and $k=9$.    
+\begin{enumerate}
+ \item Show that $y_r(t) = c_1\cos 3t+c_2\sin 3t$ and $y_c(t) = c_3e^{3it}+c_4e^{-3it}$ are both general solutions of this ODE.
+ \item If $y(0)=1$ and $y'(0)=0$, then find $c_1,c_2,c_3,c_4$.
+ \item If $y(0)=0$ and $y'(0)=3$, then find $c_1,c_2,c_3,c_4$.
+ \item Show that $ \cos 3t+i\sin 3t=e^{3it}$. 
+
+\end{enumerate}
+
+\end{problem}
