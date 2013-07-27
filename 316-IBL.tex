@@ -29,6 +29,10 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 
+\usetikzlibrary{arrows}
+\newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
+
+
 \newcommand{\myscale}{1}
 
 \usepackage{comment}
@@ -158,6 +162,7 @@ Once you have finished the problems in the section and feel comfortable with the
 
 \newcommand{\pvec}[1]{\begin{pmatrix} #1 \end{pmatrix}}
 \newcommand{\nvec}[1]{\begin{matrix} #1 \end{matrix}}
+\newcommand{\bvec}[1]{\begin{bmatrix} #1 \end{bmatrix}}
 
 %------------------------------------------------------------------------------------------------------------
 
@@ -169,13 +174,15 @@ Once you have finished the problems in the section and feel comfortable with the
 	linkcolor=darkblue,
 	anchorcolor=darkblue,
 	citecolor=darkblue,
-	pagecolor=darkblue,
+	%pagecolor=darkblue,
 	urlcolor=darkblue,
 }
 
 \begin{document}
 \frontmatter
-\title{Differential Equations with Linear Algebra}
+\title{Differential Equations with Linear Algebra\\
+An inquiry based approach to learning
+}
 \author{Ben Woodruff\thanks{Mathematics Faculty at Brigham Young
     University--Idaho, \url{woodruffb@byui.edu}}}
 \date{Typeset on \today\\
@@ -193,54 +200,169 @@ Once you have finished the problems in the section and feel comfortable with the
   \url{http://creativecommons.org/licenses/by-sa/3.0/us/}
 \end{center}
 or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.}
+
+
+\cleardoublepage
+\thispagestyle{empty}
+\vspace*{\stretch{1}}
+\begin{flushright}
+\itshape
+Dedicated to Mr. Blair Nelson\\
+My seventh grade algebra teacher \\
+who trusted me enough 
+to allow me to fail.
+\end{flushright}
+\vspace{\stretch{3}}
+\cleardoublepage
+
 \tableofcontents
 
+
+\chapter{Introduction}
+Welcome to differential equations with linear algebra. 
+One of our main objectives in this course is to learn to make powerful predictions about the future. We'll learn how our physical understanding of rates of change and forces will help us make predictions about the future.  
+You've done this before when you studied how an object falls in a parabolic path under a constant force from gravity.  
+In this class, we'll learn much more powerful ways to predict the future, and prepare you for your scientific career. 
+\begin{itemize}
+ \item If you can use a police scanner to determine someone's current speed, and then watch that speed change (measure acceleration), then you can predict where the object will be. Putting several of these sensors in car could allow you to build a self driven car (look up the Google Car for more info), or make a missile that can dodge anti-missile technology, and much more. 
+ \item At Napoleon's request, Fourier studied the flow of heat in cannons to make his army's cannons more durable. The cannons were warping due to extreme heat, and when the soldiers tried to shoot a ball through a warped cannon, the cannon would explode.  Fourier unlocked the problem of predicting heat flow. We can use his work to study the flow of much more than heat. We can study immigration between countries, the spread of viruses, the import/export connection among several countries, the spread of a chemical pollutant (like an oil spill at sea), the weather, and so much more.
+ \item Francis Hooke discovered a simple linear relationship between how far you stretch a spring, and the force exerted by a spring.  Once you learn how one spring works, you have the power to build shock absorbers for a car. These principles apply directly to electrical systems. Once we can predict the current in a small electrical network, we can study complex electrical network (like a computer, or national power grid), and predict exactly what the current will be like anywhere in the network. Satellite communication relies on the ability to send electromagnetic waves, and because we can predict how the message will be received, we know what to send. 
+\end{itemize}
+ It all starts from some simple ideas.  We'll delve into the beginning details of what makes these ideas work.  I look forward to working with you this semester.
+
+\section*{What is Inquiry Based Learning}
+This class may be unlike any math course you have taken in the past. We'll be learning through inquiry, rather than lecture. 
+You'll have the chance to jump in and discover the big ideas. 
+You are the artists in this course, and you'll discover what you decide to paint. 
+My job as your teacher is to create the scaffolding that will enable you to discover centuries of learning.
+I will craft the problems you work on so that they start where you are at and get you to the knowledge of the old masters. 
+
+Here's what a typical day of class might look like:
+\begin{itemize}
+ \item You have 8 problems to work on before coming to class.  You crack 6 of them, but try on the other 2 and fail (which is OK - it will happen).
+ \item When you come to class, during the first 10-15 minutes we'll work at the boards together in small groups to tackle some problems. These will often be related to the preparation you did for the current day, and to help prepare you for the next day's problems.
+ \item While you're at the boards, I'll randomly select 8 of you to present your prep solutions to the class.  Come to class with your solutions already written up (one solution per page). I'll take your solutions and make them available on the class projector. 
+\item We'll turn the time over to you to share your work. You'll present, and then defend your work. Your peers will ask you questions. Sometimes you'll be spot on right, and sometimes you'll be wrong. As long as you can justify why you did what you did, we'll all learn and grow. 
+ \item We end class and have another 8 problem to tackle for the next day. You set up a group meeting time, where you learn to work together as a team. 
+\end{itemize}
+As you progress in this course, you'll find that you enhance your ability to (1) reason critically, (2) present and defend your results,(3) work with a team, and (4) speak the language of mathematics. The entire structure of the course is designed to build these abilities  in you.
+
+As your instructor for this courses, I'm your coach and cheerleader. My goal is to build in you the knowledge of several centuries of work. If you'll jump in and start exploring, you'll find that you can learn so much with inquiry based learning, perhaps more than you've ever learned before.
+
+Inquiry based learning has been around for hundreds of years, and has been shown over and over again to be more effective than lecture based learning.  You can read more about it on the web at
+\begin{itemize}
+ \item \href{http://www.inquirybasedlearning.org/default.asp?page=Why\_Use\_IBL}{http://www.inquirybasedlearning.org/default.asp?page=Why\_Use\_IBL}.
+\end{itemize}
+Adopting inquiry based learning requires that I turn our classroom over to you, the students. I've learned that you, my students, are capable of far more than I could ever have imagined.
+
+
+\section*{Deep practice}
+
+To learn through inquiry, we have to be willing to explore ideas on our own. We have to be willing to allow ourselves to fail. Sometimes we'll tackle problems where there may not be a right answer. We have to formulate ideas, try them, and learn from the results (good or bad).  We have to learn from our failures. 
+
+My first exposure to inquiry based learning occurred in the fourth grade. Our teacher gave us pretend money throughout the week for good behavior and then on Friday let us decide how to spend that money on goodies at our class store. We had to use our newly acquired arithmetic skills to figure out how to get the most bang for our buck. Some weeks I would purchase things, and then see another student's purchase and realize I had bought the wrong stuff. The next week I changed my purchasing plan. This was a weekly problem that I was allows to fail at, an then try again, with no punishment at all.
+
+In the seventh grade, we learned an algorithm for solving absolute value inequalities. For two weeks, we had to repeat the algorithm over an over again on different problems. I wanted to find a faster way to do the problems, and discovered a way that relied on distances. Every time we learned a new concept, I tried to see if I could work the new concept into this faster approach. Some concepts took a little more trial and error to master with the faster approach, but eventually they all did.  The time savings was amazing. I was super happy I had discovered something. When the test came for this material, I wanted to race my teacher to see if I could finish the exam before he finished passing out the exams.  I beat him.
+
+The next day of class, Mr. Nelson said he wanted to have me share with the class how I did the problems so quickly. He gave me the chalk and I got my first chance to stand in front of people and teach. After 5 minutes (or less), Mr. Nelson thanked me and told me to take a seat.  No one in the room, not even my teacher, had a clue what I was doing.  I failed. 
+
+This failure changed me. It changed entirely how I studied. I started working ahead of my class, because when they hit new material, I wanted to be able to answer questions for them. Ever time I learned an idea, I asked myself how I would share it with someone else. I was never again given a chance to teach an entire class, not even for a few minutes, but I was always ready. I didn't want to fail again.
+
+I will always be grateful for a teacher, Mr. Nelson, who trusted me enough to allow me to try, and fail, at teaching his class. Failure is a key to success. 
+
+\section*{Why is Failure So Crucial?}
+I'm guessing that many of you have probably had all your math classes delivered in lecture form.  Does this describe your typical math class. 
+\begin{quote}
+You show up to class, you take notes, you then go home and do every other odd at the end of the chapter (or something similar), and then come to class the next day to listen to a lecture again.  This repeats every day, and you get used to the monotony.  Your teacher comes to class and shows you the right way to do everything. You are asked to reproduce the method you were shown. If you can't do it right within a day, you get docked on your homework. 
+\end{quote}
+I like to refer to this as, ``Monkey see, Monkey do.'' 
+
+Rarely did you have to struggle with the big ideas. They were handed to you already in perfect form. 
+A few of you may have taken the time to thoroughly digest the proof in the book.  
+More importantly, most of us don't know what doesn't work. This is the key to understanding why the current approach matters. 
+Most valuable ideas have a plethora of important failures that helped shape the success.   
+
+These failures are perhaps the most important parts of the puzzle. 
+Why should you do a problem the way the textbook says to? 
+Is there a better way? 
+If you knew the underlying issues, and tried to solve the problem yourself, you'd discover the reasons why the algorithms in your book as so awesome. 
+
+
+\marginpar{When we have to explore on our own, not only do we learn what works, but we learn what doesn't work.  Sometimes knowing what not to do is the key.}
+Most textbooks rarely focus on teaching you what doesn't work. They focus on success only. Perhaps our entire culture puts too much emphasis on success, and likes to forget the huge amount of knowledge that comes from our failures. 
+This is where inquiry based learning comes in so handy. 
+To truly master and appreciate an idea, we have to struggle with it.  We have to attack the idea, struggle, fail, and then continue working. We have to learn to celebrate our failures. 
+
+
+Discovery takes time. It takes effort.  It can at times be frustrating. 
+But when you've struggled with an idea, failed some, and eventually crack it, there is so much joy that can come from this endeavor. 
+This is the joy of discovery, and it fuels scientific research. 
+My hope is that each of you will feel this joy multiple times this semester.
+
+Our course allows you to discover.  You'll be asked to try new things that you've never been shown. You'll be given a chance to try, fail, and eventually succeed. You'll come to class and present what you've done.  Sometimes you'll be wrong, and we'll celebrate anyway. Your errors will have helped everyone in the class see why a certain approach does not work.  Sometimes you'll be spot on right, and not even think you are before you share. The goal is to learn through inquiry, and share with each other what you've learned.
+
+\section*{Your Peers are A Valuable Asset}
+I've learned over the past year that your peers might be one of your most valuable assets this semester.  Every one of you comes to the course with a different background.  Some of you are algebra masters.  Some of you know how to do calculus really well, but don't know the right words. When you meet with peers, you'll find that you help each other over hurdles that would otherwise completely halt your progress. Your peers are perhaps your most valuable asset. 
+
+
+
+As you tackle problems this semester, you will get stuck at certain parts.  I'll draw upon your knowledge from all your past classes, and almost every has holes somewhere. Some of you will want to weather this road alone.  This might mean spending hours trying to relearn something you forgot. If you decide to weather the road alone, and you put in the time to master each idea that we explore, you'll have gained way more than I could ever hope if I had lectured and showed you the steps of how to do everything.
+
+You don't have to do it all alone.  If you study with peers, you can help each other over hurdles. I've seen time and time again where all you needed was a peer, not a tutor, to help you continue on.  We all forget things occasionally, and our peers can be valuable assets.  If you would like some suggestions about how to improve a group meeting, please see the following page online.
+\begin{center}
+ \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=group\_study\_suggestions}{http://bmw.byuimath.com/dokuwiki/doku.php?id=group\_study\_suggestions}
+\end{center}
 \mainmatter
 
+\newcommand{\mysubsection}[1]{\subsection*{#1}\addcontentsline{toc}{subsection}{#1}}
 \chapter{Review}
 \input{01-Review-316}
-\wrapup
-
-\chapter{Linear Algebra Arithmetic}
-\input{02-Arithmetic}
-\wrapup
-
-\chapter{Linear Algebra Applications}
-\input{03-Applications}
-\wrapup
+\input{01-Review-316-Problems}
 
 \chapter{First Order ODEs}
 \input{04-First-Order-ODEs}
-\wrapup
+\input{04-First-Order-ODEs-Problems}
+
+\chapter{Linear Algebra Arithmetic}
+\input{02-Arithmetic}
+\input{02-Arithmetic-Problems}
+
+
+
+\chapter{Linear Algebra Applications}
+\input{03-Applications}
+\input{03-Applications-Problems}
+
+
+
 
 \chapter{Homogeneous ODEs}
 \input{05-Homogeneous-ODEs}
-\wrapup
+\input{05-Homogeneous-ODEs-Problems}
+
 
 \chapter{Non Homogeneous ODEs}
 \input{06-Non-Homogeneous-ODEs}
-\wrapup
+\input{06-Non-Homogeneous-ODEs-Problems}
 
 \chapter{Laplace Transforms}
 \input{07-Laplace-Transforms}
-\wrapup
+\input{07-Laplace-Transforms-Problems}
 
 \chapter{Power Series}
 \input{08-Power-Series}
-\wrapup
+\input{08-Power-Series-Problems}
 
 \chapter{Systems of ODEs}
 \input{09-Systems-of-ODEs}
-\wrapup
 \input{09-Systems-of-ODEs-Problems}
 
 \chapter{Fourier Series and PDEs}
 \input{10-Fourier-Series}
-\wrapup
 \input{10-Fourier-Series-Problems}
 
-
 \end{document}
+
 
 
 
@@ -249,4 +371,64 @@ What is our goal in this class?  I need an introduction.  Here's one way of desc
 Our goal - predict the future.  We want to be able to say exactly what the current will be in a wire after 3 minutes, 10 minutes, or 3 days, of plugging the wire into the wall.  We want to know exactly where a pebble will be as it falls from the top of a waterfall.  We want to know exactly where an object attached to a spring will be, 10 seconds after hitting it with a hammer.  We want to be able to predict the future, and be 100\% correct. If we can predict the future, we have power. But we don't want to stop there.  If we can make these tiny predictions, then we can combine electricity, gravity, springs, and more, and build really cool things.  If we can predict where something will be in the future, then we could use this to build an automated car. We could plan an automated trip to Pluto. We could visit other solar systems.  We could send men to mars. We could build bombs that can dodge anti-missile technology and hit their intended target. We could do so much, if we could only predict the future.  We could predict the weather patterns for the next year. We could know the exact time and location of earthquakes, tornadoes, hurricanes, and more.  If we can predict the future, we have power.  That's exactly what we're doing in this class. We're going to learn how to predict the future. It all boils down to math.  Mathematicians have been hung over the centuries for heresy.  I'm going to tell you now that we can, and will, predict the future. Not the entire future, but small bits and pieces.  I'll then leave it up to you to go and dream of cool things you can build with this new ability to predict the future.
 
 The more you put into this course, the more you will get out.  If, as a class, we all prepare, we'll have some amazing things happen.  You will learn more from this course than I could have ever dreamed.  We'll explore roads that perhaps I've never even explored. This all depends on you. Let's agree now to work together.
+
+
+
+
+Ideas for review unit.
+
+1. Have multiple threads.
+* One thread gets them to drawing vector fields and looking for eigenvectors already (maybe without even calling it that).
+* One thread gets them to look for potentials.  I would really like to get to solving ODEs with integrating factors really early on.
+* Every thread should have them using integration by substitution like a banshee.  I want it to be something that EVERY problem asks them to do.  They need to become good at it, otherwise they will not succeed.
+* One thread gets them to Laplace transforms.  I wonder if I should wait on that until we get the general linear ODE solution (at which point we have a reason for looking at the thing.  Not sure here, but maybe that's a way to go).
+* I need to have a natural reason to start caring about matrices.  Perhaps I need to focus on differentials and linear combinations of differentials.  this would naturally explain why we care about matrix multiplication.  It would naturally lead to the entire matrix chapter.  This should be a crucial idea.  Maybe start here.  This sounds like where I start in math 215 as well, though it's a big idea developed throughout math 215.  DIFFERENTIALS is the key.  
+
+How would the differential part go. 
+1. Give them a vector valued function and ask them to state how much things would change if I changed one variable.  What if I changed another.  What if I changed both  (introduces linear combinations, without using the word). 
+2. Give them polar coordinates.  Ask them to approximate how much x and y change if you change r, if you change theta, if you change both r and theta.  Have them give \% errors.  This problem is in their 215 book (though near the end).
+3.  Give them a parametric surface.  Show them the picture.  Ask them to tell me how much x,y,z change if you change both  u and v.
+4.  Give them something other than position (wind speed, temperature, barometric pressure) and ask them to tell me how much these change if we change x,y,z.  Write the answers symbolically.... :)  Maybe this is the key.  This would introduce the need for vectors, linear combinations, and the total derivative as a matrix. 
+5. Now get to the chain rule. Temperature depends on x,y,z.  But x,y,z depend on t.  So how does temperature depend on t.  Have them show the idea.  I want them to see that it's just matrix multiplication.  
+6. Increase the dimensions on the previous problem.  Make it realistic.  Get something good that they can do.  Have it be ``linear combinations.'' Don't give them functions, rather have them write it symbolically.  This is crucial.   How do I get them to be able to do things symbolically.
+
+I want to help them develop the concept of linear combinations and matrix multiplication out of differentials.  I want those two concepts to be intimately tied together forever in their brain. 
+
+
+
+Now, I want to focus on vector fields.  I want them to build the graph of a vector field.  I want them to be able to graph a vector fields from a gradient.  I want them to know that gradients are normal to level curves.  I want them to be able to see that sometimes vectors fields push things out, sometimes they pull things in, and sometimes they do both.  I would like them to know how to write the problem ``In which direction does this vector field push things out''.  In other words, I want them thinking about eigenvalues long before I introduce the idea.  And when I introduce the solution technique, they have a chance at saying what it should be.  That's a big idea.  So how do I get them to see this?
+* Have them compute gradient fields.  Draw several level curves of the function, and draw the gradient.  Ask them to approximate in which direction the vector field pushes things straight out/straight in.  
+* Give them some vector fields, and ask them if they are gradient fields.  Make sure that some are, and some are not.  But still ask them if things point out or in.  In which direction do the vectors point out or in.  Ask them to explain why $\vec F(x,y) = \lambda (x,y)$ would solve this problem, and then have them go about solving for $(x,y)$ and $\lambda$ in one of these problems.  
+* If I can get Mohr's circle in on this really early, that would be stinking awesome.  Think about this one.  
+* Ask them to draw a vector field. Tell them that it's the gradient of a function.  Have them draw some level curves (without finding the function) and then determine if the origin is a max, min, or saddle.  Don't tell them anything else.  
+My goal here is to help them get to eigenvalues/eigenvectors and the connection to vector fields. 
+* Another idea here could be to introduce mixing tank problems.  One tank shows inflow/outflow. They can see the solution instantly by just considering the vector field on the x-axis. (have them do this). Two tanks shows the instant need for systems of ODEs (and again they can see the solution by looking at the vector field).  
+*If I can get them to think about vector fields all semester, then every time we introduce a new problem, we can draw the vector field.
+*I have never had them graph solutions in x,y,t space, or in $y_1,y_2,t$ space.  This would show them all three graphs instantly, and show them how to see the 2D vector fields in the phase plane instantly. I need to work with this more. 
+
+
+
+How to get them to Laplace transforms?  This reviews both u-sub and integration by parts.  Much more of this is integration by parts. 
+*They struggle with limits.  They don't remember them at all.
+*They need to review this idea (L'Hopital's rule maybe) in the context of polynomials and exponentials.
+*They need some improper integrals.  Currently, the review unit just asks them to compute Laplace transforms without telling them why they should care.  I'm OK with this, but it does seem forced.  Maybe it's appropriate to force this concept, and just tell them, ``It's practice with a skill I know you need work with.''
+*The Laplace transform sections forced them to work with integration by parts, but NOT substitution.  Maybe this is where the potential part comes in.  Potentials can force them to do some pretty ugly substitution integrals.  Laplace transforms gets them to do integration by parts integrals.  Both are crucial. 
+
+
+Goals of the review unit:  Review integration (Get them to solve some simple ODEs, Laplace transforms, simple and complex potentials).  Get them to see the need for matrix multiplication as linear combinations of columns (linear combinations of partial derivatives). Get them to view vector fields as differential equations, and start asking questions about pushing straight out, or pulling in (get them to visually start looking for eigenvectors).  If I could do all that in 1 week, I'd be really happy!
+
+
+
+
+
+Linear algebra goals.
+
+
+
+
+
+
+
+
+
 

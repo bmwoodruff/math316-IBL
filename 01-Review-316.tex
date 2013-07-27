@@ -1,201 +1,675 @@
+\newcommand{\urlvectorfieldplotter}{http://bmw.byuimath.com/dokuwiki/doku.php?id=vector_field_plotter}
+\newcommand{\urllevelcurveplotter}{http://bmw.byuimath.com/dokuwiki/doku.php?id=level_curve_plotter}
+\newcommand{\urlpotentialcalculator}{http://bmw.byuimath.com/dokuwiki/doku.php?id=potential_calculator}
+\newcommand{\urlparametriccurveplotter}{http://bmw.byuimath.com/dokuwiki/doku.php?id=parametric_curve_plotter}
+\newcommand{\urlfirstorderodesolver}{http://bmw.byuimath.com/dokuwiki/doku.php?id=first_order_ode_solver}
 
-\noindent This chapter covers the following ideas.
+%I'm not sure I like the almost FORCED nature of these threads.
+\newcommand{\ideaA}{Expressing Differentials as Linear Combinations}
+\newcommand{\ideaB}{Visualizing Vector Fields}
+\newcommand{\ideaC}{Finding a Potential with Integration}
+\newcommand{\ideaD}{Laplace Transforms through Limits and Integration}
 
-
+After completing this chapter, you should be able to:
 \begin{enumerate}
+ \item Find the differential of a function, express it as a linear combination of partial derivatives, and then write this linear combination as the product of a matrix (the derivative) and a vector of differentials.
+ \item Explain how to construct the plot of a vector field and draw trajectories on that plot. You should also be able to locate graphically directions in which a vector field either pushes object directly away (or pulls objects directly towards) the origin along straight line paths.
+ \item Construct contour plots and gradient plots for functions of the form $z=f(x,y)$, and discuss the relationships between these two types of plots.  
+ \item Use integration by substitution and/or integration by parts to find the potential of a vector field or differential form.
+ \item Solve an ordinary differential equation of the form $f(y)dy = g(x)dx$ by computing potentials of both sides and equating them.
+ \item Explain how to compute the Laplace transform of a function.
+\end{enumerate}
+There are four different threads running through this chapter.  They are
+\begin{itemize}
+ \item \ideaA,
+ \item \ideaB,
+ \item \ideaC, and
+ \item \ideaD.
+\end{itemize}
+All four topics build towards the same end goal, understanding how to recognize and solve differential equations. We will develop each idea in small increments each day of class. If you get stuck on a certain type of problem, try jumping to the next type.
 
-\item Graph basic functions by hand. Compute derivatives and integrals, in particular using the product rule, quotient rule, chain rule, integration by $u$-substitution, and integration by parts (the tabular method is useful for simplifying notation). Explain how to find a Laplace transform. 
-\item Explain how to verify a function is a solution to an ODE, and illustrate how to solve separable ODEs.
-\item Explain how to use the language of functions in high dimensions and how to compute derivatives using a matrix. Illustrate the chain rule in high dimensions with matrix multiplication.
-\item Graph the gradient of a function together with several level curves to illustrate that the gradient is normal to level curves.
-\item Explain how to test if a differential form is exact (a vector field is conservative) and how to find a potential. 
+\note{This part really should be put in the margin.  Having some graphic that tells people these are the technology links would be really nice.}%
+We'll use several technology links throughout the chapter. Here's some links.
+\begin{multicols}{2}
+\begin{itemize}
+ \item 
+\href{\urlvectorfieldplotter}{Vector Field Plotter}
+ \item
+\href{\urllevelcurveplotter}{Level Curve Plotter}
+ \item
+\href{\urlpotentialcalculator}{Potential Calculator}
+ \item
+\href{\urlparametriccurveplotter}{Parametric Curve Plotter}
+ \item
+\href{\urlfirstorderodesolver}{First Order ODE Solver}
+\end{itemize}
+\end{multicols}
 
+
+\subsection*{\ideaA}
+\addcontentsline{toc}{subsection}{\ideaA}
+When Newton first invented calculus, he did not have the language of limits,  instead he used differentials.  He thought of $dx$ as a really small change in $x$, and $dy$ as a really small change in $y$. To compute the derivative of $y=x^2$, he would write 
+\note{A picture here could be great, using tikz.}
+\begin{align*}
+dy 
+&= (x+dx)^2-x^2 \quad \quad \quad  \quad  \quad  \quad \text{think } f(x+dx)-f(x)\\
+&= x^2+2xdx+(dx)^2-x^2\\
+&= 2xdx+(dx)^2
+\end{align*}
+Because he assumed the quantity $dx$ is extremely small, it seems reasonable to assume $(dx)^2$ is so small that it can be neglected. This yields 
+$$dy = 2xdx\quad\text{or}\quad \frac{dy}{dx}=2x.$$
+We now write these two expressions symbolically to work with any function $y=f(x)$, by writing 
+$dy = y'dx$ or $\frac{dy}{dx}=y'$.
+The functions that the original masters worked with were generally polynomials, so the power rule $\frac{d}{dx}(x^n)=nx^{n-1}$ was the main rule they needed, which is quite simple to develop with differentials.  It's not until almost 100 years after Newton's time that the limit, as we see it today, was invented. 
+\note{I need some references here. I'd love to reference L'Hospital's original work, and a history text as well.}
+
+One nice part about the approach of differentials is that the notion extends to higher dimensions almost instantly.  Multivariable calculus looks the same as first semester calculus. Try the next problem.
+
+
+
+
+\begin{problem}
+ Consider the equation $z = x^2+xy+y^2$ which we would write today in function notation as $f(x,y)=x^2+xy+y^2$.
+\begin{enumerate}
+ \item \marginpar{If you didn't read the two paragraphs before this problem, please do so now. It provides some background that will help you complete this problem. 
+
+In general, you'll want to read the material in between problems, as that's where definitions, context, and hints will lie.}%
+Compute $f(x+dx,y+dy)-f(x,y),$ and use your result to obtain a formula for $dz$. If you encounter the product of two differentials, you should assume that product is so small that it can be ignored. 
+ \item Compute the partial derivatives $\ds\frac{\partial f}{\partial x}$ and $\ds\frac{\partial f}{\partial y}$. Where do these partial derivatives show up in your formula for $dz$?
+ \item If the function were instead $f(x,y) = xy^2+\sin(xy)$, use the idea from part 2 to rapidly compute $dz$. 
+ \item Organize your work above to give a general formula that would tell you $dz$ for any function $f(x,y)$. It should be in terms of the partials $f_x$, $f_y$ and the differentials $dx$, $dy$. 
+\end{enumerate}
+\end{problem}
+
+
+
+The same rules apply when we study a change of coordinates.
+
+
+
+
+\begin{problem}\label{linear combination first differential}
+ Recall the equations for polar coordinates are $x=r\cos\theta$ and $y=r\sin\theta$. We can use these to figure out $x$ and $y$ if we know $r$ and $\theta$.  Can we compute $dx$ and $dy$ if we know $dr$ and $d\theta$? In other words, you measure a force to have angle $\theta +d\theta$ and to have magnitude $r+dr$, where the $d\theta$ and $dr$ are your possible errors. How much error will $dr$ and $d\theta$ introduce when we then compute the $x$ and $y$ components?  To answer this, complete the following:
+\begin{enumerate}
+ \item We know $x = r\cos\theta$.  Use this to obtain $dx = ?dr+?d\theta$.  Obtain a similar expression for $dy$. Write your two expressions in the vector form 
+$$
+\begin{pmatrix}
+ dx\\dy
+\end{pmatrix}
+=
+\begin{pmatrix}
+ ?\\?
+\end{pmatrix}
+dr+
+\begin{pmatrix}
+ ?\\?
+\end{pmatrix}
+d\theta
+.$$ This is precisely the formula we are after. 
+ \item We can write the change of coordinates as the function $$(x,y)=\vec T(r,\theta) = (r\cos\theta,r\sin\theta).$$  Compute the partials of $\vec T$ with respect to $r$ and $\theta$.  How are these connected to your previous result? What is $d\vec T$ (you've already computed it)? 
+ \item Let's now consider a different function, such as $(x,y,z) = (3u+4v, 2u-5v, uv)$. Using function notation we'd write this as
+$\vec r(u,v) = (3u+4v, 2u-5v, uv)$. Compute the partials of $\vec r$ with respect to $u$ and $v$, and then use them to state the differential $d\vec r$. 
 \end{enumerate}
 
-\section{Basics}
-We need to review our ability to graph functions with multiple inputs and/or outputs.  The next few problems ask you to practice some skills that will be crucial as the course progresses.
+\end{problem}
+
+
+
+
+
+Have you noticed in all the problems above that we are taking partial derivatives, multiplying them by scalars, and then summing the results.  This occurs so often in so many different settings that mathematicians have given it a name. We could just keep saying, ``Take the things you have, multiply each by a scalar, and then sum the result,'' or we could invent a word that says to do all this. We'll eventually start saying, ``Form a linear combination.'' 
+Let's make a formal definition.
+
+
+
+
+
+\begin{definition}[Linear Combination]\label{def linear combination}
+\marginpar{Every time we introduce new words in this problem set, they'll show up as a definition. Look for the bold definitions.  If you are not sure what a word means, use the search feature of your PDF viewer to hunt down the definition. }%
+ Given $n$ vectors  $\vec v_1, \vec v_2,\cdots,\vec v_n$ and $n$ scalars $c_1, c_2, \cdots, c_n$ their linear combination is the sum $$c_1\vec v_1+c_2\vec v_2+\cdots+c_n\vec v_n.$$
+
+ Given $n$ functions $f_1,f_2,\cdots,f_n$ and $n$ scalars $c_1, c_2, \cdots, c_n$ their linear combination is the sum 
+$$c_1f_1+c_2 f_2+\cdots+c_nf_n.$$
+
+In general, if we have $n$ objects $o_1, o_2, \cdots, o_n$ where it makes sense to multiply each by a scalar $c_i$ and then add them, then their linear combination is precisely 
+$$c_1o_1+c_2 o_2+\cdots+c_no_n.$$
+\end{definition}
+
+
+
+\subsection*{\ideaB}
+\addcontentsline{toc}{subsection}{\ideaB}
+
+
+Now that we've got a new definition, we need to practice using it. 
+Let's practice using the definition of linear combination as we review the concept of a vector field.  
+Remember that to draw a vector field, you should draw the vector $\vec F(x,y)$ with its base at the point $(x,y)$.
+\marginpar{Did you know that as a BYU-Idaho student you can download and install Mathematica on your personal computer for free? See I-Learn for details.}%
+Please use the technology link on the side below to check your work with technology. Throughout the semester, I'll give you technology links where you'll have access to live \href{http://sagemath.org/}{Sage} code that you can run directly in the web browser. I'll also provide Mathematica code and sometimes links to Mathematica notebooks.
+
+
+
+
+\begin{problem}\label{linear combination first vector field}
+ Consider the vector field $\vec F(x,y) = (x+2y,2x+y)$.  
+\begin{enumerate}
+ \item Construct by hand a plot of this vector field by plotting the field at the 8 points around the origin given by 
+$(\pm 1, 0)$, 
+$(0, \pm 1)$, 
+$(\pm 1, \pm 1)$, 
+$(\pm 1, \mp 1)$.  
+Remember, draw the vector $\vec F(x,y)$ with it's base at $(x,y)$, so at the point $(1,0)$, you should draw the vector $\vec F(1,0) = (1,2)$.  \marginpar{\href{\urlvectorfieldplotter}{Follow this link to a vector field plotter.}}%
+Then use software to construct a plot of this field and print your plot to share with the class.  
+ \item Are there any directions in which the vector field pushes things either straight out or straight in?  Which directions? Explain how you know this.
+ \item
+ Write the vector field as a linear combination of two vectors $\vec v_1$ and $\vec v_2$ with scalars $x$ and $y$, by writing
+$$\vec F(x,y) = \vec v_1 x+\vec v_2 y = 
+\begin{pmatrix}
+ \quad\\ \quad
+\end{pmatrix}
+x+
+\begin{pmatrix}
+\quad \\ \
+\end{pmatrix}
+y.$$
+\end{enumerate}
+
+\end{problem}
+
+
+
+If you've forgotten the dot product, then please complete the following review problem. When you see a review problem in the problem set, the solution will always appear as a footnote on the page.  These problems are there to help you quickly remember a concept that you may have forgotten.
+
+
+
+\begin{review*}
+Compute the dot product of the vectors $(1,2,3)$ and $(4,5,6)$.  Then compute the dot product of 
+$\vec a = (a_1,a_2,\ldots, a_n)$ and 
+$\vec b = (b_1,b_2,\ldots, b_n)$.  See \footnote{
+The dot product is $$(1,2,3)\cdot(4,5,6) = 1\cdot 4+2\cdot 5+3\cdot 6 = 4+10+18=32.$$ You can think of this as a linear combination of the elements in $(1,2,3)$, where we use the scalars in $(4,5,6)$ to form the linear combination.  
+
+The dot product of
+$\vec a = (a_1,a_2,\ldots, a_n)$ and 
+$\vec b = (b_1,b_2,\ldots, b_n)$ is
+$$\vec a = (a_1,a_2,\ldots, a_n)\cdot\vec b = (b_1,b_2,\ldots, b_n)
+=a_1b_2+a_2b_2+\cdots+a_nb_n.
+$$
+} 
+\end{review*}
+
+
+
+This next problem connects differentials to vector fields and the gradient.
+
+
+
 
 \begin{problem}
-Construct graphs of the following functions. Explain how to obtain each graph by transforming and rescaling the first. Then state the amplitude and period of the function.
+ Consider the function $z=f(x,y) = x^2-y$. 
 \begin{enumerate}
-\item $y=\sin(x)$
-\item $y=5\sin(x)+1$
-\item $y=4\sin(3(x-\pi))+2$
-\item $y=4\sin(3x-\pi)+2$
+ \item Compute the differential $dz$.  Then write the differential as the dot product $dz = (M,N)\cdot (dx,dy)$. Your job is to tell the class what the functions $M$ and $N$ are. The differential $dz$ is a linear combination of functions $M$ and $N$ using the scalar $dx$ and $dy$. 
+ \item\marginpar{\href{\urlvectorfieldplotter}{Vector Field Plotter}}% 
+The function $\vec F(x,y) = (M,N)$ is a vector field. You've called it the gradient $\nabla f$ and/or the derivative $Df$ of $f$. Draw this vector field by plotting several points by hand, and then use software to obtain a nice plot of the field.
+ \item \marginpar{\href{\urllevelcurveplotter}{Level curve plotter.}}%
+Draw several level curves of the function by drawing $f(x,y)=-1$, $f(x,y)=0$, and $f(x,y)=4$.
+ \item Now put your level curve plot and vector field plot on the same set of axes. What relationships exist between the level curves and the vector field? 
+\end{enumerate}
+\end{problem}
+
+\subsection*{\ideaC}
+\addcontentsline{toc}{subsection}{\ideaC}
+
+
+We have been starting with a function that I gave you, and then from that function computing differentials and vector fields. We've seen that if $z=f(x,y)$, then the differential is $dz=f_xdx+f_ydy$ and the corresponding vector field (called the gradient and/or the derivative) is $\vec \nabla f = (f_x,f_y)$.  In this course, one of main goals will be to look at a vector field and then from the vector field produce a function that would have given us this field. We can see and measure vector fields in nature (as one example, think about weather).
+
+As you work on the two problems below, you'll need to review integration by substitution and integration by parts.  These two methods of integration are so crucial to the development of further mathematical concepts, that it's worth our time to practice these ideas on example problems.  
+
+\begin{problem}
+ \marginpar{ \href{\urlpotentialcalculator}{Follow this link to a potential calculator in Sage to help you check your integration}.}%
+For each differential below, find a function $f(x,y)$ whose differential is given. You know you are correct if, after computing the differential, you get the the same result. This function $f(x,y)$ is often called a potential for the differential. 
+\begin{enumerate}
+ \item $e^{2x}dx + y\cos (y^2)dy$
+ \item $(2x+3y)dx+(3x+\sin(2y))dy$
+ \item $\ds\left(\frac{x}{1+x^2}+\arctan(y)\right)dx + \left(\frac{x}{1+y^2}+\frac{y}{\sqrt{1+y^2}}\right)dy$
+\item If you wanted all functions who differentials are given above, what should you add to each solution above?
+\end{enumerate}
+ Hint: This is really a question that asks you to review integration by substitution. 
+\end{problem}
+
+
+\begin{problem}
+ For each differential below, find a function $f(x,y)$ whose differential or gradient is given. Remember that we call $f$ a potential for the differential, or a potential for the vector field. 
+\begin{enumerate}
+ \item $\ds\left(x\sin(5x)\right)dx + \left(1\right)dy$
+ \item $\left(x+y,x+y^2\sin(5y)\right)$
+\end{enumerate}
+\marginpar{\href{\urlpotentialcalculator}{Check your work with the potential calculator}}%
+Hint: This is really a question that asks you to review integration by parts. Tabular integration by parts may help.
+\end{problem}
+
+In this review unit, you'll find that many of the problems ask you to practice integration.  You'll need those integration skills as the semester progresses. Learning to model the world around us and predict the future requires that we find a potential from a vector field. We can see and measure vector fields in the world around us. They appear as wind or magnetic forces that we can physically see and measure. Finding a potential for these fields is one of the keys to modeling the world around us.
+
+\subsection*{\ideaD}
+\addcontentsline{toc}{subsection}{\ideaD}
+
+We now turn to a slightly different topic. By the end of the chapter, this topic will connect with all the ideas above. This section will introduce the Laplace transform. We first need to review some facts about limits and improper integrals. 
+
+\begin{review*}[L'Hopital's rule]\note{It would be nice to give a short history here of L'Hopital for the students. Not to long, but enough to interest them, and give them an extra link to an outside book. Add a reference to the original text.}
+ Compute the following limits.
+\begin{enumerate}
+ \item $\ds\lim_{x\to \infty} \frac{4x+7}{e^{3x}}$ (Use L'Hopital's rule.)
+ \item $\ds\lim_{x\to \infty} \frac{4x^2+3x+7}{3x^2+x+15}$ (Try dividing both the numerator and denominator by $x^2$.) 
+\end{enumerate}
+ See \footnote{
+L'Hopital's rule states that if $\lim_{x\to\infty}\frac{f(x)}{g(x)}$ is of the indeterminate form $0/0$ or $\infty/\infty$, then you can compute the limit (under reasonable conditions) by using the formula 
+$$\ds\lim_{x\to\infty}\frac{f(x)}{g(x)} = \lim_{x\to\infty}\frac{f'(x)}{g'(x)}.$$
+In the first problem we have $f(x) = 4x+7$ and $g(x) = e^{3x}$, both of which approach $\infty$ as $x\to \infty$. L'Hopital's rule gives
+$$\ds\lim_{x\to \infty} \frac{4x+7}{e^{3x}} = \lim_{x\to \infty} \frac{4}{3e^{3x}} = \frac{4}{\infty} = 0. $$
+
+We could also use L'Hopital's rule on the second example.  Taking derivatives of the top and bottom still results in an $\infty/\infty$ limit, so taking derivatives again yields $4/3$.  Alternately, recall that $x^n\to 0$ if $n<0$, which means we can write 
+$$\ds\lim_{x\to \infty} \frac{4x^2+3x+7}{3x^2+x+15} 
+=\ds\lim_{x\to \infty} \frac{(4x^2+3x+7)/x^2}{(3x^2+x+15)x^2} 
+=\ds\lim_{x\to \infty} \frac{4+3/x+7/x^2}{3+1/x+15x^2}
+= \ds\frac{4+0+0}{3+0+0}. 
+$$
+} for an answer. 
+\end{review*}
+
+%They struggled some with n\to infty versus x\to infinity.  Maybe have them do n=1000 first.  Then n=10000, then extrapolate (inductive reasoning instead of deductive reasoning?  Or maybe this one is better as is.)
+\begin{problem}
+ Which function grows larger, the polynomial function $x^n$ or the exponential function $e^{ax}$? Is there a value of $n$ for which the function $x^n$ grows faster, in the long run, than the exponential function. To answer this, please complete the following questions.  In all your work below, you may assume that $a$ is a positive constant.
+\begin{itemize}
+ \item Use L'Hopital's rule to compute $\ds\lim_{x\to\infty}\frac{x}{e^{ax}}$, $\ds\lim_{x\to\infty}\frac{x^2}{e^{ax}}$, and $\ds\lim_{x\to\infty}\frac{x^3}{e^{ax}}$.
+ \item What is the tenth derivative of $x^{10}$ and $e^{ax}$? Use this, together with L'Hopital's rule, to compute $\ds\lim_{x\to\infty}\frac{x^{10}}{e^{ax}}$.
+ \item What is the $n$th derivative of $x^{n}$ and $e^{ax}$? Use this, together with L'Hopital's rule, to compute $\ds\lim_{x\to\infty}\frac{x^n}{e^{ax}}$.
+\item Is there a power of $n$ for which $x^n$ grows faster than $e^{ax}$? Use your answer to quickly compute $\ds\lim_{x\to\infty}\frac{8x^7+5x^2-3x+12}{e^{2x}}$.
+\end{itemize}
+
+\end{problem}
+
+
+%We don't really need this rule.  This would be better if I just asked them to compute several integrals, maybe 1/x, 1/x^2, 1/x^1/2, e^2x, e^-2x... Ask them which converged, and which diverged.  This would be a better problem.  My bad.  We'll probably just use what they have now, but this should really change.  
+\begin{problem}
+ On this problem, your job is to compute $\int_1^\infty \frac{1}{x^n}dx$. Please do the following:
+\begin{enumerate}
+ \item Suppose for now that $n\neq 1$.  Compute the anti derivative $\ds\int\frac{1}{x^n}dx$.  Why did we assume $n\neq 1$?
+ \item If we let $b$ be a big number, then compute the definite integral $\ds\int_1^b \frac{1}{x^n}dx$.  
+ \item Consider the limit $\ds\lim_{b\to\infty}\int_1^b \frac{1}{x^n}dx$. If $n=2$, does this limit exist?  If $n=1/2$ does this limit exist?  For which values of $n$ does this limit exist (you should have an inequality for $n$), and what is the limit? 
+ \item If $n=1$, does $\ds\lim_{b\to\infty}\int_1^b \frac{1}{x^n}dx$ exist? Explain.
 \end{enumerate}
 \end{problem}
 
 
-\begin{problem}
-Consider the function $f(x)=e^{-x}$.
-\begin{enumerate}
- \item Construct graphs of $y=f(x)$  and $y=2f(-(x+3))-1$.
- \item State $\lim_{x\to \infty} f(x)$ and $\lim_{x\to -\infty} f(x)$ from your graph.
- \item Compute $\lim_{x\to \infty} x f(x)$ and $\lim_{x\to \infty} x^2f(x)$. [Hint: L'Hopital's rule will help.]
-\end{enumerate}  
-\end{problem}
 
-As the semester progresses, we'll need the functions 
-$$\cosh x = \frac{e^x+e^{-x}}{2}\quad\quad \text{and} \sinh x= \frac{e^x-e^{-x}}{2}.$$  
-These functions are the hyperbolic trig functions, and we say the hyperbolic sine of $x$ when we write $\sinh x$.
-These functions are very similar to sine and cosine functions, and have very similarly properties.  
-
-\begin{problem}
-Three useful facts about the trig functions are 
-(1) $\frac{d}{dx}\sin x=\cos x$, 
-(2) $\frac{d}{dx}\cos x=-\sin x$, and 
-(3) $\cos^2 x+\sin^2 x = 1$. 
-Use the definitions above to show the following:
-\begin{enumerate}
-\item $\frac{d}{dx}\sinh x=\cosh x$, 
-\item $\frac{d}{dx}\cosh x=\sinh x$, and 
-\item $\cosh^2 x-\sinh^2 x = 1$. 
-\end{enumerate}
-[Hint: Start by replacing the hyperbolic function with its definition in terms of exponentials. Then perform the computations.]
-\end{problem}
-
-\begin{problem}
-The three facts from the previous problem are crucial tools need to prove that $\frac{d}{dx}\tan x =\sec^2x$. 
-\begin{enumerate}
- \item Use the quotient rule to give a formula for $\frac{d}{dx}\tanh x$ in terms of hyperbolic trig functions. 
- \item Similarly obtain a formula for the derivative of $\text{sech}\, x = \frac{1}{\cosh x}$. 
- \item What is $\frac{d}{dx}\text{csch}\, x$?
-\end{enumerate}
-\end{problem}
-
-You might ask why these function are called the hyperbolic trig functions.  What does a hyperbola have to do with anything?
-\begin{problem}
-Each pair of parametric equations traces out a curve in the $xy$ plane.  Given a Cartesian equation of the curve by eliminating the parameter $t$, and then graph the curve. 
-\begin{enumerate}
- \item $x=\cos t$, $y=\sin t$, $-2\pi<t<2\pi$.
- \item $x=\cosh t$, $y=\sinh t$, $-\infty<t<\infty$.
-\end{enumerate}
-Give a reason as to why do we call $\cosh$ the hyperbolic cosine.
-\end{problem}
+We are now prepared to define the Laplace transform, and use the definition to compute the Laplace transform for a few basic functions.
 
 
-\begin{problem}
- Use implicit differentiation to find the derivative of $y=sinh^{-1}x$. Your answer should not involve any hyperbolic trig functions, and should be in terms of $x$. [Hint: First write $x=sinh(y)$, and then implicitly differentiate both sides.  You'll need the key identity from a few problems above to help you finish.]
-\end{problem}
-
-The problems above asked you to review your differentiation skills.  You'll want to make sure you can use the basic rules of differentiation (such as the power, product, quotient, and chain rules). The next few problems will help you review your integration techniques, and you will apply them to two new ideas.
-
-\begin{problem}
-Compute the three integrals 
-$$\int x e^{-x^2}dx
-\quad\quad\text{and}\quad\quad 
-\int_0^1 x e^{-x^2}dx
-\quad\quad\text{and}\quad\quad 
-\int_0^\infty x e^{-x^2}dx.$$
-\end{problem}
-If you have never used the tabular method to perform integration-by-parts, I strongly suggest that you open the online text and read a few examples (see the bottom of page 2). 
-
-
-\begin{problem}
-Compute $\ds \int x\sin (5x) dx$ and $\ds \int x^2\sin (5x) dx$.
-\end{problem}
-
-\begin{problem}
-Compute $\ds \int \tanh^{-1}x dx$. The derivative of $\tanh^{-1}x$ is $\ds\frac{1}{1-x^2}$.
-\end{problem}
-
-
-\section{Laplace Transforms}
+%If the previous problem introduced converge/diverge, then I could use those words here.  That would be nice.
 \begin{definition}[The Laplace Transform]
-Let $f(t)$ be a function that is defined for all $t\geq 0$.  Using the function $f(t)$, we define the Laplace transform of $f$ to be a few function $F$ where for each $s$ we obtain the value by computing the integral
+Let $f(t)$ be a function that is defined for all $t\geq 0$.  
+Using the function $f(t)$, we define the Laplace transform of $f$ to be a new function $F$ where for each $s$ we obtain the value $F(s)$ by computing the integral
 \marginpar{Note that the Laplace transform of a function with independent variable $t$ is another function with a different independent variable $s$. After integration, all $t$'s will be removed from $F(s)$.  You can of course use any other letters besides $t$ and $s$.}
 $$F(s) = \mathscr{L}\{f(t)\}=\int_0^\infty e^{-st}f(t)dt.$$
-The domain of $F$ is the set of all $s$ such that the improper integral above converges.
+The domain of $F$ is the set of all $s$ such that the improper integral above has a limit. 
 The function $f(t)$ is called the inverse Laplace transform of $F(s)$, and we write $f(t)=\mathscr{L}^{-1}(F(s))$.
 \end{definition}
 
-We will use the Laplace transform throughout the semester to help us solve many problems related to mechanical systems, electrical networks, and more. The mechanical and electrical engineers in this course will use Laplace transforms in many future courses. Our goal in the problems that follow is to practice integration-by-parts.  As an extra bonus, we'll learn the Laplace transforms of some basic functions.
+We will use the Laplace transform throughout the semester to help us solve many problems related to mechanical systems, electrical networks, and more. The mechanical and electrical engineers in this course will use Laplace transforms in many future courses. Our goal in the problems that follow is to practice integration-by-parts.  As an extra bonus, we'll learn the Laplace transforms of some basic functions, and at the end of this chapter connect them to the other ideas.
 
 
 \begin{problem}
-Compute the integral $\ds\int_0^\infty e^{-st}dt,$ and state for which $s$ the integral converges. 
-What is the Laplace transform of $f(t)=1$? (If the last question seems redundant, then horray.)
+Compute the integral $\ds\int_0^\infty e^{-st}dt$ and state for which $s$ the integral converges. 
+Then compute the the Laplace transform of $f(t)=1$? (If the last instruction seems redundant, then horray.) What is the Laplace transform of $f(t) = c$, a constant function? (Note, this is the same as asking, ``What is the Laplace transform of a linear combination of 1?'')
 \end{problem}
+
+
 \begin{problem}
 Compute the Laplace transform of $f(t)=e^{2t}$, and state the domain.  
 Then compute the Laplace transform of $f(t)=e^{3t}$ and state the domain.
-Finally, compute the Laplace transform of $f(t)=e^{at}$ for any $a$, and state the domain.
-\end{problem}
-
-\begin{problem}
- Suppose $s>0$ and $n$ is a positive integer.  Explain why $$\lim_{t\to\infty}\frac{t^n}{e^{st}}=0.$$ Use this fact to prove that the Laplace transform of $t^2$ is $$\ds\mathscr{L}\{t^2\} \frac{2}{s^3}.$$ [You'll need to do integration-by-parts twice, try the tabular method.]
+Generalize your work to state the Laplace transform of $f(t)=e^{at}$ for any constant $a$, and state the domain.  
+What is the Laplace transform of $ce^{at}$ where $a$ and $c$ are constants?
+(Note, this is the same as asking, ``What is the Laplace transform of a linear combination of $e^{at}$?'')
 \end{problem}
 
 
 \begin{problem}
- In the previous problems, you showed that 
-$$\ds\mathscr{L}\{t^0\} = \frac{1}{s^1}
-\quad\quad \text{and}\quad\quad 
-\mathscr{L}\{t^2\} = \frac{2}{s^3}.$$ 
+Suppose $s>0$ and $n$ is a positive integer.  Explain why $$ds\lim_{t\to\infty}\frac{t^n}{e^{st}}=0.$$ 
+Then use this fact to prove that the Laplace transform of $t^2$ is $$\ds\mathscr{L}\{t^2\} =\frac{2}{s^3}.$$ [Hint: You'll need to do integration-by-parts twice. Try the tabular method.]
+\end{problem}
+
+We'll come back to Laplace transforms later. 
+
+\subsection*{\ideaA}
+\addcontentsline{toc}{subsection}{\ideaA}
+
+
+%Differentials (make sure to get an ODE out of the problem, and write it in differential form).  I need to introduce the hyperbolic trig functions at some point and their identites.  This might fit best in the vector field part. Yeah, it will.
+
+It's time to review some facts about the connection between level curves, gradients, and differentials. 
+\begin{problem}
+Consider the parametric curve given by $x=\cos t, y=2\sin t$.  
+\begin{enumerate}
+ \item There are many ways to draw this curve.  Please construct a graph of $x$ versus $t$, a graph of $y$ versus $t$, a graph of $y$ versus $x$, and a 3D graph in $xyt$ space. 
+ \item Show that this curve is a level curve of the function $f(x,y) = 4x^2+y^2$. [Hint: plug the equations for $x$ and $y$ into this curve, and see if you get a constant.] What is $f(x,y)$ at points along this curve?
+ \item Compute the differential $dz$ of $z=4x^2+y^2$. Then compute the differential 
+$\begin{pmatrix}dx\\dy\end{pmatrix}$ 
+of the curve 
+$\begin{pmatrix}x\\y\end{pmatrix} = 
+\begin{pmatrix}\cos t\\2\sin t\end{pmatrix}$.
+ \item 
+If we require that we stay on the level curve $x = \cos t$, $y=2\sin t$, then why must $dz=0$?  Show, by substitution, that $dz=0$ when we replace $x,y,dx,dy$ with what they equal in $dz = f_xdx+f_ydy$.
+\end{enumerate}
+\end{problem}
+
+The trigonometric functions allow us to parameterize circles and ellipses. 
+As the semester progresses, we'll need the functions 
+$$\cosh x = \frac{e^x+e^{-x}}{2}\quad\quad \text{and}\quad \quad  \sinh x= \frac{e^x-e^{-x}}{2}.$$  
+These functions are the hyperbolic trig functions, and we say the hyperbolic sine of $x$ when we write $\sinh x$.
+These functions are very similar to sine and cosine functions, and have very similarly properties.  
+
+
+\begin{problem}
+Consider the curve given by $x=\cosh t$ and $y=\sinh t$.
+\begin{enumerate}
+ \item 
+%Not sure I want this....\marginpar{\href{http://bmw.byuimath.com/dokuwiki/doku.php?id=parametric_curve_plotter}{Link to Parametric Curve Plotter}}%
+Compute $x(0) = \cosh(0)$ and $y(0)=\sinh(0)$, and then construct, using technology, a graph of $x$ versus $t$, a graph of $y$ versus $t$, and a graph of $y$ versus $x$. Please use technology.
+ \item Show that this curve is a level curve of the function $f(x,y) = x^2-y^2$ by proving that $\cosh^2 t-\sinh^2t=1$. 
+ \item Use the definition of $\cosh t$ and $\sinh t$ above to show that 
+$$
+\begin{pmatrix}
+ dx\\dy
+\end{pmatrix}
+=
+d\begin{pmatrix}
+ \cosh t\\ \sinh t
+\end{pmatrix}
+=
+\begin{pmatrix}
+ \sinh t\\ \cosh t
+\end{pmatrix}dt.$$ 
+In other words, show that $\frac{d}{dt}\cosh t = \sinh t$ and $\frac{d}{dt}\sinh t = \cosh t$. [Hint: Rewrite $\cosh t$ and $\sinh t$ in terms of exponentials and then differentiate.]
+\item What's the angle between the gradient $(f_x, f_y) = (2x,-2y)$ and the tangent vectors $(dx,dy)$ to the curve at points along the level curve? (This question has an answer regardless of the curve, and regardless of the function.)
+\end{enumerate}
+
+\end{problem}
+
+
+
+
+\subsection*{\ideaB}
+\addcontentsline{toc}{subsection}{\ideaB}
+
+
+You've been using the derivative for at least a year to find the slope of a function. Because the derivative tells us slope, it tells us how a function moves.  This means that we can use the derivative to produce a vector field. 
+
+%I would at some point like to go backwards and ask ask how to find curves that follow a field (instead of curves that are orthogonal to a field. This might be best above. I'm going to postpone this for now... Wait, what I just did above is precisely this issue. If I know dx and dy, then I can do everything.  I can always write dx=dx, and then write dy = y' dx.  
+%This problem needs to be revisited.  Perhaps split into two parts.  One part focuses on the tangent vectors and the tangent field.  The other part focuses on the orthogonal field.  Both ways of looking at this problem result in the same solution. The problems need to be disjointed, as it's took much cognitive load.  Break it up.
+\begin{problem}
+Consider the derivative $y'=2x$.  
+\begin{enumerate}
+ \item Give 2 different functions $y(x)$ so that $y'=2x$. There are infinitely many right answers.  Of those infinitely many, which one satisfies $y(0)=-4$?
+ \item Explain why we can write 
+$\begin{pmatrix}
+  dx\\dy  
+ \end{pmatrix}
+ =
+\begin{pmatrix}
+  1\\2x  
+ \end{pmatrix}
+dx$.  This gives us the vector field $\vec F(x,y) = (1,2x)$.  Construct a plot of this vector field, and add to your plot the graph of several of your curves from the first part. 
+ \item Since $y'=2x$, we can also write this as $dy = 2x dx$ or as $0=2xdx+(-1)dy = (2x,-1)\cdot (dx,dy)$. This gives us another vector field $\vec G(x,y) = (2x,-1)$.  
+Construct a plot of this vector field, and add to your plot the graph of several of your curves from the first part. 
+Find a potential of this vector field. 
+% \item Now repeat the three parts above if you change the derivative to be $y'=1$. 
+\end{enumerate}
+
+\end{problem}
+
+
+In the previous problem, you solved your first differential equations. 
+A differential equation is an equation which involves derivatives (of any order) of some function.  For example, the equation $y''+xy^\prime+\sin(xy)=xy^2$ is a differential equation, where the function $y$ depends on the variable $x$. Here's some formal definitions that we'll master as the semester progresses.
+
+
+\begin{definition}[Differential Equation]
+A differential equation is an equation which involves derivatives (of any order) of some function.
+\begin{itemize}
+ \item An \textbf{ordinary differential equation (ODE)} is a differential equation involving an unknown function $y$ which depends on only one independent variable (often $x$ or $t$). 
+ \item A partial differential equation involves an unknown function $y$ that depends on more than one variable (such as $y(x,t)$). 
+ \item The order of an ODE is the order of the highest derivative in the ODE. 
+ \item A solution to an ODE on an interval $(a,b)$ is a function $y(x)$ which satisfies the ODE on $(a,b)$. 
+ \item Typically a solution to an ODE involves an arbitrary constant $C$. There is often an entire family of curves which satisfy a differential equation, and the constant $C$ just tells us which curve to pick. A \textbf{general solution} of an ODE is an infinite collection of solutions which gives all solutions of the ODE. A \textbf{particular solution} is one of the infinitely many solutions of an ODE. 
+ \item An implicit solution to an ODE is an equation that relates the solution and the independent variable.
+ \item Often an ODE comes with an \textbf{initial condition} $y(x_0)=y_0$ for some values $x_0$ and $y_0$. We can use these initial conditions to find a particular solution of the ODE. An ODE, together with an initial condition, is called an \textbf{initial value problem (IVP)}.  
+\end{itemize}
+\end{definition}
+
+
+
+Here's a quick example of the proper use of the vocabulary above.
+
+
+
+\begin{example}
+The first order ODE $y'(x) = 2x$, or just $y'=2x$, has unknown function $y$ with independent variable $x$. A general solution on $(-\infty,\infty)$ is the collection of functions $y=x^2+C$ for any constant $C$. An implicit solution to this ODE is $D=x^2-y$ for any constant $D$ (we didn't solve for $y$). 
+
+If $y'=2x$ and $y(2)=1$, then we have an initial value problem problem (IVP). Using $y=x^2+C$, we know since $y=1$ when $x=2$ that $1=2^2+C$ which means $C=-3$. Hence the solution to our IVP is $y=x^2-3$.
+\end{example}
+
+
+
+\begin{problem}
+ Consider the differential equation $y^2y'=x^3$, which we can rewrite in differential form as $y^2dy=x^3dx$.
+\begin{enumerate}
+ \item 
+Find a potential of both sides of $y^2dy=x^3dx$.  Use your answer to give an implicit solution to $y^2y'=x^3$.  How would you obtain all solutions? What solution passes through $(1,1)$?
+ \item 
+We can rewrite $y^2dy=x^3dx$ as $0=-x^3dx+y^2dy = Mdx+Ndy$.  This gives us a vector field $\vec F(x,y)=(-x^3,y^2)$. Find a potential of this vector field and use that potential to give an implicit solution to the ODE $y^2y'=x^3$. How does this differ from the first part? 
+ \item
+\marginpar{\href{\urlvectorfieldplotter}{Vector Field Plotter Link}}% 
+Use software to draw the vector field $\vec F(x,y)$. On the same graph, include several solutions to the ODE $y^2y'=x^3$.  What patterns do you notice?
+\end{enumerate}
+\end{problem}
+
+
+\subsection*{\ideaC}
+\addcontentsline{toc}{subsection}{\ideaC}
+
+Finding the potential of a vector field is one of the key methods needed to solve differential equations. Remember, you can check any answer with software by using the \href{\urlpotentialcalculator}{potential calculator in Sage}.
+
+%Potentials
+\begin{problem}
+Consider the IVP $y'=\dfrac{t^2-1}{y^4+1}$ with $y(0)=1$.  
+\begin{enumerate}
+ \item Rewrite the ODE in the differential form $f(y)dy=g(t)dt$.  What are $f(y)$ and $g(t)$?
+ \item Find a potential for both sides, and state an implicit general solution to $y'=\dfrac{t^2-1}{y^4+1}$.
+ \item Use the initial condition to solve the IVP. You may leave your answer in implicit form.  
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Consider the IVP $\dfrac{dy}{dt}=ry$ with $y(0)=P$ where $r$ and $P$ are constants.  Feel free to use $r=5$ and $P=7$ throughout the problem, if you would rather work with numbers.  
+\begin{enumerate}
+ \item If we write $dy = rydt$, why is there no potential for the right hand side? 
+ \item Rewrite the ODE in the differential form $f(y)dy=g(t)dt$.  What are $f(y)$ and $g(t)$?
+ \item Find a potential for both sides, and state a general solution to $y'=ry$.
+ \item Use the initial condition to solve the IVP.  Make sure you solve for $y$.  Where have you seen this solution before? 
+\end{enumerate}
+\end{problem}
+
+\subsection*{\ideaD}
+\addcontentsline{toc}{subsection}{\ideaD}
+
+Let's now return to Laplace transforms. We have already shown that 
+\begin{align*}
+\mathscr{L}\{1\} &= \frac{1}{s}\text{ for $s>0$}\\
+\mathscr{L}\{e^{at}\} &= \frac{1}{s-a} \text{ for $s>a$}, \quad \text{ and }\\
+\mathscr{L}\{t^2\} &= \frac{2}{s^3}\text{ for $s>0$}.
+\end{align*}
+Let's now add a few more facts to our list of Laplace transforms. 
+
+
+\begin{problem}
 Show that the Laplace transform of $t$ is $\ds\mathscr{L}\{t^1\} = \frac{1}{s^2}$.
 Then compute the Laplace transforms of $t^3$, $t^4$, and so on until you see a pattern. 
 Use this pattern to state the Laplace transform of $t^10$ and $t^n$, provided $n$ is a positive integer.
-[Hint: Try the tabular method of integration-by-parts. After evaluating at 0 and $\infty$, all terms but 1 will be zero.]
+[Hint: Try the tabular method of integration-by-parts. After evaluating at 0 and $\infty$, all terms but 1 should be zero.]
 \end{problem}
 
-\begin{theorem}
+\begin{theorem}[The Laplace transform of a linear combination]\label{linear combination of laplace transforms}
 Since integration can be done term-by-term, and constants can be pulled out of the integral, we have the crucial fact that $$\mathscr{L}\{af(t)+bg(t)\}=a\mathscr{L}\{f(t)\}+b\mathscr{L}\{g(t)\}$$ for functions $f,g$ and constants $a,b$.  
 \end{theorem}
 
-\begin{problem}
-Without integrating, rather using the results above, compute the Laplace transform $L(3+5t^2-6e^{8t})$, and state the domain. 
+\begin{problem*}
+The theorem above can be written in terms of linear combinations. We could have instead said that the Laplace transform of a linear combination of functions is the linear combination of the Laplace transform of each function. 
+
+You've seen this idea before in many settings, but perhaps never with these words. The operation is a familiar one that you have used many times in your past.  If you perform an operation on a linear combination of objects, when is it the same as the linear combination of performing the operation on each object individually. 
+
+Can you think other instances when an operation applied to a linear combination of things is the same as the linear combination of the operation applied to each thing? What is the operation.  What are the things. Please volunteer to share your answers in class.  
+\end{problem*}
+
+\begin{problem}\label{laplace transform of linear combination practice}
+Without integrating, rather using Theorem \ref{linear combination of laplace transforms} above, compute the Laplace transform $\mathscr{L}\{3+5t^2-6e^{8t}\}$.  State the values of $s$ for which this is valid (i.e. the domain of the transformed function). 
+
+For the functions $t^3$, $2t$, and $\frac{1}{2}e^{5t}$ with constants $c_1$, $c_2$, and $c_3$, state the Laplace transform of the linear combination $c_1t^3+c_2 2t+c_3\frac{1}{2}e^{5t}$.
 \end{problem}
 
-\begin{problem}
+
+\begin{problem}\label{laplace transform of cosh and sinh}
 Recall that $\ds\cosh t = \frac{e^t+e^{-t}}{2}$ and $\ds\sinh t = \frac{e^t-e^{-t}}{2}$. 
-Use this to prove that $$\mathscr{L}\{\cosh a t\} = \frac{s}{s^2-a^2}\quad \quad \text{and}\quad\quad\mathscr{L}\{\sinh a t\} = \frac{a}{s^2-a^2}.$$
+Use this to prove that $$\mathscr{L}\{\cosh a t\} = \frac{s}{s^2-a^2}\quad \quad \text{and}\quad\quad\mathscr{L}\{\sinh a t\} = \frac{a}{s^2-a^2}.$$ You can do this problem by using facts about the transform of $e^{at}$, and the fact that $\cosh at$ and $\sinh at$ are linear combinations of exponential functions. 
+\end{problem}
+
+\subsection*{\ideaA}
+\addcontentsline{toc}{subsection}{\ideaA}
+
+We saw in the previous section that the Laplace transform of a linear combination of functions can be done if we know the Laplace transform of each function (see Theorem \ref{linear combination of laplace transforms} and problems \ref{laplace transform of linear combination practice} and \ref{laplace transform of cosh and sinh}).  
+We've also seen that the differential of a function is a linear combination of the partials derivatives (see problem \ref{linear combination first differential}).  
+We've also written a few vector fields as a linear combination of constant vectors (see problem \ref{linear combination first vector field}).   
+
+When we want to solve an ODE, we can write the ODE in the differential form $Mdx+Ndy=0$, which we write using the dot product as $(M,N)\cdot (dx,dy)=0$. The scalars $dx$ and $dy$ are the numbers needed to create a linear combination of $M$ and $N$ that equals zero. 
+If $M$ and $N$ are vectors, we can still write $(\vec M,\vec N)\cdot (dx,dy) = Mdx+Ndy$, which is a linear combination of the vectors. This gives us matrix multiplication.
+
+\begin{definition}[The Product $A\vec x$ of a Matrix $A$ and a vector $\vec x$]
+Suppose that $A = \begin{bmatrix}\vec v_1&\vec v_2&\cdots& \vec v_n\end{bmatrix}$
+is an ordered collection of $n$ vectors of the same size (which we'll call a matrix). Let $\vec x = (x_1,x_2,\ldots,x_n)$ be a vector of scalars. We define the product of a matrix $A$ and a vector $\vec x$ to be the linear combination
+$$
+A\vec x = \begin{bmatrix}\vec v_1&\vec v_2&\cdots& \vec v_n\end{bmatrix} \begin{bmatrix}x_1\\ x_2 \\ \vdots \\ x_n \end{bmatrix} = x_1\vec v_1+x_2\vec v_2+\cdots+x_n\vec v_n = \sum_{i=1}^n x_i \vec v_i.
+$$ 
+\end{definition}
+
+With the definition of matrix multiplication above, we can now write differentials in terms of matrix multiplication. Let's practice this in the next problem.
+\begin{problem}
+Consider the vectors 
+$$
+\vec v_1 = 
+\begin{pmatrix}
+ 1\\2\\3\\0
+\end{pmatrix},
+ \vec v_2 = 
+\begin{pmatrix}
+ 2\\3\\-1\\1
+\end{pmatrix},
+\vec v_3 = 
+\begin{pmatrix}
+ 0\\0\\2\\-2
+\end{pmatrix},
+\vec x = 
+\begin{pmatrix}
+ -2\\1\\4
+\end{pmatrix}.
+$$
+\begin{enumerate}
+ \item Compute the linear combination of the vectors $\vec v_1$, $\vec v_2$, and $\vec v_3$ using the scalars in $\vec x$. 
+ Then let
+$A =
+\begin{bmatrix}
+ \vec v_1&
+ \vec v_2&
+ \vec v_3
+\end{bmatrix}
+$ 
+and compute the matrix product 
+$$
+A\vec x = 
+\begin{bmatrix}
+ \nvec{1\\2\\3\\0}&
+ \nvec{2\\3\\-1\\1}&
+ \nvec{0\\0\\2\\-2}
+\end{bmatrix}
+\begin{bmatrix}
+ -2\\1\\4
+\end{bmatrix}.
+$$
+ \item 
+Rewrite the vector quantity
+$$\vec v = 
+\begin{pmatrix}
+ -2x+3y+4z\\x-y\\2y+3z
+\end{pmatrix}
+$$
+as the linear combination $\vec v = x\vec v_1+y\vec v_2+z\vec v_3$. What are the vectors $\vec v_1$, $\vec v_2$, and $\vec v_3$.  
+\marginpar{You know you are correct if after multiplying your expression out you obtain $\vec v$. }%
+Then express $\vec v$ as the product $\vec v = A\begin{bmatrix}x\\y\\z\end{bmatrix}.$  What is the matrix $A$?  
+\end{enumerate}
 \end{problem}
 
 
 
-\section{Ordinary Differential Equations}
-A differential equation is an equation which involves derivatives (of any order) of some function.  For example, the equation $y''+xy^\prime+\sin(xy)=xy^2$ is a differential equation. An \textbf{ordinary differential equation (ODE)} is a differential equation involving an unknown function $y$ which depends on only one independent variable (often $x$ or $t$). A partial differential equation involves an unknown function $y$ that depends on more than one variable (such as $y(x,t)$). The order of an ODE is the order of the highest derivative in the ODE. A solution to an ODE on an interval $(a,b)$ is a function $y(x)$ which satisfies the ODE on $(a,b)$. 
-\begin{example}
-The first order ODE $y'(x) = 2x$, or just $y'=2x$, has unknown function $y$ with independent variable $x$. A solution on $(-\infty,\infty)$ is the function $y=x^2+C$ for any constant $C$. We obtain this solution by simply integrating both sides. Notice that there are infinitely many solutions to this ODE. 
+
+Let's now examine how we can use matrices to rewrite some of the differential problems we encountered earlier in the chapter.  
+
+
+
+\begin{example}\label{total derivative example}
+For the function $z = x^2+xy+y^2$, we computed the differential to be 
+\begin{align*}
+ dz &= (2x+y)dx+(x+2y)dy \\
+&= \begin{bmatrix}2x+y&x+2y\end{bmatrix}\begin{bmatrix}dx\\dy\end{bmatrix}.
+\end{align*}
+Do you see how the last step went from a linear combination to a matrix product?
+
+
+For the polar coordinate transformation $\vec T(r,\theta) = (r\cos\theta,r\sin\theta)$, we computed the differential to be
+\begin{align*}
+d\vec T &=
+\begin{pmatrix}
+ \cos\theta\\
+ \sin\theta
+\end{pmatrix}
+dr+ 
+\begin{pmatrix}
+ -r\sin\theta\\
+ r\cos\theta
+\end{pmatrix}
+d\theta \\
+&=
+\begin{bmatrix} 
+\nvec{
+ \cos\theta\\
+ \sin\theta
+}& 
+\nvec{
+ -r\sin\theta\\
+ r\cos\theta
+}
+\end{bmatrix}
+\begin{bmatrix}
+ dr\\
+ d\theta
+\end{bmatrix}.
+\end{align*}
+Again, the last step was a conversion from a linear combination to a matrix product. 
+
 \end{example}
 
-Typically a solution to an ODE involves an arbitrary constant $C$. There is often an entire family of curves which satisfy a differential equation, and the constant $C$ just tells us which curve to pick. A \textbf{general solution} of an ODE is an infinite class of solutions of the ODE. A \textbf{particular solution} is one of the infinitely many solutions of an ODE. 
 
-Often an ODE comes with an \textbf{initial condition} $y(x_0)=y_0$ for some values $x_0$ and $y_0$. We can use these initial conditions to find a particular solution of the ODE. An ODE, together with an initial condition, is called an \textbf{initial value problem (IVP)}.  
+The key above is the conversion from a linear combination to the product of a matrix and a vector of differentials. This matrix has as its columns the partial derivatives of the function.
+We call this matrix the derivative or the total derivative. 
 
-\begin{example}
-The IVP $y' = 2x$, $y(2)=1$, has the general solution $y=x^2+C$ from the previous problem. Since $y=1$ when $x=2$, we have $1=2^2+C$ which means $C=-3$. Hence the solution to our IVP is $y=x^2-3$.
-\end{example}
+The derivative is one of the most immediate applications of matrices. Just think of a matrix as bunch of partial derivatives placed side by side in columns. Each column of the matrix is a partial derivative, so if there are 3 different input variables, there will be three columns. If the output is vectors of size 2, then matrix will have 2 rows. 
 
-\begin{problem}
-Consider the ordinary differential equation $y''+9y=0$. By computing derivatives, show that $y(t) = A\cos (3t)+B\sin (3t)$ is a general solution to the ODE, where $A$ and $B$ are arbitrary constants. If we know that $y(0)=1$ and $y'(0)=2$, determine the values of $A$ and $B$.
-\end{problem}
-
-
-\begin{problem}
-Consider the ordinary differential equation $\ds y\frac{dy}{dx} = x^2$.  Find a general solution to this ODE by integrating both sides with respect to $x$. State an interval on which your solution is valid. 
-\end{problem}
-
-They could introduce the entire method of separation by parts without me telling them what to do.  I just need to ask them to do an integral.  Afterward, I could ask them to solve an ODE.  Put it in the same problem. 
-
-\begin{problem}
-Consider the ODE given by $y' = 4ty$. Find a general solution to this ODE.  [Hint: Rewrite $y'$ as $\ds \frac{dy}{dt}$.  Then put all the terms that involve $y$ on one side of the equation, and the terms that involve $t$ on the other.  Then it should be similar to the previous problem.]
-\end{problem}
-
-\begin{problem}
-Solve the IVP given by $\ds y' = \frac{x^2-1}{y^4+1}$, where $y(0)=1$. 
-\end{problem}
-
-
-
-
-
-
-
-
-\section{General Functions and Derivatives}
-Recall that to compute partial derivatives, we hold all but one variable constant and then differentiate with respect to that variable. Partial derivatives can be organized into a matrix $Df$ where columns represents the partial derivative of $f$ with respect to each variable. This matrix, called the derivative or total derivative, takes us into our study of linear algebra. 
-Some examples of functions and their derivatives appear in Table \ref{derivativetable}. When the output dimension is one, the matrix has only one row and the derivative is often called the gradient of $f$, written $\nabla f$.  
+Some examples of functions and their derivatives $Df$ appear in Table \ref{derivativetable}. When the output dimension is one, the matrix has only one row and we often just call $Df$ the gradient of $f$ and write $\vec \nabla f$ instead of $Df$.  Both are acceptable.  
 
 \begin{table}[htb]
 \begin{center}
@@ -205,8 +679,8 @@ Function&Derivative\\ \hline\hline
 {$f(x)=x^2$}& {$Df(x) = \begin{bmatrix}2x\end{bmatrix} $}\\ \hline
 {$\vec r(t) = (3\cos(t),2\sin(t))$}&  {$D\vec r(t) = \begin{bmatrix}-3\sin t\\ 2\cos t\end{bmatrix} $}\\ \hline
 {$\vec r(t) = (\cos(t),\sin(t),t)$}&  {$D\vec r(t) = \begin{bmatrix}-\sin t \\ \cos t \\ 1\end{bmatrix} $}\\ \hline
-{$f(x,y)=9-x^2-y^2$}&  {$Df(x,y) =\nabla f(x,y) = \begin{bmatrix}-2x & -2y\end{bmatrix} $}\\ \hline
-{$f(x,y,z)=x^2+y+xz^2$}&  {$Df(x,y,z) = \nabla f(x,y,z) = \begin{bmatrix}2x+z^2 & 1 &2xz\end{bmatrix} $}\\ \hline
+{$f(x,y)=9-x^2-y^2$}&  {$Df(x,y) =\vec \nabla f(x,y) = \begin{bmatrix}-2x & -2y\end{bmatrix} $}\\ \hline
+{$f(x,y,z)=x^2+y+xz^2$}&  {$Df(x,y,z) = \vec \nabla f(x,y,z) = \begin{bmatrix}2x+z^2 & 1 &2xz\end{bmatrix} $}\\ \hline
 {$\vec F(x,y)=(-y,x)$}&  {$D\vec F(x,y) = \begin{bmatrix}0&-1\\ 1&0\end{bmatrix} $}\\ \hline
 {$\vec F(r,\theta,z)=(r\cos\theta,r\sin\theta,z)$}&  {$D\vec F(r,\theta,z) = 
 \begin{bmatrix}
@@ -220,145 +694,353 @@ Function&Derivative\\ \hline\hline
 \caption{\label{derivativetable} The table above shows the (matrix) derivative of various functions.  Each column of the matrix corresponds a partial derivative of the function. When the output of a function is a vector, partial derivatives are vectors which are placed in columns of the matrix. The order of the columns matches the order in which you list the variables.}
 \end{table}
 
-In multivariate calculus, we focused our time on learning to graph, differentiate, and analyze each of the types of functions in the table above. The next few problems ask you to review this.
-
-\begin{problem}
-Let $\vec r(t) = \left<t^2-1, 2t+3\right>$.  
-Construct a graph of $\vec r(t)$, and 
-compute the derivative $D\vec r(t)$. 
-\end{problem}
-
-\begin{problem}
-Let $f(x,y) = 4-x^-y^2$.  
-Construct a 3D graph of $z=f(x,y)$.  
-\marginpar{Recall that a level curve of $z=f(x,y)$ is curve in the $xy$ plane where the output $z$ is constant.}
-Also construct a graph of several level curves.
-Then compute the derivative $Df(x,y)$. 
-\end{problem}
-
-\begin{problem}
-Let $\vec r(t) = \left<3\cos t, 2\sin t, t\right>$.  
-Construct a 3D graph of $\vec r(t)$, and 
-compute the derivative $D\vec r(t)$. 
-\end{problem}
-
-\begin{problem}
-Let $\vec F(x,y) = (y,-2x)$.  
-Construct a 2D graph of this vector field, and 
-compute the derivative $D\vec F(x,y)$. 
-\end{problem}
+In multivariate calculus, we focused our time on learning to graph, differentiate, and analyze each of the types of functions in the table above. We've been reviewing most of this throughout this chapter.  Let's now practice one more problem where we get the total derivative from the differential.
 
 
 
 
-
-\subsection{The General Chain Rule}
-The chain rule in first semester calculus states that $$(f\circ g)'(x) = f' (g(x))g'(x).$$  You may remember this as  
-``the derivative of the outside function times the derivative of the inside function.''  
-In multivariable calculus, most textbooks use a tree rule to develop the formula 
-$$\frac{df}{dt} = f_xx_t +f_yy_t$$ for a function $f(x,y)$, where $x$ and $y$ depend on $t$ (so that {$\vec r(t)=(x(t),y(t))$ is a curve in the $xy$ plane). 
-Written in matrix form, the chain rule is simply $$\frac{df}{dt} = \begin{bmatrix}f_x&f_y\end{bmatrix}\begin{bmatrix}x_t\\ y_t\end{bmatrix} = Df\cdot Dr,$$ which is the (matrix) product of the derivatives, just as it was in first semester calculus. You are welcome to tackle the following problems by using the tree rule or matrix product. 
-
-\begin{problem}
-Suppose that $f(x,y)=x^2+3xy$, where $x=t^2+1$ and $y=\sin t$, so we could write $\vec r(t) = (t^2+1, \sin t)$. 
+\begin{problem}\marginpar{See Example \ref{total derivative example} if you have not already.}%
+In each problem below, find the differential of the function (writing it as a linear combination of the partial derivatives). Then write the differential as the product of a matrix (the total derivative) and a vector of differentials.   
 \begin{enumerate}
- \item Compute $Df(x,y)$, $\dfrac{dx}{dt}$, and $D\vec r(t)$. (You should have two matrices.)
- \item Compute $\frac{df}{dt}$.
+ \item $f(x,y,z) = xy^2+z^3$
+ \item $\vec r(t) = (3\cos t,2\sin t, t)$
+ \item $\vec r(u,v) = (u+3v, 2u-v, uv)$
+ \item $\vec F(x,y,z) = (x+3y,2x-z,y+4z)$
 \end{enumerate}
 \end{problem}
 
-\begin{problem}
-Suppose that $f(x,y) = x+3y$ and that $\dfrac{dx}{dt}=\cos t$ and $\dfrac{dy}{dt} = e^t$.  Compute $\frac{df}{dt}$. 
-\end{problem}
+
+
+
+
+
+Have you noticed that sometimes I write the function with a vector above it, and sometimes I do not? Feel free to ask why in class.  Curiosity is a great thing.  Please ask questions. There's always a reason why.
+
+
+
+
+\subsection*{\ideaB}
+\addcontentsline{toc}{subsection}{\ideaB}
+
+
+
+
 
 \begin{problem}
-Suppose that $z=f(x,y)$ and that $\dfrac{\partial f}{\partial x} = 3x^2y$ and  $\dfrac{\partial f}{\partial y} = x^3y-e^y$.  Also suppose that $x=\sqrt{t}$ and $y = \ln t$.  Compute $\frac{df}{dt}$. 
-\end{problem}
-
-\begin{problem}
-Suppose that $z=f(x,y)$ is a differential function of two variables. Suppose that $\vec r(t)$ is a parametrization of a level curve of $f$. We can write the level curve in vector form as $\vec r(t) = (x(t),y(t))$, or in parametric form $x=x(t)$ and $y=y(t)$. 
+Let $A$ be the matrix 
+$A = 
+\begin{bmatrix}
+ 1&-1\\-2&0
+\end{bmatrix}.
+$
+We'll be analyzing the vector field given by the matrix product $\vec F(x,y) = A\begin{bmatrix}x\\y\end{bmatrix}$.
 \begin{enumerate}
- \item If $f(\vec r(0))=7$, then what is $f(\vec r(2))$?
- \item Why does $\frac{df}{dt}=\nabla f(x,y)\cdot \dfrac{d\vec r}{dt}$?
- \item Why is the gradient of $f$ normal to level curves? \marginpar{Recall that the word normal means there is a 90 degree angle between the gradient and the level curve.} 
-\end{enumerate}
+ \item Compute the matrix product $A\begin{bmatrix}x\\y\end{bmatrix}$ by considering linear combinations. Show how you used linear combinations of the columns of $A$.  Then expand and simplify your work till you obtain $\vec F(x,y) = (M,N)$ where $M=x-y$ and $N=-2x$.  
+ \item 
+Use the \href{\urlvectorfieldplotter}{vector field plotter in Sage (follow the link)} to obtain and print a plot of this field.  
+There is a line through the origin along which the field pushes objects directly outwards away from the origin. 
+On your printed plot, draw this line.
+ \item 
+There is another line through the origin along which the field pulls objects directly inward toward the origin. 
+On your printed plot, draw this line.
+ \item If you were to drop an object in this field at the point $(2,0)$, and allowed the object to move with the field, draw an approximation of the object's path on your print out.  Then draw additional paths if you had instead dropped the object at the points $(-2,0)$, $(0,\pm 2)$, and a few more points of your choosing. 
 
+\end{enumerate}
 \end{problem}
 
-Before proceeding, let's practice with an examples to visually remind us that the gradient is normal to level curves.  This key fact will help us solve most of the differential equations we encounter in the course.
+The curves you just drew are called trajectories and/or flow lines (even though they are not straight lines). We'll learn how to find the equations of these trajectories as part of our course. We can often visualize vector fields in nature by studying movement and forces.  We'll eventually know how to predict exactly the path of an object that moves through a vector field.  This gives us the power to predict the future.  
 
+
+
+
+
+\begin{problem}
+Consider the matrix
+$A = 
+\begin{bmatrix}
+ -1&2\\3&1
+\end{bmatrix}.
+$
+We'll be analyzing the change of coordinates $\begin{bmatrix}x\\y\end{bmatrix} = A\begin{bmatrix}u\\v\end{bmatrix}$.  
+\begin{enumerate}
+ \item Compute the matrix product $A\begin{bmatrix}u\\v\end{bmatrix}$ by considering linear combinations. Show how you used linear combinations of the columns of $A$.  Then give a formula for $x$, and a formula for $y$. 
+ \item
+The line $v=0$ is transformed by $A$ to become the line parametrized by $(x,y) = (-1,3)u$. Similarly the line $u=0$ is transformed to be the line $(x,y)=(1,2)v$.  Draw these two lines in the $xy$ plane. On the same axes, also draw the lines given by $v=1,2$ and $u=1,2$.  You should have a grid. 
+ \item 
+The unit square with bounds $0\leq u\leq 1$ and $0\leq v\leq 1$ is transformed by $A$ to become a parallelogram.  Shade this parallelogram in your picture, and then find the area of this parallelogram. 
+ \item (Optional - We'll discuss this in class.) The circle $u=\cos t, v=\sin t$ is transformed by $A$ to become what object?  The original area inside the circle is $\pi$.  What's the area inside the transformed region?
+\end{enumerate}
+\end{problem}
+
+
+
+
+
+\subsection*{\ideaC}
+\addcontentsline{toc}{subsection}{\ideaC}
+
+
+
+
+
+
+\begin{problem}
+ For each matrix below, find a function that has this matrix as its derivative.  Remember, the derivative of a function is a matrix whose columns are the partial derivatives. 
+\begin{enumerate}
+ \item 
+$
+\begin{bmatrix}
+ 2x+3yz & 3xz & 3xy + \sin(z)e^{\cos z +3}
+\end{bmatrix}
+$
+\item 
+$\ds\begin{bmatrix}
+ 2 & 3\\
+ 2uv&u^2 \\
+ \sec^2u&\ds\frac{\cos v}{1+\sin v}\\
+\end{bmatrix}$
+
+\end{enumerate}
+\end{problem}
+
+
+
+
+When we want to solve a differential equation such as $y'=3y$, we've started by writing it in the differential form $dy = 3ydx$.  The left hand side of this function has a potential, but the right hand side does not. If we divide both sides by $y$, then we have the expression $\frac{1}{y}dy = 3dx$.  Now both sides have a potential, and we can quickly find a potential of both sides to get an implicit general solution of $\ln |y|=3x+C$.  
+
+Alternately, we could have subtracted $3dx$ from both sides.  This gives us $-3x dx+\frac{1}{y}dy=0$. When we write the differential equation in this form, we can use matrices to understand the problem. We can write
+$$
+ 0=-3x dx+\frac{1}{y}dy = \begin{bmatrix}-3x&\frac{1}{y}\end{bmatrix}\begin{bmatrix}dx\\dy\end{bmatrix}
+$$
+To solve the ODE, we just have to find the potential of the vector field $\begin{bmatrix}-3x&\frac{1}{y}\end{bmatrix}$.  Because the dot product of the field and $(dx,dy)$ is zero, we know the solution $(x,y)$ must be a level curve of the potential. So we find the potential and make it equal a constant.
+
+To solve first order ODEs, the key is to find a potential.  Not every vector field has a potential. The next problem has you review when a vector field does.  
+
+
+
+
+
+
+\begin{problem}[Test for a potential]\label{test for a potential}
+ Suppose we have a differential equation that we write in the form $M(x,y)dx+N(x.y)dy=0$ (as done in the paragraph above). Our goal is to determine if the vector field $\vec F(x,y) = \left(\  M(x,y),N(x,y)\ \right)$ has a potential.
+\begin{enumerate}
+ \item The derivative of a function $f(x,y)$ is the matrix $Df(x,y) = \begin{bmatrix}f_x&f_y\end{bmatrix}$. The second derivative of this function, and the derivative of $\vec F$ are
+$$
+D^2f(x,y) = 
+\begin{bmatrix}f_{xx}&f_{xy}\\f_{yx}&f_{yy}\end{bmatrix}
+\quad 
+D\vec F(x,y)=
+\begin{bmatrix}M_x&M_y\\N_x&N_y\end{bmatrix}
+.$$
+What relationship must exist among the partial derivatives of $M$ and $N$ if $\vec F$ has a potential? (Two of them must be equal?  Which two, and why?)
+ \item Suppose now that $\vec F(x,y,z) = \left(\  M(x,y,z),N(x,y,z),P(x,y,z)\ \right)$ is a vector field in space, and that $\vec F$ has a potential $f$.  Compute the second derivative of $f$ and the derivative of $\vec F$, and use your result to explain which pairs of partial derivatives of $M$, $N$, and $P$ must be equal.
+ \item (Optional) If you remember learning about the curl of a vector field, then what is the curl of a vector field that has a potential?
+\end{enumerate}
+\end{problem}
+%Perhaps I should define the difference between a differential and a differential form.  I decided not to, as its just one more word that they don't really need.
+
+%I want to develop the notation of an integrating factor. Is it too soon?  It might be. We'll see. These ideas might carry over to another chapter. I now think this IS to soon.  It can be a big idea in the next chapter.
+
+
+
+
+
+
+
+%Compute derivatives of each vector field.  Which have potentials?  Maybe not.  We've already done this.  Alternately, try multiplying by a function so that you get a potential.  What should the function be. 
+\begin{problem}
+Which vector fields, or differential forms, below have a potential?  First use the test for a potential to determine this.  If it has a potential, find it.
+%3 is probably enough, with one having int by u-sub
+\begin{enumerate}
+ \item %first - checks basics, should be fast
+$\vec F(x,y,z) = (2x+3y+4z,3x+5z,5y+z^2)$
+ \item %second -checks other basic, should be fast
+$(2t+3x+4y)dt+(3t+5y)dx+(4t+5x+y^2)dy$
+ \item %Requires integration by substitution
+$\ds\vec F (x,y)=\left(\frac{1}{x(\ln x)^2}, \arctan y\right)$ 
+\end{enumerate}
+The first two parts are just a quick check of understanding.  The last one asks you to practice integration by substitution and integration by parts. 
+\end{problem}
+
+%This is good, provided the carefully chosen potential makes things separable.
+We've been solving differential equations by finding potentials. However, not every vector field has a potential. 
+Sometimes a carefully chosen linear combination of the field may have a potential. For example, when we solved $y'=5y$, we were able to write the ODE in the form $dy=5ydx$ or $-5ydx+dy=0$. While this differential form does not have a potential (check this), after we multiply both sides by $\frac{1}{y}$, we obtained the equation $-5dx+\frac{1}{y}dy=0$.   The linear combination $\frac{1}{y}(-5ydx+dy)$ has a potential, namely $-5x+\ln|y|$.  An implicit solution to the ODE is $-5x+\ln|y|=C$.  
+
+\begin{problem}
+ Solve each ODE by finding a potential.
+\begin{enumerate}
+ \item 
+\marginpar{If you didn't read the paragraph before this problem, you might want to.  It shows you an example quite similar to this one.}%
+Consider the ODE $y'=4xy$. Write this in the form $Mdx+Ndy=0$. If you multiply both sides by $\frac{1}{y}$, you should be able to find a potential. Use the potential to state a general solution to the ODE $y'=4xy$. Make sure you solve for $y$.  
+ \item
+\marginpar{After you finish this, see page 21 in Schaums.}%
+ Consider the ODE $y'=f(x)g(y)$ (so any ODE where you can separate things as the product of a function involving $x$ and a function involving y).  After writing the ODE in the form $Mdx+Ndy=0$, what should you multiply by so that you can find a potential. Use the test for a potential to show that a potential exists.
+\end{enumerate}
+\end{problem}
+
+
+
+
+
+The process you developed in the previous problem is called ``Separation of Variables.''  The goal is to write the ODE in the form $M(x)dx+N(y)dy$, as then you can find a potential to solve the ODE.
+
+
+
+
+
+
+
+\begin{problem}
+\marginpar{You'll find lots of practice of this idea in Chapter 4 of Schaum's.}%
+ Solve each ODE below by first writing the ODE in the form $M(x)dx+N(y)dy = 0$. Give an implicit general solution. If there are initial conditions given, us them to find a particular solution to the ODE. 
+\begin{enumerate}
+ \item Solve the ODE $y'=\ds\frac{xe^x}{2y}$.
+ \item Solve the ODE $y'=2+3y$, $y(0) = 5$. 
+ \item Solve the ODE $(\tan x )y' = \cos^2 y$, $y(-\pi/6)=0$. 
+\end{enumerate}
+Hint: After you separate variables, you'll either need integration by substitution, or by parts, to complete each piece. You can use the \href{\urlfirstorderodesolver}{First Order ODE Solver} in Sage to check your work.
+\end{problem}
+
+
+\subsection*{\ideaD}
+\addcontentsline{toc}{subsection}{\ideaD}
+
+\marginpar{In the next chapter, you'll see where the formula for Laplace transforms comes from.  It shows up when we use potentials to solve an ODE.  The power behind the Laplace transform is that it can great simplify the work needed to solve a differential equation.}%
+%
+Let's now show the real reason why we care about Laplace transforms. The next theorem allows us to take the Laplace transform of a derivative, which turns a differential equation into an algebraic equations.  
+
+\begin{theorem}[The Laplace Transform of a Derivative] \label{laplace transform of a derivative}
+ Suppose that $y(t)$ is a differentiable function defined on $[0,\infty)$ such that $\ds\lim_{t\to \infty}\frac{y(t)}{e^{st}}=0$ for some $s$. We say that $y(t)$ does not grow faster than some exponential, as the function $e^{st}$ grows faster that $y(t)$ (otherwise the limit would not be zero).  If this is the case, then the Laplace transform of $y'$ is
+ $$\mathscr{L}\{y'(t)\} = s \mathscr{L}\{y(t)\} - y(0) = sY - y(0),$$
+ where $Y$ is the Laplace transform of $y$. 
+\end{theorem}
+
+\begin{problem}
+ Prove the previous theorem.  In other words, show that $\mathscr{L}\{y'(t)\} = s \mathscr{L}\{y(t)\} - y(0) = sY - y(0).$  [Hint, use integration by parts once, and don't forget to use the bounds. The result should fall out immediately.]
+\end{problem}
+
+
+Let's now use Theorem \ref{laplace transform of a derivative} to solve an ODEs. This first example shows the power behind this method.
+\begin{problem}
+ Consider the IVP $y'=7y$, $y(0)=5$.  
+\begin{enumerate}
+ \item Apply the Laplace transform to both sides of this ODE.  You should have an equation involving $Y$. 
+ \item Solve for $Y$ and show that $\ds Y=\frac{5}{s-7}$.  
+ \item Find the inverse Laplace transform of both sides.  In other words, find a function whose Laplace transform is $Y$ and a function whose Laplace transform is $\ds \frac{5}{s-7}$?  When you are done you should have the solution $y$ to the ODE. 
+ \item We know how to solve this ODE using separation of variables.  Solve the ODE using separation of variables and show that you get the same answer.  
+\end{enumerate}
+\end{problem}
+Did you see the process above?  Rather than integrate, we just (1) computed the Laplace transform of both sides, (2) solved an algebraic equation for $Y$, and then (3) obtained the inverse Laplace transform to get $Y$.  
+Here's a parable to compare to using Laplace transforms.  
+\begin{quote}
+Imagine you are inside a house that has a single door leading to the downstairs.  You are on the main floor, and need to open the door to the downstairs (you need to solve an ODE). 
+However the door is locked and you don't have the key (you can't figure out how to solve the ODE). 
+You (1) decide to walk out the front door (you apply the Laplace transform).  
+Then you (2) walk around the house and find a back door entrance to the basement (you solve for $Y$).  
+Then (3) you walk up to the locked door and unlock it from the other side (you find the inverse transform).
+\end{quote}
+The Laplace transform replaces the problem of integrating with an algebraic problem where we have to solve for $Y$. Solving this equation with algebra is often easier. We'll be using the Laplace transform throughout the semester to help us see patterns and unlock difficult problems.
+
+
+
+
+
+
+
+
+\section*{Wrap Up}
+\addcontentsline{toc}{section}{Wrap Up}
+
+In the context of a single, simpler example, let's illustrate all the pieces from this chapter.
+\begin{problem}
+ Consider the ODE $xy'=1-y$.   
+\begin{enumerate}
+ \item We can rewrite the ODE in the differential form $(y-1)dx+(x)dy=0$.  Find a potential and state a general solution.
+ \item 
+\marginpar{See the \href{\urllevelcurveplotter}{level curve plotter}. If you just type in the potential, then it will graph the vector field.}%
+Use software to plot your vector field $(y-1,x)$ and several level curves of your potential. Make sure the vector field and the level curves are on the same plot.
+ \item 
+We can separate variables by multiplying both sides by $\ds\frac{1}{x(y-1)}$ to get $\ds\frac{1}{x}dx+\frac{1}{y-1}dy=0$. Find a potential and state a general solution. Then again use software to plot your vector field $(\frac{1}{x},\frac{1}{y-1})$ and several level curves of your potential. To type $\ln|x|$ you'll need to write ``log(abs(x))'' in Sage. 
+ \item 
+Compare and contrast your vector fields in part 2 and 3. You should have the exact same level curves, which are hyperbolas that have been shifted away from the origin. 
+\end{enumerate}
+To present this problem, you should have two plots, one for part 2, and one for part 3. You can copy the images from Sage into a Word document, and then put them on the same page. Then you can show how you got your potentials on this page. 
+\end{problem}
+
+
+Here's a summary of what we've done in this chapter.
+\begin{itemize}
+ \item To solve an ODE, we rewrite the ODE as the linear combination $Mdx+Ndy=0$ using differentials.  
+ \item Then we use integration to find a potential $f$ of the vector field $(M,N)$. 
+ \item The level curves of the potential are the solutions to our ODE. To solve the ODE, we find the potential $f$ and make it equal a constant. 
+ \item We know the level curves of $f$ are the solution because the tangent vectors $(dx,dy)$ to our solution are orthogonal to the gradient of the potential. We know $(dx,dy)$ and $\vec \nabla f$ are orthogonal because the dot product $(M,N)\cdot(dx,dy)$ equals zero, and because $\vec \nabla f=(M,N)$. (Make sure you can answer why?) 
+ \item If the field doesn't have a potential, we can sometimes multiply the vector field by a scalar (create a linear combination) so the rescaled field has a potential. If we can separate variables so that $M$ depends only on $x$, and $N$ depends only on $y$, then a potential exists.  
+\end{itemize}
+Our approach above has one glaring error.  What do we do if we can't find a potential, and we can't separate the variables? In the next chapter you'll learn how to overcome this obstacle in many instances, as well as learn how to set up differential equations that model the world around us. 
+
+\vfill
+
+This concludes the chapter.  Look at the objectives at the beginning of the chapter. Can you now do all the things you were promised? 
+
+
+\begin{problem}[Lesson Plan Creation] \marginpar{This counts as 4 prep problems. My hope is that you spend at least an hour creating your one-page lesson plan.}
+Your assignment: organize what you've learned into a small collection of examples that illustrates the key concepts. I'll call this your one-page lesson plan. You may use both sides. The objectives at the beginning of the chapter give you a list of the key concepts. Once you finish your lesson plan, scan it into a PDF document (use any scanner on campus), and then upload the document to I-Learn.
+
+As you create this lesson plan, consider the following:
+\begin{itemize}
+ \item On the class period after making this plan, you'll have 30 minutes in class where you will get to teach a peer your examples. If you keep the examples simple, you'll be able to fully review the entire chapter.
+ \item When you take the final exam, I give you access to your lesson plans. Put on your lesson plan enough reminders to yourself that you'll be able to use this lesson plan as a reference in the future.  You'll want simple examples, together with notes to yourself about important parts.
+ \item Think ahead 2-5 years. If you make these lesson plans correctly, you'll be able to look back at your lesson plans for this semester. In about 10 pages, you can have the entire course summarized and easy for you to recall.
+\end{itemize}
+\end{problem}
+
+
+
+
+
+
+
+
+
+%I need to introduce the concept of an ODE, and make it real (exponential growth and decay).  
+%I want to show them how to write it in differential form, and then solve it.  
+
+
+
+%I need to have them examine finding potentials of separated fields.  That needs to come early on. Something like g(x)dx+h(y)dy.  Perhaps this should be next.  
+
+
+%%====================================================================================
+%%%THIS WOULD BE A GOOD CHANGE
+%If Mdx+Ndy = Pdx+Qdy, and $f$ is a potential for one, and $g$ is a potential for the other, how are f and g related?  Why?  (Maybe ask them to think about f'=g' and how it connects to f and g. 
+%Then they can solve a separable ODE by finding potentials of both sides.  
+
+%======================== I didn't introduce the word integrating factor.  It's probably not needed yet.
+%Have them take a problem y'= something ugly, that easily separates, and then solve it with potentials.  The concept of separable ODEs shouldn't really even need to be different.  I can even introduce the words integrating factor at this point.  
+
+%======================== This would be a good change.  It could improve the problem set.
+%I could give them a separable ODE (not currently separated) and have them graph the corresponding vector field.  Then I could ask them to separate the terms and graph the ODE.  What changed? Which has a potential? 
+
+
+
+%This needs to be done in a later chapter. 
+%Have them take a system of ODEs (a tank mixing problem) and write it in differential form.  Have them write it as () dt + () dy1+()dy2. 
+
+%Can I get them to set up a tank mixing ODE problem in this chapter?  Maybe, but not if I expect mastery of the idea at this point. I could just use it as practice in setting up ODEs (and we'll solve them as the semester progresses).  
+
+
+
+
+
+
+
+
+%=================This might have been a good problem. I didn't quite do this one, I did something different, and then told them to look in Schaum's.
 %\begin{problem}
-%Consider the function $f(x,y) = x+2y$. Start by computing the gradient. Then construct a graph which contains several level curves of $f$, as well as the gradient at several points on each level curve.
+%I need to get them to see the power of separation of variables, but let's examine it from the view point of differentials and potentials, not from the view point of separate and then integrate both sides.  Suppose you know $dz = g(x)dx+h(y)dy$.  How do you obtain the potential.  If you are on a level curve, then what is an equation of the level curve?  Show this with an example.  Then have them express what they did.
 %\end{problem}
 
-\begin{problem}
-Consider the function $f(x,y) = x^2-y$.    Start by computing the gradient. Then construct a graph which contains several level curves of $f$, as well as the gradient at several points on each level curve.
-\end{problem}
-
-\section{Potentials of Vector Fields and Differential Forms}
-When the output dimension of a function is one, so we would write {$f:{\mathbb{R}}^n\to {\mathbb{R}}^1$}, then we call the derivative the gradient and write {$\vec \nabla f = (f_x,f_y,f_z)$}. 
-Notice that this is a vector field.  Taking a derivative gives us a vector field. Is every vector field the derivative of some function?  Hopefully you remember that the answer to this question is ``No.''
-
-If a vector field $\vec F = (M,N)$ (or in 3D $\vec F = (M,N,P)$) is the gradient of some some function $f$ (so that {$\vec \nabla f= \vec F$}), then we say that the vector field {$\vec F$} is a gradient field (or conservative vector field). We say that $f$ is a potential for the vector field $\vec F$ when $\nabla f=\vec F$. In this section, we'll review how to determine if a vector field has a potential, as well as how to find a potential.  
-
-\begin{problem}
-Let $\vec F = (M,N)=(2x+y, x+4y)$. Find a potential for $\vec F$ by doing the following.
-\begin{enumerate}
- \item If we suppose $M=2x+y$ is the partial of $f$ with respect to $x$, then $f_x = 2x+y$.  Find a function $f$ whose partial with respect to $x$ is $M$. 
- \item If we suppose $N=x+4y$ is the partial of $f$ with respect to $y$, then $f_y = x+4y$.  Find a function $f$ whose partial with respect to $y$ is $N$.
- \item What is a potential for $\vec F$? Prove your answer is correct by computing the gradient of your answer. 
-\end{enumerate}
-\end{problem}
-
-By taking derivatives, there is a test that tells you if a function will have a potential. Some textbooks call it the test for a conservative field.  
-\begin{problem}[Test for a conservative vector field.]\label{test for a conservative field}
-\marginpar{The test for a conservative vector field states states more than what you showed in this problem. It states that if $\vec F$ is a continuously differentiable vector field on a simply connected domain, then (1) if $\vec F$ has  potential, then certain pairs of partials must be equal, and (2) if those pairs of partial derivatives are equal, then the $\vec F$ has a potential. We will not prove part (2).}Let's prove the test for a conservative vector field in both 2 and 3 dimensions.
-\begin{enumerate}
- \item  Suppose that $\vec F(x,y)=(M,N)$ is a continuously differentiable vector field on the entire plane.  Suppose further that $\vec F$ has a potential $f$.  The derivative of $\vec F$ is $$D\vec F(x,y) = 
-\begin{pmatrix}
-M_x&M_y\\
-N_x&N_y                                                                                                                                                                                \end{pmatrix}.
-$$
-Some of the entries in this matrix must be equal?  Which ones? Explain. [If you're not sure, try taking the derivative of the problem above.]
-
-\item Suppose that $\vec F(x,y,z)=(M,N,P)$ is a continuously differentiable vector field on all of space.  Suppose further that $\vec F$ has a potential $f$.  State the derivative of $\vec F$, and then state which pairs of entries must be equal. 
-\end{enumerate}
-\end{problem}
-
-
-\begin{problem}
-For each vector field below, either give a potential, or explain why no potential exists.
-\begin{enumerate}
- \item $\vec F=(4x+5y,5x+6y)$
- \item $\vec F= (2x-y,x+3y)$
- \item $\ds\vec F= \left(4x+\frac{2y}{1+4x^2},\arctan(2x)\right)$
- \item $\vec F= (3y+2yz, 3x+2xz+6z,2xy+6y)$ 
-\end{enumerate}
-\end{problem}
-
-
-We'll finish by introducing the vocabulary of differential forms. 
-We'll use this vocabulary throughout the semester as we study differential equations. 
-The vocabulary of vector fields parallels the vocabulary of differential forms. 
-\begin{definition}[Differential Forms]
-Assume that $f,M,N,P$ are all functions of three variables $x,y,z$. Similar definitions hold in all dimensions.
-\begin{itemize}
-\item A differential form is an expression of the form $Mdx+Ndy+Pdz$ (just as a vector field is a function  $\vec F=(M,N,P)$).
-\item The differential of a function {$f$} is the expression {$df = f_xdx+f_ydy+f_zdz$} (just as the gradient is $\vec \nabla F = (f_x,f_y,f_z)$).
-\item \marginpar{A differential form is exact precisely when the corresponding vector field is a gradient field.}%
-If a differential form is the differential of a function {$f$}, then the differential form is said to be exact (just as we say a vector field is a gradient field). Again, the function {$f$} is called a potential for the differential form. 
-\end{itemize} 
-\end{definition}
-Notice that {$Mdx+Ndy+Pdz$} is exact if and only if {$\vec F = (M,N,P)$} is a gradient field. The language of differential forms is practically the same as the language of conservative vector fields.  Why do we have different sets of words for the same idea?  That happens all the time when different groups of people work on seeming different problems, only to discover years later that they have been working on the same problem. If both sets of vocabulary stick, it's often because both have advantages. We have many different notations for the derivative (such as $y'$, $\frac{dy}{dx}$, and $Df$),  and each notation has advantages. The language of differential forms is best suited when studying differential equations.
-
-\begin{problem}
-For each differential form below, state if the differential form is exact. If it is exact, give a potential. 
-\begin{enumerate}
- \item $(2x+3y)dx+(4x+5y)dy$
- \item $(2x-y)dx+(3y-x)dy$
- \item $\ds\left(4x+\frac{3y}{1+9x^2}\right) dx+\arctan(3x)dy$
- \item $(3y+2yz)dx+ (3x+2xz+6z)dy+(2xy+5y)dz$ 
-\end{enumerate}
-\end{problem}
-
-
+%Next chapter
+%\begin{problem}
+% Have them develop the formula for finding an integrating factor.  
+%\end{problem}

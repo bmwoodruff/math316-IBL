@@ -1,0 +1,60 @@
+\newgeometry{left=1in,right=1in,top=1in,bottom=1in}
+
+\section*{Extra Practice}
+\addcontentsline{toc}{section}{Extra Practice}
+
+You can find additional practice problems in Schaum's Outlines \textit{Differential Equations} by Richard Bronson.
+You'll find relevant problems in chapters 21 -24, as well as some extra practice problems related to mass spring systems and electrical networks below.
+Do enough of each type that you feel comfortable with the ideas. 
+
+You must practice lots of problems to gain a feel for patterns.  Many of the problems in 21-23 are fast. Please take a few minutes every day to just flat out practice with the basics (kind of like when you were learning the times tables - they get really fast if you just practice them). When you feel like you have the basics down, see if you can complete chapters 21 and 22 in less than an hour. If one stumps you, skip it and come back later.  
+
+Once you feel confident, chapters 23 (on convolutions and the heaviside function) and 24 (solving IVPS) will help you use the Laplace transforms to solve ODEs. Table \ref{big laplace table}  at the beginning of this chapter summarizes the transforms we use most often.
+
+Make sure you try some of each type of problem from chapters 21-24 (except for the last set of problems in 23).  The new ideas involve convolutions and the Heaviside (unit step) function in 23.  Once you have tried some of each of these, use the problems below to give you more practice.  
+
+
+%\begin{multicols}{2}
+\begin{enumerate}
+\item[I] Find the Laplace transform of each of the following, and use the \href{\urlmathematicatechintro}{Mathematica Tech Intro} to check your answer.
+\item $f(x) = 8e^{-3x}\cos 2x -4e^{4x}\sin 5x+3e^{7x}x^5$
+\item $f(x) = xu(x-4)+\delta(x-6)$
+\item $f(x) = e^{3x}u(x-2)+7\delta(x-4)$
+
+\item[II] Find the inverse Laplace transform of each of the following, and use Mathematica to check your answer. Many of these will require you to use a partial fraction decomposition.
+\item $\dfrac{s}{(s+3)^2+25}+\dfrac{2}{(s-2)^4}e^{-3s}$
+\item $\dfrac{s}{s^2+4s+13}e^{-4s}$
+\item $\dfrac{1}{s(s^2+1)}e^{-5s}$
+\item $\dfrac{1}{s^2(s^2+1)}e^{-3s}$
+\item $\dfrac{2s+1}{(s-1)^2(s+1)}e^{-7s}$
+\item $\dfrac{1}{(s-1)(s+2)(s-3)}e^{-4s}$
+
+\item[III] Use Laplace transforms to find the position $y(t)$ of an object or current current $I(t)$ in each of the following scenarios. I will give you the constants $m,c,k$ and the driving force $r(t)$, or I will give you the inductance $L$, resistance $R$, capacitance $C$, and voltage source $E(t)$, as well as any relevant initial conditions.  Your job is to use Laplace transforms to find the solution. Use Mathematica to check your solution, and draw the graph of $y(t)$ or $I(t)$ and the steady-state (steady periodic) solution to see how the Heaviside and Dirac delta functions affect the graph. The point here is to see these two new functions affect solutions. I suggest that you do all of these problems with the computer, so you can quickly see the effects of a Heaviside function or Dirac delta distribution.
+\item $m = 1, c = 0, k=4, r(t)=u(t-1), y(0)=1,y^\prime(0)=0$
+\item $m = 1, c = 0, k=4, r(t)=\delta(t-3), y(0)=1,y^\prime(0)=0$
+\item $m = 1, c = 0, k=4, r(t)=7u(t-3), y(0)=1,y^\prime(0)=0$
+\item $m = 1, c = 0, k=4, r(t)=7u(t-3)+11\delta(t-5), y(0)=1,y^\prime(0)=0$
+\item $m = 1, c = 0, k=4, r(t)=7t u(t-3), y(0)=1,y^\prime(0)=0$
+\item $m = 1, c = 0, k=4, r(t)=7, y(0)=1,y^\prime(0)=0$
+\item $m = 1, c = 0, k=4, r(t)=7, y(\pi)=1,y^\prime(\pi)=0$
+
+\item $m = 1, c = 3, k=2, r(t)=u(t-2), y(0)=0,y^\prime(0)=0$
+\item $m = 1, c = 3, k=2, r(t)=\delta(t-2), y(0)=0,y^\prime(0)=0$
+\item $m = 1, c = 3, k=2, r(t)=4u(t-1), y(0)=0,y^\prime(0)=0$
+\item $m = 1, c = 3, k=2, r(t)=4u(t-1)+10\delta(t-2), y(0)=0,y^\prime(0)=0$
+\item $m = 1, c = 3, k=2, r(t)=4t u(t-1), y(0)=0,y^\prime(0)=0$
+
+\item $L = 0, R = 2, C=1/5, E(t)=12 u(t-2), Q(0)=0$ (use first order ODE)
+\item $L = 1, R = 2, C=0, E(t)=12 u(t-2), I(0)=0$ (use first order ODE)
+\item $L = 1, R = 2, C=1/5, E(t)=12, Q(0)=0,I(0)=0$ (first find $I^\prime(0)$.)
+\item $L = 1, R = 2, C=1/5, E(t)=12 u(t-2), Q(0)=0,I(0)=0$
+\item $L = 1, R = 2, C=1/5, E(t)=e^{3t} u(t-2), Q(0)=0,I(0)=0$
+\item $L = 1, R = 2, C=1/5, E(t)=4\cos (3t), Q(0)=0,I(0)=0$
+\item $L = 1, R = 4, C=1/4, E(t)=u(t-3), Q(0)=0,I(0)=0$
+\item $L = 1, R = 4, C=1/4, E(t)=e^{-2t}, Q(0)=0,I(0)=0$
+
+
+\end{enumerate}
+
+
+\restoregeometry

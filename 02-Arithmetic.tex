@@ -1,589 +1,445 @@
+\newcommand{\urlrref}{http://bmw.byuimath.com/dokuwiki/doku.php?id=rref\_calculator}
 
-\noindent This chapter covers the following ideas. 
+\note{next time, should I introduce the words, ``Coordinates of a vector relative to the pivot columns.''?  If I introduced this, then I would have begun a key idea.  Perhaps instead, this should be in the application chapter.  It introduces the ideas needed for talking about all solutions of a differential equation, by talking about the coordinates of a solution relative to the basis of solutions.  I do think this is a good start.}
+
+
+After completing this chapter, you should be able to:
 
 \begin{enumerate}
-
-\item Be able to use and understand matrix and vector notation, addition, scalar multiplication, the dot product, matrix multiplication, and matrix transposing. 
-\item Use Gaussian elimination to solve systems of linear equations. Define and use the words homogeneous, nonhomogeneous, row echelon form, and reduced row echelon form. 
-\item Find the rank of a matrix. Determine if a collection of vectors is linearly independent. If linearly dependent, be able to write vectors as linear combinations of the preceding vectors.
-\item For square matrices, compute determinants, inverses, eigenvalues, and eigenvectors. 
-\item Illustrate with examples how a nonzero determinant is equivalent to having independent columns, an inverse, and nonzero eigenvalues. Similarly a zero determinant is equivalent to having dependent columns, no inverse, and a zero eigenvalue. 
-
+\item Explain the difference between linearly independent and linearly dependent. When vectors are linearly dependent, write one of the vectors as a linear combination of the others. 
+\item Solve systems of equations by obtain the reduced row echelon form (rref) of a matrix (Gauss-Jordan elimination).
+\item Explain how to compute the inverse of a matrix. Then use the inverse to solve various problems such as finding $\vec x$ in $A\vec x = \vec b$ or finding $A$ in $AQ=QD$. 
+\item Show how to compute the determinant of a square matrix of any size. Be able to articulate the connection among determinants, linear dependence, and invertibility. 
+\item Explain how to see eigenvectors and the sign of eigenvalues in a vector field. Then use this knowledge to show how to obtain eigenvalues and eigenvectors from determinant and row reduction computations. 
 \end{enumerate}
 
-The next unit will focus on applications of these ideas. The main goal of this unit is to familiarize yourself with the arithmetic involved in linear algebra.
+%Technology links, especially to RREF.
+
+\newcommand{\ideagau}{Solving Systems of Equations}
+\newcommand{\ideaind}{Linear Independence and Dependence}
+\newcommand{\ideamul}{Matrix Multiplication and Inverses}
+\newcommand{\ideadet}{Applications of Determinants}
+\newcommand{\ideaeig}{Seeing Eigenvectors in Vector Fields}
 
 
-\section{Basic Notation}
-Most of linear algebra centers around understanding vectors, with matrices being functions which transform vectors from one vector space into vectors in another vector space. This chapter contains a brief introduction to the arithmetic involved with matrices and vectors.  The next chapter will show you many of the uses of the ideas we are learning. You will be given motivation for all of the ideas learned here, as well as real world applications of these ideas, before the end of the next chapter.  For now, I want you become familiar with the arithmetic of linear algebra so that we can discuss how all of the ideas in this chapter show up throughout the course.
 
-\begin{definition}
-\marginpar{
-Matrix size is
+\mysubsection{\ideaind}
 
-row by column.} 
-A matrix of size {$m$} by {$n$} has {$m$} rows and {$n$} columns.  We normally write matrices using capital letters, and use the notation 
-$$A = 
-\begin{bmatrix}
-a_{11}&\cdots&a_{1n}\\ 
-a_{21}&\cdots&a_{2n}\\ 
-\vdots&\ddots&\vdots\\ 
-a_{m1}&\cdots&a_{mn} 
-\end{bmatrix} 
-= [a_{jk}],$$
-where $a_{jk}$ is the entry in the $j$th row, $k$th column. 
-\begin{itemize}
- \item We say two matrices {$A$} and {$B$} are equal if {$a_{jk}=b_{jk}$} for all $j$ and $k$.
- \item We add and subtract matrices of the same size entry wise. So we write $A+B=C$ where $c_{jk} = a_{jk}+b_{jk}$. If matrices do not have the same size, then we cannot add them.
- \item We can multiply a matrix $A$ by a scalar $C$ to obtain a new matrix $cA$.  We do this multiplying every entry in the matrix $A$ by the scalar {$c$}.
- \item If the number of rows and columns are equal, then we say the matrix is square.  
- \item The main diagonal of a square ({$n \times n$}) matrix consists of the entries {$a_{11},a_{22},\ldots,a_{nn}$}. 
- \item The trace of a square matrix is the sum of the entries on the main diagonal ($\sum a_{jj}$). 
- \item The transpose of a matrix {$A=[a_{jk}]$} is a new matrix {$B=A^T$} formed by interchanging the rows and columns of $A$, so that $b_{jk}=a_{kj}$.  If $A^T=A$, then we say that $A$ is symmetric.
-\end{itemize}
-\end{definition}
+The heart of linear algebra has to deal with understanding relationships between vectors.  Vectors give us directions of motion.  They tell us how forces act on objects. We've seen already that vectors provide us with visual solutions to differential equations. One of our goals in this chapter is to become comfortable with working with linear combinations of vectors.  
+\marginpar{You may want to review the formal definition of a linear combination. See Definition \ref{def linear combination} on \pageref{def linear combination}.}
+Remember that given $n$ vectors  $\vec v_1, \vec v_2,\cdots,\vec v_n$ and $n$ scalars $c_1, c_2, \cdots, c_n$ we say their linear combination is the sum $$c_1\vec v_1+c_2\vec v_2+\cdots+c_n\vec v_n.$$
 
-\begin{problem}
-Let $A=\begin{bmatrix}
-1&3\\
-0&2
-\end{bmatrix}
-$ and 
-$B=
-\begin{bmatrix}
-3&-1\\
-0&4
-\end{bmatrix}
-$.  
-Compute $2A-3B$, and find the trace of both $A$ and $B$.  
+\begin{problem}\label{sally in corn field with 2 directions}
+Sally is trying to find a treasure that's located in a corn field (she's geocaching). 
+Her position is currently at $(0,0)$, and she knows that the treasure is located at $(6,8)$ (units are hundreds of yards). 
+She can't walk in a straight line to the treasure, because that would damage the rows of corn.  
+The corn is planted in rows that run parallel to the vector $(2,1)$.  
+She's currently on a road that moves parallel to the vector $(-1,1)$. 
+The farmer will only allow her to walk parallel to the rows of corn (if she crosses between rows, she might damage the crop).  
+So she has to follow the road for some distance by following the vector $(-1,1)$ along the road, and then enter the rows of corn and follow the vector $(2,1)$.
+\marginpar{\includegraphics[width=\marginparwidth]{road-corn}}   
+\begin{enumerate}
+ \item 
+What does the vector equation 
+$$\pvec{-1\\1}x+\pvec{2\\1}y=\pvec{6\\8}$$ 
+have to do with Sally's problem.
+ \item 
+How would you rephrase the above equation using the language of linear combinations.  Which vector is a linear combination of which vectors?
+ \item 
+Find values for $x$ and $y$ that make this equation valid.
+%\item 
+%How far does Sally travel along the road (find the length of $\pvec{-1\\2}x$)?  How far does she travel in the corn?
+\end{enumerate}
+\end{problem}
+
+The geocaching problem above requires that Sally find out how to obtain the vector $(6,8)$ as a linear combination of the vectors $(-1,1)$ and $(2,1)$.  These two vectors (the road and corn rows) gave us two directions that are independent of each other.  Each direction provides us with a new way to travel that we could not do before. There is only one way to get to the treasure at $(6,8)$ if these are Sally's only two ways to move. Let's examine what happens if we add a third direction, via some irrigation pipes.
+
+
+\begin{problem}\label{salley in corn field with 3 directions}
+ Assume the same conditions as the previous problem. However, now let's assume that in the corn field there are irrigation pipes following the vector $(1,1)$.  Sally now has the option to follow the road $(-1,1)$, the rows of corn $(2,1)$, or the irrigation pipes $(1,1)$. She still wants to get to the treasure at $(6,8)$, but now had 3 options for ways to travel. 
+\begin{enumerate}
+ \item To get to the treasure, Sally needs to write $(6,8)$ as a linear combination of the vectors $(-1,1)$, $(2,1)$, and $(1,1)$, i.e. she needs to solve
+\marginpar{\includegraphics[width=\marginparwidth]{road-corn-pipes}}   
+$$\pvec{-1\\1}x+\pvec{2\\1}y+\pvec{1\\1}z=\pvec{6\\8}.$$ 
+One such option is $x=3$, $y=4$, and $z=1$.   
+Find 3 different ways for Sally to get from the origin $(0,0)$ to the treasure at $(6,8)$. 
+ \item Can you find a way to express every possible option that Sally has?
+\end{enumerate}
 \end{problem}
 
 
-\begin{problem}
- Write down a 3 by 2 matrix, and compute the transpose of that matrix. Then give an example of a 3 by 2 symmetric matrix, or explain why it is not possible.
-\end{problem}
+\mysubsection{\ideagau}
 
-
-
-Vectors represent a magnitude in a given direction. We can use vectors to model forces, acceleration, velocity, probabilities, electronic data, and more. We can use matrices to represent vectors. A row vector is a {$1\times n$} matrix. A column vector is an {$m \times 1$} matrix.   Textbooks often write vectors using bold face font. By hand (and in this book) we add an arrow above them. The notation ${\bf v} = \vec v = \left<v_1,v_2,v_3\right>$ can represent either row or column vectors. Many different ways to represent vectors are used throughout different books.  In particular, we can represent the vector $\left<2,3\right>$ in any of the following forms
-$$\left<2,3\right>
-= 2{\bf i}+3{\bf j} 
-= (2,3) 
-= \begin{bmatrix}2&3\end{bmatrix} 
-= \begin{bmatrix}2\\3\end{bmatrix}
-= \begin{pmatrix}2&3\end{pmatrix} 
-= \begin{pmatrix}2\\3\end{pmatrix}
+%{\huge This should be up by 4pm today.}
+Every time we want to solve a problem involving linear combinations, we can convert that problem into a system of equations.
+For example, if we want to write $\pvec{-4\\-15\\9}$ as a linear combination of $\pvec{1\\2\\-1}$, $\pvec{3\\4\\-2}$, and $\pvec{-2\\-10\\6}$, then we would write 
 $$ 
-The notation $(2,3)$ has other meanings as well (like a point in the plane, or an open interval), and so when you use the notation $(2,3)$, it should be clear from the context that you are working with a vector. 
-{\marginpar{{
-\begin{tikzpicture}[scale=.5]
-\draw[help lines,step=1cm] (0,0) grid (4,4);
-\draw[->,>=stealth,thick] (0,4) -- (2,1);
-\draw[->,>=stealth,thick] [xshift=2cm, yshift=-1cm](0,4) -- (2,1);
-\end{tikzpicture}
-
-Both vectors 
-represent $\left<2,-3\right>$, regardless of where we start.
-}}}To draw a vector $\left<v_1,v_2\right>$, one option is to draw an arrow from the origin (the tail) to the point $(v_1,v_2)$ (the head). 
-However, the tail does not have to be placed at the origin. 
-
-The principles of addition and subtraction of matrices apply to vectors (which can be though of as row or column matrices). We will most often think of vectors as column vectors. 
-
-\begin{definition}
-The magnitude (or length) of the vector $\vec u = (u_1,u_2)$ is $|\vec u| = \sqrt{u_1^2+u_2^2}$.  In higher dimensions we extend this as $$\ds |\vec u| = \sqrt{u_1^2+u_2^2+u_3^2+\cdots u_n^2} = \sqrt{\sum_{i=1}^n u_i^2}.$$ 
-A unit vector is a vector with length 1. 
-\marginpar{A unit vector $\bf \hat u$ has length $|\vec u|=1$} 
-In many books unit vectors are written with a hat above them, as $\bf{\hat u}$.
-\end{definition}
-
-We will need to be able to find vectors of any length that point in a given direction. 
-\begin{problem}
- Find a vector of length $12$ that points in the same direction as the vector $\vec v = (1,2,3,4)$. Then give a general formula for finding a vector of length $c$ that points in the direction of $\vec u$. 
-\end{problem}
-
-
-The simplest vectors in 2D are a one unit increment in either the $x$ or $y$ direction, and we write these vectors in any of the equivalent forms 
-$$\textbf{i} = \vec i = \left<1,0\right>=(1,0)\quad \text{and}\quad
-  \textbf{j} = \vec j = \left<0,1\right>=(0,1).$$ 
-We call these the standard basis vectors in 2D. 
-In 3D we include the vector $\textbf{k} = \vec j=\left<0,0,1\right>$ as well as add a zero to both $\vec i$ and $\vec j$ to obtain the standard basis vectors. 
-\marginpar{The standard basis vectors in 3D\\
-$\textbf{i} = \vec i = \left<1,0,0\right>=(1,0,0)$\\   
-$\textbf{j} = \vec j = \left<0,1,0\right>=(0,1,0)$\\ 
-$\textbf{k} = \vec k = \left<0,0,1\right>=(0,0,1)$   
-}
-The word basis suggests that we can base other vectors on these basis vectors, and we typically write other vectors in terms of these standard basis vectors. 
-Using only scalar multiplication and vector addition, we can obtain the other vectors in 2D from the standard basis vectors. 
-
-\begin{problem}
- Write the vector $(2,3)$ in the form $(2,3) = c_1\vec i+c_2\vec j$.  
-
-If instead we use the non-standard basis vectors $\vec u_1= (1,2)$ and $\vec u_2=(-1,4)$, then write the vector $(2,3)$ 
-in the form $(2,3) = c_1\vec u_1+c_2\vec u_2$.
-\end{problem}
-
-\begin{definition}
-A linear combination of vectors {$\vec v_{1},\vec v_{2},\ldots,\vec v_{n}$} is an expression of the form {$c_1\vec v_{1}+c_2\vec v_{2}+\ldots+c_n\vec v_{n}$}, where {$c_i$} is a constant for each $i$. 
-\end{definition}
-
-A linear combination of vectors is simply a sum of scalar multiples of the vectors. 
-We start with some vectors, stretch each one by some scalar, and then sum the result. 
-Much of what we will do this semester (and in many courses to come) relates directly to understanding linear combinations.  
-
-\begin{problem}
- The force acting on an object is $\vec F = (-3,2)$ N. The object is in motion and has velocity vector $\vec v=(1,1)$ and acceleration vector $\vec a = (-1,2)$.  Write the force as a linear combination of the velocity and acceleration vectors. 
-\end{problem}
-
-\begin{problem}
- Write the vector $(2,3,1)$ as a linear combination of the standard basis vectors in $\mathbb{R}^3$.  Then write $(2,3,1)$ as a linear combination of the vectors $(1,0,0)$, $(1,1,0)$, and $(1,1,1)$.  
-\end{problem}
-
-
-One of the key applications of linear combinations we will make throughout the semester is matrix multiplication. Let's introduce the idea with an example.  
-\begin{example}
-Consider the three vectors 
-$\begin{bmatrix}1\\0\\1\end{bmatrix}$,
-$\begin{bmatrix}0\\2\\-3\end{bmatrix}$,
-and 
-$\begin{bmatrix}2\\1\\1\end{bmatrix}$.
-Let's multiply the first vector by 2, the second by -1, and the third by 4, and then sum the result.  
-This gives us the linear combination
-$$2\begin{bmatrix}1\\0\\1\end{bmatrix}
--1\begin{bmatrix}0\\2\\-3\end{bmatrix}
-+4\begin{bmatrix}2\\1\\1\end{bmatrix}
-=
-\begin{bmatrix}10\\2\\9\end{bmatrix} 
+\pvec{1\\2\\-1}x_1+\pvec{3\\4\\-2}x_2+\pvec{-2\\-10\\6}x_3=\pvec{-4\\-15\\9}
+\quad \text{or}\quad
+\bvec{\nvec{1\\2\\-1}&\nvec{3\\4\\-2}&\nvec{-2\\-10\\6}}\bvec{x_1\\x_2\\x_3}=\bvec{-4\\-15\\9},
 $$
-We will define matrix multiplication so that multiplying a matrix on the right by a vector corresponds precisely to creating a linear combination of the columns of $A$. 
-We now write the linear combination above in matrix form 
-$$ 
-\begin{bmatrix}1&0&2\\0&2&1\\1&-3&1\end{bmatrix}
-\begin{bmatrix}2\\-1\\4\end{bmatrix}
-=
-\begin{bmatrix}10\\2\\9\end{bmatrix} 
-.$$
-\end{example}
-
-\begin{definition}[A matrix times a vector]
-We define the matrix product $A\vec x$ (a matrix times a vector) to be the linear combination of columns of $A$ where the components of $\vec x$ are the scalars in the linear combination. 
-For this to make sense, notice that the vector $\vec x$ must have the same number of entries as there are columns in $A$. 
-We can make this definition more precise as follows. 
-Let $\vec v_i$ be the $i$th column of $A$ so that 
-$A = \begin{bmatrix}\vec a_1 & \vec a_2 &\cdots &\vec a_n\end{bmatrix}$, 
-and let $\vec x = \begin{bmatrix}x_1\\x_2\\ \hdots \\ x_n\end{bmatrix}$. Then the matrix product is the linear combination 
-\marginpar{The product $A\vec x$ gives us linear combinations of the columns of $A$.}
-$$A\vec x 
-=\begin{bmatrix}\vec a_1 & \vec a_2 &\cdots &\vec a_n\end{bmatrix}\begin{bmatrix}x_1\\x_2\\ \hdots \\ x_n\end{bmatrix}
-= \vec a_1 x_1+\vec a_2 x_2+\cdots +\vec a_n x_n.$$ 
-\end{definition}
-The definition above should look like the dot product. If you think of $A$ as a vector of vectors, then $A\vec x$ is just the dot product of $A$ and $\vec x$.  
-
-\begin{problem}
- Write down a 2 by 4 nonzero matrix, and call it $A$ (fill the matrix with some integers of your choice). Then write down a vector $\vec x$ such that the matrix product $A\vec x$ makes sense (again, fill the vector with integers of your choice).  Then use the definition above to obtain the product $A\vec x$. 
-\end{problem}
-
-
-\begin{definition}[A matrix times a matrix]
-Let $\vec b_j$ represent the $j$th column of $B$ (so $B = \begin{bmatrix}\vec b_1 & \vec b_2 &\cdots &\vec b_n\end{bmatrix}$).  The product $AB$ of two matrices {$A_{m\times n}$} and {$B_{n\times p}$} is a new matrix {$C_{m\times p}=[c_{ij}]$} where the $j$th column of $C$ is the product $A\vec b_j$.  To summarize, the matrix product $AB$ is a new matrix whose $j$th column is a linear combinations of the columns of $A$ using the entries of the $j$th column of $B$ to perform the linear combinations. 
-\end{definition}
-
-
-\begin{problem}
-Let 
-$A = 
-\begin{bmatrix}
-1&2\\
-3&4\\
-5&6
-\end{bmatrix}
-$ 
-and
-$B = 
-\begin{bmatrix}
-0&1&4\\
--1&2&-3
-\end{bmatrix}
-$.
-Use the definition given above to compute both $AB$ and $BA$. Be prepared to show the class how you used linear combinations to get the matrix product.  (If you are used to using the row dotted by column approach, then this problem asks you to do the matrix product differently.)
-\end{problem}
-
-We introduced matrix multiplication in terms of linear combinations of column vectors. My hope is that by doing so you immediately start thinking of linear combinations whenever you encounter matrix multiplication (as this is what it was invented to do).  There are many alternate ways to think of matrix multiplication. Here are two additional methods. 
-\begin{enumerate}
-	\item ``Row times column approach.'' The product {$AB$} of two matrices {$A_{m\times n}$} and {$B_{n\times p}$} is a new matrix {$C_{m\times p}=[c_{ij}]$} where $c_{ij}=\sum_{k=1}^n a_{ik}b_{kj}$ is the dot product of the of the {$i$}th row of {$A$} and the {$j$}th column of B.  Wikipedia has an excellent visual illustration of this approach.	
-	 
-	\item Rephrase everything in terms of rows (instead of columns). We form linear combinations of rows using rows.  The matrix product $\vec x B$ (notice the order is flopped) is a linear combination of the rows of $B$ using the components of $x$ as the scalars. For the product $AB$, let $\vec a_i$ represent the $i$th row of $A$.  Then the $i$th row of $AB$ is the product $\vec a_iB$. We'll most often use the column definition instead of this, because we use the function notation $f(x)$ from calculus, and later we will use the notation $A(\vec x)$ instead of $(\vec x)A$ to describe how matrices act as functions. 
-\end{enumerate}
-
-
-\begin{problem}
-Let 
-$A = 
-\begin{bmatrix}
-1&2\\
-3&4\\
-5&6
-\end{bmatrix}
-$ 
-and
-$B = 
-\begin{bmatrix}
-0&1&4\\
--1&2&-3
-\end{bmatrix}
-$.
-Use the two alternate definitions above to compute $AB$. Be prepared to show the class how you used both alternate definitions (You'll need to show your intermediate steps).
-\end{problem}
-
-\begin{problem}
-Do each of the following:
-\begin{enumerate}
- \item Solve the system of equations $x+2y=3$, $4x+5y=6$.
- \item Write the vector $\pvec{3\\6}$ as a linear combination of $\pvec{1\\4}$ and $\pvec{2\\5}$.
- \item Let $A = \pvec{1&2\\4&5}$ and $\vec b=\pvec{3\\6}$.  Find a vector $\vec x$ so that $A\vec x = \vec b$. This matrix $A$ is called the coefficient matrix of the system in the first part.  
-\end{enumerate}
-How are these three questions related?
- 
-\end{problem}
-
-Prior to introducing Gaussian elimination, let's solve a system of equations using an elimination method.  If $2x+3y=4$ and $5x+7y=0$, then we can eliminate $x$ from the second equation by multiplying both sides of the first equation by 5, and both sides of the second equation by 2, and then subtracting.  This would give us the equations $10x+15y=20$ and $10x+14y=1$. The first equation minus the second then gives $(10-10)x+(15-14)y=(20-0)$, or more simply $y=20$. Similarly, you could multiply the first equation by 7, and the second by $3$, to eliminate $y$.  
-
-\begin{problem}
- Solve the system of equations 
+which as a system of equations becomes
 \begin{align*}
-  2x+3y-4z&=4\\  
-  3x+4y-3z&=8\\  
-  7x+12y-12z&=19.  
+x_1+3x_2-2x_3&=-4 \\
+2x_1+4x_2-10x_3&=-15 \\
+-1x_1-2x_2+6x_3&=9 
 \end{align*}
-Use elimination to find your solution. Eliminate $x$ from the 2nd and 3rd equations (which will give you two equations that do not involve $x$). Then use one of these simplified equations to eliminate $y$ from the other simplified equation. At this point you should have an equation that only involves $z$. Then use back substitution to give $y$ and $x$.   
-\end{problem}
 
-\begin{problem}
-Answer the following.
+You've solved systems of this form in the past. In this chapter we'll learn an efficient algorithm for solving these systems.
+
+\begin{problem}[Organized Substitution]
+Our goal on this problem is to solve the system of equations 
+\begin{align*}
+x+3y-2z&=-4 \\
+2x+4y-10z&=-15\\
+-1x-2y+6z&=9. 
+\end{align*}
+To solve this system, we'll use organized substitution. 
 \begin{enumerate}
- \item Suppose that $ax+by=c$ and $dx+ey=f$, where $a,b,c,d,e,f$ are all constants.  This is a system of equations with 2 equations and 2 unknowns.  Each equation represents a line in the plane.  How many solutions are there to this system?  (You should have a few different cases.)
- \item Suppose that $a_{11}x+a_{12}y+a_{13}z=b_1$, $a_{21}x+a_{22}y+a_{23}z=b_2$ and $a_{31}x+a_{32}y+a_{33}z=b_1$, where each $a_{ij}$ is a constant. This is a system of equations with 3 equations and 3 unknowns.  Each equation represents a plane in space.  How many solutions are there to this system?  (You should have a few different cases.)
- \item Suppose that $a_{11}x+a_{12}y+a_{13}z=b_1$ and $a_{21}x+a_{22}y+a_{23}z=b_2$, where each $a_{ij}$ is a constant. This is a system of equations with 2 equations and 3 unknowns.  Each equation represents a plane in space.  How many solutions are there to this system?  (You should have a few different cases.)
+ \item The first equation is easy to solve for $x$. Solve for $x$ and circle your result. Then replace $x$ with this in both of the other equations. After substituting, you should be able to rewrite each equation in the form $0x+?y+?z=?$.
+ \item One of these two simplified equations is easy to solve for $y$.  Solve this equation for $y$ (you shouldn't need fractions), and write your answer in the form $y=?z+?$. Circle this result.  Use this to replace $y$ in the other equation and simplify so you have $0x+0y+?z=?$. 
+ \item At this point you should be able to solve for $z$. Circle your result.  Then use this result to find $y$ in your circled equation for $y$.  Then use both values for $z$ and $y$ to obtain $x$ in your circled equation for $x$.   If you ended up with $z=3/2$, then you're on the right track. 
 \end{enumerate}
 \end{problem}
 
-\begin{definition}
- We say that a system of linear equation is consistent, if it has at least one solution.  We say it is inconsistent if there is no solution. 
+
+
+\begin{problem}[Gaussian Elimination]
+We'll now use elimination to solve the system of equations 
+\begin{align*}
+x+3y-2z&=-4 \\
+2x+4y-10z&=-15 \\
+-1x-2y+6z&=9. 
+\end{align*}
+\begin{enumerate}
+ \item 
+\marginpar{Start by making sure that the coefficient in front of $x$ on the top row is not zero. Swap rows if needed, and then multiply both sides of the top equation by a constant so that you have a 1 in this spot. Then add a multiple of this equation to every other equation to eliminate $x$ from the other equations. }%
+The first equation has a 1 as the coefficient in front of $x$. Add a multiple of the first equation to every other equation so that you eliminate the $x$ variable from the other equations.
+Write your system in the form 
+\begin{align*}
+x+3y-2z&=-4 \\
+0x+?y+?z&=? \\
+0x+?y+?z&=?. 
+\end{align*}
+ \item One of these two simplified equations is easy to solve for $y$. If you need to swap equations 2 and 3, or multiply both sides of an equation by some constant, do so now so that you can rewrite the system in the form 
+\marginpar{If you ignore the top row and the variable $x$, then at this point we just repeat the above process with $y$. Make sure the coefficient in front of $y$ is 1, and then add multiples of the second equation to each lower equation to eliminate $y$.}%
+\begin{align*}
+x+3y-2z&=-4 \\
+0x+1y+?z&=? \\
+0x+?y+?z&=?. 
+\end{align*}
+Then add a multiple of the second equation to the third equation so that you eliminate the $y$. 
+Rewrite your system in the form 
+\begin{align*}
+x+3y-2z&=-4 \\
+0x+y+?z&=? \\
+0x+0y+?z&=?. 
+\end{align*}
+\item 
+\marginpar{We now ignore the top 2 rows and variables $x$ and $y$, and then repeat the elimination process again. We make sure to get the coefficient in front of $z$ to be a 1. Since there are no more rows beneath this third, we are done. If there had been more rows, we would just keep going.  }%
+Multiply the third equation by some nonzero constant so that the coefficient in front of $z$ is a 1. Rewrite the system one final time as
+\begin{align*}
+x+3y-2z&=-4 \\
+0x+y+?z&=? \\
+0x+0y+z&=?. 
+\end{align*}
+ You now have $z$. Use your value for $z$ to quickly obtain $y$ from the second equation, and then $x$ from the first equation.
+\end{enumerate}
+\end{problem}
+
+
+
+\begin{observation}
+ 
+When solving the above system with substitution, we 
+\begin{enumerate}
+ \item 
+picked an equation for which it was easy to solve for a variable, 
+ \item
+solved for that variable, and then 
+\item
+replaced that variable in the other equations and simplified each equation. 
+\end{enumerate}
+We then leave the picked equation alone, and repeat this process on the remaining simplified equations. 
+
+When solving the above system with elimination, we 
+\begin{enumerate}
+ \item 
+picked an equation that we could use to eliminate a variable from the other equations, interchanging this equation with one higher up if needed, 
+ \item
+multiplied the chosen equation by a nonzero constant to make the leading coefficient 1, and then 
+ \item 
+added a multiple of the chosen equation to the other equations to eliminate the variable from the other equations. 
+\end{enumerate}
+We then left the picked equation alone, and repeated this process on the remaining simplified equations below it. 
+\end{observation}
+
+These two processes (organized substitution and Gaussian elimination) are fundamentally the same process. You should have noticed that your intermediate steps were the same. We now develop a way to replicate both of these processes with matrices.
+
+\begin{problem}[Gaussian Elimination with Matrices]\
+%\marginpar{Follow this link to watch a video of how to perform Gaussian elimination with matrices.}%
+Let's solve the same system 
+\begin{align*}
+x+3y-2z&=-4 \\
+2x+4y-10z&=-15 \\
+-1x-2y+6z&=9. 
+\end{align*}
+but now we will only write the coefficients of our system in a matrix. The matrix helps us organize our work, and we have less to write. 
+\begin{enumerate}
+\item 
+\marginpar{This matrix is called the augmented matrix of the system. The vertical bar you see is optional, and is often used to help people remember that there is an equal sign there.} % 
+Start by writing the coefficients of system in the matrix (fill in the blanks) 
+$$\bvec{[ccc|c]
+1 & 3 & -2 & -4 \\
+2 & ? & ? & -15 \\
+? & ? & 6  & ?}.
+$$
+\item 
+\marginpar{I often write the row operation next to the row I am about to replace. }
+Since the upper left entry is a 1, we are ready to reduce.  Add a multiple of row 1 to both row 2 and row 3 (replacing the old row 2 and 3) so that you obtain a zero in both entries below the leading 1 in the top row. Write your work as
+$$
+\nvec{\bvec{[ccc|c]
+1 & 3 & -2 & -4 \\
+2 & ? & ? & -15 \\
+? & ? & 6  & ?}
+\nvec{[l] \\ R_2-2R_1   \\ R_3+?R_1 }
+}
+\Rightarrow
+\nvec{\bvec{[ccc|c]
+1 & 3 & -2 & -4 \\
+0 & ? & -6 & ? \\
+0 & 1 & ?  & ? }
+}.
+$$
+ \item Swap $R_2$ and $R_3$. This should get you a $1$ as the first nonzero entry in row 2. Then you can add a multiple of row 2 to row 3 to obtain a zero below this 1. Write your work in the form 
+$$
+\nvec{\bvec{[ccc|c]
+1 & 3 & -2 & -4 \\
+0 & ? & -6 & ? \\
+0 & 1 & ?  & ? }
+\nvec{[l] \\ R_2\leftrightarrow R_3   \\  }
+}
+\Rightarrow
+\nvec{\bvec{[ccc|c]
+1 & 3 & -2 & -4 \\
+0 & 1 & ? & ? \\
+0 & ? & -6  & ? }
+\nvec{[l] \\ \\ R_3+?R_2 }}
+\Rightarrow
+\nvec{\bvec{[ccc|c]
+1 & 3 & -2 & -4 \\
+0 & 1 & ? & ? \\
+0 & 0 & ?  & 3 }
+}
+.
+$$
+ \item Multiply row 3 by some nonzero constant so that the first nonzero entry in row 3 is a 1.  Write your work as
+$$
+\nvec{\bvec{[ccc|c]
+1 & 3 & -2 & -4 \\
+0 & 1 & ? & ? \\
+0 & 0 & ?  & ? }
+\nvec{[l] \\ \\ ?R_3 }}
+\Rightarrow
+\nvec{\bvec{[ccc|c]
+1 & 3 & -2 & -4 \\
+0 & 1 & ? & ? \\
+0 & 0 & 1  & ? }
+}
+$$ 
+\item Now rewrite your matrix as a system of equations.  The last line row of your matrix, after rewriting it as a system, should be $z=3/2$. Use this to find $y$ and $x$. 
+\end{enumerate}
+\end{problem}
+
+In our work above, our process was precisely the same as when we used elimination without matrices. When working with equations, we can always (1) interchange the order of equations without changing the solution set to the system.  We can also (2) multiply both sides of an equation  by a nonzero number without affecting the solutions.  Finally, (3) adding a multiple of one equation to another will not affect the solution set. When working with matrices, these three operations on equations become operations on rows of a matrix.  
+
+\begin{definition}[Row Operations]
+We define allowed row operations.
+\begin{enumerate}
+  \item Interchange two rows.
+  \item Multiply a row of a matrix by a nonzero constant.
+  \item Add a nonzero multiple of a row to another row.
+\end{enumerate}
 \end{definition}
 
-\section{Gaussian Elimination}
-Gaussian elimination is an efficient algorithm we will use to solve systems of equations. This is the same algorithm implemented on most computers systems. The main idea is to eliminate each variable from all but one equation/row (if possible), using the following three operations (called elementary row operations):
-\begin{enumerate}
-  \item Multiply an equation (or row of a matrix) by a nonzero constant,
-  \item Add a nonzero multiple of any equation (or row) to another equation,
-  \item Interchange two equations (or rows).
-\end{enumerate}
-These three operations are the operations learned in college algebra when solving a system using a method of elimination.  Gaussian elimination streamlines elimination methods to solve generic systems of equations of any size. The process involves a forward reduction and (optionally) a backward reduction. The forward reduction creates zeros in the lower left corner of the matrix.  The backward reduction puts zeros in the upper right corner of the matrix. We eliminate the variables in the lower left corner of the matrix, starting with column 1, then column 2, and proceed column by column until all variables which can be eliminated (made zero) have been eliminated. Before formally stating the algorithm, let's look at a few examples. 
+The row operations above are precisely what we used to row reduce our matrix. The elimination process begins with the first column. We obtain a 1 in the top of that column by (1) swapping rows and/or  (2) multiplying a row by a nonzero scalar. We then (3) add multiples of the first row to the other rows to obtain zeros below this leading 1.  We then ignore the row and column containing this leading 1, and repeat the reduction on the remaining part of the matrix. We can summarize the reduction algorithm with the diagram below.
+$$
+\bvec{[ccc|c]
+* & * & * & * \\
+* & * & * & * \\
+* & * & * & * \\
+}
+\Rightarrow
+\bvec{[ccc|c]
+1 & * & * & * \\
+0 & * & * & * \\
+0 & * & * & * \\
+}
+\Rightarrow
+\bvec{[ccc|c]
+1 & * & * & * \\
+0 & 1 & * & * \\
+0 & 0 & * & * \\
+}
+\Rightarrow
+\bvec{[ccc|c]
+1 & * & * & * \\
+0 & 1 & * & * \\
+0 & 0 & 1 & * \\
+}.
+$$
+The matrix at the far right provides us with enough information to quickly obtain a solution. After reducing the matrix to this form, we say the matrix is in row echelon form. 
 
-\begin{example}
-Let's start with a system of 2 equations and 2 unknowns. I will write the augmented matrix representing the system as we proceed. To solve $$
-\begin{array}{rr}
-\begin{array}{rl}
-x_1-3x_2&=4\\
-2x_1-5x_2&=1 
-\end{array}
-&
-\begin{bmatrix}[cc|c] 1&-3&4\\2&-5&1
-\end{bmatrix} 
-\end{array}
-$$
-we eliminate the $2x_1$ in the 2nd row by adding -2 times the first row to the second row.
-$$\begin{array}{rr}
-\begin{array}{rl}
-x_1-3x_2&=4\\
-x_2&=-7 
-\end{array}
-&
-\begin{bmatrix}[cc|c] 1&-3&4\\0&1&-7
-\end{bmatrix} 
-\end{array}
-$$
-The matrix at the right is said to be in \textbf{row echelon form}. \marginpar{row echelon form} 
-\begin{definition}[Row Echelon Form]
-We say a matrix is in row echelon form (ref) if
+\begin{definition}[Row Echelon Form, Leading 1, Pivot Column]
+We say a matrix is in row echelon form (ref) if it satisfies each of the following conditions:
 \begin{itemize}
   \item each nonzero row begins with a 1 (called a leading 1),
-  \item the leading 1 in a row occurs further right than a leading 1 in the row above, and
+  \item the leading 1 in each row occurs further right than the leading 1 in the row above, and
   \item any rows of all zeros appear at the bottom.
 \end{itemize}
-The position in the matrix where the leading 1 occurs is called a pivot. 
-The column containing a pivot is called a pivot column. \marginpar{pivot column}
+The position in the matrix where the leading 1 occurs is called a pivot.
+The column containing a pivot is called a pivot column.
 \end{definition}
-At this point in our example, we can use ``back-substitution'' to get {$x_2=-7$} and {$x_1=4+3x_2 = 4-21=-17$}. 
-Alternatively, we can continue the elimination process by eliminating the terms above each pivot, starting on the right and working backwards. 
-This will result in a matrix where all the pivot columns contain all zeros except for the pivot. 
-If we add 3 times the second row to the first row, we obtain.
-$$\begin{array}{rr}
-\begin{array}{rl}
-x_1&=-17\\
-x_2&=-7 
-\end{array}
-&
-\begin{bmatrix}[cc|c] 1&0&-17\\0&1&-7
-\end{bmatrix} 
-\end{array}
-$$
-The matrix on the right is said to be in \textbf{reduced row echelon form} (or just rref). 
-We can easily read solutions to systems of equations directly from a matrix which is in reduced row echelon form.
 
-\begin{definition}[Reduced Row Echelon Form]
-\marginpar{reduced row echelon form - rref}
+
+
+
+\begin{problem}[Gauss-Jordan Elimination]
+%\marginpar{See YouTube for a video }
+Consider the three planes 
+$2x+3y+4z=4$, 
+$x+2y=6$, and 
+$-x+y+2z=0$. 
+Let's find the point of intersection by applying row operations to the augmented matrix
+$$
+A
+=
+\bvec{
+2&3&4&4\\
+1&2&0&6\\
+-1&1&2&0
+}.$$ We'll first obtain row echelon form, and then continue reducing the matrix until we obtain what is called reduced row echelon form. See the link on the right if you would like to watch a video of this reduction process.
+\begin{enumerate}
+ \item Apply Gaussian elimination to obtain a row echelon form for $A$. You should start by interchanging the first and second rows, so that you have a 1 in the upper left. Remember the pattern 
+\marginpar{We say a matrix is in row echelon form when (1) each nonzero row begins with a leading 1, (2) a leading 1 appears to the right of any leading one above it, and (3) any rows of all zeros appear at the bottom.}
+$$
+\bvec{
+2&3&4&4\\
+1&2&0&6\\
+-1&1&2&0
+}
+\Rightarrow
+\bvec{[ccc|c]
+1 & * & * & * \\
+0 & * & * & * \\
+0 & * & * & * \\
+}
+\Rightarrow
+\bvec{[ccc|c]
+1 & * & * & * \\
+0 & 1 & * & * \\
+0 & 0 & * & * \\
+}
+\Rightarrow
+\bvec{[ccc|c]
+1 & * & * & * \\
+0 & 1 & * & * \\
+0 & 0 & 1 & * \\
+}
+$$
+\item Let's now use row operations (instead of back substitution) to find the solution.  Starting on the right, and working left, use the 1's in each pivot column to reduce the matrix.  Use the pattern 
+\marginpar{We say a matrix is in reduced row echelon form when the matrix is in row echelon form, and there are zeros above each pivot. }
+$$
+\bvec{[ccc|c]
+1 & * & * & * \\
+0 & 1 & * & * \\
+0 & 0 & 1 & * \\
+}
+\Rightarrow
+\bvec{[ccc|c]
+1 & * & {\bf 0} & * \\
+0 & 1 & {\bf 0} & * \\
+0 & 0 & 1 & * \\
+}
+\Rightarrow
+\bvec{[ccc|c]
+1 & {\bf 0} & 0 & * \\
+0 & 1 & 0 & * \\
+0 & 0 & 1 & * \\
+}
+$$
+to complete your reduction. State the point of intersection of the planes.
+\marginpar{Check your answer with the technology link \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=visualizing\_systems\_of\_equations}{Visualizing Systems of Equations}.}
+\end{enumerate}
+\end{problem}
+
+
+The process above is called Gauss-Jordan elimination. The forward phase of reduction results in a matrix in row echelon form.  We then work backwards starting with the right most pivot column, and use the leading 1 to eliminate the zeros above it.
+
+\begin{definition}[Reduced Row Echelon Form (rref)]
 We say that a matrix is in reduced row echelon form (rref) if 
 \begin{itemize}
 \item the matrix is in row echelon form, and 
-\item each pivot column contains all zeros except for the pivot (leading one).
+\item each pivot column contains all zeros except for the leading 1 in the pivot.
 \end{itemize}
 \end{definition}
 
-
-\end{example}
-
-
-\begin{example}
-Let's now solve a nonhomogeneous (meaning the right side is not zero) system with 3 equations and 3 unknowns: $$\begin{array}{rl}
-2x_1+x_2-x_3&=2\\
-x_1-2x_2 &=3\\
-4x_2+2x_3&=1
-\end{array} \quad\quad\quad\quad\quad
- \begin{bmatrix}[ccc|c] 2&1&-1&2\\1&-2&0&3\\0&4&2&1\end{bmatrix}.$$ 
-We'll encounter some homogeneous systems later on.
-To simplify the writing, we'll just use matrices this time. 
-To keep track of each step, I will write the row operation next to the row I will replace. 
-Remember that the 3 operations are (1)multiply a row by a nonzero constant, (2)add a multiple of one row to another, (3) interchange any two rows.  
-If I write $R_2+3R1$ next to $R_2$, then this means I will add 3 times row 1 to row 2.  
-If I write $2R_2-R1$ next to $R_2$, then I have done two row operations, namely I multiplied $R_2$ by 2, and then added (-1) times $R1$ to the result (replacing $R2$ with the sum). 
-The steps below read left to right, top to bottom. 
-In order to avoid fractions, I wait to divide until the last step, only putting a 1 in each pivot at the very end.
-$$\begin{array}{rlcl}
-\Rightarrow^{(1)}&
- \begin{bmatrix}[ccc|c] 2&1&-1&2\\1&-2&0&3\\0&4&2&1\end{bmatrix}
-  \begin{array}{lr} \ \\2R_2-R_1\\ \ \end{array}
-&\Rightarrow^{(2)}& 
-\begin{bmatrix}[ccc|c] 2&1&-1&2\\0&-5&1&4\\0&4&2&1\end{bmatrix} 
-\begin{array}{lr}\ \\ \ \\5R_3+4R_2 \end{array}
-\\ \\ \Rightarrow^{(3)}&
- \begin{bmatrix}[ccc|c] 2&1&-1&2\\0&-5&1&4\\0&0&14&21\end{bmatrix} 
- \begin{array}{lr}\ \\ \ \\R_3/7 \end{array}
-&\Rightarrow^{(4)}& 
-\begin{bmatrix}[ccc|c] 2&1&-1&2\\0&-10&2&8\\0&0&2&3\end{bmatrix} 
-\begin{array}{l} 2R_1+R_3\\R_2-R_3\\ \ \end{array}
-\\ \\ \Rightarrow^{(5)}&
- \begin{bmatrix}[ccc|c] 4&2&0&7\\0&-10&0&5\\0&0&2&3\end{bmatrix}  
- \begin{array}{lr}\ \\R_2/5\\ \ \end{array} 
-&\Rightarrow^{(6)}& 
-\begin{bmatrix}[ccc|c] 4&2&0&7\\0&-2&0&1\\0&0&2&3\end{bmatrix}  
-\begin{array}{lr} R_1+R_2\\ \ \\ \ \end{array}
-\\ \\ \Rightarrow^{(7)}&
-\begin{bmatrix}[ccc|c] 4&0&0&8\\0&-2&0&1\\0&0&2&3\end{bmatrix} 
-\begin{array}{lr} R_1/4\\R_2/-2\\R_3/2 \end{array}
-&\Rightarrow^{(8)}&  
-\begin{bmatrix}[ccc|c] 1&0&0&2\\0&1&0&-1/2\\0&0&1&3/2\end{bmatrix} 
-\end{array}
-$$
-Writing the final matrix in terms of a system, we have the solution {$x_1=2, x_2=-1/2, x_3=3/2$}. Remember that this tells us (1) where three planes intersect, (2) how to write the 4th column $\vec b$ in our original augmented matrix as a linear combination of the columns of the coefficient matrix $A$, and (3) how to solve the matrix equation $A\vec x = \vec b$ for $\vec x$.
-\end{example}
-
-
-The following steps describe the Gaussian elimination algorithm that we used above. 
-Please take a moment to compare what is written below with the example above. 
-Most of the problems in this unit can be solved using Gaussian elimination, so we will practice it as we learn a few new ideas.
-\begin{enumerate}
-\item Forward Phase (row echelon form) - The following 4 steps should be repeated until you have mentally erased all the rows or all the columns. In step 1 or 4 you will erase a column and/or row from the matrix.
-\begin{enumerate}
-	\item  
-	\marginpar{Computer algorithms place the largest (in absolute value) nonzero entry in the first row. This reduces potential errors due to rounding that can occur in later steps.}
-Consider the first column of your matrix. Start by interchanging rows (if needed) to place a nonzero entry in the first row. If all the elements in the first column are zero, then ignore that column in future computations (mentally erase the column) and begin again with the smaller matrix which is missing this column. If you erase the last column, then stop.
-  \item 
-  Divide the first row (of your possibly smaller matrix) row by its leading entry so that you have a leading 1. This entry is a pivot, and the column is a pivot column. [When doing this by hand, it is often convenient to skip this step and do it at the very end so that you avoid fractional arithmetic. If you can find a common multiple of all the terms in this row, then divide by it to reduce the size of your computations.  ] 
-	\item Use the pivot to eliminate each nonzero entry below the pivot, by adding a multiple of the top row (of your smaller matrix) to the nonzero lower row.
-	\item 
-	\marginpar{Ignoring rows and columns is equivalent to incrementing row and column counters in a computer program.}
-	Ignore the row and column containing your new pivot and return to the first step (mentally cover up or erase the row and column containing your pivot). If you erase the last row, then stop.
-\end{enumerate}
-	\item Backward Phase (reduced row echelon form - often called Gauss-Jordan elimination) - At this point each row should have a leading 1, and you should have all zeros to the left and below each leading 1. If you skipped step 2 above, then at the end of this phase you should divide each row by its leading coefficient to make each row have a leading 1.
-\begin{enumerate}
-	\item Starting with the last pivot column. Use the pivot in that column to eliminate all the nonzero entries above it, by adding multiples of the row containing the pivot to the nonzero rows above. 
-	\item Work from right to left, using each pivot to eliminate the nonzero entries above it. Nothing to the left of the current pivot column changes.  By working right to left, you greatly reduce the number of computations needed to fully reduce the matrix.
-\end{enumerate}
-\end{enumerate}
-
-
-\begin{example}\label{ex rref last}
-As a final example, let's reduce 
-{\small $
-\begin{bmatrix}[cccc|c]
- 0 & 1 & 1 & -2 & 7 \\
-  1 & 3 & 5 & 1 & 6 \\
- 2 & 0 & 4 & 3 & -8 \\
- -2 & 1 & -3 & 0 & 5
-\end{bmatrix}
-$} to reduced row echelon form (rref). The first step involves swapping 2 rows. We swap row 1 and row 2 because this places a 1 as the leading entry in row 1.
-{\small  $$\begin{array}{rlcl}
-\multicolumn{2}{l}{\text{(1) Get a nonzero entry in upper left}}&
-\multicolumn{2}{l}{\text{(2) Eliminate entries in 1st column}}\\
-\Rightarrow&
-\begin{bmatrix}[cccc|c]
- 0 & 1 & 1 & -2 & 7 \\
-  1 & 3 & 5 & 1 & 6 \\
- 2 & 0 & 4 & 3 & -8 \\
- -2 & 1 & -3 & 0 & 5
-\end{bmatrix}
-  \begin{array}{lr} R_1\leftrightarrow R_2 \\ \ \\ \ \\ \ \end{array}
-&\Rightarrow& 
-\begin{bmatrix}[cccc|c]
-  1 & 3 & 5 & 1 & 6 \\
- 0 & 1 & 1 & -2 & 7 \\
- 2 & 0 & 4 & 3 & -8 \\
- -2 & 1 & -3 & 0 & 5
-\end{bmatrix}
-  \begin{array}{lr} \ \\ \ \\ R_3-2R_1 \\ R_4+2R_1 \end{array}
-\\ \\
-\multicolumn{2}{l}{\text{(3) Eliminate entries in 2nd column}}&
-\multicolumn{2}{l}{\text{(4) Make a leading 1 in 4th column}}\\
-\Rightarrow&
-\begin{bmatrix}[cccc|c]
-  1 & 3 & 5 & 1 & 6 \\
- 0 & 1 & 1 & -2 & 7 \\
- 0 & -6 & -6 & 1 & -20 \\
- 0 & 7 & 7 & 2 & 17
-\end{bmatrix}
-  \begin{array}{lr} \ \\ \ \\ R_3+6R_2 \\ R_4-7R_2 \end{array}
-&\Rightarrow& 
-\begin{bmatrix}[cccc|c]
-  1 & 3 & 5 & 1 & 6 \\
- 0 & 1 & 1 & -2 & 7 \\
- 0 & 0 & 0 & -11 & 22 \\
- 0 & 0 & 0 & 16 & -32
-\end{bmatrix}
-  \begin{array}{lr} \ \\ \ \\ R_3/(-11) \\ R_4/16 \end{array}
-\\ \\
-\multicolumn{2}{l}{\text{(5) Eliminate entries in 4th column}}&
-\multicolumn{2}{l}{\text{(6) Row Echelon Form}}\\
-\Rightarrow&
-\begin{bmatrix}[cccc|c]
-  1 & 3 & 5 & 1 & 6 \\
- 0 & 1 & 1 & -2 & 7 \\
- 0 & 0 & 0 & 1 & -2 \\
- 0 & 0 & 0 & 1 & -2
-\end{bmatrix}
-  \begin{array}{lr} \ \\ \ \\ \ \\ R_4-R_3 \end{array}
-&\Rightarrow& 
-\begin{bmatrix}[cccc|c]
-  1 & 3 & 5 & 1 & 6 \\
- 0 & 1 & 1 & -2 & 7 \\
- 0 & 0 & 0 & 1 & -2 \\
- 0 & 0 & 0 & 0 & 0
-\end{bmatrix}
-\end{array}
-$$}\begin{picture}(0,0)
-\begin{tikzpicture}[scale=.39]
-\draw[help lines,step=1cm,transparent] (0,0) grid (30,20);
-\draw[opacity=.2,fill][shift={(2.6,16.6)}] (0,0) rectangle (1.4,.8);
-\draw[opacity=.2,fill][shift={(19.6,13.6)}] (0,0) rectangle (1.4,2.8);
-\draw[opacity=.1,fill][shift={(2.6,10.6)}] (0,0) rectangle (8.9,.8);
-\draw[opacity=.1,fill][shift={(2.6,7.6)}] (0,0) rectangle (.7,3.8);
-\draw[opacity=.2,fill][shift={(3.9,7.6)}] (0,0) rectangle (1.4,1.8);
-\draw[opacity=.1,fill][shift={(19.5,10.6)}] (0,0) rectangle (8.1,.8);
-\draw[opacity=.1,fill][shift={(19.5,7.6)}] (0,0) rectangle (.7,3.8);
-\draw[opacity=.1,fill][shift={(20.8,9.6)}] (0,0) rectangle (6.8,.8);
-\draw[opacity=.1,fill][shift={(20.8,7.6)}] (0,0) rectangle (.7,2.8);
-\draw[opacity=.1,fill][shift={(22.15,7.6)}] (0,0) rectangle (.7,1.8);
-\draw[opacity=.2,fill][shift={(23.6,8.6)}] (0,0) rectangle (1.6,.8);
-
-\draw[opacity=.1,fill][shift={(2.6,4.6)}] (0,0) rectangle (7.2,.8);
-\draw[opacity=.1,fill][shift={(2.6,1.6)}] (0,0) rectangle (.7,3.8);
-\draw[opacity=.1,fill][shift={(3.9,3.6)}] (0,0) rectangle (5.9,.8);
-\draw[opacity=.1,fill][shift={(3.9,1.6)}] (0,0) rectangle (.7,2.8);
-\draw[opacity=.1,fill][shift={(5.2,1.6)}] (0,0) rectangle (.7,1.8);
-\draw[opacity=.2,fill][shift={(6.7,1.6)}] (0,0) rectangle (1.1,.8);
-
-\draw[opacity=.1,fill][shift={(19.5,4.6)}] (0,0) rectangle (7.2,.8);
-\draw[opacity=.1,fill][shift={(19.5,1.6)}] (0,0) rectangle (.7,3.8);
-\draw[opacity=.1,fill][shift={(20.8,3.6)}] (0,0) rectangle (5.9,.8);
-\draw[opacity=.1,fill][shift={(20.8,1.6)}] (0,0) rectangle (.7,2.8);
-\draw[opacity=.1,fill][shift={(22.15,1.6)}] (0,0) rectangle (.7,1.8);
-\draw[opacity=.1,fill][shift={(23.6,1.6)}] (0,0) rectangle (1.1,1.8);
-\draw[opacity=.1,fill][shift={(23.6,2.6)}] (0,0) rectangle (3.1,.8);
-\draw[opacity=.1,fill][shift={(25.6,1.6)}] (0,0) rectangle (1.1,.8);
-
-\end{tikzpicture}
-\end{picture}At this stage we have found a row echelon form of the matrix. 
-Notice that we eliminated nonzero terms in the lower left of the matrix by starting with the first column and working our way over column by column.  Columns 1, 2, and 4 are the pivot columns of this matrix. We now use the pivots to eliminate the other nonzero entries in each pivot column (working right to left).\marginpar{Recall that a matrix is in reduced row echelon (rref) if:
-\begin{enumerate}
-	\item Nonzero rows begin with a leading 1. 
-	\item Leadings 1's on subsequent rows appear further right than previous rows. 
-	\item Rows of zeros are at the bottom.
-	\item Zeros are above and below each pivot.
-\end{enumerate}}
-{\small $$ \begin{array}{rlcl}
-\multicolumn{2}{l}{\text{(7) Eliminate entries in 4th column}}&
-\multicolumn{2}{l}{\text{(8) Eliminate entries in 2nd column}}\\
-\Rightarrow&
-\begin{bmatrix}[cccc|c]
-  1 & 3 & 5 & 1 & 6 \\
- 0 & 1 & 1 & \begin{picture}(0,0)(0,3) \tikz \draw[scale=.39,fill,opacity=.2] (0,0) rectangle (1.6,2);\end{picture}
-							-2 & 7 \\
- 0 & 0 & 0 & 1 & -2 \\
- 0 & 0 & 0 & 0 & 0
-\end{bmatrix}
-  \begin{array}{lr} R_1-R3 \\ R_2+2R_3 \\ \ \\ \ \end{array}
-&\Rightarrow& 
-\begin{bmatrix}[cccc|c]
-  1 & \begin{picture}(0,0)(4,3) \tikz \draw[scale=.39,fill,opacity=.2] (0,0) rectangle (1,1);\end{picture}
-  		3 & 5 & 0 & 8 \\
- 0 & 1 & 1 & 0 & 3 \\
- 0 & 0 & 0 & 1 & -2 \\
- 0 & 0 & 0 & 0 & 0
-\end{bmatrix}
-  \begin{array}{lr} R_1-3R_2 \\ \ \\ \ \\ \ \end{array}
-\\ \\ 
-\multicolumn{2}{l}{\text{(9) Reduced Row Echelon Form}}&
-\multicolumn{2}{l}{\text{(10) Switch to system form}}\\
-\Rightarrow&
-\begin{bmatrix}[cccc|c]
-  1 & 0 & 2 & 0 & -1 \\
- 0 & 1 & 1 & 0 & 3 \\
- 0 & 0 & 0 & 1 & -2 \\
- 0 & 0 & 0 & 0 & 0
-\end{bmatrix}
-&\Rightarrow& 
-\begin{array}{rl}
-x_1+2x_3&=-1\\
-x_2+x_3&=3\\
-x_4&=-2\\
-0&=0
-\end{array}
-\end{array}
-$$}We have obtained the reduced row echelon form. 
-When we write this matrix in the corresponding system form, notice that there is not a unique solution to the system. Because the third column did not contain a pivot column, we can write every variable in terms of $x_3$ (the redundant equation $x_3=x_3$ allows us to write $x_3$ in terms of $x_3$). We are free to pick any value we want for $x_3$ and still obtain a solution. For this reason, we call $x_3$ a free variable, \marginpar{Free variables correspond to non pivot columns. Solutions can be written in terms of free variables.} and write our infinitely many solutions in terms of $x_3$ as 
-$$
-\begin{array}{ll}
-x_1=-1-2x_3\\
-x_2=3-x_3\\
-x_3=x_3\\
-x_4=-2
-\end{array}
-\quad \text{ or by letting $x_3=t$ }\quad
-\begin{array}{ll}
-x_1=-1-2t\\
-x_2=3-t\\
-x_3=t\\
-x_4=-2
-\end{array}
-.
-$$
-\marginpar{parametric form}By choosing a value (such as $t$) for $x_3$, we can write our solution in so called parametric form. We have now given a parametrization of the solution set, where $t$ is an arbitrary real number. 
-\end{example}
-
-
-
+The row reduction process we've described above may not always result in a unique solution. 
 
 \begin{problem}
-Each of the following augmented matrices requires one row operation to be in reduced row echelon form. Perform the required row operation, and then write the solution to the corresponding system of equations in terms of the free variables.
+On this problem, you'll be using software to obtain the rref of a matrix.  The Sage command is ``A.rref()'' and the Mathematica command is ``RowReduce.'' 
+\marginpar{You can use the \href{\urlrref}{Sage RREF Calculator} to check your result. Follow the link.}%
+\begin{enumerate}
+ \item 
+Consider the three planes $x+2y-z=3$, $2x-y+4z=0$, and $-x+2z=4$.  
+Use software to obtain the reduced row echelon form (rref) for the matrix
+$$
+\bvec{
+1&2&-1&3\\
+2&-1&4&0\\
+-1&0&2&4
+}.
+$$  
+What does the reduced matrix tell you about how the planes intersect?
+
+When you present in class, you should always write the original matrix, draw an arrow to the rref of the matrix, and write rref above your arrow. This way the class can see what matrix you reduced, and what the rref is. 
+ \item
+If I wanted to write the vector $(3,0,4)$ as a linear combination of the vectors $(1,2,-1)$, $(2,-1,0)$, and $(-1,4,2)$, then what should I let $c_1$, $c_2$, and $c_3$ equal so that 
+$$ c_1(1,2,-1)+c_2(2,-1,0)+c_3(-1,4,2)=(3,0,4),$$ 
+which we could rewrite in the easier to use column form
+$$ c_1\pvec{1\\2\\-1}+c_2\pvec{2\\-1\\0}+c_3\pvec{-1\\4\\2}=\pvec{3\\0\\4}.$$
+[Hint: What does this have to do with the first part?] 
+ \item
+Now consider the three planes $x+2y-z=3$, $2x-y+4z=0$, and $-5y+6z=-6$.  
+Set up an appropriate augmented matrix (make sure you show us the matrix), and use software to verify that the reduced row echelon form is
+$$
+\bvec{
+1 & 0 & \frac{7}{5} & \frac{3}{5} \\
+0 & 1 & -\frac{6}{5} & \frac{6}{5} \\
+0 & 0 & 0 & 0
+}.
+$$
+Write the three equations represented by this rref (the third equation may seem silly). 
+\item Note that the third column does not have a pivot in it. If we added the equation $z=z$ to our work above, then we could solve for $x$, $y$, and $z$ in terms of the variable $z$. 
+\marginpar{Because we can choose the third variable to be anything we want, we call it a free variable. }
+Write your work in the form 
+$$
+ \nvec{x\\y\\z}\,\nvec{=\\=\\=}\,\nvec{? \\ ? \\ z}
+\quad \quad \text{and}\quad \quad 
+ \pvec{x\\y\\z}=\pvec{? \\ ? \\ 1}z+\pvec{?\\?\\0}.
+$$
+ 
+\end{enumerate}
+
+\end{problem}
+
+\begin{definition}[Free Variable]
+ The variables in a system of equations each correspond to column of the augmented matrix. Some of the columns are pivot columns, and some are not.  The variables corresponding to the nonpivot columns are called free variables.  You can choose these variables to be any number you want, and the write the solution to the system of equations in terms of the free variables. 
+\end{definition}
+
+\begin{problem}
+\marginpar{Here's an applicable \href{http://www.youtube.com/watch?v=89QO4t1S-cA&feature=share&list=PL7A2089C33C8EFC84}{YouTube video}. }%
+Each of the following augmented matrices requires one row operation to be in reduced row echelon form. Perform the single required row operation, and then write the solution to the corresponding system of equations in terms of the free variables.
 \begin{multicols}{2}
 \begin{enumerate}
 	\item 
@@ -593,7 +449,7 @@ $
  0 & 0 & 1 & 1 \\
  0 & 1 & 0 & -2
 \end{bmatrix}
-$
+$ [Remember, you only get one row operation.]
 	\item 
 $
 \begin{bmatrix}[ccc|c]
@@ -601,7 +457,7 @@ $
  0 & 0 & 1 & 3 \\
  -3 & -6 & 0 & 12
 \end{bmatrix}
-$
+$ [The second column won't have a pivot, so include the equation $x_2=x_2$.]
 	\item 
 $
 \begin{bmatrix}[ccc|c]
@@ -618,201 +474,230 @@ $
  0 & 0 & 0 & 0 & 1 & 2 \\
  0 & 0 & 0 & 0 & 0 & 0
 \end{bmatrix}
-$
+$ [There are two free variables in this problem.  One of the free variables is $x_1$.]
 \end{enumerate}
 \end{multicols}
 \end{problem}
 
-\begin{problem}
-Use Gaussian elimination to solve 
- $$
-\begin{array}{rl}
-  x_2 -2x_3 &= -5 \\
- 2x_1 -x_2 + 3x_3 &= 4 \\
- 4x_1 +x_2 + 4x_3 &= 5
-\end{array}
-$$
-by row reducing the matrix to reduced row echelon form.
-[Hint: Start by interchanging row 1 and row 2.] 
-\end{problem}
+
+
+Throughout the remainder of this chapter, you'll be asked to obtain the rref of many matrices. Always start by using software to obtain the result. 
+\marginpar{You can use the \href{\urlrref}{Sage rref calculator} to row reduce a matrix. You can use this on any device that can access a web browser.} 
+Even if the problem asks you to compute the rref by hand, please start by using software. This will save you hours of potentially wasted time. 
+If you know what the final answer is, you will be able to recognize that you have made a mistake early in the reduction process.
+
+\mysubsection{\ideaind}
+
+Think back on the opening problems of this chapter. Sally starts at the origin $(0,0)$.   
+Because Sally can follow the road $(-1,1)$, she has the ability to move away from $(0,0)$. Using the road, she can use linear combinations of $(-1,1)$ to reach any location on the line $y=-x$. 
+
+The rows of corn $(2,1)$ allow Sally to leave the road. 
+She can use a linear combination of $(-1,1)$ and $(2,1)$ to arrive at any final destination in the plane that she wants. 
+We say these two vectors $(-1,1)$ and $(2,1)$ are linearly independent because they each expand the places Sally can reach. Neither depends on the other. The vectors provide independent directions.
+ 
+Introducing the third direction of travel $(1,1)$ along the irrigation pipes does not change where Sally can travel to, rather this third vector just increases her options for how to get there. Because of this, we say that $(1,1)$ linearly depends on $(-1,1)$ and $(2,1)$. The three vectors $(-1,1)$, $(2,1)$, and $(1,1)$ are dependent.
 
 \begin{problem}
-Use Gaussian elimination to solve 
- $$
-\begin{array}{rl}
- x_1 -2x_2 +x_3 &= 4 \\
- -x_1 + 2x_2 + 3x_3 &= 8 \\
- 2x_1  -4x_2 +x_3 &= 5
-\end{array}
-$$
-by row reducing the matrix to reduced row echelon form.
-[Hint: You should end up with infinitely many solutions. State your solution by writing each variable in terms of the free variable(s).]
-\end{problem}
-
-\begin{problem}
-Use Gaussian elimination to solve 
- $$
-\begin{array}{rl}
- x_1 + 2x_3 + 3x_4 &= -7 \\
- 2x_1 +x_2 + 4x_4 &= -7 \\
- -x_1 + 2x_2 + 3x_3  &= 0 \\
- x_2  -2x_3  -x_4 &= 4
-\end{array}
-$$
-by row reducing the matrix to reduced row echelon form.
+Read the three paragraphs before this problem. Then answer the following.
+\begin{enumerate}
+ \item If Sally only uses the road and rows of corn, how many linear combinations of $(-1,1)$ and $(2,1)$ are there that will allow Sally to reach the origin? In other words, solve the linear combination equation $$\pvec{-1\\1}x+\pvec{2\\1}y = \pvec{0\\0}$$ by reducing an appropriate matrix. Make sure you show your reduction steps by hand. 
+ \item If Sally is also allowed to use the irrigation pipes, how many linear combinations of $(-1,1)$, $(2,1)$, and $(1,1)$ are there that will allow Sally to reach the origin? Obtain the reduced row echelon form of the matrix $\bvec{-1&2&1&0\\1&1&1&0}$ to give your answer.
+ \item 
+\marginpar{Because this problem has an answer, we say that $(1,1)$ linearly depends on $(-1,1)$ and $(2,1)$.  }%
+Write the vector $(1,1)$ as a linear combination of the vectors $(-1,1)$ and $(2,1)$, i.e. solve the equation  $$\pvec{-1\\1}x+\pvec{2\\1}y = \pvec{1\\1}.$$ 
+ \item Can you think of a different third vector so that using this vector would expand Sally's final destination points beyond where she can already get to with the road $(-1,1)$ and rows of corn $(2,1)$? Explain.
+\note{I am hoping for two different answers her.  I would like someone to say it's impossible.  I would also like someone to suggest a 3D vector.}
+\end{enumerate}
 
 \end{problem}
 
 
 
-
-\section{Rank, Linear Independence, Inverses, and Determinants}
-
-\begin{definition}
-\begin{itemize}
- \item The rank of a matrix is the number of pivot columns of the matrix. To find the rank of a matrix, you reduce the matrix using Gaussian elimination until you discover the pivot columns.
- \item The span of a set of vectors $\{\vec v_1,\vec v_2, \ldots, \vec v_n\}$ is all possible linear combinations of the vectors. In terms of matrices, the span of a set of vectors is all possible vectors $\vec b$ such that $A\vec x=\vec b$ for some vector $\vec x$, where the vectors $\vec v_i$ are placed in the columns of $A$.
- \item We say that a set of vectors $\{\vec v_1,\vec v_2, \ldots, \vec v_n\}$ is linearly independent if the only solution to the homogeneous system $c_1\vec v_{1}+c_2\vec v_{2}+\ldots+c_n\vec v_{n}=\vec 0$ is the trivial solution $c_1=c_2=\cdots=c_n=0$. 
-Otherwise we say the vectors are linearly dependent, and it is possible to write one of the vectors as a linear combination of the others. 
-We say the vectors are dependent because one of them depends on (can be obtained as a linear combination of) the others. 
- \item In terms of spans, we say vectors are linearly dependent when one of them is in the span of the other vectors. 
-\end{itemize}
+\begin{definition}[Linear Independence]
+We say that a set of vectors $\{\vec v_1,\vec v_2, \ldots, \vec v_n\}$ is linearly independent if the only solution to the homogeneous system $$c_1\vec v_{1}+c_2\vec v_{2}+\ldots+c_n\vec v_{n}=\vec 0$$ is the trivial solution $c_1=c_2=\cdots=c_n=0$. 
+If the vectors are not independent, then we say that the vectors are linearly dependent. 
+% \item In terms of spans, we say vectors are linearly dependent when one of them is in the span of the other vectors. 
+%\begin{itemize}
+% \item The span of a set of vectors $\{\vec v_1,\vec v_2, \ldots, \vec v_n\}$ is all possible linear combinations of the vectors. In terms of matrices, the span of a set of vectors is all possible vectors $\vec b$ such that $A\vec x=\vec b$ for some vector $\vec x$, where the vectors $\vec v_i$ are placed in the columns of $A$.
+% \item The rank of a matrix is the number of pivot columns of the matrix. To find the rank of a matrix, you reduce the matrix using Gaussian elimination until you discover the pivot columns.
+%\end{itemize}
 \end{definition}
+When a collection of vectors is linearly dependent, it is always possible to write one of the vectors as a linear combination of the others. We say the vectors are linearly dependent because one of the vectors depends on (can be obtained as a linear combination of) the other vectors.
 
-As we complete each of the following problems in class, we'll talk about the span of the vectors, and the rank of the corresponding matrix.  The key thing we need to focus on is learning to use the words ``linearly independent'' and ``linearly dependent.''
 
-\begin{problem}
+\begin{problem*}[9.5 (do this one)]
  Are the vectors $\vec v_1 = (1,3,5)$, $ \vec v_2=(-1,0,1)$, and $\vec v_3=(0,3,1)$ linearly independent?  Solve the system $c_1\vec v_1+c_2\vec v_2+c_3\vec v_3=\vec 0$ to answer this question. If they are dependent, then write one of the vectors as a linear combination of the others.
-\end{problem}
 
-
-\begin{problem}
  Are the vectors $\vec v_1 = (1,2,0)$, $ \vec v_2=(2,0,3)$, and $\vec v_3=(3,-2,6)$ linearly independent?  Solve the system $c_1\vec v_1+c_2\vec v_2+c_3\vec v_3=\vec 0$ to answer this question.  If they are dependent, then write one of the vectors as a linear combination of the others. 
+
+[Hint: Rewrite each of these problems as a system of 3 equations. From that system of equations, write down the corresponding augmented matrix (it will have a column of all zeros at the right).  Then use software to answer each problem.  You do  not need to show your reduction steps, rather show the matrix you reduced, and the rref.]
+\end{problem*}
+
+\begin{problem}\label{rocket booster problem}
+Imagine you are in a rocket traveling through space.  The rocket has 4 boosters on it.  The boosters provide thrust in a specific direction (vector), with the ability to adjust how strong the push should be in each direction (possibly even moving backwards in that direction - a two sided booster). The 4 boosters allow movement in the directions $(1,1,2)$, $(0,1,3)$, $(2,1,1)$, and $(-2,1,0)$.
+\begin{enumerate}
+ \item 
+\marginpar{Use the \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=rref\_calculator}{Sage RREF Calculator}.}%
+Start by row reducing the matrix 
+$\begin{bmatrix}
+1 & 0 & 2 & -2 \\
+1 & 1 & 1 & 1 \\
+2 & 3 & 1 & 0
+\end{bmatrix}$ to determine which columns are pivot columns. Use technology to get an answer. Then show your row reduction steps by hand. 
+
+The rest of this problem deals with interpreting your rref.  Please give answers with sentences.
+ \item If the 4th booster breaks, could some linear combination of the first three rocket thrusts allow you to move in the direction of the 4th rocket? In other words, is it possible to write $(-2,1,0)$ as a linear combination of $(1,1,2)$, $(0,1,3)$, and $(2,1,1)$? Explain.
+ \item If the 3rd booster breaks, show that some linear combination of the other three rocket thrusts allows you to move in the direction of the 3rd rocket. What matrix should you row reduce to answer this. Show the class the matrix you started with, and its rref. You do not need to show by hand any reduction steps. Then write $(2,1,1)$ as a linear combination of the other three vectors. 
+ \item You have been asked to give advice on a new rocket design. The designers figure that as long as they pick 3 directions in which to provide thrust, they should be able to fly in any direction they want. They attach boosters which allow movement in the directions $(1,3,2)$, $(-3,1,4)$, $(0,1,1)$. Set up an appropriate matrix and use software to row reduce the matrix. What advice would you give the designers?
+ \item What does any of the above have to do with linear independence and linear dependence?
+\end{enumerate}
+\note{In class, I would like to talk about what it would take to design a rocket so that any of the three rockets could go out, and you would still be able to move freely in space.  All they would need is an rref that I followed by a column with no zero entries.  But I would like them to figure this out.  I may just make this a problem later on. 
+
+Follow up.  I did make it a problem later on.}
 \end{problem}
+
+
 
  
 
-\begin{problem}
-Answer each of the following:
-\begin{enumerate}
- \item  Suppose you have row reduced a 3 by 3 matrix, and discovered that the rank of the matrix is 2.  Are the columns of the matrix independent or dependent?  What if the rank was 3?  
-
- \item Now suppose you have row reduced a 7 by 7 matrix. If the columns are independent, what possible options do you have for the rank.
-
- \item Now suppose you have row reduced a 7 by 5 matrix. If the columns are independent, what must the rank be.
-
- \item Now suppose you have row reduced a 5 by 7 matrix. Explain why the columns cannot be independent. 
-
- \item If you have $n$ vectors placed in the columns of a matrix, what must the rank of the matrix be in order to guarantee that the vectors are independent?
-
-\end{enumerate}
-
-\end{problem}
 
 
 \begin{problem}
- Is the vector $[2, 0, 1, -5]$ in the span of $$\{[1, 0, -1, -2], [1, 2, 3, 0], [0, 1, -1, 2]\}?$$ If it is, then write it as a linear combination of the others.  If it is not, then explain why it is not.
-\end{problem}
-
-
-
-
-
-
-\begin{problem}
-Find the reduced row echelon form of the matrix
+\marginpar{Use the \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=rref\_calculator}{Sage RREF Calculator}.}%
+Start by finding the reduced row echelon form of the matrix
 $$
 B = 
 \begin{bmatrix}
 \nvec{2\\1}&
+\nvec{6\\3}&
 \nvec{-1\\1}&
-\nvec{1\\0}&
+\nvec{2\\5}&
 \nvec{0\\1}&
-\nvec{2\\0}&
-\nvec{0\\3}&
-\nvec{2\\3}
+\nvec{1\\0}&
+\nvec{3\\3}
 \end{bmatrix}.
 $$
-Use your result to answer the following questions.
+Show the steps you used to row reduce this matrix. 
+The point to this problem is to help you see how this single row reduction can answer all of the questions below. 
 \begin{enumerate}
- \item Write both $(1,0)$ and $(0,1)$ as linear combinations of $(2, 1)$ and $(-1,1)$. 
- \item Write  $\pvec{2\\0}$ as a linear combination of $\pvec{2\\1}$ and $\pvec{-1\\1}$.  Then write $\pvec{8\\0}$ as a linear combination of $\pvec{2\\1}$ and $\pvec{-1\\1}$. 
- \item Let $A = \begin{bmatrix}\nvec{2\\1}&\nvec{-1\\1}\end{bmatrix}$.  Find vectors $\vec x$ and $\vec y$ so that 
- $A\vec x = \pvec{1\\0}$ and $A\vec y = \pvec{0\\1}$.
- \item Find a matrix $B$ so that $AB = \begin{bmatrix}\nvec{1\\0}&\nvec{0\\1}\end{bmatrix}$. 
-\end{enumerate}
- 
-\end{problem}
-
-\begin{problem*}[21, revised]
-Answer each of the following questions.
-\begin{enumerate}
-\item Find the reduced row echelon form of the matrix
-$$
-B = 
-\begin{bmatrix}
-\nvec{2\\1}&
-\nvec{-1\\1}&
-\nvec{1\\0}&
-\nvec{0\\1}&
-\nvec{2\\0}&
-\nvec{0\\3}&
-\nvec{2\\3}
-\end{bmatrix}.
-$$
- \item Write $(1,0)$ as a linear combination of $(2, 1)$ and $(-1,1)$. Remember, that when writing $c_1(2,1)+c_2(-1,1)=(1,0)$, you must solve for the unknown constants. Feel free to row reduce the augmented matrix  
+ \item Write $(2,5)$ as a linear combination of $(2, 1)$ and $(-1,1)$. Remember, that when writing $c_1(2,1)+c_2(-1,1)=(1,0)$, you must solve for the unknown constants. Feel free to row reduce the augmented matrix  
 $\begin{bmatrix}
 \nvec{2\\1}&
 \nvec{-1\\1}&
-\nvec{1\\0}
-\end{bmatrix}.
+\nvec{2\\5}
+\end{bmatrix}
 $
- \item Write $(0,1)$ as a linear combination of $(2, 1)$ and $(-1,1)$. Remember, that when writing $c_1(2,1)+c_2(-1,1)=(0,1)$, you must solve for the unknown constants. Feel free to row reduce the augmented matrix  
+with technology. You don't need to show any steps of the computation.
+ \item Write $(0,1)$ as a linear combination of $(2, 1)$ and $(-1,1)$. Remember, that when writing $c_1(2,1)+c_2(-1,1)=(0,1)$, you must solve for the unknown constants. If you decide to row reduce the matrix
 $\begin{bmatrix}
 \nvec{2\\1}&
 \nvec{-1\\1}&
 \nvec{0\\1}
 \end{bmatrix}
-$. 
- \item Continue to write each of $\pvec{2\\0}$, $\pvec{0\\3}$, and $\pvec{2\\3}$ as a linear combination of $\pvec{2\\1}$ and $\pvec{-1\\1}$. [Hint:At some point, rather than row reducing 
+$, then use technology and don't show us any of the intermediate steps. 
+ \item Continue to write each of $\pvec{1\\0}$, $\pvec{3\\3}$, and $\pvec{6\\3}$ as a linear combination of $\pvec{2\\1}$ and $\pvec{-1\\1}$. [Hint: At some point, rather than row reducing 
 $\begin{bmatrix}
 \nvec{2\\1}&
 \nvec{-1\\1}&
-\vec v
+\nvec{a\\b}
 \end{bmatrix}
-$, ask yourself how you could use part 1 to answer this.]
+$, ask how you could use the larger matrix to answer this.]
 \item The following matrix row reduces to give
 $$\begin{bmatrix}
 1 & 0 & 2 & 4 & 5 & 8 \\
-0 & 2 & 5 & 2 & -1 & 3 \\
-0 & -2 & -1 & 0 & 2 & 1
+0 & 2 & -6 & 2 & -1 & 3 \\
+0 & -2 & 6 & 0 & 2 & 1
 \end{bmatrix}
 \xrightarrow{\text{rref}}
 \begin{bmatrix}
-1 & 0 & 0 & 3 & \frac{9}{2} & 6 \\
-0 & 1 & 0 & -\frac{1}{4} & -\frac{9}{8} & -1 \\
-0 & 0 & 1 & \frac{1}{2} & \frac{1}{4} & 1 
+1 & 0 & 2 & 0 & 3 & 0 \\
+0 & 1 & -3 & 0 & -1 & -\frac{1}{2} \\
+0 & 0 & 0 & 1 & \frac{1}{2} & 2
 \end{bmatrix}
 .$$
-Use this to write both $(4,2,0)$ and $(5,-1,2)$ as a linear combination of the first three columns.
+Write $(5,-1,2)$ as a linear combination of the pivot columns.
 \end{enumerate}
  
-\end{problem*}
+\end{problem}
 
-\begin{definition}
- The identity matrix $I$ is a square matrix so that if $A$ is a square matrix, then $IA=AI=A$. The identity matrix acts like the number 1 when performing matrix multiplication.
+\begin{question}
+ What connection is there between the rref of a matrix and the columns of the matrix?
+\end{question}
+
+\mysubsection{\ideaeig}
+\begin{problem}
+The following parts ask you to look for points in a vector field where the vector field pushes either straight outwards from the origin, or pulls straight towards the origin.
+\begin{enumerate}
+\item
+Consider the vector field $\vec F(x,y) = \bvec{3&2\\0&2}\bvec{x\\y} = \bvec{3x+2y\\2y}$. 
+Compute $\vec F(x,y)$ for each of $(x,y)$ equal to $(2,2)$, $(2,1)$, $(2,0)$, $(2,-1)$, and $(2,-2)$.  Then circle the two vectors $(x,y)$ where the output $F(x,y)$ is a linear combination of the input $(x,y)$. 
+For example, if $(x,y)=(-4,2)$, then we compute $\vec F(-4,2) = (-8, 4)$ and we see that $(-8,4) = 2(-4,2)$.  We have $\vec F(x,y) = 2(x,y)$.
+ \item Suppose you knew that there was a direction in which the vector field 
+$\vec F(x,y) = \bvec{2&5\\4&1}\bvec{x\\y} = \bvec{2x+5y\\4x+y}$ causes a radial push outwards of 6 units. This would mean there exists $(x,y)\neq(0,0)$ such that 
+$$\bvec{2&5\\4&1}\bvec{x\\y} = 6\bvec{x\\y}.$$
+Find a nonzero vector $(x,y)$ that satisfies this equation.
+
+[Hint: Subtract $6\bvec{x\\y}$ from both sides. Combine terms to get a new matrix to row reduce, and then row reduce the matrix. You should find there are infinitely many correct answers.] 
+
+\end{enumerate}
+\end{problem}
+
+
+\begin{problem}
+ Consider the matrix $A=\bvec{1&-1\\3&5}$.
+\begin{enumerate}
+ \item Explain why solving the problem $A\vec x = c\vec x$ can be done by row reducing the matrix $\bvec{[cc|c]1-c&-1&0\\3&5-c&0}$.
+ \item Let $c=3$. Solve $A\vec x = 3\vec x$ by row reducing an appropriate matrix. How many solutions are there?
+ \item Let $c=2$. Solve $A\vec x = 2\vec x$ by row reducing an appropriate matrix. How many solutions are there?
+ \item  When you row reduce a matrix, what must occur for there to be infinitely many solutions?   
+  Can you find another value of $c$ where there are infinitely many solutions to this problem?
+\end{enumerate}
+
+\end{problem}
+
+
+
+
+\begin{problem}
+Consider the matrix 
+$A=\bvec{3&4\\2&1}$.  
+This matrix gives us the vector field 
+$\vec F(x,y) = A\bvec{x\\y}$. 
+We would like to find the directions in which the vector field either pulls a point $(x,y)$ directly towards the origin, 
+or pushes the point $(x,y)$ directly away from the origin.
+\begin{enumerate}
+ \item Explain why we seek a solution to $$ A\bvec{x\\y} = c\bvec{x\\y}$$ where $c$ is some constant. Is $(x,y)=(0,0)$ a solution to this equation.  We call this the trivial solution.
+ \item Subtract $c\bvec{x\\y}$ from both sides above.  Show that to find a nonzero $(x,y)$, we need to row reduce the matrix $\bvec{[cc|c]3-c&4&0\\2&1-c&0}$. Then use row operations to eliminate the 2 in the lower left of the matrix. [Hint: Take row 2 and multiply it by $(3-c)$.  Then add $-2$ times row 1 to row 2.]
+ \item We already know that $(x,y)=(0,0)$ is a solution.  We want a nonzero solution $(x,y)$. Explain why the bottom row must reduce to be all zeros?
+ \item By forcing the bottom row to consist of all zeros, you should have a quadratic equation involving $c$. Solve this equation for $c$.  
+ These are the scalars for which you can find a vector that either pushes directly out or pulls directly in. 
+\end{enumerate}
+\end{problem}
+
+The numbers $c$ that you computed above are called eigenvalues. Note that to find the eigenvalues, we wanted to row reduce a matrix and obtain infinitely many solutions. We'll return to this idea throughout the chapter.  
+
+\mysubsection{\ideamul}
+
+When we solve equations of the form $ax=b$ with numbers, we simply multiply both sides by $\frac{1}{a}$ to obtain $x=\frac{1}{a}b$. This is because for any nonzero number $a$, we have an inverse $a^{-1}$ such that $a^{-1}a = 1=aa^{-1}$. 
+ 
+\begin{definition}[$I_n$ and $A^{-1}$]
+ The identity matrix $I$ is a square matrix so that if $A$ is a square matrix, then $IA=AI=A$. The identity matrix acts like the number 1 when performing matrix multiplication. We write 
+$$I_2 = \bvec{1&0\\0&1}, 
+\quad I_3 = \bvec{1&0&0\\0&1&0\\0&0&1},
+\quad I_4 = \bvec{1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1},
+ \text{etc.}$$ 
 
  If $A$ is a square matrix, then the inverse of $A$ is a matrix $A^{-1}$ where we have $AA^{-1}=A^{-1}A=I$, provided such a matrix exists.
 \end{definition}
 
 
 
-\begin{problem*}
+\begin{problem}
 Let 
 $A=
 \begin{bmatrix}
 \nvec{1\\3}&
-\nvec{3\\4}
+\nvec{2\\4}
 \end{bmatrix}
 .$
 We now develop an algorithm for computing the inverse $A^{-1}$.
@@ -820,110 +705,444 @@ If an inverse matrix exists, then we know it's the same size as $A$, so we could
 \begin{enumerate}
  \item  We know that $A A^{-1} = \begin{bmatrix}\nvec{1\\0}&\nvec{0\\1}\end{bmatrix}.$ 
 Explain why $A\vec v_1=\pvec{1\\0}$ and $A\vec v_2=\pvec{0\\1}$.
- \item Solve the matrix equations $A\vec v_1=\pvec{1\\0}$ and $A\vec v_2=\pvec{0\\1}$.  (This involves row reducing 
+ \item Solve the matrix equations $A\vec v_1=\pvec{1\\0}$ and $A\vec v_2=\pvec{0\\1}$ by row reducing 
 $
-\begin{bmatrix}
+\begin{bmatrix}[cc|c]
 \nvec{1\\3}&
-\nvec{3\\4}&
+\nvec{2\\4}&
 \nvec{1\\0}
 \end{bmatrix}
 $
 and 
 $
-\begin{bmatrix}
+\begin{bmatrix}[cc|c]
 \nvec{1\\3}&
-\nvec{3\\4}&
+\nvec{2\\4}&
 \nvec{0\\1}
 \end{bmatrix}
-$).
+$.
  \item What is the reduced row echelon form of
 $
-\begin{bmatrix}
+\begin{bmatrix}[cc|cc]
 \nvec{1\\3}&
-\nvec{3\\4}&
+\nvec{2\\4}&
 \nvec{1\\0}&
 \nvec{0\\1}
 \end{bmatrix}
-$.  How is this related to your previous work.
+$? How is this related to your previous work?
  \item State the inverse of $A$. 
 \end{enumerate}
 
-\end{problem*}
+\end{problem}
 
-
-
-The previous problem showed you how to obtain a matrix $B$ so that $AB=I$. You just had to row reduce that matrix $\begin{bmatrix}A&I\end{bmatrix}$ to the matrix $\begin{bmatrix}I&A^{-1}\end{bmatrix}$.  The inverse shows up instantly after row reduction.
+In the previous problem we showed how to obtain a matrix $B$ so that $AB=I$. We now have an algorithm for finding the inverse matrix $A^{-1}$. We augment $A$ by the identity matrix, and then row reduce $[A|I]$ to the matrix $[I|A^{-1}]$.  The inverse shows up instantly after row reduction.
 
 
 \begin{problem}
- Use the algorithm describe immediately before this problem to compute the inverse of $$A=\begin{bmatrix}
- 3 & 0 & 3 \\
+ Use the algorithm described immediately before this problem to compute the inverse of 
+$$A=\begin{bmatrix}
+ 3 & 1 & -11 \\
  0 & -1 & 1 \\
- 0 & 3 & -4
-\end{bmatrix}.$$  
-Then use your work to write each of the standard basis vectors $(1,0,0)$, $(0,1,0)$, and $(0,0,1)$ as a linear combination of the columns of $A$.  
+ 1 & 0 & -4
+\end{bmatrix}.$$
+Use technology to show you the rref of $[A|I]$, or just use A.inverse() in Sage, or Inverse[A] in Mathematica.  
+Then show your row reduction steps by hand.
+
+Once you have obtained the inverse, use your work to write $(1,0,0)$ as a linear combination of the columns of $A$.  
 \end{problem}
+
+
+\mysubsection{\ideaind}
 
 
 \begin{problem}
- Let $A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$. Use Gaussian elimination to show that the inverse of $A$ is 
-$$A^{-1}=\frac{1}{ad-bc}\begin{bmatrix}d&-b\\-c&a\end{bmatrix}.$$
+For each collection of vectors, use software to determine if the collection of vectors is linearly independent or linearly dependent.  If the vectors are linearly dependent, write one of the vectors as a linear combination of the others. Do not row reduce the matrices by hand, rather on each problem first show the matrix you would row reduce, and then give the reduced row echelon form by using technology.
+\begin{enumerate}
+ \item $(1,0,0)$, $(0,1,1)$, $(2,3,2)$, and $(0,1,-1)$ 
+[Remember, the vectors are linearly independent if the only solution to 
+$$\pvec{1\\0\\0}c_1+\pvec{0\\1\\1}c_2+\pvec{2\\3\\2}c_3+\pvec{0\\1\\-1}c_4=\pvec{0\\0\\0}$$ is the trivial solution $c_1=c_2=c_3=c_4=0$.]
+ \item $(1,0,2,0)$, $(0,1,3,1)$, and $(0,1,2,-1)$
+ \item $(1,1,2,-1)$, $(-3,1,4,1)$, and $(-1,1,3,0)$
+ \item Suppose you have 5 vectors that are each 7 tall. Row reducing the 7 by 5 matrix obtained by placing these vectors in columns results in a matrix that has 3 rows of zeros at the bottom.  Why are the vectors linearly dependent?
+ \item If you have a matrix with $n$ rows and $m$ columns, what must happen for the column vectors to be linearly independent?  How many rows of zeros would be at the bottom if the vectors are linearly independent. 
+\end{enumerate}
+[Hint: For all parts, think about the number of pivot columns.]
 \end{problem}
 
-In computing the inverse of a 2 by 2 matrix, the number $ad-bc$ appears in the denominator. We call this number the determinant.  If I asked you to compute the inverse of a 3 by 3 matrix, you would again see a number appear in the denominator.  We call that number the determinant. This holds true in all dimensions.
+
+
+
+
+\begin{problem}[Rocket Booster Design]
+\marginpar{If you are worried about rotation that might occur from firing these boosters, then please imagine that each booster applies a force through the center of mass of the object, so that no rotation occurs.  }%
+Three teams have been asked to design a space suit that allows for travel in space. As part of the project requirements, the teams are required to use 4 two-way boosters for propulsion.  The 4th booster is there to allow for redundancy in case any of the the other boosters break. 
+\begin{itemize}
+ \item Team 1 decides to add boosters to their suit that allows for travel in the directions 
+$[1,-1,1],
+[1,2,-1],
+[3,-1,2],
+[1,1,0]$.
+ \item Team 2 decides to add boosters to their suit that allows for travel in the directions 
+$[1,-3,2],
+[0,1,1],
+[-1,3,2],
+[1,-1,3]$.
+ \item Team 3 decides to add boosters to their suit that allows for travel in the directions
+$[1,1,-2],
+[3,-1,4],
+[2,0,1],
+[1,-3,8]$.
+\end{itemize}
+For each team, use software to row reduce the appropriate 3 by 4 matrix that would tell the dependence relationships among the vectors. If you were in charge of picking a winning design, which team would you pick, and why?
+\end{problem}
+
+
+\mysubsection{\ideamul}
+
+\begin{problem}
+Start by writing the system of equations 
+\begin{align*}
+ -2x_1+ 5x_3 &=-2\\
+ -x_1+ 3x_3 &=1\\
+ 4x_1 +x_2  -x_3 &=3
+\end{align*} 
+as a matrix product $A\vec x =\vec b$.  (What are $A$, $\vec x$ and $\vec b$?)  
+\begin{enumerate}
+\item 
+\marginpar{You should use technology to rapidly compute the inverse and also row reduce the augmented system.  Show by hand any matrix computations you do on  part 3. }%
+Use software to find the inverse of the matrix $A$ (state the matrix you row reduced, and the rref of the matrix). 
+\item Use software to row reduce the augmented matrix $\begin{bmatrix}[c|c]A&\vec b \ \end{bmatrix}$. State the rref.
+\item To solve the problem $ax=b$ where $a$, $x$, and $b$ are numbers, we multiply both sides by $\frac{1}{a}$ to obtain $\frac{1}{a}ax=\frac{1}{a}b$, or because $\frac{1}{a}a=1$, we simplify to get $x=\frac{1}{a}b$. How can you use this idea to solve the matrix problem $A\vec x = \vec b$?  Show how to obtain the solution to this system by using the matrix inverse. 
+\item Does it matter if you compute $\vec b A^{-1}$ or  $A^{-1}\vec b$?
+%\item What differences do think there are
+%$\vec x = \dfrac{1}{A}\vec b$, $\vec x = \dfrac{\vec b}{A}$, and $\vec x = \vec b\dfrac{1}{A}$?   
+\end{enumerate}
+\end{problem}
+\note{At this point I want to talk about order of matrix multiplication.  But it will become much more apparent later on.}
+
+
+
+\begin{problem}\label{inverse of 2 by 2}
+\marginpar{[Hint: Because the matrix has variables in it, you may want to try a different scheme for row reducing.  Multiply the top row by $c$ and the bottom row by $a$. Then subtract the top row from the bottom. This gets you a zero below the pivot in the first column. Then multiply the top row by $ad-bc$ and the bottom row by something else.]}%
+Let $A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$. Obtain the rref of $[A | I]$ to show that the inverse of $A$ is 
+$$A^{-1}=\frac{1}{ad-bc}\begin{bmatrix}d&-b\\-c&a\end{bmatrix}.$$
+
+Are there any conditions under which a matrix would not have an inverse?  What are they, and why? Is there a number you could check to {\it determine} if a matrix has an inverse?
+\end{problem}
+
+\mysubsection{\ideadet}
+In computing the inverse of a 2 by 2 matrix, the number $ad-bc$ appears in the denominator. We call this number the determinant. 
+\marginpar{Take a guess as to why we call this number the determinant.  What does it help determine?}% 
+If I asked you to compute the inverse of a 3 by 3 matrix, you would again see a number appear in the denominator.  We call that number the determinant. This holds true in all dimensions.
 
 \begin{problem*}[Optional]
-  Let $A=\begin{bmatrix}a&b&c\\d&e&f\\g&h&i\end{bmatrix}$. Use Gaussian elimination to find the inverse of $A$, and show that the common denominator is $a(ei-hf)-b(di-gf)+c(dh-ge)$. 
+  Let $A=\begin{bmatrix}a&b&c\\d&e&f\\g&h&i\end{bmatrix}$. Use Gauss-Jordan elimination to find the inverse of $A$, and show that the common denominator is $a(ei-hf)-b(di-gf)+c(dh-ge)$. 
 \end{problem*}
 
 
 \begin{definition}[Determinants of 2 by 2 and 3 by 3 matrices]\label{determinat of 2 by 2 and 3 by 3}
+\marginpar{In Sage, we've been using A.rref() to get the reduced row echelon form of $A$. You can type A.determinant() to get the determinant. Similarly, A.inverse() will get you the inverse. }
  The determinant of a {$2\times 2$} and {$3\times 3$} matrix are the numbers 
 \begin{align*}
 \det\begin{bmatrix}a&b\\c&d\end{bmatrix} &=\begin{vmatrix}a&b\\c&d\end{vmatrix} = ad-bc\\
 \begin{vmatrix}a&b&c\\d&e&f\\g&h&i\end{vmatrix} &= a\det\begin{vmatrix}e&f\\h&i\end{vmatrix} -b\det\begin{vmatrix}d&f\\g&i\end{vmatrix} +c\det\begin{vmatrix}d&e\\g&h\end{vmatrix}\\
 &=a(ei-hf)-b(di-gf)+c(dh-ge)
 \end{align*}
-We use vertical bars next to a matrix to state we want the determinant. Notice the negative sign on the middle term of the {$3 \times 3$} determinant. Also, notice that we had to compute three determinants of 2 by 2 matrices in order to find the determinant of a 3 by 3.  
+\marginpar{This approach generalizes to give the determinant of any square matrix.  More on this soon. }% 
+We use vertical bars next to a matrix to state we want the determinant. Notice the negative sign on the middle term of the {$3 \times 3$} determinant. 
+Also, notice that we can compute three determinants of 2 by 2 matrices in order to find the determinant of a 3 by 3. 
 \end{definition}
 
-In the examples above, we obtained the determinant of a 3 by 3 matrix by computing the determinant of several 2 by 2 matrices.  We obtained each 2 by 2 matrix by removing a row and column from the original 3 by 3 matrix. We now add some language to extend the definition above to all dimensions.
 
-\begin{definition}[Minors, Cofactors, and General determinants]\label{general determinants}
-Let {$A$} be an $n$ by $n$ matrix. 
-\begin{itemize}
- \item The minor {$M_{ij}$} of a matrix {$A$} is the determinant of the the matrix formed by removing row {$i$} and column {$j$} from {$A$}. 
- \item The cofactor $C_{ij}$ is the product of the minor $M_{ij}$ and $(-1)^{i+j}$, so we have $C_{ij} = (-1)^{i+j}M_{ij}$. So it's either the minor, or the opposite of the minor. 
- \item To compute the determinant, first pick a row or column.
-We define the determinant to be $\sum_{k=1}^n a_{ik}C_{ik}$ (if we chose row $i$) or alternatively $\sum_{k=1}^n a_{kj}C_{kj}$ (if we chose column $j$).  
-\item You can pick ANY row or ANY column you want, and then compute the determinant by multiplying each entry of that row or column by its cofactor, and then summing the results.  (The fact that this works would require proof.  That proof will be left to a course in linear algebra.)
-\item 
-\marginpar{
-%\begin{wraptable}[7]{r}{0pt}
-\small
-\begin{tabular}{c}
-$\begin{bmatrix}
-+&-&+&\cdots\\
--&+&-&\cdots\\
-+&-&+&\cdots\\
-\vdots&\vdots&\vdots&\ddots
-\end{bmatrix}$ 
-\\
-sign matrix
-\end{tabular}%\end{wraptable}
-}%
-A sign matrix keeps track of the $(-1)^{j+k}$ term in the cofactor. All you have to do is determine if the first entry of your expansion has a plus or minus, and then alternate the sign as you expand.
 
-\end{itemize}
 
-\end{definition}
+
 
 
 
 
 
 \begin{problem}
- Compute the determinant of the matrix
+The columns of each matrix below provide the edges of the parallelogram beneath the matrix.
+\begin{center}
+ \begin{tabular}{ccccc}
+
+$A=\bvec{2&0\\0&3}$
+&$B=\bvec{2&1\\0&3}$
+&$C=\bvec{1&2\\4&0}$
+&$D=\bvec{-2&1\\1&2}$
+&$E=\bvec{1&-2\\2&1}$\\\hline
+\begin{tikzpicture}[scale=.5] 
+\draw[->,very thick] (0,0) -- (2,0); \draw[->,very thick] (0,0) -- (0,3); 
+\draw[->] (0,3) -- (2,3); \draw[->] (2,0) -- (2,3); 
+\end{tikzpicture}
+&\begin{tikzpicture}[scale=.5] 
+\draw[->,very thick] (0,0) -- (2,0); \draw[->,very thick] (0,0) -- (1,3); 
+\draw[->] (1,3) -- (3,3); \draw[->] (2,0) -- (3,3); 
+\end{tikzpicture}
+&\begin{tikzpicture}[scale=.5] 
+\draw[->,very thick] (0,0) -- (1,4); \draw[->,very thick] (0,0) -- (2,0); 
+\draw[->] (1,4) -- (3,4); \draw[->] (2,0) -- (3,4); 
+\end{tikzpicture}
+&\begin{tikzpicture}[scale=.5] 
+\draw[->,very thick] (0,0) -- (-2,1); \draw[->,very thick] (0,0) -- (1,2); 
+\draw[->] (-2,1) -- (-1,3); \draw[->] (1,2) -- (-1,3); 
+\end{tikzpicture}
+&\begin{tikzpicture}[scale=.5] 
+\draw[->,very thick] (0,0) -- (-2,1); \draw[->,very thick] (0,0) -- (1,2); 
+\draw[->] (-2,1) -- (-1,3); \draw[->] (1,2) -- (-1,3); 
+\end{tikzpicture}
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+\item Compute the determinant of each matrix above. What happens to the determinant when you switch the order of the columns? 
+\item Use geometric reasoning to compute the area of each parallelogram ($A=bh$). For the last two, note that the vectors $(-2,1)$ and $(1,2)$ are orthogonal, so the parallelogram is a square. Find the length of each side. 
+\item For each parallelogram above, decide if you have to rotate clockwise or counterclockwise to get from the vector in the first column to the vectors in the second column. What does this have to do with the sign of the determinant?
+\item Consider the matrix $F=\bvec{ \nvec{3\\2}&\nvec{4\\-1} }$.  Draw the corresponding parallelogram and make a guess as to whether or not the determinant is positive or negative (without computing it). Then compute the determinant and use it to guess the area of the triangle with vertices $(0,0)$, $(3,2)$, and $(4,-1)$.
+\end{enumerate}
+\end{problem}
+
+The problem above uses inductive reasoning (lots of examples) to suggest that the determinant of a matrix (up to a sign) is the area of a parallelogram. This next problem asks you to use deductive reasoning to prove that the determinant of a 2 by 2 matrix gives the area of a parallelogram whose edges are the columns of the matrix.
+\begin{problem}
+ To find the area of the parallelogram with vertexes $O=(0,0)$, $P=(a,c)$, $Q=(b,d)$, and $R=(a+b,c+d)$, we need to find the length of $OP$ (the base $b$), and multiply it by the distance from $Q$ to $OP$ (the height $h$). Let $\vec b = \vec{OP}$ and let $\vec h$ be the shortest vector from the line $OP$ to the point $Q$. Complete the following:
+\begin{enumerate}
+ \item Find the projection of $\vec {OQ}$ onto $\vec {OP}$. (You may need to look up a vector projection formula.) Part of this formula requires that you compute the length of $\vec b$.  
+ \item Recall that we can obtain the vector $\vec h$ by computing $\vec h = \vec {OQ}-\text{proj}_{\vec{OP}}\vec{OQ}$. We call this vector is the vector component of $\vec {OQ}$ that is orthogonal to $\vec {OP}$. Compute $\vec h$.
+ \item The length of $\vec h$ is the distance $h$ from $Q$ to $OP$. Find the length of $\vec h$.
+ \item We now have $b$ and $h$. Compute the product and simplify to show that the area of the parallelogram is $|ad-bc|$.
+\end{enumerate}
+\end{problem}
+
+The result above extends to 3 dimensions.  The determinant of a 3 by 3 matrix gives the volume of the parallelepiped whose edges are the columns of the 3 by 3 matrix. Because this result holds true in 1, 2, and 3 dimensions, we can use the determinant to define an $n$th dimensional volume. This is precisely what happens in practice. 
+
+
+
+
+\mysubsection{\ideaeig}
+
+There is a connection between linear independence and the determinant.
+
+
+\begin{problem}
+Consider the matrices $A=\bvec{1&-2\\2&-4}$,  $B=\bvec{2&-1\\4&3}$, and $C=\bvec{-2-\lambda&1\\3&4-\lambda}$. (Note that $C = \bvec{-2&1\\3&4}-\lambda \bvec{1&0\\0&1}$.)   
+\begin{enumerate}
+ \item Compute the determinants of $A$, $B$, and $C$. \marginpar{The determinant of $C$ is called the characteristic polynomial of $\bvec{-2&1\\3&4}$.}
+ \item Are the columns of $A$ linearly independent or linearly dependent? Explain.  
+ \item Are the columns of $B$ linearly independent or linearly dependent? Explain.
+ \item Make a conjecture about determinants and linear independence.  
+ \item Find two different values $\lambda$ so that $C$ has linearly dependent columns. (Your answer should involve irrational numbers.)
+\end{enumerate}
+\end{problem}
+
+
+A main goal in this chapter has been to answer the following two questions:
+\begin{enumerate}
+ \item For which nonzero vectors $\vec x$ (eigenvectors) is it possible to write $A\vec x = \lambda \vec x$?
+ \item Which scalars $\lambda$ (eigenvalues) satisfy $A\vec x = \lambda \vec x$?
+\end{enumerate}
+These questions are precisely connected to when a vector causes a radial push away or pull towards the origin. 
+Let's give some formal definitions.
+
+
+
+\begin{definition}[Eigenvector, Eigenvalue, Characteristic Polynomial]
+Let $A$ be a square $n\times n$ matrix. 
+\begin{itemize}
+ \item An eigenvector of $A$ is a nonzero vector $\vec x$ such that $A\vec x =\lambda \vec x$ for some scalar {$\lambda$}. (Matrix multiplication reduces to scalar multiplication.) We avoid letting $\vec x$ be the zero vector because it is trivially true that $A\vec 0=\lambda \vec 0$ no matter what $\lambda$ is.
+ \item If $\vec x$ is an eigenvector with $A\vec x = \lambda \vec x$, then we call $\lambda$ an eigenvalue of $A$.
+ \item We call $\det(A-\lambda I)$ the characteristic polynomial of $A$.  It is a polynomial in $\lambda$ of degree $n$, hence has $n$ roots (counting multiplicity).  These roots are the eigenvalues of $A$.
+\end{itemize}
+\end{definition}
+
+
+
+
+\begin{problem}
+ Consider the matrix $A=\bvec{5&6\\3&-2}$. 
+\begin{enumerate}
+ \item Show that the eigenvalues are $\lambda = 7$ and $\lambda = -4$. You'll want to compute the determinant of $A-\lambda I = \bvec{5-\lambda&6\\3&-2-\lambda}$
+ \item If we let $\lambda = 7$, find a nonzero vector $\vec x = (x,y)$ such that $A\vec x = 7\vec x$. You'll need to row reduce $\bvec{[cc|c]5-7&6&0\\3&-2-7&0}$.  
+ \item If we let $\lambda = -4$, find a nonzero vector $\vec x = (x,y)$ such that $A\vec x = -4\vec x$.  
+ \item If $\lambda = 6$, then what is the only solution $\vec x = (x,y)$ to $A\vec x = 6\vec x$? [Hint: this one can be answered without doing any row reduction.] 
+\end{enumerate}
+
+\end{problem}
+
+
+\begin{problem}
+Consider the matrix 
+$A=
+\begin{bmatrix}
+ 3 & 1 \\
+ 4 & 6
+\end{bmatrix}
+$.
+ \begin{enumerate}
+ \item Find the characteristic polynomial of $A$, and use it to determine the eigenvalues of $A$. 
+ \item For each eigenvalue, find all corresponding eigenvectors. 
+% \item Compute the trace and determinant of $A$.
+\end{enumerate}
+\end{problem}
+
+
+
+
+\begin{problem}
+Consider the matrix 
+$
+A=
+\begin{bmatrix}
+ 6 & 4  \\
+ 3 & 2  
+\end{bmatrix}
+$. 
+Find the eigenvalues of $A$. 
+Then for each eigenvalue, find all corresponding eigenvectors.
+%(Check your work by computing the trace and determinant of $A$.)
+\end{problem}
+
+
+
+
+
+
+
+\mysubsection{\ideamul}
+
+\begin{problem}[Encryption]
+Consider the matrix 
+$A =
+\begin{bmatrix}
+ 2&1&-1\\
+ 5&2&-3\\
+ 0&2&1
+\end{bmatrix}
+$.  
+Joe decides to send a message to Ben by encrypting the message with the matrix $A$. He first takes his message and converts it to numbers by replacing A with 1, B with 2, C with 3, and so on till replacing Z with 26.  He uses a 0 for spaces.  After replacing the letters with numbers, he breaks the message up into chunks of 3 letters.  He then multiplies each chunk of 3 by the matrix $A$, resulting in a coded message. For example, to send the message ``good job ben'' he firsts converts the letters to the numbers and places them in a large matrix $M$ (top to bottom, left to right) 
+$$
+\left[\bvec{g\\o\\o}, \bvec{d\\ \ \\ j},\bvec{o\\b\\\  },\bvec{b\\e\\n}\right] 
+\rightarrow
+\left[\bvec{7\\15\\15}, \bvec{4\\0\\10},\bvec{15\\2\\0},\bvec{2\\5\\14}\right] 
+= M=
+\begin{bmatrix}
+7 & 4 & 15 & 2 \\
+15 & 0 & 2 & 5 \\
+15 & 10 & 0 & 14  
+\end{bmatrix}
+.$$
+To encode the matrix, he computes 
+$$AM = 
+\begin{bmatrix}
+14 & -2 & 32 & -5 \\
+20 & -10 & 79 & -22 \\
+45 & 10 & 4 & 24
+\end{bmatrix}.$$
+and then sends the numbers 
+$[
+[ 14,  20,  45],
+[ -2, -10,  10],
+[ 32,  79,   4],
+[ -5, -22,  24]]
+$ to Ben. Ben uses the inverse of $A$ to decode the message. 
+\begin{enumerate}
+ \item Find the inverse of $A$. 
+ \item Use $A^{-1}$ to decode $[
+[ 14,  20,  45],
+[ -2, -10,  10],
+[ 32,  79,   4],
+[ -5, -22,  24]]$ and show the message is ``good job ben''.
+ \item Decode the message $[[39, 89, 22],[20, 48,  4],[39, 88, 33]]$.
+\end{enumerate}
+\end{problem}
+
+
+
+
+\begin{problem}
+The eigenvalues of the matrix 
+$A=\bvec{2&6\\18&5}$ are $\lambda_1 = 14$ and $\lambda_2 = -7$.  An eigenvector corresponding to $\lambda_1 =14$ is  $\vec x_1=(1,2)$. 
+An eigenvector corresponding to $\lambda_2 = -7$ is $\vec x_2 = (-2,3)$. 
+\begin{enumerate}
+ \item What is the product $A\vec x_1$? What is the product $A\vec x_2$? Can you explain how to get these products without actually doing matrix multiplication.
+ \item 
+\marginpar{We place the eigenvectors of $A$ into the columns of $Q$.}%
+What is the product $AQ$ where $Q = \bvec{\vec x_1&\vec x_2} = \bvec{1&-2\\2&3}$. You can do this product by using your answer to the first part. 
+ \item 
+\marginpar{[There are several ways to do this problem. You could multiply both sides on the left by the inverse of $Q$ to solve for $D$. Another way is to reason about the connection between eigenvalues, eigenvectors, the matrix $A$, and linear combinations.]
+}%
+Find a matrix $D$ so that $AQ=QD$.  Any idea why we use $D$ for this matrix? See the hint on the side. 
+
+\item 
+Suppose $A$ is a 3 by 3 matrix with eigenvectors $\vec x_1$, $\vec x_2$, and $\vec x_3$, corresponding to the eigenvalues $\lambda = 2,4,-5$, respectively. If we let $Q = \bvec{\vec x_1&\vec x_2&\vec x_3}$, then make a guess as to what $D$ should equal so that $AQ=QD$. Explain your guess. Guess what $D$ equals if we instead place the eigenvectors into $Q$ in the order $Q = \bvec{\vec x_2&\vec x_3&\vec x_1}$? 
+
+
+\end{enumerate}
+%What do they get if they compute AQ (or explain why we immediatly know AQ).  Does it equal DQ or QD.  Does order matter?
+%They have to analyze what matrix multiplication means. 
+\end{problem}
+
+In the problem above, we wrote $AQ=QD$ where $D$ is a diagonal matrix whose diagonal entries are the eigenvalues of $A$. The columns of $Q$ are eigenvectors of $A$, which we place in the same order as the eigenvalues on the diagonal of $D$. We can use this idea to obtain a matrix with any desired eigenvalue/eigenvector pairs. In particular, this means we can observe something in nature and look for outward/inward pushes/pulls. From these observations we know $Q$ and $D$, which means we can solve for $A$. 
+
+
+\begin{problem}
+Suppose you know that the matrix $A$ has eigenvalues $\lambda_1=2$ and $\lambda_2=-3$ with corresponding eigenvectors $\vec x_1=(2,-5)$ and $\vec x_2 = (1,3)$.
+\begin{enumerate}
+ \item 
+\marginpar{Since $AQ=QD$, what does multiplying both sides by $Q^{-1}$ on the right yield?}%
+We can write $AQ=QD$ where $Q=\bvec{\nvec{2\\-1}&\nvec{1\\3}}$ and $D=\bvec{2&0\\0&-3}$. Use this information to solve for $A$.  You can get $Q^{-1}$ quickly from Problem \ref{inverse of 2 by 2}.  Your matrix $A$ should have fractional values in it, with a denominator equal to the determinant of $Q$.
+ \item We could have instead written $AQ=QD$ where $Q=\bvec{\nvec{1\\3}&\nvec{2\\-1}}$ and $D=\bvec{-3&0\\0&2}$ (reversing the order we put things into $Q$ and $D$). Use this information to solve for $A$.
+ \item Suppose we know that a vector field $\vec F$ applies the forces $F(4,-2) = (8,-4)$ and $F(-1,-3) = (3,9)$. Explain why we know two eigenvectors are $(4,-2)$ and $(3,9)$ with corresponding eigenvalues $\lambda=2$ and $\lambda =-3$.  Use this information to state $Q$ and $D$, and then use $AQ=QD$ to find the matrix $A$ such that $F(x,y)=A\pvec{x\\y}.$
+ \item You should have gotten the exact same matrix $A$ in each problem above, though the $Q$ and $D$ used on each part was different. Guess another choice for $Q$ and $D$, different than the three above, so that $AQ=QD$. Why did you make this guess? 
+%This problem is most likely best left for a discussion in class.  Let them do the computations. 
+% \item We know there are infinitely many eigenvectors corresponding to each eigenvalue of $A$. When we use $AQ=QD$ to find the matrix $A$, does it matter which eigenvectors we choose to put in $Q$?  Does the order we place the eigenvectors in $Q$ make a difference?
+\end{enumerate}
+\end{problem}
+
+\mysubsection{\ideadet}
+Recall that the determinant of a {$2\times 2$} and {$3\times 3$} matrix are the numbers 
+\begin{align*}
+\det\begin{bmatrix}a&b\\c&d\end{bmatrix} &=\begin{vmatrix}a&b\\c&d\end{vmatrix} = ad-bc\\
+\begin{vmatrix}a&b&c\\d&e&f\\g&h&i\end{vmatrix} &= a\det\begin{vmatrix}e&f\\h&i\end{vmatrix} -b\det\begin{vmatrix}d&f\\g&i\end{vmatrix} +c\det\begin{vmatrix}d&e\\g&h\end{vmatrix}\\
+&=a(ei-hf)-b(di-gf)+c(dh-ge)
+\end{align*}
+Notice that we compute three determinants of 2 by 2 matrices in order to find the determinant of a 3 by 3. We now extend this to give a way to compute determinants of any matrix.
+
+
+\begin{definition}[Minors, Cofactors, and General Determinants]\label{general determinants}
+Let {$A$} be an $n$ by $n$ matrix. 
+\begin{itemize}
+ \item The minor {$M_{ij}$} of a matrix {$A$} is the determinant of the the matrix formed by removing row {$i$} and column {$j$} from {$A$}. 
+ \item 
+\marginpar{
+%\begin{wraptable}[7]{r}{0pt}
+%\small
+%\begin{tabular}{c}
+$\begin{bmatrix}
++&-&+&\cdots\\
+-&+&-&\cdots\\
++&-&+&\cdots\\
+\vdots&\vdots&\vdots&\ddots
+\end{bmatrix}$ 
+%\end{tabular}%\end{wraptable}
+
+This sign matrix keeps track of the $(-1)^{i+j}$ portion in the cofactor.
+}%
+The cofactor $C_{ij}$ is the product of the minor $M_{ij}$ and $(-1)^{i+j}$. This gives $C_{ij} = (-1)^{i+j}M_{ij}$.
+ \item To compute the determinant, first pick a row or column.
+Then take each entry $a_{ij}$ in that row or column and multiply the entry by its cofactor $C_{ij}$. The determinant is the sum of these products. 
+
+{\bf The determinant is a linear combination of the cofactors of any row or column of the matrix, where we use the entries of that row or column as the scalars.  }
+
+Using summation notation, we can write $|A| = \sum_{k=1}^n a_{ik}C_{ik}$ (if we chose row $i$) or alternatively $|A| = \sum_{k=1}^n a_{kj}C_{kj}$ (if we chose column $j$).  
+\end{itemize}
+\end{definition}
+
+
+
+
+\begin{problem}
+ Compute the determinant of 
 $
 \begin{bmatrix}
  2 & 3 & -1 \\
@@ -931,8 +1150,25 @@ $
  4 & 2 & 5
 \end{bmatrix}
 $
-in 3 different ways. First, use a cofactor expansion using the first row (Definition \ref{determinat of 2 by 2 and 3 by 3}).  Then use a cofactor expansion using the 2nd row.  Then finally use a cofactor expansion using column 3.  Which of the was the quickest, and why?
+in 3 ways. 
+\begin{enumerate}
+ \item 
+\marginpar{\href{http://www.youtube.com/watch?v=DiULKK1CzR0&feature=share&list=PL7A2089C33C8EFC84}{Watch this relevant YouTube video.}}%
+Compute the cofactors of the first row of the matrix, and use them to obtain the determinant. Please show each step of your work, don't just skip straight to an answer. You'll need to explain what you did in class, and you can't do this if you just skip all the steps in between.
+ \item Use the cofactors of the second row to obtain the determinant.
+ \item Find the determinant by using a linear combination of the cofactors of the third column. 
+\end{enumerate}
+Note: The determinant, using a linear combination of the cofactors along the second column, is
+\begin{align*}
+3C_{1,2}+0C_{2,2}+2C_{3,2} 
+&= (3)(-1)^{1+2}\begin{vmatrix}1&0\\4&5\end{vmatrix}+(0)(-1)^{2+2}\begin{vmatrix}2&-1\\4&5\end{vmatrix}+(2)(-1)^{3+2}\begin{vmatrix}2&-1\\1&0\end{vmatrix}\\
+&= -(3)\begin{vmatrix}1&0\\4&5\end{vmatrix}+(0)\begin{vmatrix}2&-1\\4&5\end{vmatrix}-(2)\begin{vmatrix}2&-1\\1&0\end{vmatrix}\\
+&=\cdots \text{(you can finish).}
+\end{align*}
 \end{problem}
+
+
+
 
 \begin{problem}
  Compute the determinants of the matrices 
@@ -953,231 +1189,238 @@ B=
  0 & -5 & 3 & -1
 \end{bmatrix}
 .$$
-You can make these problems really fast if you use a cofactor expansion along a row or column that contains a lot of zeros.
+You can make these problems really fast if you use a linear combination of cofactors where most of the scalars are zero. 
 \end{problem}
 
 
+
+
+
+
+
 \begin{problem}
-Compute the determinant of
- $$
-A=\begin{bmatrix}
- 1 & 1 & 1 & 1 \\
- 2 & 2 & 2 & 2 \\
- 0 & 2 & 1 & -1 \\
- 1 & 0 & -2 & 1
-\end{bmatrix}.
+
+Consider the matrices 
 $$
-Then find the inverse of $A$ (or explain why it does not exist).  Are the columns of $A$ linearly independent or linearly dependent?
-\end{problem}
-
-
-\begin{problem}
- Compute the determinant of $A=
+A=
 \begin{bmatrix}
- 2 & 1 & 0 \\
- 0 & 2 & 1 \\
- 1 & 0 & 2
+1 & 0 & 2  \\
+1 & 1 & 1  \\
+2 & 3 & 1 
 \end{bmatrix}
-.$  Does $A$ have an inverse?  Are the columns of $A$ linearly independent or linearly dependent?  Answer both of the previous questions without doing any row reduction.  Then row  reduce 
-$\begin{bmatrix}A&I\end{bmatrix} = 
+\quad\quad\text{ and }\quad\quad
+B=
 \begin{bmatrix}
- 2 & 1 & 0 &1&0&0\\
- 0 & 2 & 1 &0&1&0 \\
- 1 & 0 & 2 &0&0&1
-\end{bmatrix}
-$ 
-to confirm your answer.
-\end{problem}
-
-After completing the previous two problems, you should see that there is a connection between the determinant, inverse, and linear independence.  Make a conjecture about what this connection is.  We'll learn a little more about determinants and inverses, and then you'll have a chance to state your conjecture, as well as prove it.
-
-\begin{problem}
- Start by writing the system of equations 
-$$\left\{
-\begin{array}{rl}
- -2x_1+ 5x_3 &=-2\\
- -x_1+ 3x_3 &=1\\
- 4x_1 +x_2  -x_3 &=3
-\end{array}
-\right.$$ as a matrix product $A\vec x =\vec b$.  (What are $A$, $\vec x$ and $\vec b$?)  
-Then find the inverse of $A$, and use this inverse to find $\vec x$. [Hint:  If we just have numbesr, then to solve $ax=b$, we multiply both sides by $\frac{1}{a}$ to obtain $\frac{1}{a}ax=\frac{1}{a}b$ or just $x=\frac{1}{a}b$.]
-\end{problem}
-
-In the next problem, you'll prove that the determinant of a 2 by 2 matrix gives the area of a parallelogram whose edges are the columns of the matrix.
-\begin{problem}
- To find the area of the parallelogram with vertexes $O=(0,0)$, $U=(a,c)$, $V=(b,d)$, and $P=(a+b,c+d)$, we would find the length of $OU$ (the base $b$), and multiply it by the distance from $V$ to $OU$. Complete the following:
+1 & 0 &  -2 \\
+1 & 1 &  1 \\
+2 & 3 &  0
+\end{bmatrix}.$$
+\marginpar{You can use Sage to perform all your work. First store the matrices as A and B. Then use A.inverse(), B.inverse(), A.determinant(), and B.determinant(), etc. to check.}%
+These matrices are related to the rocket booster problem (Problem \ref{rocket booster problem}).
 \begin{enumerate}
- \item Find the projection of $\vec {OV}$ onto $\vec {OU}$. (You may have to look up a formula from math 215.)
- \item The vector $\vec {OV}-\text{proj}_{\vec{OV}}\vec{OU}$ is called the component of $\vec {OV}$ that is orthogonal to $\vec {OU}$. The length of this vector is precisely the distance from $V$ to $OU$, which we'll call $h$. Find the length of this vector.
- \item We now have the base $b=|OU|$ and height $h$ of a parallelogram.  Compute the product, and prove it equals $\begin{vmatrix}a&b\\c&d\end{vmatrix}=|ad-bc|$.
+ \item Compute the determinants of $A$ and $B$. Show this part by hand, though you should use software to check your answer. 
+ \item Row reduce $A$ and $B$. Use software and just show us the rref.
+ \item Are the columns of $A$ linearly independent or linearly dependent? What about the columns of $B$?
+ \item Row reduce both $[A|I]$ and $[B|I]$, and then state the inverse of each (or explain why it does not exist).  Use software and just show us the rref.   
+ \item How many solutions are there to $A\vec x = \vec 0$?  How many solutions are there to $B\vec x=\vec 0$?
+ \item How many solutions does 
+$x\pvec{1\\1\\2}+
+y\pvec{0\\1\\3}+
+z\pvec{2\\1\\1}=
+\pvec{0\\0\\0}
+$ have?
+
+How many solutions does 
+$x\pvec{1\\1\\2}+
+y\pvec{0\\1\\3}+
+z\pvec{-2\\1\\0}=
+\pvec{0\\0\\0}
+$ have?
+\item Make some conjectures about the relationships you see above. 
+
 \end{enumerate}
 \end{problem}
 
-The result above extends to 3 dimensions.  The determinant of a 3 by 3 matrix gives the volume of a parallelepiped whose edges are the columns of the matrix.  We then use determinants to define $n$th dimensional volume.  
 
-\begin{problem}
-Answer each of the following:
-\begin{enumerate}
- \item Let $\vec u = (2,3)$.  If you pick a vector $\vec v$ that is a linear combination of $\vec u$, what will the determinant of $\begin{bmatrix}\vec u &\vec v\end{bmatrix}$ equal? First explain how you know the answer (before you have even chosen a vector $\vec v$).  Then give us an example by picking a vector that is a linear combination of $\vec v$.
- \item Let $\vec u = (1,0,2)$ and $\vec v=(0,-1,1)$.  If $\vec w$ is a linear combination of $\vec u$ and $\vec v$, what will the determinant equal?  Explain.  Then show us an example to confirm your conjecture.
- \item  
-We already computed the determinant of $A=
-\begin{bmatrix}
- 2 & 1 & -6 & 8 \\
- 0 & 3 & 5 & 4 \\
- 0 & 0 & 1 & 5 \\
- 0 & 0 & 0 & -4
-\end{bmatrix}$. Swap two columns of the matrix, and then compute the determinant.  How does the determinant of your matrix with swapped columns relate to the determinant of the original matrix. If you swap two columns of a matrix, what happens to the determinant?   
-\end{enumerate}
- 
-\end{problem}
-
-
-
-\begin{problem}
- Construct a 2 by 2 matrix whose columns are linearly independent.  What is the reduced row echelon form of your matrix? Compute the rank and the determinant, and finally find the inverse (if possible).  
-
- Now construct a 2 by 2 matrix whose columns are linear dependent.  What is the reduced row echelon form of your matrix? Compute the rank and the determinant, and finally find the inverse (if possible).  
-
- Make a conjecture about the connection between (1) linear dependence, (2) rref, (3) rank, (4) determinant, and (5) inverses. Then use a computer to give two 3 by 3 examples similar to the examples above.  You'll be asked to show us the computations on the computer in class.
-\end{problem}
-
-
-\begin{problem}
- Consider the matrix
-$A=\begin{bmatrix}
-2&1&-1\\1&2&0\\0&4&3 
-\end{bmatrix}.$
- Compute the determinant of $A$.  Then create a matrix $B$ so that the $ij$th entry of $B$ is the cofactor $C_{ij}$ (remove row $i$ and column $j$, compute the determinant, and then times by an appropriate sign).  This will require that you compute nine 2 by 2 determinants.  Finally, compute the inverse of $A$ (feel free to use a computer on this part). Make a conjecture about the connection between the determinant of $A$, this matrix $B$, and the inverse of $A$.  We'll verify your conjecture is true on a 4 by 4 matrix in class. 
-\end{problem}
-
-
-
-\section{Eigenvalues and Eigenvectors}
-
-The final computational skill we need to tackle is to compute eigenvalues and eigenvectors.  
-Let's start by looking at an example to motivate the language we are about to introduce.  
-
-\begin{example}
-Consider the matrix
-$A=\begin{bmatrix} 2&1\\1&2\end{bmatrix} $.  When we multiply this matrix by the vector 
-$\vec x = \begin{bmatrix} 1\\1\end{bmatrix} $, 
-we obtain 
-$\begin{bmatrix} 2&1\\1&2\end{bmatrix} \begin{bmatrix} 1\\1\end{bmatrix} = \begin{bmatrix} 3\\3\end{bmatrix}=3\vec x$. Multiplication by the matrix $A$ was miraculously the same as multiplying by the number 3. Symbolically we have $A\vec x = 3\vec x$. 
-Not every vector $\vec x$ satisfies this property, as letting
-$\vec x = \begin{bmatrix} 1\\0\end{bmatrix} $ 
-gives  the product
-$\begin{bmatrix} 2&1\\1&2\end{bmatrix} \begin{bmatrix} 1\\0\end{bmatrix} = \begin{bmatrix} 2\\1\end{bmatrix}$, which is not a multiple of $\vec x = \begin{bmatrix} 1\\0\end{bmatrix} $. 
- 
-\end{example}
-Our main goal in this section is to answer the following two questions:
-\begin{enumerate}
-	\item For which nonzero vectors $\vec x$ (eigenvectors) is it possible to write $A\vec x = \lambda \vec x$?
-	\item Which scalars $\lambda$ (eigenvalues) satisfy $A\vec x = \lambda \vec x$?
-\end{enumerate}
-Now for some definitions. 
-\begin{definition}[Eigenvector and Eigenvalue]
-Let $A$ be a square $n\times n$ matrix. 
-\begin{itemize}
- \item An eigenvector of $A$ is a nonzero vector $\vec x$ such that $A\vec x =\lambda \vec x$ for some scalar {$\lambda$}. (Matrix multiplication reduces to scalar multiplication.) We avoid letting $\vec x$ be the zero vector because $A\vec 0=\lambda \vec 0$ no matter what $\lambda$ is.
- \item If $\vec x$ is an eigenvector satisfying $A\vec x = \lambda \vec x$, then we call $\lambda$ and eigenvalue of $A$.
-\end{itemize}
+\begin{definition}[Singular]
+ We say that a matrix is singular when the determinant of $A$ equals zero, which is precisely when the matrix does not have an inverse. 
 \end{definition}
 
-\begin{problem}\label{use definition of eigenvectors}
-Use the definition above to determine with of the following are eigenvectors of
-$
-\begin{bmatrix}
- 3 & 1 \\
- 4 & 6
-\end{bmatrix}
-$
-:
-$$\pvec{1\\1}, \pvec{1,4}, \pvec{4\\1}, \pvec{1,\\-1}, \pvec{-2,\\2}.$$   
-If the vector is an eigenvector, state the corresponding eigenvalue.
-\end{problem}
-
-
-The next problem gives us an algorithm for computing eigenvalues and eigenvectors.
-\begin{problem}[How to compute eigenvalues and eigenvectors]
- Let $A$ be a square matrix.
-\begin{enumerate}
- \item If $\lambda$ is an eigenvalue, explain why we can find the eigenvectors by solving the equation $(A-\lambda I)\vec x=\vec 0$.  This means we can subtract $\lambda$ from the diagonal entries of $A$, and then row reduce 
-$\begin{bmatrix}A-\lambda I&\vec 0\end{bmatrix}$ 
-to obtain the eigenvectors. Note that you should always obtain infinitely many solutions.
- \item Explain why we can obtain the eigenvalues of $A$ by solving for when the determinant of $(A-\lambda I)$ is zero, i.e. solving the equation $$\det (A-\lambda I)=0.$$  
-\end{enumerate}
-\end{problem}
-
-The algorithm above suggests the following definition.
-\begin{definition}
- If $A$ is a square $n$ by $n$ matrix, then we call $\det(A-\lambda I)$ the characteristic polynomial of $A$.  It is a polynomial in $\lambda$ of degree $n$, and hence has $n$ roots (counting multiplicity).  These roots are the eigenvalues of $A$.
-\end{definition}
-
-We now have an algorithm for finding the eigenvalues and eigenvectors of a matrix.  We start by finding the characteristic polynomial of $A$. The zeros of this polynomial are the eigenvalues.  To get the eigenvectors, we just have to row reduce the augmented matrix 
-$\begin{bmatrix}A-\lambda I&\vec 0\end{bmatrix}$.
-Finding eigenvalues and eigenvectors requires that we compute determinants, find zeros of polynomials, and then solve homogeneous systems of equations. You know you are doing the problem correctly if you get infinitely many solutions to the system $(A-\lambda I)\vec x=0$ for each lambda (i.e. there is at least one row of zeros along the bottom after row reduction).
-As another way to check your work, the following two facts can help.
-\begin{itemize}
-	\item \marginpar{The trace and determinant are equal to the sum and product of the eigenvalues.
-	}The sum of the eigenvalues equals the trace of the matrix (the sum of the diagonal elements).
-	\item The product of the eigenvalues equals the determinant.
-\end{itemize}
 
 
 
 
-\begin{problem}
-Consider the matrix 
-$A=
-\begin{bmatrix}
- 3 & 1 \\
- 4 & 6
-\end{bmatrix}
-$
-from problem  \ref{use definition of eigenvectors}. 
-\begin{enumerate}
- \item Find the characteristic polynomial of $A$, and then find the zeros to determine the eigenvalues.
- \item For each eigenvalue, find all corresponding eigenvectors.
- \item Compute the trace and determinant of $A$.
-\end{enumerate}
 
-\end{problem}
+\mysubsection{\ideaeig}
 
+Remember, to find the eigenvalues and eigenvectors of a matrix, we need to find nonzero vector solutions to $(A-\lambda I)\vec x=\vec 0$. This means the determinant of $A-\lambda I$ must be zero, which is the quick formula we use for computing eigenvalues. 
 
 \begin{problem}
 Consider the matrix 
 $
 A=
 \begin{bmatrix}
- 6 & 4  \\
- 3 & 2  
+ 4 & 0 & 0 \\
+ 0 & 2 & 1 \\
+ 0 & 1 & 2
 \end{bmatrix}
 $. 
-Find the characteristic polynomial and eigenvalues of $A$. 
-Then for each eigenvalue, find all corresponding eigenvectors.
-(Check your work by computing the trace and determinant of $A$.)
+Show that the characteristic polynomial of $A$ is $(4-\lambda)(\lambda-3)(\lambda -1)$, and then state the eigenvalues of $A$. 
+Then for each eigenvalue, find all corresponding eigenvectors. Show your row reduction steps to get the eigenvectors. (You'll need to row reduce 3 matrices, but with each one the row reduction should be quite fast as the bottom row should reduce to all zeros.)
 \end{problem}
 
-
-
-\begin{problem}
-Consider the matrix 
+\begin{problem}\label{First example of deficient eigenvalue}
+Consider the matrices
 $
-A=
+B=
 \begin{bmatrix}
  3 & 0 & 0 \\
  0 & 2 & 1 \\
  0 & 1 & 2
 \end{bmatrix}
-$. 
-Find the characteristic polynomial and eigenvalues of $A$. 
-Then for each eigenvalue, find all corresponding eigenvectors.
-(Check your work by computing the trace and determinant of $A$.)
+$ and 
+$
+C=
+\begin{bmatrix}
+ 3 & 1 & 0 \\
+ 0 & 2 & 1 \\
+ 0 & 1 & 2
+\end{bmatrix}
+$.
+Feel free to use software on this problem to perform any needed row reductions. 
+\begin{enumerate}
+\item Show that the characteristic polynomial for both $B$ and $C$ is $(3-\lambda)(\lambda-3)(\lambda -1)$.  What are the eigenvalues?
+\item For each eigenvalue of $B$, state all the corresponding eigenvectors. Show us the matrix you need to row reduce, show the rref (from software), and then state the eigenvectors by writing $(x,y,z)$ in terms of the free variables.
+\item For each eigenvalue of $C$, repeat the previous step.
+\item If you have a repeated eigenvalue, how many linearly independent eigenvectors should you expect to find?
+\end{enumerate}
+When you are done, you should have written down 4 matrices (2 for each part), each matrix's rref, and then stated the eigenvectors by writing $(x,y,z)$ in terms of the free variables on each part.  
+ \end{problem}
+
+
+
+
+\mysubsection{\ideagau}
+Recall that there are three types of row operations, namely (1) swap rows, (2) multiply a row by a nonzero constant, and (3) add a multiple of a row to another row.  
+
+When you row reduce the matrix $\bvec{a&b&c\\d&e&f}$ using Gauss-Jordan elimination (or any $2$ by $n$ matrix), we can count the largest number of row operations we'll ever need to perform.  Assume at each stage we decide to swap two rows to get a nice nonzero number in the pivot, and then we multiply that row by a nonzero number to obtain a leading 1. 
+With a 2 by $n$ matrix, we would swap rows 1 and 2, and then multiply row 1 by a nonzero number. Then we would add a multiple of row 1 to row 2 to eliminate the entry below this leading 1. We would then multiply row 2 by a nonzero number to obtain a leading 1. Then we'd need one more row operation to eliminate the number above the pivot in column 2. This is a total of 5 operations (we swapped 1 time, multiplied a row 2 times, and added a multiple of a row to another 2 times).  
+
+For larger matrices, how many row operations are needed to perform Gauss-Jordan elimination?
+This question is extremely important to computer programming, as the answer related to the time needed for a computer to row reduce a million by million matrix, something that happens all the time since the advent of computers.
+
+%I don't think they will care.....  I'm moving on.
+\begin{problem}[Number of operations]
+Here's your challenge:  How many row operations are needed to fully reduce an $m$ by $n$ matrix, where $n>m$.
+\begin{itemize}
+ \item For a 3 by 4 matrix, we would swap rows a maximum of 2 times (once for each row but the last).  We would need to multiply a row by some number 3 times (once for each leading 1). We would add a multiple of a row to another 3 times in the forward elimination and 3 times in the backward elimination (this puts the zeros above and below each pivot). We now have $2+3+6 = 11$ row operations.
+ \item Now consider a 4 by 5 matrix. How many row swaps at most will you need?  How many times will you need to multiply to get a leading 1?  How many times will you need to add a multiple of a row to another to get a zero above or below a pivot?  List all these out, then write the number of row operations needed.
+ \item Now consider a 5 by 6 matrix. Repeat the above.
+ \item Now consider a 6 by 7 matrix. Repeat the above. Did you get $41$ row operations?
+ \item Give a formula $f(n)$ so that for each $n$, the number $f(n)$ is the maximum number of row operations. We currently know $f(1)=1$, $f(2)=5$, $f(3)=11$, $f(4)=?$, $f(5)=?$, $f(6)=41$. 
+\end{itemize}
+If you've never see the online encyclopedia of integer sequences, please head to \href{http://oeis.org/}{http://oeis.org/}. Try the sequence 1, 5, 11, ....  
 \end{problem}
 
 
 
+
+\begin{problem}
+Let $A=\bvec{6-c&2\\2&3-c}$ where $c$ is a real number.
+\begin{enumerate}
+ \item For which values of $c$ are the columns of $A$ linearly independent?
+ \item For which values of $c$ is the matrix $A$ invertible?
+ \item For which values of $c$ are there infinitely many solutions to $A\vec x = \vec 0$?
+ \item For which values of $c$ is the determinant of $A$ equal to zero?
+ \item For which values of $c$ does the rref of $A$ equal the identity matrix?
+ \item For which values of $c$ is the matrix $A$ singular?
+ \item For which values of $c$ is $\lambda=0$ an eigenvalue of $A$?
+\end{enumerate}
+\end{problem}
+
+
+\mysubsection{\ideaeig}
+There are many connections between vector fields and eigenvalues/eigenvectors.  The next three problems have you explore this topic, and make some conjectures.  
+
+
+\begin{problem}
+The following three vector fields are represented by matrices with imaginary eigenvalues. Compute the eigenvalues for each, construct a vector field plot, and on the plot add several trajectories (the path followed by a particle that is dropped into this field). 
+\begin{enumerate}
+ \item $\vec F(x,y) = \bvec{-1&3\\-2&-4}\bvec{x\\y}=\bvec{-x+3y\\ -2x-4y}=(-x+3y, -2x-4y)$.
+ \item $\vec F(x,y) = (x-y, x)$ 
+ \item $\vec F(x,y) = (-2y,x)$. 
+\end{enumerate}
+Make a conjecture as to why one spirals in, one spirals out, and one just wraps around in ellipses. 
+\end{problem}
+
+
+
+
+\begin{problem}
+Start by downloading the Mathematica notebook \href{https://www.dropbox.com/s/1df1nswgbq3y34n/316-VectorField.nb}{VectorFields.nb (click on the link)}.  The goal of this problem is to make a connection between a vector field and its corresponding eigenvalues/eigenvectors. Once the notebook is open, click somewhere in the text. Hold down Shift and press Enter to evaluate the commands and produce a vector field plot. The eigenvector directions are drawn in green. You can click on the bubbles with crosshairs to adjust the vector field (the adjustable vectors are are the columns of the matrix). Play around with the animation until you feel like you can answer each of the following questions. Write your answers to the first 4 by writing complete sentences, and provide a rough hand sketch of a vector field for each case to match your sentences. 
+ \begin{enumerate}
+  \item If the vector field pushes things outwards in all directions, what do you know about the eigenvalues?
+  \item If the vector field pulls things inwards in all directions, what do you know about the eigenvalues?
+  \item How can you tell, by looking at a vector field plot, that one eigenvalue is positive and the other is negative?
+  \item If the vector field involves swirling motion, what do you know about the eigenvalues? What makes the difference between spiraling inwards, outwards, or just spinning in circles?
+  \item (Challenge) What happens when you have a repeated eigenvalue? This one has lots of correct answers, and it is a topic for much further discussion. See if you can get an example of a repeated eigenvalue with a behavior that's different from the above. 
+ \end{enumerate}
+If you have the first 4, you can present in class. We'll have you come up to the computer and show us what you did.
+\end{problem}
+
+
+
+We've already seen how to visualize the solution to a first order systems of ODEs.  All we have to do is draw the corresponding vector field.  The solutions to the ODE are the trajectories that follow the vectors in the field.  In the previous chapter we visualized solutions by drawing a vector field. The next problem has you construct visual graphical solutions by only considering the eigenvalues and corresponding eigenvectors.  The vector field plot is not needed. 
+
+\begin{problem}
+Consider the system of ODEs $x'=y$, $y'=8x-2y$. This is a system of ODEs whose solution would give the position $(x,y)$ of a particle whose tangent vectors are $(x',y') = (y, 8x-2y)$.  In other words, solving this ODE will tell us the trajectories we can see from a plot of the vector field  $\vec F(x,y)=(y, 8x-2y)$. 
+\marginpar{Once you have finished, you should look at a vector field plot of $\vec F(x,y)=(y, 8x-2y)$. Your trajectory plots should follow the vectors in the vector field plot, but you didn't ever have to make the vector field plot.
+}%
+On this problem, do not draw the vector field, as the goal is to answer all the questions below by just knowing the eigenvalues and eigenvectors.  
+\begin{enumerate}
+ \item Write this system of ODEs in the form 
+$$\bvec{x'\\y'}=A\bvec{x\\y}=\bvec{\rule{.5cm}{.5pt}&\rule{.5cm}{.5pt}\\ \rule{.5cm}{.5pt}&\rule{.5cm}{.5pt}}\bvec{x\\y}.$$  
+ Find the eigenvalues of $A$, and then give an eigenvector for each eigenvalue.
+ \item The eigenvectors determine two lines through the origin.  Draw these lines on the same plot. This will divide the plane into 4 parts.
+ \item If an object starts at $(2,4)$, draw the path the object will follow. Draw your path in the same plot that contains the lines determined from your eigenvectors. Then repeat this part for each initial condition $(0,4)$, $(-2,4)$, $(-1,4)$, and $(2,-2)$. 
+\end{enumerate}
+You should have single plot that contains 2 lines, and then 5 trajectories. Two of your trajectories will match up with your lines, but it's important that you note which trajectory moves radially outwards, and which moves radially inwards.
+\end{problem}
+
+
+
+
+\section*{Wrap up}
+\addcontentsline{toc}{section}{Wrap Up}
+
+This concludes the chapter.  Look at the objectives at the beginning of the chapter. Can you now do all the things you were promised? 
+
+
+\begin{problem}[Lesson Plan Creation] \marginpar{This counts as 4 prep problems. My hope is that you spend at least an hour creating your one-page lesson plan.}
+Your assignment: organize what you've learned into a small collection of examples that illustrates the key concepts. I'll call this your one-page lesson plan. You may use both sides. The objectives at the beginning of the chapter give you a list of the key concepts. Once you finish your lesson plan, scan it into a PDF document (use any scanner on campus), and then upload the document to I-Learn.
+\end{problem}
+
+
+
+
+\note{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%Do this in class in groups.  Don't do it out of class.  This is a QUICK in class group problem. 
 \begin{problem}
 Consider the matrix 
 $
@@ -1197,3 +1440,123 @@ Then for each eigenvalue, find all corresponding eigenvectors.
 
 
 
+
+%This is begin moved to the next chapter, right around the Cramer's rule part.  It's a great conjecture problem. 
+\begin{problem}
+ Consider the matrix
+$A=\begin{bmatrix}
+2&1&-1\\1&2&0\\0&4&3 
+\end{bmatrix}.$
+ Compute the determinant of $A$.  Then create a matrix $B$ so that the $ij$th entry of $B$ is the cofactor $C_{ij}$ (remove row $i$ and column $j$, compute the determinant, and then times by an appropriate sign).  This will require that you compute nine 2 by 2 determinants.  Finally, compute the inverse of $A$ (feel free to use a computer on this part). Make a conjecture about the connection between the determinant of $A$, this matrix $B$, and the inverse of $A$.  We'll verify your conjecture is true on a 4 by 4 matrix in class. 
+\end{problem}
+
+
+%Define Span... Should this wait.   Yes.!!  Wait till chapter 4.  I'll define vector spaces as spans. Hold off on this one. 
+\begin{problem}
+ Is the vector $[2, 0, 1, -5]$ in the span of $$\{[1, 0, -1, -2], [1, 2, 3, 0], [0, 1, -1, 2]\}?$$ If it is, then write it as a linear combination of the others.  If it is not, then explain why it is not.
+\end{problem}
+%The rocket booster problem has already helped them develop the notion of span.  I can use the rocket booster problem to define span and define vector space. 
+
+
+
+%I'm not sure this is needed any more.  I've already hit linear combinations to death.  Perhaps they've done enough of this already. 
+\begin{problem}
+Do each of the following:
+\begin{enumerate}
+ \item Solve the system of equations $x+2y=3$, $4x+5y=6$.
+ \item Write the vector $\pvec{3\\6}$ as a linear combination of $\pvec{1\\4}$ and $\pvec{2\\5}$.
+ \item Let $A = \pvec{1&2\\4&5}$ and $\vec b=\pvec{3\\6}$.  Find a vector $\vec x$ so that $A\vec x = \vec b$. This matrix $A$ is called the coefficient matrix of the system in the first part.  
+\end{enumerate}
+How are these three questions related?
+ 
+\end{problem}
+
+
+
+A linear combination of vectors is simply a sum of scalar multiples of the vectors. 
+We start with some vectors, stretch each one by some scalar, and then sum the result. 
+Much of what we will do this semester (and in many courses to come) relates directly to understanding linear combinations.  
+
+%This is aproblem best left in chapter 1.
+\begin{problem}
+ The force acting on an object is $\vec F = (-3,2)$ N. The object is in motion and has velocity vector $\vec v=(1,1)$ and acceleration vector $\vec a = (-1,2)$.  Write the force as a linear combination of the velocity and acceleration vectors. 
+\end{problem}
+
+%This was put in chapter 1, I believe....
+\begin{problem}
+ Write the vector $(2,3,1)$ as a linear combination of the standard basis vectors in $\mathbb{R}^3$.  Then write $(2,3,1)$ as a linear combination of the vectors $(1,0,0)$, $(1,1,0)$, and $(1,1,1)$.  
+\end{problem}
+
+
+%Note.  This problem goes great if you first swap rows 1 and 2, and then subtract row 2 from row 2.  The numbers stay small. 
+\begin{problem}
+ Solve the system of equations 
+\begin{align*}
+  2x+3y-4z&=4\\  
+  3x+4y-3z&=8\\  
+  7x+12y-12z&=19.  
+\end{align*}
+Find the reduced row echelon form.  
+\end{problem}
+
+%extra... use if you need more fodder. 
+\begin{problem}
+Use Gaussian elimination to solve 
+ $$
+\begin{array}{rl}
+  x_2 -2x_3 &= -5 \\
+ 2x_1 -x_2 + 3x_3 &= 4 \\
+ 4x_1 +x_2 + 4x_3 &= 5
+\end{array}
+$$
+by row reducing the matrix to reduced row echelon form.
+[Hint: Start by interchanging row 1 and row 2.] 
+\end{problem}
+
+%extra... use if you need more fodder
+\begin{problem}
+Use Gaussian elimination to solve 
+ $$
+\begin{array}{rl}
+ x_1 -2x_2 +x_3 &= 4 \\
+ -x_1 + 2x_2 + 3x_3 &= 8 \\
+ 2x_1  -4x_2 +x_3 &= 5
+\end{array}
+$$
+by row reducing the matrix to reduced row echelon form.
+[Hint: You should end up with infinitely many solutions. State your solution by writing each variable in terms of the free variable(s).]
+\end{problem}
+
+%Great is you need more fodder.
+\begin{problem}
+Use Gaussian elimination to solve 
+ $$
+\begin{array}{rl}
+ x_1 + 2x_3 + 3x_4 &= -7 \\
+ 2x_1 +x_2 + 4x_4 &= -7 \\
+ -x_1 + 2x_2 + 3x_3  &= 0 \\
+ x_2  -2x_3  -x_4 &= 4
+\end{array}
+$$
+by row reducing the matrix to reduced row echelon form.
+\end{problem}
+
+
+
+%Not needed.  They already did this in the context of a vector field - and that's where the intuition is built.   Could be a great in class problem...  It also emphasizes matrix multiplication, but I would move it to chapter 1.  Actually, that's where this should go. 
+\begin{problem}\label{use definition of eigenvectors}
+Use the definition above to determine which of the following are eigenvectors of
+$
+\begin{bmatrix}
+ 3 & 1 \\
+ 4 & 6
+\end{bmatrix}
+$
+:
+$$\pvec{1\\1}, \pvec{1,4}, \pvec{4\\1}, \pvec{1,\\-1}, \pvec{-2,\\2}.$$   
+If the vector is an eigenvector, state the corresponding eigenvalue.
+\end{problem}
+
+
+
+}

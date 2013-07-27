@@ -13,34 +13,15 @@ This chapter covers the following ideas. When you create your lesson plan, it sh
 
 
 \section{Bringing it all together}
-As you work on the problems in this section, you'll want to have a computer algebra system near by.  I'll put some links to Sage worksheets in the problem set, but I strongly suggest you download the Mathematica Technology Introduction.
+As you work on the problems in this section, you'll want to have a computer algebra system near by.  I'll put some links to Sage worksheets in the problem set, but I strongly suggest you download the \href{\urlmathematicatechintro}{Mathematica Technology Introduction}.
 
 Our goal in this chapter is to learn how to solve systems of differential equations.  We have already discussed most of the ideas in this chapter (in some context), but we have never brought all these ideas together.  In this chapter, we'll try to connect everything we have done up to now. By the time we end this chapter, we'll have a tool that will solve almost every problem we have encountered. We'll see how vector fields, parametric curves, eigenvalues, eigenvectors, potentials, and power series all combine together to give a beautiful and elegant solution technique to solving ODEs.
 
 \begin{problem}
  Consider the IVP $y''+3y'+2y=0$, $y(0)=5$, $y'(0)=0$. This solution to this ODE will give the position of a mass spring system where $m=1$ kg, $c=3$ kg/s, $k=2$ kg/s$^2$, where the object was lifted upwards 5 cm and then let loose. 
 \begin{enumerate}
-\item This is a homogeneous ODE. What is the characteristic equation? State a general solution, and then use the initial conditions to get the solution.  (This is review.)
-\item Let $y(t)$ be the position and $v(t)$ be the velocity, so $v(t)=y'(t)$.  This means $v'(t)+3v(t)+2y(t)=0$.  Notice that this is a first order ODE with two different functions $y$ and $v$ that are unknown. Explain how to write this as the matrix equation
-$$
-\begin{bmatrix}
-y'\\v'
-\end{bmatrix}
-=\begin{bmatrix}
-0&1\\-2&-3
-\end{bmatrix}
-\begin{bmatrix}
-y\\v
-\end{bmatrix}.
-$$
- \item Find the eigenvalues $\lambda_1$ and $\lambda_2$ of the coefficient matrix 
-$A=
-\begin{bmatrix}
-0&1\\-2&-3
-\end{bmatrix}
-.$ 
-Then for each eigenvalue, find a corresponding eigenvector, which we'll call $\vec x_1$ and $\vec x_2$. 
-\item Look back at your solution on part 1. Compute $y'$ and write your solution from part 1 in the form 
+\item This is a homogeneous ODE. Find the characteristic equation, obtain a general solution, and then use the initial conditions to show that $y(t) = 10 e^{-t}-5 e^{-2 t}$. 
+ \item Since we know $y(t) = 10 e^{-t}-5 e^{-2 t}$, we also know $y' = -10 e^{-t}+10 e^{-2 t}$. Write this solution as a linear combination of vectors in the form 
 $$
 \begin{bmatrix}
 y\\y'
@@ -55,45 +36,57 @@ e^{-t}+
 \end{bmatrix}
 e^{-2t}
 .$$
-What is the connection between the solution to the ODE and eigenvalues/eigenvectors?  
-\item Suppose you needed to find a general solution to the system of ODEs
+%What is the connection between the solution to the ODE and eigenvalues/eigenvectors?  
+\item Let $y(t)$ be the position and $v(t)$ be the velocity. This means that $y'(t)=v(t)$, and that $v'(t)+3v(t)+2y(t)=0$ or $v'(t)=-2y(t)-3v(t)$. We now have the system of ODEs $y'(t)=v(t)$ and $v'(t)=-2y(t)-3v(t)$.  
+We can write this as the matrix equation
 $$
 \begin{bmatrix}
 y'\\v'
 \end{bmatrix}
-=A
+=\begin{bmatrix}
+0&1\\-2&-3
+\end{bmatrix}
 \begin{bmatrix}
 y\\v
+\end{bmatrix}.
+$$
+ Find the eigenvalues $\lambda_1$ and $\lambda_2$ of the coefficient matrix 
+$A=
+\begin{bmatrix}
+0&1\\-2&-3
 \end{bmatrix}
-,$$ and you knew the eigenvalues $\lambda_1$ and $\lambda_2$ and a corresponding eigenvector for each. Make a guess for what a general solution to the ODE is.  
+.$ 
+Then for each eigenvalue, find a corresponding eigenvector. How are the eigenvalues and eigenvectors related to the solution in part 2?
 \end{enumerate}
 \end{problem}
 
+
 \begin{problem}
-Consider again the IVP $y''+3y'+2y=0$, $y(0)=5$, $y'(0)=0$.  We already have the solution above. In this problem, you'll be constructing various graphs. 
+Consider again the IVP $y''+3y'+2y=0$, $y(0)=5$, $y'(0)=0$.  We already know that $y = 10e^{-t}-5e^{-2t}$ and $v = -10e^{-t}+10e^{-2t}$. In this problem, you'll be constructing various graphs to visualize this solution. Use the links below to have technology do almost all of the graphing for you. Make sure you either (1) print your plots or (2) copy them down on paper. 
 \begin{enumerate}
-\item \marginpar{Please check your answer with technology.  You can use either Sage or Mathematica.  \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=systems_of_odes_grapher}{Click on this link to get some example code that will help you with this problem.} You should use this code to check your answer with the previous problem.}%
-Construct of graph of $y$ verses $t$ and a graph of $v$ versus $t$. You should have two graphs that show you position and velocity at any time $t$.  
-\item Now construct a graph of $v$ versus $y$.  We could call this a velocity-position graph. Please use technology to do this.  You just need to graph the parametric curve $\vec r(t) = (y(t), y'(t))$. You'll need to use a parametric plotter. 
-\item The matrix $A$ represents a vector field $\vec F(y,v) = (0y+v, -2y-3v)$. Construct a graph of this vector field in the $yv$ plane.
-\item Put your vector field plot, and your velocity-position plot, on the same set of axes.  What does the vector field plot tell you about the velocity-position plot?
+\item \marginpar{Please check your answer with technology.  You can use either Sage or Mathematica.  \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=systems_of_odes_grapher}{Click on this link to get some example code that will help you with this problem.} You should use this code to check your answer with all the problems in this chapter.}%
+Construct of graph of $y$ verses $t$. On the same axes construct a graph of $v$ versus $t$. You should have two graphs that show you position and velocity at any time $t$.  
+\item Now construct a graph of $v$ versus $y$.  We call this a velocity-position graph (the time variable is removed). Please use technology to do this (see the margin).  You just need to graph the parametric curve $\vec r(t) = (y(t), v(t))$. You'll need to a parametric plotter. 
+\item The matrix $A$ represents a vector field $\vec F(y,v) = (0y+v, -2y-3v)$. Construct a graph of this vector field in the $yv$ plane. Put your vector field plot and your velocity-position plot on the same set of axes.  Write a sentence that explains what the vector field plot tells us about the velocity-position plot.
 \item \marginpar{Just change the initial conditions in either Sage worksheet or Mathematica notebook, and reevaluate.}%
-Change the initial conditions to $y(0)=0$ and $v(0)=5$.  On top of your vector field plot, draw what you think the solution should look like in the velocity-position plot. Then use software to solve the ODE, and plot your solution.
+Change the initial conditions to $y(0)=0$ and $v(0)=5$.  On top of your vector field plot, draw what you think the solution should look like in the velocity-position plot. Then use software to solve the ODE, and plot your solution. Use the Sage links at the beginning of this problem to accomplish this.
 \item Change the initial conditions to $y(0)=5$ and $v(0)=-5$.  On top of your vector field plot, draw what you think the solution should look like in the velocity-position plot. Explain why the solution must follow a straight line in the velocity-position plane?  [Hint: What are the eigenvalues, eigenvectors?]  Then state another set of initial conditions where the solution will be a straight line towards the origin.
 %\item We know the eigenvalues of $A$ are $\lambda_1 = -1$ and $\lambda_2=-2$, with corresponding eigenvectors $(1,-1)$ and $(1,-2)$. How can you see these in the  
 \end{enumerate}
 
 \end{problem}
 
-We'll revisit the last two problems as part of every other solution find.  Let's introduce a new type of application that shows us the need for linear systems of ODEs.
+We'll revisit the last two problems as part of every other solution we find.  
+The next problem is a repeat of something we already solved in chapter 2. 
 
+\note{moved to chapter 2 - first order ODEs}
 \begin{problem}
  Imagine for a moment that you have two tanks. The first tank contains 6 lbs of salt in 10 gallons of water. The second tank contains no salt in 20 gallons of water.  Each tank has an inlet valve, and an outlet value.  We attach hoses to the tanks, and have a pump transfer 2 gallon/minute of solution from tank 1 to tank 2, and vice versa from tank 2 to tank 1. So as time elapses, there are always 10 gallons in tank 1 and 20 gallons in tank 2. Our goal is to find the amount of salt in each tank at any time $t$. 
 \begin{enumerate}
  \item We know there are initially 6 lbs of salt in tank 1, and no salt in tank 2. If we allow the pumps to transfer salt for enough time, explain why the salt content in tank 1 will drop to 2 lb, and the salt content in tank 2 should increase to 4 lbs.
  \item Let $y_1(t)$ and $y_2(t)$ be the lbs of salt in tanks 1 and 2, respectively.  Explain why 
 $$y_1 ' = -\frac{2}{10}y_1+\frac{2}{20}y_2.$$
- \item Obtain a similar equation for $y_2'$. Write your ODEs in the matrix form 
+ Then obtain a similar equation for $y_2'$. Write your ODEs in the form 
 $$
 \begin{pmatrix}
  y_1'\\y_2'
@@ -108,73 +101,35 @@ $$
 \end{pmatrix}
 $$
 \item Draw the vector field represented by the coefficient matrix. Sketch the solution ($y_1(t),y_2(t)$) to your IVP (start at the point $(6,0)$ and follow the field until the vectors no longer tell you to move).  Show that you should stop at $(2,4)$.
-\item \marginpar{Don't forget that you can check your work with technology.  \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=systems_of_odes_grapher}{Please following this link} }%
-Compute the eigenvalues and eigenvectors of the matrix $A$, and draw two lines through the origin to represent the eigenvector directions.
+\item \marginpar{Don't forget that you can check your work with technology.  \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=systems_of_odes_grapher}{Please follow this link.} }%
+Compute the eigenvalues and eigenvectors of the matrix $A$, and use them to write a general solution to this system of ODEs. Your solution should involve arbitrary constants $c_1$ and $c_2$.
+ \item 
+Use the initial conditions $y_1(0)=6$ and $y_2(0)=0$ to solve for $c_1$ and $c_2$.
 \end{enumerate}
 
 \end{problem}
 
 
 \begin{problem}
- Again consider the mixing tank problem from before, with the system of ODEs
-$$
-\begin{pmatrix}
- y_1'\\y_2'
-\end{pmatrix}
-=
-\begin{bmatrix}
- -2/10 & 2/20\\
- ? & ?
-\end{bmatrix}
-\begin{pmatrix}
- y_1\\y_2
-\end{pmatrix}.
-$$
-Our goal is to determine the amount of salt in each tank at any time $t$. 
-\begin{enumerate}
- \item Compute the eigenvalues and eigenvectors of this matrix.  Use them to write a general solution to this system of ODEs. Your solution should involve arbitrary constants $c_1$ and $c_2$.
- \item Use the initial conditions $y_1(0)=6$ and $y_2(0)=0$ to solve for $c_1$ and $c_2$.
- \item \marginpar{Don't forget that you can check your work with technology.  \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=systems_of_odes_grapher}{Please following this link} }%
-Construct a graph that contains the the vector field representing the coefficient matrix and the parametric plot $(y_1(t),y_2(t))$ of your solution.
-\end{enumerate}
-
-\end{problem}
-
-
-\begin{problem}
- Two tanks are connected with hoses and pumps so that 3 gallons/second flows back and forth between the tanks.  The first tank is a 60 gallon tank, with 2 lbs of salt inside.  The second tank is a 90 gallon tank with 23 lbs of salt in it. Please find the amount of salt in each tank at any time $t$. 
-\begin{enumerate}
- \item Write a linear system of ODEs in the form 
-$$
-\begin{pmatrix}
- y_1'\\y_2'
-\end{pmatrix}
-=
-A
-\begin{pmatrix}
- y_1\\y_2
-\end{pmatrix}.
-$$
-whose solution will give the amount of salt in each tank at any time $t$.
- \item Compute the eigenvalues and eigenvectors of A, and then write a general solution to this system of ODEs. Your solution should involve arbitrary constants $c_1$ and $c_2$.
- \item Use the initial conditions to solve for $c_1$ and $c_2$.
- \item \marginpar{Don't forget that you can check your work with technology.  \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=systems_of_odes_grapher}{Please following this link} }%
-Construct a graph that contains the the vector field representing the coefficient matrix and the parametric plot $\vec y(t) = (y_1(t),y_2(t))$ of your solution.
-\end{enumerate}
-
-\end{problem}
-
-
-\begin{problem}
- Consider the linear system of ODEs given by $y_1'=2y_1+y_2$ and $y_2'=3y_1+4y_2$. Let $\vec y = (y_1,y_2)$. We can write this ODE in the form $\vec y' = A\vec y$, where $\vec y = (y_1,y_2)$.  
+ Consider the linear system of ODEs given by $y_1'=2y_1+y_2$ and $y_2'=3y_1+4y_2$. Let $\vec y = (y_1,y_2)$. We can write this ODE in the form $\frac{d\vec y}{dt} = A\vec y$, where $\vec y = (y_1,y_2)$ and $A = \bvec{2&1\\3&4}$.  
  \begin{enumerate}
-  \item Find the eigenvalues and eigenvectors of the coefficient matrix $A$.
-  \item We know that we can write a general solution to this system of ODEs as 
+  \item Find the eigenvalues and eigenvectors of the coefficient matrix $A$. Use them to state the general solution to this ODE. You can write your answer in the form 
 $$
 \vec y=
-c_1\vec x_1 e^{\lambda_1 t }+c_2\vec x_2 e^{\lambda_2 t}.
+c_1\pvec{* \\ * } e^{\lambda_1 t }+c_2\pvec{* \\ * } e^{\lambda_2 t}.
 $$
-Find a 2 by 2 matrix $Q$ so that we can write this solution in the form 
+\item \marginpar{If you are struggling with this one, then think of $Q$ as $\bvec{a&b\\c&d}$ and then expand the product 
+$
+\bvec{a&b\\c&d}
+\begin{bmatrix}
+ e^{\lambda_1 t} & 0\\
+ 0 & e^{\lambda_2 t}
+\end{bmatrix}
+\begin{bmatrix}
+c_1\\c_2 
+\end{bmatrix}
+$.  You'll then know what $Q$ must equal.}%
+Find a 2 by 2 matrix $Q$ and a diagonal matrix $D$ so that we can write this solution in the form 
 %\marginpar{Hint: Expand the product of the matrices. You'll see what $Q$ must be.}
 $$
 \vec y=
@@ -187,22 +142,24 @@ c_1\\c_2
 \end{bmatrix}
 =QD\vec c,
 $$
-where we have the diagonal matrix $D=
+where we let $D=
 \begin{bmatrix}
  e^{\lambda_1 t} & 0\\
  0 & e^{\lambda_2 t}
 \end{bmatrix}$ 
-and the vector 
+and 
 $\vec c =
 \begin{bmatrix}
 c_1\\c_2 
 \end{bmatrix}
 $.
-\item We now have $\vec y = QJ\vec c$. When we let $t=0$, explain why $D$ equals the identity matrix. This means that $\vec y(0) = Q\vec c$.  Using an inverse matrix, we have $\vec c= Q^{-1}\vec y(0)$.  Compute the inverse of $\vec Q$.
+\item We now have $\vec y = QD\vec c$. When we let $t=0$, explain why $D$ equals the identity matrix. This means that $\vec y(0) = Q\vec c$.  Solving for $\vec c$ gives us $\vec c= Q^{-1}\vec y(0)$.  Compute the inverse of $\vec Q$.
 \item 
-Since we know $\vec y = QJ\vec c$ and $\vec c= Q^{-1}\vec y(0)$, this means 
+Since we know $\vec y = QD\vec c$ and $\vec c= Q^{-1}\vec y(0)$, this means 
 $$\vec y = QDQ^{-1}\vec y(0).$$
-You have found $Q$, $D$, and $Q^{-1}$. If we let $y_1(0)=a$ and $y_2(0)=b$ which means $\vec y(0)=(a,b)$, then multiply out the matrix product $QDQ^{-1}\vec y(0)$ and state the solution to this IVP.
+You have found $Q$, $D$, and $Q^{-1}$. Compute the matrix product $QDQ^{-1}$. 
+
+In class, we'll use your answer to give the solution to this system of ODEs if $y_1(0)=a$ and $y_2(0)=b$.  Feel free to state the answer using your matrix product $QDQ^{-1}$.  
 \end{enumerate}
 
 \end{problem}
@@ -230,26 +187,10 @@ $A
 $. Do so by stating $Q$, $D$, and $Q^{-1}$, and then perform the matrix product $QDQ^{-1}$. Finally, if we assume $\vec y(0) = (a,b,c)$, then give the solution to this system of IVPs by stating what $y_1(t)$ equals, what $y_2(t)$ equals, and what $y_3(t)$ equals. Please use technology to perform as much of the computations as you want. Just be prepared to tell us how you got each part.
 \end{problem}
 
-Does the pattern even work if the eigenvalues are complex?
-\begin{problem}
- Solve the system of ODEs $\vec y '=A\vec y$ where 
-$A
-=\begin{bmatrix}
-  0&1\\-1&0
- \end{bmatrix}
-$. 
-\begin{enumerate}
- \item Find the eigenvalues by hand.  Then for each eigenvalue, compute an eigenvector by hand. State $Q$ and $D$ from this information.  You are welcome to use $e^{it}$ in your work as needed.
- \item Compute $Q^{-1}$ by hand.  Then compute the product $QDQ^{-1}$ by hand.
- \item Use Euler's formula $e^{it} = \cos t +i\sin t$ to simplify the product $QDQ^{-1}$. You should be able to simplify the product to remove all complex terms.
- \item If $y_1(0)=5$ and $y_2(0)=7$, then what are $y_1(t)$ and $y_2(t)$. Then use software to check your answer. You should see that the solution in the $y_1y_2$ plane, along with the appropriate vector field, gives circular motion.
-\end{enumerate}
 
-\end{problem}
-
-\begin{problem}
-Suppose that $\frac{d\vec y}{dt} = A\vec y$ is a linear system of ODEs.  Also suppose that $\vec y=\vec x e^{ct}$ is a nonzero solution to this system. Explain, using the definition of eigenvalues and eigenvectors, why we must have that $c$ is an eigenvalue, and $\vec x$ is an eigenvector corresponding to $c$. [Hint:  Look up the definition of eigenvalues and eigenvectors.  If you compute $\frac{d\vec y}{dt}$ and then place both $\vec y$ and $\frac{d\vec y}{dt}$ into the system $\frac{d\vec y}{dt}= A\vec y$, you should see the definition appear.] 
-\end{problem}
+% \begin{problem}
+% Suppose that $\frac{d\vec y}{dt} = A\vec y$ is a linear system of ODEs.  Also suppose that $\vec y=\vec x e^{ct}$ is a nonzero solution to this system. Explain, using the definition of eigenvalues and eigenvectors, why we must have that $c$ is an eigenvalue, and $\vec x$ is an eigenvector corresponding to $c$. [Hint:  Look up the definition of eigenvalues and eigenvectors.  If you compute $\frac{d\vec y}{dt}$ and then place both $\vec y$ and $\frac{d\vec y}{dt}$ into the system $\frac{d\vec y}{dt}= A\vec y$, you should see the definition appear.] 
+% \end{problem}
 
 
 \section{The Matrix Exponential}
@@ -267,7 +208,9 @@ The matrix $I$ is the identity matrix.
 \begin{problem}
  Use the definition above to complete the following:
 \begin{enumerate}
- \item We know that $e^0=1$. If $A=O=\begin{bmatrix}0&0\\0&0\end{bmatrix}$, then compute $e^{A}$.
+ \item 
+\marginpar{\href{http://bmw.byuimath.com/dokuwiki/doku.php?id=matrix_exponential_calculator}{Check your answer with software.}}%
+We know that $e^0=1$. If $A=O=\begin{bmatrix}0&0\\0&0\end{bmatrix}$, then compute $e^{A}$.
  \item If $A=I=\begin{bmatrix}1&0\\0&1\end{bmatrix}$, show that $e^{A}=\begin{bmatrix}e^1&0\\0&e^1\end{bmatrix}$.
  \item If $A=\begin{bmatrix}2&0&0\\0&3&0\\0&0&5\end{bmatrix}$, then compute $e^A$. Make sure you show how you get your answer from the definition.
  \item If $At=\begin{bmatrix}2t&0&0\\0&3t&0\\0&0&5t\end{bmatrix}$, then compute $e^{At}$. You are welcome to just state an answer here. 
@@ -277,22 +220,28 @@ The matrix $I$ is the identity matrix.
 When a matrix is diagonal, it's matrix exponential is simple to compute.  Our main goal is to learn how to compute the matrix exponential of all matrices. Let's look at another type of matrix where it's easy to compute the matrix exponential. 
 
 \begin{problem}[Nilpotent Matrices]
+\marginpar{\href{http://bmw.byuimath.com/dokuwiki/doku.php?id=matrix_exponential_calculator}{Check your answer with software.}}%
  Use the definition of the matrix exponential to compute the following.
 \marginpar{We say that a matrix $A$ is nilpotent if $A^n$ is the zero matrix for some $n$. It's easy to compute the matrix exponential of a nilpotent matrix, because the infinite series stops, and then we just have to add up finitely many terms.}
 \begin{enumerate}
- \item Let $At=\begin{bmatrix}0&t\\0&0\end{bmatrix}$ and then compute $(At)^2$ and $(At)^3$.  Use this to state the matrix exponential of $At$. 
- \item Let $At=\begin{bmatrix}0&t&0\\0&0&t\\0&0&0\end{bmatrix}$ and then compute $(At)^2$ and $(At)^3$.  Use this to state the matrix exponential of $At$. 
- \item Let $At=\begin{bmatrix}0&t&0&0\\0&0&t&0\\0&0&0&t\\0&0&0&0\end{bmatrix}$. Give the matrix exponential of $At$. You are welcome to guess your answer by following any pattern you saw above. 
- \item Let $At=\begin{bmatrix}0&t&0&0&0\\0&0&t&0&0\\0&0&0&t&0\\0&0&0&0&t\\0&0&0&0&0\end{bmatrix}$. Guess the matrix exponential of $At$. \marginpar{You can check your answer with technology. \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=matrix_exponential_calculator}{Follow this link.}}
+ \item Let $A=\begin{bmatrix}0&t\\0&0\end{bmatrix}$ and then compute $(A)^2$ and $(A)^3$.  Use this to state the matrix exponential of $A$.  (You should get $\bvec{1&t\\0&1}$.)
+ \item Let $A=\begin{bmatrix}0&t&0\\0&0&t\\0&0&0\end{bmatrix}$ and then compute $(A)^2$ and $(A)^3$.  Use this to state the matrix exponential of $A$. Check your answer with technology by  \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=matrix_exponential_calculator}{following this link.}
+ \item Let $A=\begin{bmatrix}0&t&0&0\\0&0&t&0\\0&0&0&t\\0&0&0&0\end{bmatrix}$. Give the matrix exponential of $A$. You are welcome to guess your answer by following any pattern you saw above. 
+ \item Let $A=\begin{bmatrix}0&t&0&0&0\\0&0&t&0&0\\0&0&0&t&0\\0&0&0&0&t\\0&0&0&0&0\end{bmatrix}$. Guess the matrix exponential of $A$. Check your answer with technology.
 \end{enumerate}
 \end{problem}
 
 With real numbers, we have the exponential rule $e^{a+b}=e^a\cdot e^b$.  The exponential of a sum is the same as the product of an exponential. Does this rule work with matrices as well?  Let's try it and see.
 
+
 \begin{problem}
  Let's write 
 $At=
 \begin{bmatrix}
+2 & 1\\
+0 & 2
+\end{bmatrix}t
+=\begin{bmatrix}
 2t & t\\
 0 & 2t
 \end{bmatrix}
@@ -307,15 +256,15 @@ $At=
 \end{bmatrix}
  = Bt+Ct$, 
 where 
-$Bt=
+$B=
 \begin{bmatrix}
-2t & 0\\
-0 & 2t
+2 & 0\\
+0 & 2
 \end{bmatrix}
 $ and 
-$Ct=
+$C=
 \begin{bmatrix}
-0 & t\\
+0 & 1\\
 0 & 0
 \end{bmatrix}$
 .
@@ -337,79 +286,49 @@ $
 \end{problem}
 
 
-\begin{problem}
-Consider the matrix 
-$At = 
-\begin{bmatrix}
- 2t&t&0&0&0\\
- 0&2t&0&0&0\\
- 0&0&2t&t&0\\
- 0&0&0&2t&t\\
- 0&0&0&0&2t
-\end{bmatrix}
-$. There is supposed to be a zero instead of a $t$ in the second row.  That was done on purpose. 
-\begin{enumerate}
- \item Write $At$ as the sum $At=Bt+Ct$, where $Bt$ is a diagonal matrix, and $Ct$ contains nonzero terms above the diagonal. 
- \item Compute the matrix exponential of both $Bt$ and $Ct$. Then compute their product to get $e^{At}$.  Check your answer with software.
- \item \marginpar{Check your answer with software.}%
-Guess the matrix exponential of 
-$
-\begin{bmatrix}
- 3t& t& 0& 0& 0& 0& 0& 0& 0& 0 \\
- 0 &3t& t& 0& 0& 0& 0& 0& 0& 0 \\
- 0 & 0&3t& t& 0& 0& 0& 0& 0& 0 \\
- 0 & 0& 0&3t& 0& 0& 0& 0& 0& 0 \\
- 0 & 0& 0& 0&3t& t& 0& 0& 0& 0 \\
- 0 & 0& 0& 0& 0&3t& 0& 0& 0& 0 \\
- 0 & 0& 0& 0& 0& 0&4t& 0& 0& 0 \\
- 0 & 0& 0& 0& 0& 0& 0&4t& t& 0 \\
- 0 & 0& 0& 0& 0& 0& 0& 0&4t& t \\
- 0 & 0& 0& 0& 0& 0& 0& 0& 0&4t  
-\end{bmatrix}
-$
-\end{enumerate}
-
-\end{problem}
 
 
 
 
-We can now compute the matrix exponential of any matrix that is either diagonal, or has nonzero entries above the diagonal.  We'll soon see that this means we can compute the matrix exponential of every matrix.  The key is to first find the correct form.
+
+
+
 
 \begin{problem}
-Consider the matrix 
-$A=
-\begin{bmatrix}
- 2 & 4 \\
- 4 & 2 
-\end{bmatrix}.
-$
+ Suppose we know that $A = QDQ^{-1}$ where $D$ is a diagonal matrix.  In this problem,  we'll compute the matrix exponential of $A$.
 \begin{enumerate}
- \item Find the eigenvalues of $A$.  For each eigenvalue, find a corresponding eigenvector.
- \item Let $Q$ be a matrix whose columns are the eigenvectors from the previous part. Compute $A Q$ by hand. 
- \item \marginpar{If you're struggling with guessing what $J$ should be, then compute $Q^{-1}AQ$.  Then try to explain why $J$ should be what you see from the equation $AQ=QJ$. }%
-If $\vec x$ is an eigenvector, then by definition we must have $A\vec x = \lambda x$.  
- Use this to write $AQ=QJ$ where $J$ is a diagonal matrix. What is the matrix $J$? Show that $Q^{-1}AQ =J$, and that $QJQ^{-1}=A$.
- \item \marginpar{Did you notice on this last part that you could construct $A$ solely from knowledge about eigenvalues and eigenvectors.}
-Now suppose that $A$ is a matrix with eigenvalues $2$ and $3$ and corresponding eigenvectors $(1,3)$ and $(-1,2)$. Use this to state $Q$, $J$, and $A$.
+ \item Explain why $A^3 = (QDQ^{-1})(QDQ^{-1})(QDQ^{-1}) = QD^3Q^{-1}$. Explain why the product simplified so nicely.
+ \item Explain why $A^k = QD^kQ^{-1}$.
+ \item We know that $e^A = I+A+\frac{1}{2!}A^2+\frac{1}{3!}A^3+\cdots$. If we replace $A^k$ with $QD^kQ^{-1}$, then explain why we know $e^{A} = Qe^{D} Q^{-1}$.
+ \item 
+\marginpar{\href{http://bmw.byuimath.com/dokuwiki/doku.php?id=matrix_exponential_calculator}{Check your answer with software.}}%
+The matrix $A = \begin{bmatrix}2&1\\1&2\end{bmatrix}$ has an eigenvalue $3$ with corresponding eigenvector $(1,1)$, and has an eigenvalue $1$ with corresponding eigenvector $(1,-1)$.  Compute the matrix exponential of $A$ using the formula $e^A = Qe^DQ^{-1}$. 
+% \item Solve the system of ODEs $y_1' = 2y_1+y_2$ and $y_2' = y_1+2y_2$. %State $y_1(t)$. 
 \end{enumerate}
 \end{problem}
 
-\begin{problem}
- Suppose we know that $A = QJQ^{-1}$ where $J$ is a diagonal matrix.  In this problem,  we'll compute the matrix exponential of $A$.
-\begin{enumerate}
- \item Explain why $A^k = QJ^kQ^{-1}$.\note{They are completely unable to do this.  I need to build more scaffolding.}
- \item Use the definition of the matrix exponential to explain why $e^{A} = Qe^{J} Q^{-1}$.
- \item The matrix $A = \begin{bmatrix}2&1\\1&2\end{bmatrix}$ has an eigenvalue $3$ with corresponding eigenvector $(1,1)$, and has an eigenvalue $1$ with corresponding eigenvector $(1,-1)$.  Compute the matrix exponential of $A$. 
- \item Solve the system of ODEs $y_1' = 2y_1+y_2$ and $y_2' = y_1+2y_2$. State $y_1(t)$. 
-\end{enumerate}
-\end{problem}
-
-If we know how to compute the matrix exponential of $J$ and $A=QJQ^{-1}$, then the previous problem showed us that 
-$\exp (A) = Q \exp(J) Q^{-1}.$ 
+If we know how to compute the matrix exponential of a diagonal matrix $D$ and $A=QDQ^{-1}$, then the previous problem showed us that 
+$\exp (A) = Q \exp(D) Q^{-1}.$ 
 We also saw that multiplication by $t$ doesn't affect this result, so we have 
-$$\exp (At) = Q \exp(Jt) Q^{-1}.$$ 
+$$\exp (At) = Q \exp(Dt) Q^{-1}.$$ 
 This is the key tool we'll use to solve systems of ODEs. 
+
+\begin{problem}
+Complete each of the three parts below.
+\begin{enumerate}
+ \item 
+ Consider the first order differential equation $\frac{dy}{dt} = ay$. Solve this ODE using separation of variables and show that $y = e^{at}c$.  If $y(0) = P$, then what does $c$ equal?
+ \item 
+ Consider the system of ODEs $y_1' = 2y_1+y_2$ and $y_2' = y_1+2y_2$, which we can write in the form 
+$\bvec{y_1'\\y_2'} = \bvec{2&1\\1&2} \bvec{y_1\\y_2}$ or $\frac{d\vec y}{dt} = A\vec y$. Use eigenvalues and eigenvectors and the process right before Problem 9.5 to give a solution to this ODE. 
+ \item 
+\marginpar{\href{http://bmw.byuimath.com/dokuwiki/doku.php?id=matrix_exponential_calculator}{Check your answer with software.}}%
+Compute the matrix exponential of $At$ (or explain where you already computed it). Show that a solution to this ODE is $\vec y = e^{At}\vec c$.
+ \item What is $y_1(t)$?
+\end{enumerate}
+\end{problem}
+
+
 
 \begin{problem}
  Consider the system of ODEs $\dfrac{d\vec y}{dt} = A\vec y$ given by  
@@ -432,165 +351,33 @@ y_3
 \end{pmatrix}.
 $$
 \begin{enumerate}
- \item For the coefficient matrix above, state $Q$ and $J$. You should have a repeated eigenvalue, but you should also find two linearly independent eigenvectors corresponding to this eigenvalue. 
- \item Compute $e^{At}$, and state a general solution $\vec y(t)$. 
+ \item For the coefficient matrix above, state $Q$ and $D$. You should have a repeated eigenvalue, but you should also find two linearly independent eigenvectors corresponding to this eigenvalue. 
+ \item 
+\marginpar{\href{http://bmw.byuimath.com/dokuwiki/doku.php?id=matrix_exponential_calculator}{Check your answer with software.}}%
+Compute $e^{At}$, and state a general solution $\vec y(t)$. 
  \item If $y_1(0)=1, y_2(0)=-2, y_3(0)=2$, then state $y_1(t)$, $y_2(t)$, and $y_3(t)$.  
 \end{enumerate}
 
 \end{problem}
 
-\begin{problem}
- Consider the system of ODEs $y_1' = y_2$ and $y_2'=-9y_1-6y_2$. 
-\begin{enumerate}
- \item Write this system in the form $\dfrac{d\vec y}{dt} = A\vec y$. Find the eigenvalues of $A$.  State all the eigenvectors of $A$. 
- \item Why are there not enough eigenvectors to form an invertible matrix $Q$?
- \item The system of ODEs above is equivalent to the ODE $y''+6y'+9y=0$. Explain why.
- \item State a general solution to this ODEs using methods from before.
-\end{enumerate}
-\end{problem}
-
-We've now seen two examples with repeated eigenvalues.  Sometimes when we see a repeated eigenvalue, we'll be able to get enough linearly independent eigenvectors to form an invertible matrix $Q$. In this case, we'll be able to write $A=QJQ^{-1}$ where $J$ is diagonal. If we can't get enough linearly independent eigenvectors, then we'll have to do something else.  We'll show that we can always write $A=QJQ^{-1}$, where the only nonzero terms off the diagonal are perhaps a few 1's directly above the diagonal.  Luckily, we know how to compute the matrix exponential of this kind of matrix. The matrices $Q$ and $J$ are called a Jordan decomposition for $A$. 
-
-\begin{problem}
- Consider again the system of ODEs $y_1' = y_2$ and $y_2'=-9y_1-6y_2$. 
-\begin{enumerate}
- \item We already know the only eigenvalue of the coefficient matrix is $\lambda=-3$. To find the eigenvectors corresponding to $\lambda = -3$, we solve $(A+3 I)\vec x=\vec 0$. Solve this system, and state the solution.
- \item Because the eigenvalue $\lambda = -3$ was repeated, we were hoping to find two linearly independent eigenvalues, but we did not. Instead of solving $(A-\lambda I)\vec x=\vec 0$, let's solve $(A-\lambda I)^2\vec x=\vec 0$.
- 
- Find the solutions to $(A-\lambda I)^2\vec x=\vec 0$. Show by hand how to solve this system, and state the solution as linear combination of two independent vectors.
- \item Pick a nonzero vector from the previous part that is not an eigenvector, and call it $\vec v_2$.  Compute $\vec v_1 = (A-\lambda I)\vec v_2$, and show that $\vec v_1$ is an eigenvector.
- \item Let $Q=\begin{bmatrix} \vec v_1 &\vec v_2\end{bmatrix}$. Compute by hand $AQ$ and show that it equals $QJ$ where $J= \begin{bmatrix}-3&1\\0&-3\end{bmatrix}$. 
- \item Now that we have $Q$ and $J$, compute $e^{At}$. The solution to the ODE is $\vec y=e^{At}\vec c$, which you can now compare with your previous problem.
-\end{enumerate}
-\end{problem}
-
-In three previous problem, we considered the linear system of equations $(A-\lambda I)^2\vec x=\vec 0$. This system produced an extra vector we could use to get an invertible matrix $Q$. The solutions to this system provide us with what we now call generalized eigenvectors.
-\begin{definition}[Generalized Eigenvectors]
- The nonzero solutions to the linear system $(A-\lambda I)^1\vec x=\vec 0$ are the eigenvectors of the matrix $A$.  
-\begin{enumerate}
- \item If a vector 
-$\vec x$ satisfies $(A-\lambda I)^2\vec x=\vec 0$ but does not satisfy $(A-\lambda I)^1\vec x=\vec 0$, then we say that $\vec x$ is generalized eigenvector of order 2. 
- \item If a vector 
-$\vec x$ satisfies $(A-\lambda I)^k\vec x=\vec 0$ but does not satisfy $(A-\lambda I)^{k-1}\vec x=\vec 0$, then we say that $\vec x$ is generalized eigenvector of order $k$. 
-\end{enumerate}
-\end{definition}
 
 
-\begin{problem}
- Suppose that $A$ has an eigenvalue $\lambda$ and has a generalized eigenvector of order $3$ which we'll call $\vec v_3$. Let $v_2 = (A-\lambda I)\vec v_3$ and $\vec v_1 = (A-\lambda I)\vec v_2$.   
-\begin{enumerate}
- \item Explain why $\vec v_1$ is an eigenvector of $A$ and  $\vec v_2$ is a generalized eigenvector of order $2$. 
- \item \marginpar{Remember that $(A-\lambda I)\vec v_3 = \vec v_2$, so we know that $A\vec v_3 = \lambda\vec v_3+\vec v_2$. How will this help you show what is asked for?}
-Let $T = \begin{bmatrix} \vec v_1&\vec v_2&\vec v_3\end{bmatrix}$. Show that 
-$$A T= 
-T
-\begin{bmatrix}
-\lambda & 1&0\\
-0&\lambda & 1\\
-0&0&\lambda\\
-\end{bmatrix}.
-$$
- \item Let $ S = \begin{bmatrix} \vec v_3&\vec v_2&\vec v_1\end{bmatrix}$. Show that 
-$$A S = 
-S
-\begin{bmatrix}
-\lambda & 0&0\\
-1&\lambda & 0\\
-0&1&\lambda\\
-\end{bmatrix}.
-$$
-\end{enumerate}
-\end{problem}
-
-
-
-\begin{definition}[Jordan Canonical Form]
- Let $A$ be a square matrix. Suppose that $AQ=QJ$, where $Q$ is an invertible matrix and $J$ is a matrix whose only nonzero entries off the diagonal are potentially 1's above the diagonal.  If there is a one in $J$ above the diagonal, then the entries below and to the left of the 1 must be the same. Under these conditions, we call $J$ a Jordan canonical form for $A$.  
-
- The 1's appear in Jordan canonical form precisely when 
-\end{definition}
-
-It is a theorem that every matrix $A$ admits a Jordan canonical form.  The matrix $Q$ consists of eigenvalues and generalized eigenvalues.  Once we have a Jordan canonical form for $A$, the matrix exponential of $At$ is $e^{At} = Q e^{Jt} Q^{-1}$.  
-
-\begin{problem}
-Consider the matrix 
-$A =
-\begin{bmatrix}
- 2&1&1\\
- 1&2&0\\
- 0&0&3
-\end{bmatrix}
-.$ 
-Our goal is to find a Jordan canonical form for $A$ by stating $Q$ and $J$ so that $AQ=QJ$.   
-\begin{enumerate}
- \item Show that the eigenvalues of $A$ are $\lambda = 1$ and $\lambda =3$.  The eigenvalue 3 is repeated. Find an eigenvector corresponding to $\lambda =1$, and call it $\vec u$. 
- \item Solve $(A-3I)\vec x=\vec 0$ to find the eigenvectors corresponding to $\lambda = 3$. We're hoping for two independent vectors, but show you only get one.
- \item Now solve $(A-3I)^2\vec x=\vec 0$. Pick a solution that is not an eigenvector and call it $\vec v_2$.  Then compute $\vec v_1 = (A-3 I)\vec v_2.$ 
- \item The vectors $\vec u$, $\vec v_1$, and $\vec v_2$ need to be placed in matrix $Q$. How should you place them?  Make an educated guess, and then compute $Q^{-1}AQ$ to verify if it equals $J$.  If it does not, then try a different order on $Q$. You know you've got the right $J$ when it's almost diagonal with potentially a 1 above and to the right of a repeated eigenvalue. 
-\end{enumerate}
-\end{problem}
-
-Have you noticed the pattern for finding Jordan form?  Find the eigenvalues. Then find the eigenvectors.  If you don't have enough linearly independent eigenvectors, then you look for generalized eigenvectors of order 2. Continue finding generalized eigenvectors as needed until you get enough linearly independent vectors.  When you select a higher order generalized eigenvector $\vec v$, make sure you compute $(A-\lambda I)^k\vec v$ for $k=1,2,...$ and use those as your lower order vectors.  This will get you Jordan form.  I'll  demo some of this in class.
-
-
-We've shown that you can start with $A$, and from it determine $Q$ and $J$. We know $AQ = QJ$, which means if we had $Q$ and $J$, we could obtain $A$.  The next problem starts with a $Q$ and $J$. You'll then obtain $A$.  After obtaining $A$, we'll find another $Q$ and $J$ so that $AQ=QJ$.   The $Q$ and $J$ are not unique. 
-\begin{problem}
-\marginpar{Use software to help you complete this problem. }% 
-Let 
-$J=
-\begin{bmatrix}
- 2 & 1 & 0 & 0 \\
- 0 & 2 & 0 & 0 \\
- 0 & 0 & 3 & 0 \\
- 0 & 0 & 0 & 2 \\
-\end{bmatrix}
-$
-and
-$Q=
-\begin{bmatrix}
- 1 & 0 & 2 & -1 \\
- 1 & 0 & 0 & 2 \\
- 0 & 1 & 1 & -1 \\
- 0 & -1 & 0 & 0 \\
-\end{bmatrix}
-$.
-\begin{enumerate}
- \item Compute $A = QJQ^{-1}$ (make sure you use software). Why are the eigenvalues of $A$ equal to 2 and 3? What's the multiplicity of each eigenvalue? For each eigenvalue, give all possible eigenvectors. (Show the appropriate matrices you would rref, state the rref, and then state the eigenvectors.)
- \item The eigenvalue 2 shows up three times, but only contributes two linearly independent eigenvectors.  Find a generalized eigenvector, which we'll call $\vec v_2$, of degree 2 for this eigenvalue (remember to solve $(A-\lambda I)^2\vec x=\vec 0$). Then compute $\vec v_1= (A-2 I)\vec v_2$, which should be an eigenvector. This gives you two vectors corresponding to $\lambda = 2$.  For $\vec v_3$, pick an eigenvector corresponding to $\lambda = 2$ that is not a multiple of $\vec v_1$.  Let $\vec v_4$ be an eigenvector corresponding to the other eigenvalue. 
- \item You now have enough information to state $Q$. It will mostly likely be different than the one you started with.  State $Q$ and then compute $Q^{-1}AQ$ (with a computer) to get $J$.  You should have an almost diagonal matrix with a single 1 above the diagonal. 
- \item State $e^{At}$ (feel free to use a computer to perform any needed matrix multiplications). Check your answer with a computer. 
-\end{enumerate}
-\end{problem}
-
-
-
-
-\section{Solving Non Homogeneous ODEs}
-We now have the tools needed to solve every constant coefficient linear system of ODEs, whether homogeneous or not. They key to solving these problems is a formula we already developed earlier in the semester. If you have forgotten how to find an integrating factor, you may want to review some problems from chapter 4. Then tackle this problem.
+We now have the tools needed to solve every constant coefficient linear system of ODEs, whether homogeneous or not. They key to solving these problems is a formula we already developed earlier in the semester. If you have forgotten how to find an integrating factor, you may want to review some problems from chapter 2. Then tackle this problem.
 
 \begin{problem}
  Consider the first order ODE $y'-ay=f(t)$. Find an appropriate integrating factor, and then show that a general solution to this ODE is
- $$y(t) = e^{at}c + e^{at}\int_0^t e^{-at}f(t) dt,$$
- where $c$ is an arbitrary constant.  If the ODE is homogeneous with $f(t)=0$, show that $c=y(0)$.
+ $$y(t) = e^{at}c + e^{at}\int e^{-at}f(t) dt,$$
+ where $c$ is an arbitrary constant.  
+
+ If the ODE is homogeneous with $f(t)=0$, show that $c=y(0)$.
 \end{problem}
 
 The solutions above provides a theoretical way to solve every first order linear constant coefficient ODE. If we replace $y$, $c$, and $f$ with vectors, and we replace $a$ with a matrix, then the solution to $\dfrac{d \vec y}{dt} = A\vec y(t)+\vec f(t)$ is simply 
-$$\vec y(t) = e^{At}\vec c + e^{At}\int_0^t e^{-At}\vec f(t) dt.$$
+$$\vec y(t) = e^{At}\vec c + e^{At}\int e^{-At}\vec f(t) dt.$$
 \marginpar{It's possible to rework through the details of the problem above to show this is the solution.  I'll leave those details to you. Solving that problem was one of my most exciting discoveries in the last 10 years of teaching.  It's amazing.}
-This equation solves just about every ODE we've encountered all semester, and more.  To use this solution, the system must have constant coefficients, but the function $f$ only has to be integrable after multiplying by $e^{-At}$. This greatly extends our ability to solve non homogeneous ODEs. 
+This equation solves just about every linear ODE we've encountered all semester, and more.  To use this solution, the system must have constant coefficients, but the function $f$ only has to be integrable after multiplying by $e^{-At}$. This greatly extends our ability to solve non homogeneous ODEs. 
 
-\begin{problem} 
-Consider the linear system of ODEs given by 
-$$y_1' = -3y_1 + y_2 +3\quad \text{and}\quad y_2' = -3y_2+6,$$
-with initial conditions $y_1(0)=1$ and $y_2(0)=0$. 
-\begin{enumerate}
- \item Write this linear system in the form $\frac{d\vec y}{dt} - A\vec y = \vec f(t)$. [Hint: The right hand side might be constant.]
- \item Explain how to compute $e^{At}$ and $e^{-At}$.  What are $[e^{At}]^{-1}$ and $e^{A(-t)}$?
- \item Compute, by hand, $\int_0^t e^{-At}\vec f(t) dt$, and then with a computer give the product $e^{At}\int_0^t e^{-At}\vec f(t) dt$. 
- \item We know the general solution is $\vec y(t) = e^{At}\vec c + e^{At}\int_0^t e^{-At}\vec f(t) dt.$  Use the initial conditions to find $\vec c$. Show us what matrix you are row reducing. 
- \item You should have ${y_2}(t)=2-2 e^{-3 t}$.  What is ${y_1}(t)$?
-\end{enumerate}
-\end{problem}
+Let's use this solution technique on the following problem.
 
 \begin{problem} 
 Consider the linear system of ODEs
@@ -608,42 +395,249 @@ $$
 with initial conditions
 $y_1(0)=4$, $y_2(0)=0$.
 \begin{enumerate}
- \item Use a computer to give the eigenvalues and an eigenvector for each eigenvalue.  State $Q$ and $J$ so that $AQ=QJ$ where $J$ is a Jordan form for $A$. 
- \item State $e^{Jt}$. What matrix product would you compute to get $e^{At}$? State the matrices you would multiply, and then state both $e^{At}$ and $e^{-At}$. Please use a computer to do all this.
- \item Compute, by hand, $\int_0^t e^{-At}\vec f(t) dt$, and then with a computer give the product $e^{At}\int_0^t e^{-At}\vec f(t) dt$. 
- \item Show how to use the initial conditions to find $\vec c$ in $\vec y(t) = e^{At}\vec c + e^{At}\int_0^t e^{-At}\vec f(t) dt.$
+ \item Use a computer to give the eigenvalues and an eigenvector for each eigenvalue.  State $Q$ and $D$ so that $AQ=QD$ where $D$ is a diagonal matrix. 
+ \item 
+\marginpar{\href{http://bmw.byuimath.com/dokuwiki/doku.php?id=matrix_exponential_calculator}{Check your answer with software.}}%
+State $e^{Dt}$. The perform the matrix product $e^{At} = Qe^{Dt}Q^{-1}$?
+ \item Compute the inverse of $e^{At}$ and show it is the same as replacing $t$ with $-t$. 
+ \item Compute by hand the integral $\int e^{-At}\vec f(t) dt$, and then with a computer give the product $e^{At}\int e^{-At}\vec f(t) dt$. Matrix multiplication can be tedious, so please use software to automate it.  
+ \item Show how to use the initial conditions to find $\vec c$ in $\vec y(t) = e^{At}\vec c + e^{At}\int e^{-At}\vec f(t) dt.$
 \end{enumerate}
 \end{problem}
+
+
+If we can find matrices $Q$ and $D$ so that $AQ=QD$ where $D$ is diagonal, then we can always find the matrix exponential of $A$. We can use this to solve any related differential equations.  What if we can't find $Q$ and $D$?
+
+
+
 
 \begin{problem}
-Consider the linear system of ODEs
-$$
-\frac{d\vec y}{dt}
-=
+Consider the matrix 
+$At = 
 \begin{bmatrix}
- 0&1\\-1&-2
+ 2t&t&0&0&0\\
+ 0&2t&0&0&0\\
+ 0&0&2t&t&0\\
+ 0&0&0&2t&t\\
+ 0&0&0&0&2t
 \end{bmatrix}
-\vec y +
-\begin{bmatrix}
- e^{-t}\\0
-\end{bmatrix}
-.$$
+$. There is supposed to be a zero instead of a $t$ in the second row.  That was done on purpose. 
 \begin{enumerate}
- \item Find $Q$ and $J$ so that $J$ is a Jordan form for $A$.  You'll need to get a generalized eigenvector.  Show how you did this. 
- \item State $e^{At}$ and $e^{-At}$.
- \item Compute, by hand, $\int_0^t e^{-At}\vec f(t) dt$, and then with a computer give the product $e^{At}\int_0^t e^{-At}\vec f(t) dt$. 
- \item If you let $\vec c=\vec 0$, then what are $y_1$ and $y_2$.  This is what we called $y_p$ in the non homogeneous ODE section. 
+ \item Write $At$ as the sum $At=Bt+Ct$, where $Bt$ is a diagonal matrix, and $Ct$ contains nonzero terms above the diagonal. 
+ \item 
+\marginpar{\href{http://bmw.byuimath.com/dokuwiki/doku.php?id=matrix_exponential_calculator}{Check your answer with software.}}%
+Compute the matrix exponential of both $Bt$ and $Ct$. Then compute their product to get $e^{At}$.  
+ \item 
+\marginpar{\href{http://bmw.byuimath.com/dokuwiki/doku.php?id=matrix_exponential_calculator}{Check your answer with software.}}%
+Guess the matrix exponential of 
+$
+\begin{bmatrix}
+ 3t& t& 0& 0& 0& 0& 0& 0& 0& 0 \\
+ 0 &3t& t& 0& 0& 0& 0& 0& 0& 0 \\
+ 0 & 0&3t& t& 0& 0& 0& 0& 0& 0 \\
+ 0 & 0& 0&3t& 0& 0& 0& 0& 0& 0 \\
+ 0 & 0& 0& 0&3t& t& 0& 0& 0& 0 \\
+ 0 & 0& 0& 0& 0&3t& 0& 0& 0& 0 \\
+ 0 & 0& 0& 0& 0& 0&4t& 0& 0& 0 \\
+ 0 & 0& 0& 0& 0& 0& 0&4t& t& 0 \\
+ 0 & 0& 0& 0& 0& 0& 0& 0&4t& t \\
+ 0 & 0& 0& 0& 0& 0& 0& 0& 0&4t  
+\end{bmatrix}
+$
+\end{enumerate}
+
+\end{problem}
+
+
+
+
+We can now compute the matrix exponential of any matrix that is either diagonal, or has nonzero entries above the diagonal.  We'll soon see that this means we can compute the matrix exponential of every matrix.  The key is to first find the correct form.  Let's apply what we just learned to solve an ODE that has a nonzero term above the diagonal.
+
+
+\begin{problem} 
+Consider the linear system of ODEs given by 
+$$y_1' = -3y_1 + y_2 +3\quad \text{and}\quad y_2' = -3y_2+6,$$
+with initial conditions $y_1(0)=1$ and $y_2(0)=0$. 
+\begin{enumerate}
+ \item Write this linear system in the form $\frac{d\vec y}{dt} =A\vec y + \vec f(t)$. [Hint: The vector $\vec f$ should be constant.]
+ \item What are the eigenvalues of $A$? You should get a repeated root.
+ \item 
+\marginpar{\href{http://bmw.byuimath.com/dokuwiki/doku.php?id=matrix_exponential_calculator}{Check your answer with software.}}%
+This matrix is already in the form of the sum of a diagonal and a nilpotent matrix.  You don't need eigenvectors to compute the matrix exponential. Compute $e^{At}$ and then replace $t$ with $-t$ to obtain $e^{-At}$.
+ \item 
+\marginpar{\href{http://bmw.byuimath.com/dokuwiki/doku.php?id=matrix_exponential_calculator}{Check your answer with software.}}
+%
+Compute by hand $\int e^{-At}\vec f(t) dt$, and then with a computer give the product $e^{At}\int e^{-At}\vec f(t) dt$. 
+ \item We know the general solution is $\vec y(t) = e^{At}\vec c + e^{At}\int e^{-At}\vec f(t) dt.$  Use the initial conditions to find $\vec c$. Show us what matrix you are row reducing. 
+ \item You should have ${y_2}(t)=2-2 e^{-3 t}$.  What is ${y_1}(t)$?
 \end{enumerate}
 \end{problem}
 
-You've now seen the key ideas needed to solve any kind of system. The computations can get quite intense, but we can program a computer to take care of all the computations.  
+
+
+
+
+
+
+% \begin{problem}
+% Consider the matrix 
+% $A=
+% \begin{bmatrix}
+%  2 & 4 \\
+%  4 & 2 
+% \end{bmatrix}.
+% $
+% \begin{enumerate}
+%  \item Find the eigenvalues of $A$.  For each eigenvalue, find a corresponding eigenvector.
+%  \item Let $Q$ be a matrix whose columns are the eigenvectors from the previous part. Compute $A Q$ by hand. 
+%  \item \marginpar{If you're struggling with guessing what $J$ should be, then compute $Q^{-1}AQ$.  Then try to explain why $J$ should be what you see from the equation $AQ=QJ$. }%
+% If $\vec x$ is an eigenvector, then by definition we must have $A\vec x = \lambda x$.  
+%  Use this to write $AQ=QJ$ where $J$ is a diagonal matrix. What is the matrix $J$? Show that $Q^{-1}AQ =J$, and that $QJQ^{-1}=A$.
+%  \item \marginpar{Did you notice on this last part that you could construct $A$ solely from knowledge about eigenvalues and eigenvectors.}
+% Now suppose that $A$ is a matrix with eigenvalues $2$ and $3$ and corresponding eigenvectors $(1,3)$ and $(-1,2)$. Use this to state $Q$, $J$, and $A$.
+% \end{enumerate}
+% \end{problem}
+
+
+% \begin{problem}
+%  Consider the system of ODEs $y_1' = y_2$ and $y_2'=-9y_1-6y_2$. 
+% \begin{enumerate}
+%  \item Write this system in the form $\dfrac{d\vec y}{dt} = A\vec y$. Find the eigenvalues of $A$.  State all the eigenvectors of $A$. 
+%  \item Why are there not enough eigenvectors to form an invertible matrix $Q$?
+%  \item The system of ODEs above is equivalent to the ODE $y''+6y'+9y=0$. Explain why.
+%  \item State a general solution to this ODEs using methods from before.
+% \end{enumerate}
+% \end{problem}
+% 
+% We've now seen two examples with repeated eigenvalues.  Sometimes when we see a repeated eigenvalue, we'll be able to get enough linearly independent eigenvectors to form an invertible matrix $Q$. In this case, we'll be able to write $A=QJQ^{-1}$ where $J$ is diagonal. If we can't get enough linearly independent eigenvectors, then we'll have to do something else.  We'll show that we can always write $A=QJQ^{-1}$, where the only nonzero terms off the diagonal are perhaps a few 1's directly above the diagonal.  Luckily, we know how to compute the matrix exponential of this kind of matrix. The matrices $Q$ and $J$ are called a Jordan decomposition for $A$. 
+% 
+% \begin{problem}
+%  Consider again the system of ODEs $y_1' = y_2$ and $y_2'=-9y_1-6y_2$. 
+% \begin{enumerate}
+%  \item We already know the only eigenvalue of the coefficient matrix is $\lambda=-3$. To find the eigenvectors corresponding to $\lambda = -3$, we solve $(A+3 I)\vec x=\vec 0$. Solve this system, and state the solution.
+%  \item Because the eigenvalue $\lambda = -3$ was repeated, we were hoping to find two linearly independent eigenvalues, but we did not. Instead of solving $(A-\lambda I)\vec x=\vec 0$, let's solve $(A-\lambda I)^2\vec x=\vec 0$.
+%  
+%  Find the solutions to $(A-\lambda I)^2\vec x=\vec 0$. Show by hand how to solve this system, and state the solution as linear combination of two independent vectors.
+%  \item Pick a nonzero vector from the previous part that is not an eigenvector, and call it $\vec v_2$.  Compute $\vec v_1 = (A-\lambda I)\vec v_2$, and show that $\vec v_1$ is an eigenvector.
+%  \item Let $Q=\begin{bmatrix} \vec v_1 &\vec v_2\end{bmatrix}$. Compute by hand $AQ$ and show that it equals $QJ$ where $J= \begin{bmatrix}-3&1\\0&-3\end{bmatrix}$. 
+%  \item Now that we have $Q$ and $J$, compute $e^{At}$. The solution to the ODE is $\vec y=e^{At}\vec c$, which you can now compare with your previous problem.
+% \end{enumerate}
+% \end{problem}
+
+% In three previous problem, we considered the linear system of equations $(A-\lambda I)^2\vec x=\vec 0$. This system produced an extra vector we could use to get an invertible matrix $Q$. The solutions to this system provide us with what we now call generalized eigenvectors.
+% \begin{definition}[Generalized Eigenvectors]
+%  The nonzero solutions to the linear system $(A-\lambda I)^1\vec x=\vec 0$ are the eigenvectors of the matrix $A$.  
+% \begin{enumerate}
+%  \item If a vector 
+% $\vec x$ satisfies $(A-\lambda I)^2\vec x=\vec 0$ but does not satisfy $(A-\lambda I)^1\vec x=\vec 0$, then we say that $\vec x$ is generalized eigenvector of order 2. 
+%  \item If a vector 
+% $\vec x$ satisfies $(A-\lambda I)^k\vec x=\vec 0$ but does not satisfy $(A-\lambda I)^{k-1}\vec x=\vec 0$, then we say that $\vec x$ is generalized eigenvector of order $k$. 
+% \end{enumerate}
+% \end{definition}
+% 
+% 
+% \begin{problem}
+%  Suppose that $A$ has an eigenvalue $\lambda$ and has a generalized eigenvector of order $3$ which we'll call $\vec v_3$. Let $v_2 = (A-\lambda I)\vec v_3$ and $\vec v_1 = (A-\lambda I)\vec v_2$.   
+% \begin{enumerate}
+%  \item Explain why $\vec v_1$ is an eigenvector of $A$ and  $\vec v_2$ is a generalized eigenvector of order $2$. 
+%  \item \marginpar{Remember that $(A-\lambda I)\vec v_3 = \vec v_2$, so we know that $A\vec v_3 = \lambda\vec v_3+\vec v_2$. How will this help you show what is asked for?}
+% Let $T = \begin{bmatrix} \vec v_1&\vec v_2&\vec v_3\end{bmatrix}$. Show that 
+% $$A T= 
+% T
+% \begin{bmatrix}
+% \lambda & 1&0\\
+% 0&\lambda & 1\\
+% 0&0&\lambda\\
+% \end{bmatrix}.
+% $$
+%  \item Let $ S = \begin{bmatrix} \vec v_3&\vec v_2&\vec v_1\end{bmatrix}$. Show that 
+% $$A S = 
+% S
+% \begin{bmatrix}
+% \lambda & 0&0\\
+% 1&\lambda & 0\\
+% 0&1&\lambda\\
+% \end{bmatrix}.
+% $$
+% \end{enumerate}
+% \end{problem}
+% 
+% 
+% 
+% \begin{definition}[Jordan Canonical Form]
+%  Let $A$ be a square matrix. Suppose that $AQ=QJ$, where $Q$ is an invertible matrix and $J$ is a matrix whose only nonzero entries off the diagonal are potentially 1's above the diagonal.  If there is a one in $J$ above the diagonal, then the entries below and to the left of the 1 must be the same. Under these conditions, we call $J$ a Jordan canonical form for $A$.  
+% 
+%  The 1's appear in Jordan canonical form precisely when 
+% \end{definition}
+% 
+% It is a theorem that every matrix $A$ admits a Jordan canonical form.  The matrix $Q$ consists of eigenvalues and generalized eigenvalues.  Once we have a Jordan canonical form for $A$, the matrix exponential of $At$ is $e^{At} = Q e^{Jt} Q^{-1}$.  
+
+% \begin{problem}
+% Consider the matrix 
+% $A =
+% \begin{bmatrix}
+%  2&1&1\\
+%  1&2&0\\
+%  0&0&3
+% \end{bmatrix}
+% .$ 
+% Our goal is to find a Jordan canonical form for $A$ by stating $Q$ and $J$ so that $AQ=QJ$.   
+% \begin{enumerate}
+%  \item Show that the eigenvalues of $A$ are $\lambda = 1$ and $\lambda =3$.  The eigenvalue 3 is repeated. Find an eigenvector corresponding to $\lambda =1$, and call it $\vec u$. 
+%  \item Solve $(A-3I)\vec x=\vec 0$ to find the eigenvectors corresponding to $\lambda = 3$. We're hoping for two independent vectors, but show you only get one.
+%  \item Now solve $(A-3I)^2\vec x=\vec 0$. Pick a solution that is not an eigenvector and call it $\vec v_2$.  Then compute $\vec v_1 = (A-3 I)\vec v_2.$ 
+%  \item The vectors $\vec u$, $\vec v_1$, and $\vec v_2$ need to be placed in matrix $Q$. How should you place them?  Make an educated guess, and then compute $Q^{-1}AQ$ to verify if it equals $J$.  If it does not, then try a different order on $Q$. You know you've got the right $J$ when it's almost diagonal with potentially a 1 above and to the right of a repeated eigenvalue. 
+% \end{enumerate}
+% \end{problem}
+% 
+% Have you noticed the pattern for finding Jordan form?  Find the eigenvalues. Then find the eigenvectors.  If you don't have enough linearly independent eigenvectors, then you look for generalized eigenvectors of order 2. Continue finding generalized eigenvectors as needed until you get enough linearly independent vectors.  When you select a higher order generalized eigenvector $\vec v$, make sure you compute $(A-\lambda I)^k\vec v$ for $k=1,2,...$ and use those as your lower order vectors.  This will get you Jordan form.  I'll  demo some of this in class.
+% 
+% 
+% We've shown that you can start with $A$, and from it determine $Q$ and $J$. We know $AQ = QJ$, which means if we had $Q$ and $J$, we could obtain $A$.  The next problem starts with a $Q$ and $J$. You'll then obtain $A$.  After obtaining $A$, we'll find another $Q$ and $J$ so that $AQ=QJ$.   The $Q$ and $J$ are not unique. 
+% \begin{problem}
+% \marginpar{Use software to help you complete this problem. }% 
+% Let 
+% $J=
+% \begin{bmatrix}
+%  2 & 1 & 0 & 0 \\
+%  0 & 2 & 0 & 0 \\
+%  0 & 0 & 3 & 0 \\
+%  0 & 0 & 0 & 2 \\
+% \end{bmatrix}
+% $
+% and
+% $Q=
+% \begin{bmatrix}
+%  1 & 0 & 2 & -1 \\
+%  1 & 0 & 0 & 2 \\
+%  0 & 1 & 1 & -1 \\
+%  0 & -1 & 0 & 0 \\
+% \end{bmatrix}
+% $.
+% \begin{enumerate}
+%  \item Compute $A = QJQ^{-1}$ (make sure you use software). Why are the eigenvalues of $A$ equal to 2 and 3? What's the multiplicity of each eigenvalue? For each eigenvalue, give all possible eigenvectors. (Show the appropriate matrices you would rref, state the rref, and then state the eigenvectors.)
+%  \item The eigenvalue 2 shows up three times, but only contributes two linearly independent eigenvectors.  Find a generalized eigenvector, which we'll call $\vec v_2$, of degree 2 for this eigenvalue (remember to solve $(A-\lambda I)^2\vec x=\vec 0$). Then compute $\vec v_1= (A-2 I)\vec v_2$, which should be an eigenvector. This gives you two vectors corresponding to $\lambda = 2$.  For $\vec v_3$, pick an eigenvector corresponding to $\lambda = 2$ that is not a multiple of $\vec v_1$.  Let $\vec v_4$ be an eigenvector corresponding to the other eigenvalue. 
+%  \item You now have enough information to state $Q$. It will mostly likely be different than the one you started with.  State $Q$ and then compute $Q^{-1}AQ$ (with a computer) to get $J$.  You should have an almost diagonal matrix with a single 1 above the diagonal. 
+%  \item State $e^{At}$ (feel free to use a computer to perform any needed matrix multiplications). Check your answer with a computer. 
+% \end{enumerate}
+% \end{problem}
+% 
+
+
+
+% \section{Solving Non Homogeneous ODEs}
+
+
+
+% 
+% You've now seen the key ideas needed to solve any kind of system. The computations can get quite intense, but we can program a computer to take care of all the computations.  
 
 %Review concept of superposition.  Define Wronskian and state corresponding theorem.  Have them compute the Wronskian for several problems (showing things are linearly independent or dependent). (We'll skip the Wronskian this time.)
 
 %Finish the chapter by setting up ODE problems for mixing tanks, mass spring systems, and electrical networks. Use a computer to solve them all, stating $Q$, $J$, $e^{Jt}$, $e^{At}$, and $\vec c$ (from IC). This might be 4 more problems.
 
-\section{Applications}
-Let's finish this chapter with some application problems.  You don't have to be able to compute the matrix exponential problems to solve these problems, so if you got stuck above, please do these. 
+%\section{Applications}
+Let's focus on some application problems.  You don't have to be able to compute the matrix exponential problems to solve these problems, so if you got stuck above, please do these. 
 
 \begin{problem} 
 Suppose we have three large tanks containing various amounts of salt. \marginpar{We don't have to use salt.  This could represent 3 different countries and products they wish to import/export.  It could be sewage at a waste transfer station. We might consider three countries and the spreading of a virus. We could look at three cities and the flow of traffic. The applications are endless.}
@@ -654,27 +648,51 @@ The tanks have volumes $V_1=30$ gal, $V_2=20$ gal, and $V_3=50$ gal.
  \item Tank 2 receives 9 gallons per minute from tank 1.  Of those 9 gallons, it sends 3 gallons per minute to tank 1 and 4 gallons per minute to tank 2.  The other 2 gallons per minute leak out the top (through a crack).
  \item Tank 3 receives 4 gallons per minute from tank 2.  It sends 1 gallon per minute back to tank 1, and then the remaining 3 gallons per minute are sent out a hose to some external spot.  
 \end{itemize}
-Assume the initial salt content is zero in each tank.  As time moves on, the salt that is added to tank 1 will eventually reach the other tanks.  After some time has elapsed, how much salt will be in each tank? %We have all the tools needed to answer this question. 
+Assume the initial salt content is zero in each tank.  As time moves on, the salt that is added to tank 1 will eventually reach the other tanks.  After $t$ minutes, how much salt will be in each tank? %We have all the tools needed to answer this question. 
 \begin{enumerate}
- \item Let $y_1$, $y_2$, and $y_3$ be the lbs of salt in each tank after $t$ minutes.  Write this tank mixing problem as a linear system of ODEs in the form $\frac{d\vec y}{dt} - A\vec y = \vec f(t)$.
- \item Use software to completely solve the system. State $y_1(t)$, $y_2(t)$, and $y_3(t)$. 
- \item Let $t\to \infty$. What will be the salt content in each tank in the long run.
+ \item Let $y_1$, $y_2$, and $y_3$ be the lbs of salt in each tank after $t$ minutes. We know that $y_1' = 5(3)-\frac{9}{30}y_1+\frac{3}{20}y_2+\frac{1}{50}y_3$. Obtain similar ODEs for $y_2'$ and $y_3'$.  
+\item Write this tank mixing problem as a linear system of ODEs in the form $\frac{d\vec y}{dt}= A\vec y + \vec f(t)$.  You should have a 3 by 3 matrix $A$. You should be able to explain why $\vec f(t) = (15,0,0)$. 
+ \item 
+\marginpar{\href{http://bmw.byuimath.com/dokuwiki/doku.php?id=matrix_exponential_calculator}{Here's a link to Sage.}}
+%
+Use software to solve the system. State the eigenvalues, eigenvectors, $Q$, $D$, $e^{At}$, and $\int e^{-At} f(t) dt$, as well as the solution $\vec y = (y_1(t), y_2(t),y_3(t)).$ See the software link  on the right. 
+ \item Let $t\to \infty$. What will be the salt content in each tank in the long run. Could you have explained this without doing any differential equations?
 \end{enumerate}
 \end{problem}
 
+
+
+
+
+
+
 \begin{problem}
-Consider the following mechanical system.  Attach a spring to the top of the ceiling. Add an object with mass $m_1$ to the bottom of the spring. We'll assume the spring's mass is negligible. The spring constant is $k_1$, and the coefficient of friction is $c_1$. To the bottom of the first mass, we attach a second spring, and hang another object to the end of the second spring.  The second object has mass $m_2$. The second spring has negligible mass, with spring constant $k_2$ and coefficient of friction $c_2$. Assume that this mechanical system is currently stabilized, so neither mass is moving.  We'll let $y_1(t)$ be the position of the first mass, relative to this equilibrium position (so if $y_1(t)=3$, then we'd be 3 cm above the equilibrium point).  We'll let $y_2(t)$ be the position of the second mass relative to its equilibrium position.  We displace the objects from equilibrium, and let them go, so we have the initial conditions $y_1(0)=a$, $y_2(0)=b$, $y'_1(0)=0$, and $y'_2(0)=0$. Our goal is to predict the future, namely give the position of both springs at time $t$.   
+Consider the following mechanical system.  Attach a spring to the top of the ceiling. Add an object with mass $m_1$ to the bottom of the spring. We'll assume the spring's mass is negligible and the spring constant is $k_1$.
+%, and the coefficient of friction is $c_1$. 
+To the bottom of the first mass, we attach a second spring, and hang another object to the end of the second spring.  The second object has mass $m_2$. The second spring has negligible mass, with spring constant $k_2$.
+% and coefficient of friction $c_2$. 
+We'll let $y_1(t)$ and $y_2(t)$ represent the position of the masses relative to their equilibrium positions, so if $y_1(t)=3$, then we'd be 3 cm above the equilibrium point. 
+
+Suppose we displace the objects from equilibrium, and let them go. This means we have the initial conditions $y_1(0)=a$, $y_2(0)=b$, $y'_1(0)=0$, and $y'_2(0)=0$. Our goal is to predict the future, namely give the position of both springs at time $t$. 
+The key is to study the forces acting on each spring.
+\begin{itemize}
+ \item If we focus on the first mass, then the forces acting on this mass are the spring force above it (we'll call this $F_1$), and the spring force below it (we'll call this $F_2$). 
+ \item The force from the spring above the first mass depends on how much $y_1$ has moved.  If the first mass has moved up $y_1$ units, then the force acts downwards, and we can use Hooke's law to state that $F_1=-k_1 y_1$. 
+ \item The force from the spring below the first mass depends on both where $y_1$ and $y_2$ are located. If both moved up the same amount from equilibrium, then $F_2=0$. If they have moved at different amounts, then their difference $y_2-y_1$ will either result in a contraction or expansion of the spring, and then the force is not zero. 
+\end{itemize}
+
+
 \begin{enumerate}
- \item Start by assuming that both $c_1=0$ and $c_2=0$. 
-Explain why $m_1y_1'' = -k_1 y_1 +k_2(y_2-y_1)$. Obtain a similar equation for $my_2''$.
- \item Let $v_1=y_1'$ and $v_2=y_2'$. This allows us to replace $y_1''$ with $v_1'$, and $y_2''$ with $v_2'$, and then we have a system of first order linear ODEs.  Write this system in the matrix form 
+\item Is the force from the second spring equal to $F_2=-k_2(y_2-y-1)$ or $F_2=+k_2(y_2-y-1)$.  In other words, if we know $y_2-y_1>0$ then is the spring compressed or elongated,  and does this result in an upwards or downwards force?  Please explain.
+\item We now have an equation $m_1y_1'' = -k_1 y_1 \pm k_2(y_2-y_1)$ (you determined the correct sign in part 1). Obtain a similar equation for $my_2''$ (this one should be simpler, as the only spring force acting on $m_2$ comes from the lower spring).
+ \item Let $v_1=y_1'$ and $v_2=y_2'$. This allows us to replace $y_1''$ with $v_1'$, and $y_2''$ with $v_2'$, and then we have a system of first order linear ODEs, namely $$y_1'=v_1, y_2'=v_2, v_1'=-\frac{k_1}{m_1} y_1 \pm \frac{k_2}{m_1}(y_2-y_1), v_2'=...$$  Write this system in the matrix form 
 $$
 \begin{pmatrix}
  y_1\\y_2\\v_1\\v_2
 \end{pmatrix}'
 =
 \begin{bmatrix}
- ?&?&?&?\\
+ 0&0&1&0\\
  ?&?&?&?\\
  ?&?&?&?\\
  ?&?&?&?
@@ -683,7 +701,7 @@ $$
  y_1\\y_2\\v_1\\v_2
 \end{pmatrix}.
 $$
-\item Now assume that $c_1$ and $c_2$ are not zero.  How does this change the ODEs from part 1?  What's the corresponding 4 by 4 matrix in part 2?
+\item As a challenge (optional), how would you change your matrix if each mass were attached to a dashpot with coefficients of friction $c_1$ and $c_2$?  This would add the forces $-c_1 y_1'$ and $-c_2y_2'$ to the system.
 \end{enumerate}
 %Use Larry's springs.  Ask him for the coefficients.  Have the displacement go up (not down).
 \end{problem}
@@ -705,7 +723,19 @@ Remember that Kirchoff's current law states that at each node, the current in eq
 \begin{problem}
 \marginpar{\input{electric-circuit-2-loops-RCL}}%
 Consider the electrical network on the right.  
-Kirchoff's current law states that $I_1=I_2+I_3$.  On the left loop, Kirchoff's voltage law states that $E = R_1I_1+R_2I2+LI_1^\prime$.  On the right loop, Kirchoff's voltage law states that $0=I_3R_3 +\frac{1}{C}\int I_3 dt - R_2I_2$.   Solve this system for $I_1^\prime, I_2^\prime,$ and $I_3^\prime$, and then write the system in matrix form $\ds \frac{d\vec I}{dt} = A\vec I +\vec f(t)$, i.e. in the form 
+Kirchoff's current law states that $I_1=I_2+I_3$.  On the left loop, Kirchoff's voltage law states that $E = R_1I_1+R_2I_2+LI_1^\prime$.  On the right loop, Kirchoff's voltage law states that $0=I_3R_3 +\frac{1}{C}\int I_3 dt - R_2I_2$. This gives us the three equations
+$$
+I_1=I_2+I_3,\quad
+E = R_1I_1+R_2I_2+LI_1^\prime,\quad
+0=I_3R_3 +\frac{1}{C}\int I_3 dt - R_2I_2.$$
+
+\begin{enumerate}
+\item 
+ Differentiate both sides of the first and last equations so that all your equations are differential equations.  The first equation becomes $I_1'=I_2'+I_3'$. What does the last equation become?
+\item 
+ Solve your system of 3 ODEs for $I_1^\prime, I_2^\prime,$ and $I_3^\prime$. You should be able to write each of these three in terms  of $I_1$, $I_2$, $I_3$,  $E$, and the resistances. 
+\item Write the system of ODEs from the first part in the matrix form $\ds \frac{d\vec I}{dt} 
+= A\vec I +\vec f(t)$, i.e. in the form 
 $$
 \begin{pmatrix}
  I_1\\I_2\\I_3
@@ -724,12 +754,35 @@ $$
  ?\\?\\?
 \end{pmatrix}
 .$$
-You'll need to differentiate the first and last equation to get an $I_1'$ and $I_3'$.  Once you've got the system set up, a computer will give the currents almost instantly. This algorithm is coded into any electrical network software package.
+\end{enumerate}
+Once you've got the system set up, a computer can give the currents instantly using the solution $\vec I(t) = e^{At}\vec c + e^{At}\int e^{-At} \vec f(t) dt$. This entire problem is an algorithm that's already coded into any electrical network software package.
 \end{problem}
 
 
 
 
+Let's end the chapter with one final problem.
+\begin{problem}
+Consider the linear system of ODEs
+$$
+\frac{d\vec y}{dt}
+=
+\begin{bmatrix}
+ 0&1\\-1&-2
+\end{bmatrix}
+\vec y +
+\begin{bmatrix}
+ e^{-t}\\0
+\end{bmatrix}
+.$$
+\begin{enumerate}
+\item Show that the coefficient matrix above has a repeated eigenvalue, and only one corresponding eigenvector.  
+\item Because there is one eigenvector, we can't make a matrix $Q$ so that $AQ=QD$.  However, if we let $Q=\bvec{-1&-1\\1&0}$, then what is $J$ so that $AQ=QJ$?
+\item Compute the matrix exponential of $J$, then compute $e^{At}$ and $e^{-At}$. You'll want to use the ideas from problem 9.9 and 9.15.
+\item Compute, by hand, $\int e^{-At}\vec f(t) dt$, and then with a computer give the product $e^{At}\int e^{-At}\vec f(t) dt$. 
+ \item If you let $\vec c=\vec 0$, then what are $y_1$ and $y_2$.  This is what we called $y_p$ in the non homogeneous ODE section. 
+\end{enumerate}
+\end{problem}
 
 
 
@@ -756,6 +809,33 @@ You'll need to differentiate the first and last equation to get an $I_1'$ and $I
 
 
 \note{
+
+Does the pattern even work if the eigenvalues are complex?
+\begin{problem}
+ Solve the system of ODEs $\vec y '=A\vec y$ where 
+$A
+=\begin{bmatrix}
+  0&1\\-1&0
+ \end{bmatrix}
+$. 
+\begin{enumerate}
+ \item Find the eigenvalues by hand.  Then for each eigenvalue, compute an eigenvector by hand. State $Q$ and $D$ from this information.  You are welcome to use $e^{it}$ in your work as needed.
+ \item Compute $Q^{-1}$ by hand.  Then compute the product $QDQ^{-1}$ by hand.
+ \item Use Euler's formula $e^{it} = \cos t +i\sin t$ to simplify the product $QDQ^{-1}$. You should be able to simplify the product to remove all complex terms.
+ \item If $y_1(0)=5$ and $y_2(0)=7$, then what are $y_1(t)$ and $y_2(t)$. Then use software to check your answer. You should see that the solution in the $y_1y_2$ plane, along with the appropriate vector field, gives circular motion.
+\end{enumerate}
+
+\end{problem}
+
+
+
+
+
+
+
+
+
+
 
 This section needs major revision.
 

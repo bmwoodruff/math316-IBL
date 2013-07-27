@@ -1,345 +1,43 @@
+\newcommand{\urllaplacetransforms}{http://bmw.byuimath.com/dokuwiki/doku.php?id=laplace_transforms}
+\newcommand{\urlpartialfraction}{http://bmw.byuimath.com/dokuwiki/doku.php?id=partial\_fraction\_decomposition\_calculator}
 
-\noindent This chapter covers the following ideas.
+\note{I used to have this problem involving exponential growth  have two measurements (after 5 minutes, and after 20 minutes).  To solve this was more involved.  It's a great cramer's rule problem, as it involves solving for constants that are typically ugly in a system. Maybe add it to the linear system chapter.}
+
+%Do this problem in the linear algebra chapter, NOT HERE.
+%\item The ODE $y'=a(M-y)y$ is separable, as we can write $\frac{1}{(y)(M-y)}y'=a$. Find an implicit general solution to this ODE. You'll need the partial fraction decomposition 
+%$$ \frac{1}{(y)(M-y)} = \frac{A}{y}+\frac{B}{M-y}$$
+%to integrate the left hand side.
+
+
+\note{Make proportionality much more important. When you get to electrical circuits, have them come up with the voltage drop being RI, LI', and also 1/C Q.  You can state all of these in terms of proportionalities.  It the big idea that drives the whole part about modeling.  course. }
+
+\note{The first 2-3 problems need to be about setting up proportionalities.  Exponential growth would be great.  Then Exponential decay.  Then maybe Newton's law of cooling setup.  They can solve each of these problems without too much effort.  Then in the solving part, have them solve an ODE with numbers, then immediately have them solve the ODE with variables.  They need to build this ability. If I could model this all semester, first solve with numbers, then with variables, they would learn a valuable skill, without me ever even trying to say, ``Here's how you do it.''  They would start learning themselves to NOT simplify.  They don't need me to tell them not to simplify, if I just keep on asking them to do this kind of thing.  }
+
+After completing this chapter, you should be able to:
+
 
 \begin{enumerate}
-\item Be able to interpret the basic vocabulary of differential equations. In particular, interpret the terms ordinary differential equation (ODE), initial value, initial value problem (IVP), general solution, and particular solution.
-\item Identify and solve separable and exact ODEs. 
-\item Use integrating factors and substitution to solve additional ODEs.
-\item Use the three step modeling process (express, solve, and interpret) to analyze exponential growth and decay, Newton's law of cooling, mixing, and the logistics equation. 
-\item Use Laplace transforms to solve first order ODEs.
+%\item Be able to interpret the basic vocabulary of differential equations. In particular, interpret the terms ordinary differential equation (ODE), initial value, initial value problem (IVP), general solution, and particular solution.
+\item Identify and solve separable and exact ODEs by finding a potential. 
+\item Show how to obtain and use an integrating factor to solve an ODE.
+\item Explain how to use a change of variables to solve an ODE.
+\item Apply the modeling process and proportionality to analyze exponential growth and decay, Newton's law of cooling, mixing tank problems, Torricelli's law, the logistics model, and systems of first order differential equations. 
+\item Use Laplace transforms to solve first order ODEs, employing a partial fraction decomposition when needed.
 \end{enumerate}
+When you've completed this chapter, you'll be able to make powerful predictions about the future. We'll do this by looking for linear relationships between the growth of a quantity and the quantity itself. We'll express this relationship as a differential equation, expand our ability to solve ODEs, and then use our results to obtain knowledge about the world around us. This chapter is a prototype for mathematics gets use in the sciences through modeling.  
 
-The problems below come from Schaum's Outlines \textit{Differential Equations} by Richard Bronson. If you are struggling with a topic from the problem set, please use this list as a guideline to find related problems.
+As you work on problems throughout this chapter, you can always check your work using technology.  With Sage, the command ``desolve'' will provide you with answers to most problems.  In Mathematica, the command is ``DSolve.''  These technology links contain examples you can modify to solve most of the problems in this chapter. Please take the time to check your answers with technology.
 
-\begin{center}
-
-\begin{tabular}{|l|c|l|l|l|l|}
-\hline
-Concept	&Sec.	&Suggested	&Relevant	\\\hline
-Separable Review&4 & 42 &1-8,23-45	\\\hline
-Exact &5 & 5,11,26,29,34& 1-13,24-40,56-65	\\\hline
-Integrating Factors&5 & 21,22,41,47 & 21,22,41-42,47-49,51,55	\\\hline
-Linear&6 &4,13,20,32,51 & 1-6,9-15,20-36,43-49,50-57	\\\hline
-Homogeneous&4, &11,12,48 &11-17,46-54	\\\hline
-Bernoulli &6 & 16,53& 16,17,37-42,53	\\\hline
-Applications&7 &4[27],6[33],1[38] & 1-6 [26-44]	\\
-&7 &10[48],17[67],7[88] & 8-10 [45-50],16-18[65-70], 7[87-88]	\\\hline
-Laplace Review &21 & 19,32,33[use table] & 4-7,10-12,27-35	\\\hline
-Inverse Transforms &22 & 1,2,3,6,13,15 & 1-3,6,15,17,20-28,42,42,45-47	\\\hline
-Solving ODEs &24 & 1,14,19(parfrac) & 1,2,11,14,15,19-19,22,24,25,38-42 	\\\hline
-\end{tabular}
-\end{center}
-\section{Basic Concepts and Vocabulary}
-Let's start this chapter with a review problem from the first chapter. 
-
-
-\begin{problem}
- Solve the ordinary differential equation $y'-5y=0$. Then use the initial condition $y(0) = 7$ to obtain the unknown constant.
-\end{problem}
-
-\begin{definition}[Differential Equation Language]
-A differential equation is an equation which involves derivatives (of any order) of some function.  
+%\begin{multicols}{3}
 \begin{itemize}
- \item An \textbf{ordinary differential equation (ODE)} is a differential equation involving a function $y(x)$ whose domain is one dimensional. The function only has ordinary derivatives.
- \item A \textbf{partial differential equation (PDE)} is a differential equation involving a function $y(x_1, x_2, \ldots)$ whose domain is more than one dimensional. The function has partial derivatives.  
- \item The order of an ODE is the largest order derivative that appears in the ODE. 
- \item A solution to an ODE on an interval $(a,b)$ is a function $y(x)$ defined on the interval $(a,b)$ which satisfies the ODE.  
+ \item \href{\urlfirstorderodesolver}{First Order ODEs}
+ \item \href{\urllaplacetransforms}{Laplace Transforms}
+ \item \href{\urlpartialfraction}{Partial Fractions}
 \end{itemize}
-\end{definition}
-
-To verify that a function is a solution to an ODE, calculate derivatives and put them in the ODE. If the resulting equation is an identity for all $x\in (a,b)$, then you have verified that you have a solution. 
-
-Typically a solution to an ODE involves an arbitrary constant $C$. There is often an entire family of curves which satisfy a differential equation, and the constant $C$ just tells us which curve to pick. 
-\begin{definition}[Initial Value Problems (IVP)]
-Often an ODE comes with an \textbf{initial condition} $y(x_0)=y_0$ for some values $x_0$ and $y_0$. 
-\begin{itemize}
- \item A \textbf{general solution} of an ODE is all possible solutions of the ODE.  
- \item A \textbf{particular solution} is one of infinitely many solutions of an ODE. 
- \item We can use the initial conditions to find a particular solution of the ODE. 
- \item An ODE, together with an initial condition, is called an \textbf{initial value problem (IVP)}. 
-\end{itemize}
-\end{definition}
-
-This next problem has you practice with the vocabulary above.  You'll want to use separation of variables to solve this problem.
-\begin{problem}\label{ex2 in chapter 4}
-Consider the IVP $y'-4y=8$, where $y(0)=3$.   
-\begin{enumerate}
- \item What is the order of the ODE?
- \item Obtain a general solution of the ODE. State an interval on which your general solution is valid.
- \item Verify that your general solution is a solution to the ODE. 
- \item Solve the IVP.
-\end{enumerate}
-\end{problem}
-
-One of the key uses of differential equations is their ability to model the world around us. If something is changing, then we can often use $y'$ to represent that change.  If we know a force is acting on an object, then $F=ma = my''$ allows us to build a differential equation that models the motion of the object.  As the semester progresses, we'll be making these connections in each chapter, and showing how to use differential equations to model the world.  We'll also see that eigenvalues and eigenvectors are the connecting piece that allows us to see, and obtain, the solution to differential equations. Many of the models we build will depend on observing that a change is proportional to something, or that a force is proportional to something. If you've forgotten what proportional means, here's a definition.
-
-\begin{definition}[Proportional]
- We say that $y$ is proportional to $x$ if $y=kx$ for some constant $k$. We call the constant $k$ the proportionality constant. When two quantities are proportional, then doubling one will double the other, tripling one will triple the other, and so on. A percentage change to one is matched by the other.
-\end{definition}
-
-The next problem has us build our first model.
-Suppose you go to the doctor's office to get a strep test done.  They swab the back of your throat and then put a sample of tissue from your body in a petri dish.  If you have strep, then the bacteria will grow inside the petri dish, and they'll be able to see the rapid growth of the strep bacteria in a fairly short amount of time. 
-\begin{problem}[Exponential Growth]\label{exponential growth application}
-Suppose that you place some bacteria in a petri dish. Initially, there are $P$ mg of the bacteria in the dish, and then the bacteria starts to reproduce, so the amount of the bacteria is changing. Let $y(t)$ represent the mg of bacteria in the dish after $t$ days. Then $y'$ would represent the rate at which $y$ is changing. The rate at which $y$ grows depends on how large $y$ is.  If you were to double $y$, then the growth rate $y'$ should double as well. Similarly, if you tripled $y$, then the growth rate $y'$ would triple as well. It seems reasonable to assume that $y'$ is proportional to $y$.
-\begin{enumerate}
- \item Express the statement ``$y'$ is proportional to $y$'' as a differential equation. What are the initial values (if any)?
- \item Solve the differential equation above, obtaining a general and particular solution.
- \item Interpret your solution in the context of the original problem. What does a typical graph of your solution look like (it's got some constants in it, but you can show the general shape). If your solution is correct, what will happen as $t$ gets large?
- \item If after 10 minutes you measure 5 mg of the bacteria, and then after 20 minutes you measure 8 mg of the bacteria, how much bacteria was present initially? [If you apply the natural logarithm to both sides of your solution, then you can solve a linear system of equations to obtain the unknowns $\ln P$ and $k$. You can then use Cramer's rule or RREF.]
-\end{enumerate}
-\end{problem}
-
-The next problem is very similar to the previous, we'll just change the setting from growth of a bacterial culture, to growth of an investment.
-\begin{problem}
- Suppose you invest $P=\$10,000$ dollars in an account, and that the money accumulates interest at a constant rate. Let $A(t)$ represent the accumulated worth of your investment after the investment has had $t$ years to grow. No new deposits are made, rather the interest is just left in the account to accumulate more interest.
-\begin{enumerate}
- \item Why is is reasonable to assume that $A'$ is proportional to $A$?
- \item Express the connection between $A$ and it's growth as a differential equation. What are the initial values (if any)?
- \item Solve the differential equation, obtaining a general and particular solution.
- \item Interpret your solution in the context of the original problem. What does a typical graph of your solution look like (it's got some constants in it, but you can show the general shape). If your solution is correct, what will happen as $t$ gets large?
- \item Suppose after 5 years that the value of the investment has reached \$18,000.  How long will it take for the investment to reach \$100,000.
-\end{enumerate}
-
-\end{problem}
+%\end{multicols}
 
 
-Let's look at one more application before introducing additional solution techniques.  Here's the scenario.
-You decide to cook a turkey for Thanksgiving. You turn the oven on to 350$^\circ$F, and the package says that you need to get the turkey heated up to an internal temperature of 165$^\circ$F.  You followed the instructions and thawed the turkey so that currently it's about 40$^\circ$F.  How long will it take for the turkey to heat up? If instead of heating a turkey, you wanted to heat a chicken patty, would the time vary?  If you just wanted to heat a metal pan up, how would the time vary? The next problem introduces a simplistic model to examine this question.  The model works best when you assume that an increase in heat is evenly distributed throughout an object (such as heating a metal pan). When you heat a turkey, the heat is not evenly distributed. This uneven heat distribution complicates the following model, and we'd need to explore PDEs to obtain a better model for heat flow.  To simplify things, we'll assume that heat distributes itself evenly throughout the object. 
-\begin{problem}[Newton's Law of Cooling]
- Suppose that you place an object in an oven.  The oven temperature is set to $A$ (you can use Fahrenheit, Celsius, or Kelvin). I'm using $A$ as the temperature of the surrounding ``a''tmosphere. The object's initial temperature is $T_0$.  Let $T(t)$ represent the temperature of the object $t$ minutes after we place the object in the oven. If $T(t)$ is really close to $A$, then the rate at which $T$ increases should be pretty small, as the temperature of the object is almost the same as the temperature of the atmosphere.  If $T$ is really far from $A$, then the rate of temperature change should be a lot larger.  Hence, it appears that $T'$ depends on the difference $A-T$.  Newton conjectured that the rate at which the temperature changes is proportional to the difference $A-T$.
-\begin{enumerate}
- \item Express the statement ``the rate at which the temperature changes is proportional to the difference $A-T$'' as a differential equation. What are the initial values (if any)?
- \item Solve the differential equation above, obtaining a general and particular solution.
- \item Interpret your solution in the context of the original problem. What does a typical graph of your solution look like (it's got some constants in it, but you can show the general shape). If your solution is correct, what will happen as $t$ gets large? Does this seem reasonable.
-\end{enumerate}
-\end{problem}
- 
-
-\begin{problem}
- You should have obtained the solution to Newton's law of Cooling as $$T(t) = A+(T_0-A)e^{-kt},$$ where $k$ is the proportionality constant. Suppose that $T_0=45^\circ$F and $A=350^\circ$F.  
-\begin{enumerate}
- \item After 5 minutes, you check the temperature and observe $T(5)=80^\circ$F.  What is $k$, and how long will it take for the object to reach $165^\circ$F. 
- \item After 5 minutes, you check the temperature and observe $T(5)=120^\circ$F.  What is $k$, and how long will it take for the object to reach $165^\circ$F. 
- \item The number $k$ depends on the material you are trying to heat.  If $k$ is large, what does that mean about the material?  Think of some examples where $k$ would be large, and where $k$ would be small.
-\end{enumerate}
-\end{problem}
-
-You've now seen a few examples of how differential equations are used to model the world around us. You will most likely find that in your future courses, you'll be taking real world phenomenon and expressing the relationships you see as differential equations. Solving those differential equations gives us mathematical models we can use to interpret the world around us. There are three parts to this process. 
-\begin{itemize}
- \item Express real world phenomenon in terms of a differential equation.
- \item Solve the differential equation.
- \item Interpret the solution in the context of the problem, which often involves using the results to predict behavior.
-\end{itemize}
-A main focus in this class will be the second portion, ``Solve.''  As we all come from a different background, we won't have time to develop the background material that you'll explore in your respective majors, so the ``Express'' portion will often come in your major courses. You may find in some future courses that they focus on the ``Express'' and ``Interpret'' portions, and then refer you to some standard reference for the ``Solve'' part. The goal of our course is to help you develop the key solution techniques. Along the way, we'll occasionally add some simpler problems that we can ``Express'' and ``Interpret'' without needing a lot of background.
-
-\section{Solution Techniques}
-In the review chapter, we explored finding potentials of a gradient field.  We also introduced the language of differential forms.  Recall the following definition. 
-\begin{definition}[Differential Forms]
-Assume that $f,M,N$ are all functions of two variables $x,y$.
-\begin{itemize}
-\item A differential form is an expression of the form $Mdx+Ndy$ (just as a vector field is a function  $\vec F=(M,N)$).
-\item The differential of a function {$f$} is the expression {$df = f_xdx+f_ydy$} (just as the gradient is $\vec \nabla F = (f_x,f_y)$).
-\item \marginpar{A differential form is exact precisely when the corresponding vector field is a gradient field.}%
-If a differential form is the differential of a function {$f$}, then we say the differential form is exact (just as we say a vector field is a gradient field). The function {$f$} is called a potential for the differential form. Let me reiterate.  We say a differential form $Mdx+Ndy$ is exact if and only if there exists a function $f$ such that $$df=Mdx+Ndy.$$
-\end{itemize} 
-\end{definition}
-
-
-The next problem provides the key idea need to solve almost every differential equation we'll encounter in this course. If you can rewrite the differential equation in differential form, and the differential is exact, then solving the ODE requires that you find a potential.
-\begin{problem} 
-Consider the differential form $(2x+3y)dx+(3x)dy$. 
-\begin{enumerate}
- \item By taking derivatives, show that the differential form is exact. [See the test for a conservative vector fields, problem \ref{test for a conservative field}.] Show that a potential for this differential form is $f(x,y) = x^2+3xy$.  
- \item Rewrite the differential equation $3xy'+3y=-2x$ in the differential form 
-$$Mdx+Ndy=0.$$ 
-  What's the angle between the vectors $(M,N)$ and $(dx,dy)$?
- \item Explain why the solution to $Mdx+Ndy=0$ is a level curve of the potential $f(x,y)$.
- \item Give the solution to $3xy'+3y=-2x$ if $y(2)=1$. 
-\end{enumerate}
-\end{problem}
-
-I'm trying to decide on a good name for the next theorem.  We'll see that this theorem is crucial to solving just about EVERY differential equation we encounter from here on out, and it also solves all the ones before now. The name below might change, but something along the lines of ``the sledgehammer,'' or ``one tool to rule them all'' would work. The theorem has no official name, so we can make one up as we go. Basically, we'll show that we can reduce almost every ODE that we solve to a form which allows us to apply the following theorem.
-\begin{theorem}[The sledgehammer for ODEs - one tool to rule them all]
- Suppose that $Mdx+Ndy$ is an exact differential form with potential $f(x,y)$.  If we can write an ordinary differential equation in the form $Mdx+Ndy=0$, then an implicit general solution to the ODE is $f(x,y)=c$. The level curves of a potential are precisely the solutions to the ODE. Let me repeat that. The level curves of a potential are precisely the solutions to the ODE.
-\end{theorem}
-
-Let's use the previous theorem now to solve a couple of ODEs.
-\begin{problem}
- Give a general solution to each of the following ODEs. You may give your solution implicitly, so don't worry about solving for $y$. [Hint: Use the previous theorem.]
-\begin{enumerate}
- \item $(4x+2y)dx+(2x+y)dy=0$
- \item $(x\cos(xy)+y)y'=\sin x-y\cos xy$
-\end{enumerate}
-\end{problem}
-
-
-\subsection{Use integrating factor when the ODE is not exact}
-Let's now return to a problem we've already solved, and show how we can use the sledgehammer theorem to solve things we've already seen, provided we add one more step.
-\begin{problem}\label{integrating factor introduction}
- Consider the ODE $y'=-3y$ which we can write in differential as $3ydx+1dy=0.$
-\begin{enumerate}
- \item Show that $3ydx+1dy$ is not exact. Then use separation of variables to solve the ODE.
- \item Multiply both sides of  $3ydx+1dy=0$ by $\frac{1}{y}$.  Show that the resulting differential form is exact, and use the sledgehammer theorem to obtain a solution.
- \item Multiply both sides of  $3ydx+1dy=0$ by $e^{3x}$.  Show that the resulting differential form is exact, and use the sledgehammer theorem to obtain a solution.  
-\end{enumerate}
-\end{problem}
-
-Any time we can write an ODE in the differential form $Mdx+Ndy=0$, the zero on right hand side gives us power.  Our goal will be to multiply both sides of the differential equation by some function $F$, called an integrating factor, so that the resulting differential is exact.  The general solution to the ODE is then simply the level curves of a potential. 
-\begin{definition}[Integrating Factor]
- An integrating factor for a differential form $M(x,y)dx+N(x,y)dy$ is a function $F(x,y)$ so that the product $FMdx+FNdy$ is exact.
-\end{definition}
-In Problem \ref{integrating factor introduction}, I gave you two different integrating factors. Where did they come from?  The next problem will show you how I obtained one of the integrating factors.  There many more options.
-
-\begin{problem}\label{integrating factor that depends only on x}
-Let $M(x,y)dx+N(x,y)dy$ be a differential form.  For simplicity, we just write $Mdx+Ndy$.  Suppose $F(x,y)$ is an integrating factor.
-\begin{enumerate}
- \item To be exact, explain why we must have 
-$$
-\dfrac{\partial F}{\partial y}M+F\dfrac{\partial M}{\partial y} 
-= 
-\dfrac{\partial F}{\partial x}N+F\dfrac{\partial N}{\partial x} 
-$$
-\item If we assume that $F$ only depends on $x$, so that $F(x,y)=F(x)$, show that a possible option for an integrating factor is
-$$F(x)=e^{\int \frac{M_y-N_x}{N} dx} = \exp\left(\int \frac{M_y-N_x}{N} dx\right).$$
-\item If we assume that $F$ only depends on $y$, so that $F(x,y)=F(y)$, show that a possible option for an integrating factor is
-$$F(y)=e^{\int \frac{N_x-M_y}{M} dy} = \exp\left(\int \frac{N_x-M_y}{M} dy\right).$$
-\end{enumerate}
-[In class, you may omit the last part in your presentation, as it's almost an exact replica of the 2nd part.] 
- 
-\end{problem}
-
-The problem above gives us a way of finding integrating factors for many differential equations. It will not give an integrating factor for EVERY differential equation, but it will provide an integrating factor for almost all the ODEs we tackle in this course. Let's now try using this technique on a problem we've already solved.
-
-
-\begin{problem}
-Consider the ODE $y'-4y=8$, which we solved in Problem \ref{ex2 in chapter 4}.  
-\begin{enumerate}
- \item Rewrite the ODE in differential form $Mdx+Ndy=0$. 
- \item Find an integrating factor $F(x)=e^{\int \frac{M_y-N_x}{N} dx} = \exp\left(\int \frac{M_y-N_x}{N} dx\right).$
- \item Multiply both sides by the integrating factor, and then solve the ODE by applying the sledgehammer theorem.
-\end{enumerate}
-\end{problem}
-
-\begin{problem}\label{solving ODEs by finding an integrating factor}
-Solve each ODE by finding an appropriate integrating factor. 
-\begin{enumerate}
- \item  $y'+4xy = 3x$
- \item  $2y dx+(3x+4y)dy=0$ (Doable now)
- \item  $y'+3y=e^{2x}$ (Solve for $y$.)
- \item  $y'-4y=e^{4x}$ (Solve for $y$.)
- \item  $xy'-4y=2x$ (Solve for $y$.)
-\end{enumerate}
-\end{problem}
-
-Let's now look at an additional application. 
-We will encounter mixing model problems throughout the semester. 
-They provide a simple way to see applications of ODEs, without requiring much background. 
-\begin{problem} [Mixing Model]
-Suppose a 2000 gallon tank contains a solution of water which initially contains 50 lbs of salt. The tank has an inflow valve, and an outflow value.  We would like to change the salt content, so we start pumping in 30 gallons of water (with 1/2 lb of salt per gallon) each minute. We'll assume that the mixture is evenly spread throughout the entire tank by constant stirring.  At the same time, 30 gallons of the evenly stirred mixture flow through the outflow valve each minute. Let $y(t)$ represent the lbs of salt in the tank after $t$ minutes. We currently only know $y(0)=50$. Our goal is to determine the amount of salt $y(t)$ in the tank after $t$ minutes.
-\begin{enumerate}
- \item (Express)
- The salt content changes in two ways. Salt is added through the new solution (a flow in), and salt leaves through the outlet valve (flow out).  
- Explain how to obtain a formula for the flow in, and a formula for the flow out. Then explain why
-$$y'=15-\frac{30}{2000}y.$$
- \item (Solve) Obtain a general solution to the ODE, and then use the initial value to obtain a particular solution.
- \item (Interpret) Construct a graph of your solution.  As $t$ increases, what happens to the salt content? Does your answer seem reasonable?
-\end{enumerate}
-
-\end{problem}
-
-The mixing model problem above, as well as the exponential model and Newton's law of cooling, all belong to a special class of ODEs which we call linear ODEs.
-
-\begin{definition}[Linear ODE]
- If we can write an ODE in the form $y'+p(x)y=q(x)$, then we say that the ODE is linear. This is precisely because the operator $L(y) = y'+a(x)y$ is a linear operator.  If $q(x)=0$, then we say the linear ODE is homogeneous. Otherwise, we say the linear ODE is non homogeneous.
-\end{definition}
-
-The next problem provides a way to obtain a solution to EVERY linear ODE. Practice until you can develop this formula quickly, and then you'll have the key concepts needed for solving just about every ODE we encounter throughout the semester.
-
-\begin{problem}[A Linear ODE Solution]
- Consider the linear ODE $y'+p(x)y=q(x)$, where $p$ and $q$ are differentiable functions of $x$ on some interval.  Find an appropriate integrating factor, and then find a potential. Finish by solving for $y$ to show that on this interval, a general solution is $$y(x) = e^{-\int p(x) dx}C+e^{-\int p(x) dx} \int \left(e^{\int p(x)dx} q(x) \right)dx,$$ where $C$ is an arbitrary constant. If the linear ODE is homogeneous, what is a general solution?
-\end{problem}
-
-
-\begin{problem*}[14 and $1/2$:]
- Go back to problem {solving ODEs by finding an integrating factor}, and decide which ODEs are linear.  Then pick one of the ODEs and solve it using the general solution from the previous problem.
-\end{problem*}
-
-Let's tackle a couple more application problems.  As you solve them, rather than use the formula above, practice finding an appropriate integrating factor, and then find a potential.
-
-\begin{problem}
-Suppose a 50 gallon tank contains a solution of fertilizer which initially contains 10 lbs of fertilizer. We start pumping in 4 gallons per minute, where the concentration of fertilizer is 1/3 lb per gallon. Assume that the mixture is evenly spread throughout the entire tank by constant stirring. The extra  At the same time, 4 gallons of the evenly stirred mixture flow through the outflow valve each minute. Let $y(t)$ represent the lbs of fertilizer in the tank after $t$ minutes.
-\begin{enumerate}
- \item Express the mixing model as an IVP (give the ODE and the IV).
- \item Solve the IVP.
- \item Construct a rough graph of your solution.  As $t$ increases, what happens to the salt content? Does your answer seem reasonable?from the 
-\end{enumerate}
-\end{problem}
-
-The next problem applies Newton's law of cooling to examine what happens if the temperature of the surrounding environment changes. Recall that Newton's law of cooling suggests that the rate of change of temperature of an object is proportional to the difference between the current temperature and the surrounding atmosphere, which we wrote earlier as $$T'=k(A-T).$$
-\begin{problem}
- Suppose that during a summer day, the temperature outdoors fluctuates between 70$^\circ$F and 110$^\circ$F.  We'll approximate this with a sine wave. If we let $t=0$ be noon, then we could obtain the temperature $A$ outdoors after $t$ hours using the formula 
-$$A(t) = 20\sin(\frac{2\pi}{24} t)+90.$$ Suppose that your air conditioner breaks at noon (your house was at 70$^\circ$F at noon), and then by 6pm in the evening, the temperature had risen to 90$^\circ$F.
-\begin{enumerate}
- \item Express this heating problem as an IVP.
- \item Show that the ODE is linear, and then use technology to solve the ODE. You'll need to use $T(6)=90$ to obtain the proportionality constant $k$. 
- \item Graph your solution for 3 days. In the late evenings, which is hotter, the house or the outdoors?  
-\end{enumerate}
-\end{problem}
-
-
-\subsection{Use a substitution when you can't get an integrating factor.}
-We can solve most of the differential equations we tackle this semester by obtaining an integrating factor using the formulas developed in the previous section.  Sometimes however, this won't work. In these cases, we often just have to make an appropriate change of coordinates (a $u$-substitution). Let's illustrate how this works with an example.  Then we'll tackle the logistics model and introduce another application. 
-
-\begin{problem}
- Consider the ODE $y'=\sin(x+y)$. There is no way that you'll get an integrating factor out of this by using our formulas for $F(x)$ and $F(y)$.  The problem is the $x+y$.  We now do a substitution.
-\begin{enumerate}
- \item Write the ODE in the differential form $$\begin{bmatrix}M&N\end{bmatrix}\begin{bmatrix}dx\\dy\end{bmatrix}=0.$$
- \item Let $x=x$ and $u=x+y$ (this is a coordinate transformation). Explain why we have
-$$\begin{bmatrix}dx\\dy\end{bmatrix}=\begin{bmatrix}1&0\\-1&1\end{bmatrix}\begin{bmatrix}dx\\du\end{bmatrix}.$$
- \item Show that the ODE can be written in the form $(-\sin u - 1)dx+du=0$.  Then use either separation of variables (or the sledgehammer) to solve the ODE.  Don't forget to substitute back in when you're done.
-\end{enumerate}
-\end{problem}
-  
-The last problem introduced the key idea.  If you have an ODE in the form 
-$$\begin{bmatrix}M&N\end{bmatrix}\begin{bmatrix}dx\\dy\end{bmatrix}=0,$$
-then an appropriate substitution $x=x$, $y=g(x,u)$ will give us the ODE
-$$\begin{bmatrix}M&N\end{bmatrix}\begin{bmatrix}1&0\\g_x&g_u\end{bmatrix}\begin{bmatrix}dx\\du\end{bmatrix}=0.$$
-If we can find an integrating factor $F(x)$ or $F(u)$ which makes 
-$$F\begin{bmatrix}M&N\end{bmatrix}\begin{bmatrix}1&0\\g_x&g_u\end{bmatrix}\begin{bmatrix}dx\\du\end{bmatrix}$$
-exact, then we can use the sledge hammer to solve the ODE.  The hard part here is finding the correct transformation.  If you can find the correct transformation, then you can solve the ODE.  This is not easy, and in general it can be really tough. 
-
-
-\begin{problem}
- Consider the ODE $xy y' = 4x^2+2y^2$.  
-\marginpar{Notice that the coefficients $xy$, $4x^2$, and $2y^2$, all are basically second order monomial terms. When the coefficients of the ODE are monomials with the same degree, the substitution $u=y/x$ will convert the ODE into a separable ODE. I'll leave this to you to prove. You do have the tools to prove it.}  
-In this situation, if you let $u=y/x$ (so $y=xu$), show that you can rewrite the ODE as 
-$$\frac{u}{4+u^2}du = \frac{1}{x}dx.$$  This is a separable ODE, which we can solve.  Solve the ODE.
-\end{problem}
-
-\begin{problem}
- Consider the ODE $(x+2y)dx+(3x+4y)dy=0$.  Use the substitution $u=y/x$ to convert this into a separable ODE and give a general solution. 
-\end{problem}
-
- Consider the ODE $y'+3y=4y^3$. This ODE is not linear (why?).  We could separate variables on this ODE and solve (we'll do so in class, reminding you about partial fractions). Instead, Bernoulli noticed that if the ODE is in the form $y'+a(x)y=b(x)y^n$, then the substitution $u = y^{1-n}$ will always convert the ODE into a linear ODE, and then we can use an integrating factor to solve the ODE. It's not easy to discover the right substitution that will convert an ODE into something we can solve.  We call them Bernoulli ODEs because his discovery was quite clever.  The $u=y/x$ substitution above was not clever enough to get a name attached to it.
-
-\begin{problem}[Bernoulli ODE]
- Consider the ODE $y'+3y=4y^3$.  Use the substitution $u=y^{1-3}$ to convert this ODE into a linear ODE, and then solve.  
- [Hint:  You know that $u=y^{-2}$.  Use this to solve for $y$, and then compute $dy = ? du$.  Then just substitute. You'll probably have a really ugly term involving $u^{-3/2}$, so multiply both sides by $u^{3/2}$ and all the ugliness will disappear.]
-\end{problem}
-
-We'll come back to Bernoulli ODEs and see some applications of them after we review Laplace transforms.
-
-
-\section{Laplace Transforms}
-
-
-Recall that the Laplace transform of a function $y(t)$ defined for $t\geq 0$ is $$Y(s)=\mathscr{L}\{y(t)\}=\int_0^\infty e^{-st}y(t)dt.$$ 
-\begin{itemize}
- \item We call the function $y(t)$ the inverse Laplace transform of $F(s)$, and we write $y(t)=\mathscr{L}^{-1}\{Y(s)\}$. 
- \item As a notational convenience, we describe original functions $y(t)$ using a lower case $y$ and input variable $t$ or $x$. 
- We describe transformed functions $Y(s)$ using the same capital letter and input variable $s$.
-\end{itemize}
-We've computed quite a few Laplace transforms already.  For convenience, I've placed the Laplace transforms we'll use most often in Table \ref{laplacetable}. Feel free to use this table as you find Laplace transforms and their inverses.  With practice, you will memorize this table.
+For our convenience, the Laplace transforms we'll use most often are in Table \ref{laplacetable}. Feel free to use this table as you find Laplace transforms and their inverses.  With practice, you will memorize this table.
 \begin{table}
 \begin{center}
 \begin{tabular}[t]{|c|cc|}
@@ -357,10 +55,10 @@ $e^{at}$		&$\dfrac{1}{s-a}$ 			&$s>a$\\\hline
 \hline
 $f(t)$ & $F(s)$ & provided\\
 \hline\hline
-$\cos(wt)$  &$\dfrac{s}{s^2+\omega^2}$ 			&$s>0$\\\hline
-$\sin(wt)$  &$\dfrac{\omega}{s^2+\omega^2}$ 			&$s>0$\\\hline
-$\cosh(wt)$ &$\dfrac{s}{s^2-\omega^2}$ 			&$s>|\omega|$\\\hline
-$\sinh(wt)$ &$\dfrac{\omega}{s^2-\omega^2}$ 			&$s>|\omega|$\\\hline
+$\cos(\omega t)$  &$\dfrac{s}{s^2+\omega^2}$ 			&$s>0$\\\hline
+$\sin(\omega t)$  &$\dfrac{\omega}{s^2+\omega^2}$ 			&$s>0$\\\hline
+$\cosh(\omega t)$ &$\dfrac{s}{s^2-\omega^2}$ 			&$s>|\omega|$\\\hline
+$\sinh(\omega t)$ &$\dfrac{\omega}{s^2-\omega^2}$ 			&$s>|\omega|$\\\hline
 $y$     	&$\mathscr{L}\{y\}=Y$ 					&\\\hline
 $y'$		&$\begin{array}{rl}s\mathscr{L}\{y\}-y(0)\\ =sY-y(0)\end{array}$ &\\\hline
 \end{tabular}
@@ -370,125 +68,779 @@ $y'$		&$\begin{array}{rl}s\mathscr{L}\{y\}-y(0)\\ =sY-y(0)\end{array}$ &\\\hline
 \end{center}
 \end{table}
 
-We can use this table, and the linearity of the Laplace transform, to quickly compute both forward transforms and inverse transforms.  The next problem asks you to do this.
-\begin{problem}
- Use the table of Laplace transforms to do the following:
+
+\renewcommand{\ideaA}{Building a Mathematical Model}
+\renewcommand{\ideaB}{Solving ODEs with an integrating factor}
+\renewcommand{\ideaC}{Using Laplace Transforms to Solve ODEs}
+\renewcommand{\ideaD}{Using a change of coordinates}
+\newcommand{\ideaE}{First Order Systems of ODEs}
+
+
+
+
+\mysubsection{\ideaA}
+
+One of the key uses of differential equations is their ability to model the world around us. 
+If we know how something is changing, then we can often use $y'$ to represent that change.  
+If we know a force is acting on an object, then $F=ma = my''$ allows us to build a second order differential equation whose solution is the position $y$ of the object.
+As the semester progresses, we'll be making these connections in each chapter, and showing how to use differential equations to model our world.  
+Many of the models we build will depend on observing that a change is proportional to something, or that a force is proportional to something. If you've forgotten what proportional means, here's a definition.
+
+\begin{definition}[Proportional]
+\marginpar{My favorite way to determine if $y$ is proportional to $x$ is to ask, ``If I double $x$, does $y$ double?  If I triple $x$, will $y$ triple?  If these are both yes, then I look to see if $y=kx$.}% 
+We say that $y$ is proportional to $x$ if $y=kx$ for some constant $k$. We call the constant $k$ the proportionality constant. When two quantities are proportional, then doubling one will double the other, tripling one will triple the other, and so on. A percentage change to one $y$ results in the same percentage change to $x$.
+\end{definition}
+
+Here's a quick review of how to solve an ODE using separation of variables.
+\begin{review*}
+ Give a general solution to the ODE $y'=3y$. If $y(0)=7$, state the particular solution to the IVP. See
+\footnote{
+We rewrite the ODE in the differential form $dy=3ydx$. We separate variables by dividing both sides by $y$ to obtain $\frac{1}{y}dy = 3dt$. We compute the potential of both sides which gives $\ln |y| =3t+C$ for any constant $C$.  Exponentiating both sides gives $|y| = e^{3t+C} = e^{3t}C$, where we replaced $e^C$ with the positive constant $C$. Removing the absolute values gives us $y = \pm Ce^{3t}$, or replacing $\pm C$ with $C$ gives us the general solution $y=Ce^{3t}$. The initial condition $y(0)=7$ means that $7=Ce^{30} = C$. So the particular solution is $y=7e^{3t}$. 
+}
+\end{review*}
+
+
+
+We're ready to build our first mathematical model.
+Suppose you go to the doctor's office to get a strep test done.  They swab the back of your throat and then put a sample of tissue from your body in a petri dish.  If you have strep, then the bacteria will grow inside the petri dish, and they'll be able to see the rapid growth of the strep bacteria in a fairly short amount of time. 
+
+
+
+\begin{problem}[Exponential Growth]\label{exponential growth application}
+Suppose that you place some bacteria in a petri dish. Initially, there are $P$ mg of the bacteria in the dish. The bacteria begin to reproduce. Let $y(t)$ represent the mg of bacteria in the dish after $t$ minutes. Then $y'$ represents the growth rate of bacteria in the dish. The rate at which $y$ grows depends on how much bacteria $y$ there is. If you were to double the amount of bacteria $y$, then the growth rate $y'$ should double as well (as long as there is space to grow, which initially there is). Similarly, if you tripled $y$, then the growth rate $y'$ would triple as well. It seems reasonable to assume that $y'$ is proportional to $y$.
 \begin{enumerate}
- \item Compute the Laplace transform of $y(t) = 6+2t+4t^2-5e^{7t}+11\cosh(3t)$. 
- \item Compute the inverse Laplace transform of $$\ds Y(s) = \frac{5}{s}+\frac{4}{s^3}+\frac{3s}{s^2+16}-\frac{2}{s^2-9}.$$ Once you have a guess for the inverse Laplace transform, verify that your guess is correct by computing the Laplace transform (using the table of course).
+ \item Express the statement ``$y'$ is proportional to $y$'' as a differential equation. What's the initial value $y(0)$? 
+ \item 
+\marginpar{Remember to check your answer with the \href{\urlfirstorderodesolver}{First Order ODE Solver}.}%
+Solve the differential equation above, obtaining a general solution to the ODE, and then a particular solution to the IVP.
+ \item Interpret your solution in the context of the original problem. What does a typical graph of your solution look like (it's got some constants in it, but you can show the general shape). What will happen to $y$ as $t$ gets large?
+ \item Suppose initially that you measure 5 mg of the bacteria. Ten minutes later you measure 8 mg of the bacteria. Use this information to determine the constant of proportionality.
 \end{enumerate}
 \end{problem}
 
-\begin{problem}
-Find the inverse Laplace transform of $F(s) = \dfrac{2s+1}{s^2+5s+4}$.  [Hint: Use a partial fraction decomposition. Start by factoring the denominator.]
-\end{problem}
-
-\begin{problem}
-Find the inverse Laplace transform of $F(s) = \dfrac{2s+1}{s^2+9} + \dfrac{5s+7}{s^2-9}$.  [Hint: This can all be done using trig and hyperbolic trig functions.]
-\end{problem}
+Let's change the setting from growth of a bacterial culture, to financial investments. 
 
 
 
-The real power behind the Laplace transform comes from the last formula in the table. 
-\begin{theorem}[The Laplace Transform of a Derivative] \label{laplace transform of a derivative}
- Suppose that $y(t)$ is a differentiable function defined on $[0,\infty)$ such that $\ds\lim_{t\to \infty}\frac{y(t)}{e^{st}}=0$ for some $s$. We say that $y(t)$ does not grow faster than some exponential, as the function $e^{st}$ grows faster that $y(t)$ (otherwise the limit would not be zero).  If this is the case, then the Laplace transform of $y'$ is
- $$\mathscr{L}\{y'(t)\} = s \mathscr{L}\{y(t)\} - y(0) = sY - y(0).$$
-\end{theorem}
-
-\begin{problem}
- Prove the previous theorem.  In other words, show that $\mathscr{L}\{y'(t)\} = s \mathscr{L}\{y(t)\} - y(0) = sY - y(0).$  [Hint, use integration by parts once, and don't forget to use the bounds.]
-\end{problem}
-
-Before illustrating the key value of this theorem, let's fill in the only remaining rules in our Laplace transform table that we have not yet developed. 
-\begin{problem}
- In the table of Laplace transforms it also states that the transform of 
-$\cos(wt)$ is $\dfrac{s}{s^2+\omega^2}$, and that the transform of $\sin(wt)$  is $\dfrac{\omega}{s^2+\omega^2}$. Pick one of these rules, and then use the definition of the Laplace transform to explain why it is true.  [Hint:  You'll want to use integration by parts twice. See the online text if you want more hints.]
-\end{problem}
-
-We'll now use Theorem \ref{laplace transform of a derivative} to solve some ODEs.  You'll see the power behind this method.
-\begin{problem}
- Consider the IVP $y'=7y$, $y(0)=A$.  
+\begin{problem}\label{investment example}
+ Suppose you invest $P=\$10,000$ dollars in an account, and that the account accumulates interest at a constant rate. Let $A(t)$ represent the accumulated worth of your investment after the investment has had $t$ years to grow.
 \begin{enumerate}
- \item Apply the Laplace transform to both sides of this ODE.  You should have an equation involving $Y(s)$. 
- \item Solve for $Y$.  
- \item Now find the inverse transform of $Y$. This is $y(t)$, the solution to the ODE.
- \item We already know how to solve this ODE using either separation of variables, or by finding an integrating factor. Pick one of these methods and obtain a general solution.
+ \item Express the connection between $A$ and its growth as an initial value problem (state the ODE and initial value).  Why can we assume that $A'$ and $A$ are proportional? What are the units of $A'$, $k$ and $A$? 
+ \item Suppose that we decide to add an extra \$1000 per year to the account (with daily investments spread throughout the year).
+ With this additional investment, explain with a sentence or two why we can express the connection between $A'$ and $A$ as the differential equation $A'=kA+1000$. 
+ \item Solve the IVP given by $A'=kA+1000$, $A(0)=10,000$. \marginpar{Hint: Divide both sides by $kA+1000$. Don't forget that you can check your work with the \href{\urlfirstorderodesolver}{First Order ODE Solver}.}
+ \item Let's interpret the results. Suppose after 5 years that the value of the investment has reached about \$21,000.  Approximately how long will it take for this investment to reach \$100,000?  [Note: If you are having trouble solving for $k$, that's normal.  It's actually a really hard problem. The key here is ``Approximately.'' Trial and error is a valid way to solve a problem.  Try some interest rates (5\%, 6\%, 7\%, 8\%, etc.)]
+\note{This is impossible to solve.  It needs more scaffolding.  It results in a polynomial exponential problem. It opens up a great discussion about how sometimes problems are impossible to solve. I really like how that happened, and want to discuss it in future semesters.  I added the part about guessing a solution.  That may be enough scaffolding.}
+\end{enumerate}
+
+\end{problem}
+
+
+You've now seen two examples of how we can use differential equations to model our world. 
+In your future courses, you'll be taking real world phenomenon and expressing the relationships you see as differential equations. 
+Solving those differential equations gives us mathematical models we can use to interpret the world around us. 
+There are three parts to this modeling process. 
+\begin{enumerate}
+ \item Express real world phenomenon in terms of a differential equation.
+ \item Solve the differential equation.
+ \item Interpret the solution in the context of the problem, which often involves using the results to predict behavior.
+\end{enumerate}
+In our class we'll practice all three parts of this process. We'll focus more on the details in the ``Solve'' portion of the process than you will in future courses. You may find in some future courses that they focus on the ``Express'' and ``Interpret'' portions, and then refer you to some standard reference for the ``Solve'' part, or just ask you to use software. One goal of our course is to help you understand some of the key solution techniques. We'll add many problems that we can ``Express'' and ``Interpret'' without needing  background specific to your majors.
+
+Every time we've solved an ODE, we always did so by finding a potential of the differential form $Mdx+Ndy$. When a differential form has a potential, we'll start saying that it is exact.   
+\begin{definition}[Exact Differential Forms]
+Assume that $f,M,N$ are all functions of two variables $x,y$.
+\begin{itemize}
+\item A differential form is an expression $Mdx+Ndy$.
+\item The differential of a function {$f$} is the expression {$df = f_xdx+f_ydy$}
+\item If the differential form $Mdx+Ndy$ is the differential of a function {$f$}, then we say the differential form is exact. The function {$f$} is called a potential for the differential form.
+\end{itemize} 
+\end{definition}
+
+You've already spent plenty of time finding potentials to solve ODEs.  Let's practice this again, using the new word ``exact.''
+\begin{problem}
+\marginpar{Remember to check your answer with the \href{\urlfirstorderodesolver}{First Order ODE Solver}.}%
+Complete both parts. 
+\begin{enumerate}
+ \item Show that $(x+2y)dx+(2x+4y)dy$ is an exact differential form. Then give an implicit general solution to the ODE $\ds y'=-\frac{x+2y}{2x+4y}$. 
+ \item Show that the differential form associated with the ODE $3xy'+3y=-2x$ is exact.  Then state the solution if $y(2)=1$. 
+\end{enumerate}
+
+\end{problem}
+
+\mysubsection{\ideaC}
+
+Recall that the Laplace transform of a function $y(t)$ defined for $t\geq 0$ is $$Y(s)=\mathscr{L}\{y(t)\}=\int_0^\infty e^{-st}y(t)dt.$$ 
+\begin{itemize}
+ \item We call the function $y(t)$ the inverse Laplace transform of $Y(s)$, and we write $y(t)=\mathscr{L}^{-1}\{Y(s)\}$. 
+ \item As a notational convenience, we describe the original function $y(t)$ using a lower case $y$ and we use the input variable $t$ or $x$. 
+ We describe the transformed function $Y(s)$ using the same letter, but capitalized, and we use the input variable $s$.
+\end{itemize}
+
+We can use Table \ref{laplacetable} to quickly compute both forward transforms and inverse transforms.
+\begin{problem}
+ Use the table of Laplace transforms (Table \ref{laplacetable}) to do the following:
+\begin{enumerate}
+ \item 
+\marginpar{Remember you can check your answers with the \href{\urllaplacetransforms}{Laplace transform Sage sheet}.}%
+Compute the Laplace transform of both sides of $y(t) = 6+2t+4t^2-5e^{7t}+11\cosh(3t)$. 
+ \item Compute the inverse Laplace transform of both sides of $$\ds Y(s) = \frac{5}{s}+\frac{4}{s^3}+\frac{3s}{s^2+16}-\frac{2}{s^2-9}.$$ 
+ Once you have a guess for the inverse Laplace transform, verify that your guess is correct by computing the Laplace transform.
 \end{enumerate}
 \end{problem}
-Did you see the process above?  Rather than integrate, we just (1) computed the Laplace transform of both sides, (2) solved an algebraic equation for $Y$, and then (3) obtained the inverse Laplace transform to get $Y$.  
 
-Here's a parable to compare to using Laplace transforms.  You are inside a house that has a single door leading to the downstairs.  You are on the main floor, and need to get downstairs.  The door is locked and you don't know where the key is (you can't figure out how to solve the ODE).  You (1) decide to walk out the front door (you apply the Laplace transform).  Then you (2) walk around the house and find the back door entrance to the basement (you solve for $Y$, and maybe apply a partial fraction decomposition).  Then (3) you walk up to the locked door and unlock it from the other side (you find the inverse transform).
-
-The Laplace transform replaces the problem of integrating with an algebraic problem (often easier to solve). We'll be using it throughout the semester to help us see patterns, and unlock difficult problems.  It works best when the ODE is linear.
-
+We now solve an ODE using Laplace transforms. Remember that the Laplace transform of a derivative $y'$ is $sY-y(0)$. \marginpar{See Table \ref{laplacetable}.}
 \begin{problem}
- Consider the IVP $y'+3y=5$, $y(0)=7$.  (1) Apply the Laplace transform to both sides of this ODE to obtain an equation involving $Y=\mathscr{L}\{y\}$. (2) Solve for the transformed function $Y$. You will need to use a partial fraction decomposition to write $\ds Y = \frac{A}{s+3}+\frac{B}{s}$. (3) Use an inverse transform to obtain the solution $y(t)$.  
+\marginpar{Remember you can check your answers with the \href{\urllaplacetransforms}{Laplace transform Sage sheet}.}%
+ Consider the IVP given by $y'=4y$ where $y(0)=3$.  
+ \begin{enumerate}
+  \item Apply the Laplace transform to both sides of the ODE. You should have an equation involving $Y(s)$. 
+  \item Solve this equation for $Y$ to show that $\ds Y = \frac{3}{s-4}$. 
+  \item Find the inverse transform of both sides of this equation to obtain the solution $y(t)$ to the IVP.  
+  \item Generalize your work to give a solution to $y'=ky$ where $y(0) = P$?  Compare this with problem \ref{exponential growth application}.
+ \end{enumerate}
 \end{problem}
 
-You'll find that with most Laplace transform problems, we'll need a partial fraction decomposition before we can compute an inverse transform. The next problem has you practice the Laplace transform inversion process to solve multiple problems that you know the answer to using simple integration.
+The first three steps above are the key steps to solving an ODE with Laplace transforms.  Eventually we'll just say, ``Solve the ODE with Laplace transforms,'' and you'll know that you need to use those 3 steps. As we develop different models, we'll revisit many of them and use Laplace transforms to obtain a solution.
+
+\mysubsection{\ideaE}
+
+Sometimes we need more than one differential equation to create a model. When an object moves in the plane, its position is given by $x(t)$ and $y(t)$. An equation for the velocity $\vec v = (x',y')$ is precisely a system of two differential equations.
 
 \begin{problem}
- For each problem below, use a Laplace transform to solve the ODE. Each problem could be solved with simple integration instead. The point to this problem is to help you see how the Laplace transform gives you, in a different way, information you already know how to obtain.
+A plane flies in a circle above a city (the center of the city is at $(0,0)$).  The plane's path is given by $(x,y) = (3\cos t, 3\sin t)$.  The pilot places the plane on autopilot to continue this circular path. After the plane has been placed on autopilot, the wind starts blowing. The pilot does not adjust for the wind, which means the plane will start to veer off course.  Your job on this problem is to figure out the path of the plane.
 \begin{enumerate}
- \item $y'=5t^2+7t+3$, $y(0)=C$.
- \item $y'=e^{at}$, $y(0)=C$.
- \item $y'=\cosh(3 t)$, $y(0)=2$.
- \item $y'=\sin(3 t)$, $y(0)=2$.
+ \item The velocity of the plane without the wind is $(x',y') = (-3\sin t, 3\cos t)$.  The wind blows somewhat northeast and results in a new velocity vector for the plane of $(x',y') = (-3\sin t, 3\cos t)+(1/3, 1/5)$. Find equations for $x(t)$ and $y(t)$ that would give the position of the plane. Then graph the plane's position for $t$ between 0 and $4\pi$. You can use \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=parametric_curve_plotter}{this parametric curve plotter} to check your work. Follow the link.
+ \item Generalize your work to give the position $(x,y)$ if $$(x',y') = (-a\sin(b t), a\cos(b t))+(c, d).$$
+The radius of the circle is $a$, the angular velocity is $b$, and the wind contributes the extra $(c,d)$.  
 \end{enumerate}
-[Hint:  You'll need a partial fraction decomposition to write $\dfrac{s}{s(s^2+9)} = \dfrac{A}{s}+\dfrac{Bx+C}{s^2+9}$ on part 4.  You'll need a similar idea on 2 and 3.]
 \end{problem}
 
-Let's end this section with two more Laplace transform problems, where the initial conditions are not given.
+
+
+
+
+
+
+\mysubsection{\ideaA}
+
+
+Let's look at another application before we introduce a new solution technique.  Here's the scenario.
+\begin{quote}
+You decide to cook a turkey for Thanksgiving. You turn the oven on to 350$^\circ$F, and the package says that you need to get the turkey heated up to an internal temperature of 165$^\circ$F.  You followed the instructions and thawed the turkey so that currently it's about 40$^\circ$F.  How long will it take for the turkey to heat up? 
+\end{quote}
+If instead of heating a turkey, you wanted to heat a chicken patty, would the time vary?  If you just wanted to heat a metal pan, how would the time vary? The next problem introduces a simplistic model, called Newton's law of cooling, to examine this question.  
+
+Newton's law of cooling works best when you assume that an increase in heat is evenly distributed throughout an object, such as heating an aluminum pan. When you heat a turkey, the heat is not evenly distributed. 
+This uneven heat distribution complicates the model, and we'd need partial differential equations (PDEs) to obtain a better model for heat flow.  
+
+ 
+\begin{problem}[Newton's Law of Cooling]
+ Suppose that you place an object in an oven.  The oven temperature is set to $A$ (you can use Fahrenheit, Celsius, or Kelvin). The letter $A$ is the temperature of the surrounding ``a''tmosphere. The object's initial temperature is $T_0$.  
+Let $T(t)$ represent the temperature of the object $t$ minutes after we place the object in the oven. 
+If $T(t)$ is really close to $A$, then the rate at which $T$ increases should be pretty small, as the temperature of the object is almost the same as the temperature of the atmosphere.  
+If $T$ is really far from $A$, then the rate of temperature change should be a lot larger.  It appears that $T'$ depends on the difference $A-T$.  Newton conjectured that the rate at which the temperature changes is proportional to the difference $A-T$.
+\begin{enumerate}
+ \item Express the statement ``the rate at which the temperature changes is proportional to the difference $A-T$'' as a differential equation. What's the initial value?
+ \item 
+\marginpar{Remember to check your answer with the \href{\urlfirstorderodesolver}{First Order ODE Solver}.}%
+Solve the IVP,  obtaining a particular solution.
+ \item Interpret your solution in the context of the original problem. What does a typical graph of your solution look like (it's got some constants in it, but you can show the general shape). If your solution is correct, what will happen as $t$ gets large? Does this seem reasonable.
+\end{enumerate}
+\end{problem}
+ 
 
 \begin{problem}
- Solve the ODE $y'+4y = e^{3t}$ by using a Laplace transform. No initial condition was given, so you should use something like $y(0)=C$. Because this initial condition involves an arbitrary constant, you may find that Cramer's rule helps you quickly obtain the partial fraction decomposition (rather than row reduction).
+ You should have obtained the solution to Newton's law of Cooling as $$T(t) = A+(T_0-A)e^{-kt},$$ where $k$ is the proportionality constant. Suppose that $T_0=45^\circ$F and $A=350^\circ$F.  
+\begin{enumerate}
+ \item After 5 minutes, you check the temperature and observe $T(5)=80^\circ$F.  What is $k$, and how long will it take for the object to reach $165^\circ$F. 
+ \item After 5 minutes, you check the temperature and observe $T(5)=120^\circ$F.  What is $k$, and how long will it take for the object to reach $165^\circ$F. 
+ \item The number $k$ depends on the material you are trying to heat.  If $k$ is large, what does that mean about the material? If you were to heat an aluminum pan versus a cast iron pan, what could you say about the constant $k$ in each case?
+\end{enumerate}
+\end{problem}
+
+
+
+
+
+\subsection*{\ideaB}\addcontentsline{toc}{subsection}{\ideaB}
+When we can't find a potential for an ODE, what do we do?  Let's first examine a problem we've already solved and solve it in two different ways. From our example, we'll find an answer to this questions.
+
+
+\begin{problem}\label{integrating factor introduction}
+ Consider the ODE $y'=-3y+7$ which we can write in differential form as $(3y-7)dx+1dy=0.$  To have a potential, we would need $M_y=N_x$.
+ \marginpar{See Problem \ref{test for a potential} for a reminder of the test for a potential.}% 
+ Since we have $M_y=3$ and $N_x=0$, this differential form is not exact.  
+\begin{enumerate}
+ \item Multiply both sides of  $(3y-7)dx+1dy=0$ by $\ds\frac{1}{3y-7}$. Show that the resulting differential form is exact (using the test for a potential, i.e. show $M_y=N_x$). Then find a potential and state a solution to the ODE.
+ \item 
+Now multiply both sides of $(3y-7)dx+1dy=0$ by $e^{3x}$. Show that the resulting differential form is exact (using the test for a potential). Then find a potential and state a solution to the ODE.
+\end{enumerate}
+\end{problem}
+
+When we write an ODE in the form $Mdx+Ndy=0$, the zero on right hand side gives us power. We can multiply both sides of the differential equation by some function $F$, called an integrating factor, so that the resulting differential $FMdx+FNdy$ is exact. A general solution to the ODE is then simply the level curves of the potential. Time for a formal definition.
+
+\begin{definition}[Integrating Factor]
+ An integrating factor for a differential form $M(x,y)dx+N(x,y)dy$ is a function $F(x,y)$ so that the product $FMdx+FNdy$ is exact.
+\end{definition}
+
+In Problem \ref{integrating factor introduction}, I gave you two different integrating factors. Where did they come from? The first one came from observing that the ODE was separable. The second one came from the formula in the next problem.
+
+\begin{problem}\label{integrating factor that depends only on x}
+Let $M(x,y)dx+N(x,y)dy$ be a differential form.  For simplicity, we just write $Mdx+Ndy$.  Suppose that $F(x,y)$ is an integrating factor for this differential form.
+\begin{enumerate}
+ \item \marginpar{What does the product rule have to do with this part?}%
+For $(FM)dx+(FN)dy$ to be exact, explain why we must have 
+$$
+\dfrac{\partial F}{\partial y}M+F\dfrac{\partial M}{\partial y} 
+= 
+\dfrac{\partial F}{\partial x}N+F\dfrac{\partial N}{\partial x} 
+$$
+\item 
+\marginpar{Hint: Show that $$\frac{1}{F}dF = \frac{M_y-N_x}{N}dx$$ Then integrate both sides.}% 
+Assume that $F$ only depends on $x$, so that $F(x,y)=F(x)$. Show that an integrating factor is
+$$\ds F(x)=e^{\int \frac{M_y-N_x}{N} dx} = \exp\left(\int \frac{M_y-N_x}{N} dx\right).$$
+\item If we instead assume that $F$ only depends on $y$, show that 
+$$F(y)=e^{\int \frac{N_x-M_y}{M} dy} = \exp\left(\int \frac{N_x-M_y}{M} dy\right).$$
+\end{enumerate}
+ 
+\end{problem}
+
+The problem above gives us a way to find integrating factors for many differential equations. We won't be able to find an integrating factor for every differential equation, but this method will give us integrating factors for almost every problem you'll see in undergraduate textbooks. Let's now use this technique on a problem we've already solved.
+
+\begin{problem}
+Consider the ODE $y'=ky+1000$ from  Problem \ref{investment example}.
+\begin{enumerate}
+ \item Rewrite the ODE in the differential form $Mdx+Ndy=0$. 
+ \item Find the integrating factor $\ds F(x)=e^{\int \frac{M_y-N_x}{N} dx} = \exp\left(\int \frac{M_y-N_x}{N} dx\right).$
+ \item 
+\marginpar{Remember you can check your answer with the \href{\urlfirstorderodesolver}{First Order ODE Solver}.}%
+Multiply both sides of $Mdx+Ndy=0$ by this integrating factor. Show that $FMdx+FNdy$ is exact and then solve the ODE by finding a potential. 
+ \item 
+Generalize your work to state a solution to the ODE $y'=ay+b$. (You shouldn't need to do any additional work.) 
+\end{enumerate}
+\end{problem}
+
+
+\note{They probably need a review problem here.  They have forgotten how to work with something like $e^(2\ln x)=x^2$. 
+
+Also, the first problem can be separated.  I need to change it so they cannot separate things.}
+\begin{problem}\label{solving ODEs by finding an integrating factor}
+\marginpar{Remember to check your answer with the \href{\urlfirstorderodesolver}{First Order ODE Solver}.}%
+Solve each ODE by finding an appropriate integrating factor. 
+\begin{enumerate}
+ \item  $y'+4xy = 3x$ \marginpar{Note:  You will need to simplifying things like $e^{2\ln x}$.  Remember that $a\ln b = \ln b^a$, which means $e^{a\ln b} = b^a$. This shows up quite a bit in all our work.}
+ \item  $2ydx+(8x+4y)dy=0$. Explain why $F(x)$ does not work. Use $F(y)$.
+% \item  $y'+3y=e^{2x}$ (Solve for $y$.)
+% \item  $y'-4y=e^{4x}$ (Solve for $y$.)
+% \item  $xy'-4y=2x$ (Solve for $y$.)
+\end{enumerate}
+\end{problem}
+
+\subsection*{\ideaD}\addcontentsline{toc}{subsection}{\ideaD}
+
+Sometimes you won't be able to obtain an integrating factor with either formula we have for $F(x)$ or $F(y)$. 
+Often, we can overcome this difficulty by using a change of coordinates. Just like we used polar coordinates, cylindrical coordinates, and spherical coordinates in multivariable calculus to simplify otherwise impossible problems, we'll now employ different coordinate systems to solve an ODE.
+
+\begin{problem}
+ Consider the ODE $y'=(x+y)^2$.  
+\begin{enumerate}
+ \item Show that our formula for $F(x)$ results in a function that depends on both $x$ and $y$. Show the same thing happens with $F(y)$.  This means we can't use our integrating factor formulas.
+ \item Consider the change of coordinates $x=x$ and $u=x+y$. Show that we can rewrite the original ODE $y'=(x+y)^2$ in the differential form $du=(1+u^2)dx$. 
+[Hint:  You need to compute the differential of $u$.  Since $u=x+y$ we can compute $du=?dx+?dy$.]
+ \item 
+\marginpar{Remember to check your answer with the \href{\urlfirstorderodesolver}{First Order ODE Solver}.}%
+Solve the ODE $du=(1+u^2)dx$.  Then replace $u$ with $x+y$ and solve for $y$ to get a general solution to this ODE. [Hint: The ODE is separable.]
+\end{enumerate}
+\end{problem}
+
+Let's try another problem where a simple substitution results in greatly simplifying the ODE.
+  
+
+\begin{problem}
+ Consider the ODE $xy y' = 4x^2+2y^2$.  
+\marginpar{Notice that the coefficients $xy$, $4x^2$, and $2y^2$, all are second order monomial terms. When the coefficients of an ODE are monomials with the same degree, the substitution $u=y/x$ will always convert the ODE into a separable ODE. You have enough tools to prove this fact. If you do, I'll have you share it with the class.}  
+In this situation, if we let $u=y/x$ (so $y=xu$), show that we can rewrite the ODE as 
+$$\frac{u}{4+u^2}du = \frac{1}{x}dx.$$  This is a separable ODE, which we can solve.  Solve the ODE. 
+Give an implicit general solution in terms of $y$ and $x$. 
+
+[Hint: Since you have $y=xu$, you'll probably want to write $dy = ?dx+?du$.  This will allow you to get rid of the $dy$.]
+\end{problem}
+
+\subsection*{\ideaC}\addcontentsline{toc}{subsection}{\ideaC}
+
+Let's now use Laplace transforms to tackle a problem similar to the one we used to introduce integrating factors. 
+
+\begin{problem}
+ Consider the IVP given by $y'=3y+7$ where $y(0)=11$.  
+\begin{enumerate}
+ \item 
+After computing the Laplace transform of both sides, show that 
+$$\ds Y = \frac{11s+7}{(s)(s-3)}.$$
+ \item 
+\marginpar{This process is called a partial fraction decomposition. This problem first without looking for help from any outside source.  If you are stuck, then try googling ``partial fraction decomposition.''}%
+\marginpar{You can check your work with \href{\urlpartialfraction}{this partial fraction calculator}.}%
+The right hand side above is not in our Table of Laplace transforms. However, if we could rewrite the right hand side as 
+$$\frac{11s+7}{(s)(s-3)} = \frac{A}{s}+\frac{B}{s-3}$$ 
+for some constants $A$ and $B$, then we could use an inverse transform.
+
+Find constants $A$ and $B$ so that the equation above is valid (as a suggestion, first multiply both sides by $(s)(s-3)$).
+ \item 
+\marginpar{Remember you can check your answers with the \href{\urllaplacetransforms}{Laplace transform Sage sheet}.}%
+Solve the IVP by finding the inverse Laplace transform of 
+$$Y = \frac{A}{s}+\frac{B}{s-3}.$$ 
+
+\end{enumerate}
+
+\end{problem}
+
+\subsection*{\ideaE}\addcontentsline{toc}{subsection}{\ideaE}
+
+Let's now return to examining a system of first order differential equations.  When we only have one differential equation, we have been writing it in the form $Mdx+Ndy=0$, which we could also write in the matrix form 
+$$\begin{bmatrix}M&N\end{bmatrix}\begin{bmatrix}dx\\dy\end{bmatrix}=0.$$    
+How does this generalize to systems of first order differential equations?
+
+\note{This might be a pet problem of mine, and maybe needs to be cut.....  The goal is to get them thinking about higher dimensions. If they can see the pattern in high dimensions, then they can do the problem in small dimensions.  }
+\begin{problem}
+Complete the following:
+\begin{enumerate}
+ \item Consider the first order system of ODEs given by $$2t\frac{dx}{dt}=3-2x\quad\text{ and }\quad(4t+5y)\frac{dx}{dt}+(5x+t)\frac{dy}{dt}=-4x-y.$$
+Rewrite this system in differential form, and then obtain a 2 by 3 matrix $A$ so that 
+$$
+A\begin{bmatrix}dt\\dx\\dy\end{bmatrix}
+=
+\begin{bmatrix}
+\nvec{\rule{.5in}{.5pt} \\ \rule{.5in}{.5pt}}
+&\nvec{\rule{.5in}{.5pt} \\ \rule{.5in}{.5pt}}
+&\nvec{\rule{.5in}{.5pt} \\ \rule{.5in}{.5pt}}
+\end{bmatrix}
+\begin{bmatrix}dt\\dx\\dy\end{bmatrix}
+=
+\begin{bmatrix}0\\0\end{bmatrix}.$$    
+ \item Find a function $f(t,x,y)$ so that 
+$df = A\begin{bmatrix}dt\\dx\\dy\end{bmatrix}$. 
+\item What do you think is a general solution to this system of ODEs? Why? It's OK if you are wrong. The goal here is to have you make a conjecture and be prepared to explain why you made your conjecture.
+\end{enumerate}
+
+\end{problem}
+
+
+\subsection*{\ideaA}\addcontentsline{toc}{subsection}{\ideaA}
+
+
+\marginpar{In multivariable calculus, we studied the flux of a vector field across a curve or surface.  This is precisely the study of flow in and flow out.}%
+Let's now analyze another type of model.  In this case, we'll create the differential equation by studying flow in and flow out instead of looking for a proportionality.  If we know how much $y$ increases (flow in), and we know how much $y$ decreases (flow out), then we know the rate of change of $y$ which means we know $$y' = (\text{flow in}) - (\text{flow out}).$$ 
+
+
+
+
+\begin{problem}[Tank Mixing Intro]
+Suppose a 20 gallon tank contains an evenly mixed solution of water and salt. Initially, there are 4 lbs of salt mixed into the water. 
+We start pumping in 3 gallons of water each minute, where the incoming water has 1/2 lb of salt per gallon. We'll assume that the salt remains evenly spread throughout the entire tank by constant stirring.  
+At the same time, we allow 3 gallons per minute of the evenly stirred mixture to flow out through an outflow valve. 
+
+Let $y(t)$ represent the lbs of salt in the tank after $t$ minutes. Our goal is to predict the amount of salt $y(t)$ in the tank after $t$ minutes. We currently know $y(0)=4$ lbs. 
+\begin{enumerate}
+ \item 
+\marginpar{Hint: To get inflow and outflow of lbs of salt per min, you need to multiply some quantities together. 
+Pay attention to units. 
+For outflow, remember there are $y(t)$ lbs of salt in the 20 gallon tank, so we have $\frac{y \text{ lbs}}{20\text{ gal}}$. What can you multiply this by to get lbs/min?}%
+(Express) 
+How many lbs of salt flow into the tank each minute? 
+How many lbs of salt flow out of the tank each minute? 
+State a differential equation that models the lbs of salt in the tank at any time $t$. 
+ \item 
+(Solve) 
+Use software to give a general solution to the ODE and the particular solution to the IVP. See the \href{\urlfirstorderodesolver}{First Order ODE Solver}.
+ \item 
+(Interpret) 
+If we allowed $t$ to run for a really long time, what would $y(t)$ approach? Does this seem reasonable?
+ \item What would you use for your ODE if the volume of the tank is $V$ gal, the inflow/outflow rate is $r$ gal/min, and the concentration of salt in the incoming water is $c$ lbs/gal?
+\end{enumerate}
+\end{problem}
+
+\note{After completing this problem in class (often when I get to two tanks), I like to say something like, ``What if we replace the tanks with Canada and U.S., and the salt with people of a certain ethnicity. Or what if we replace the tanks with countries, and the salt with products.  We now have economics.  What if we replace the tanks with countries, and the salt with a disease, and now the world heath organization can study the transfer of a disease.  The possibilities for application here are endless.}
+
+%y' = k(m-y)y
+%We can analyze this in 2 different ways.  
+%One way is to replace k with k(M-y).  This focuses on proportionalities. 
+%Another way is to look at flow in minus flow out.  The flow in is proportional to the size of the population.  The number of interactions between the species is proportional to the square of the species.  The flow out is proportional to the size squared.    I could have them show this is true in general.
+
+In our first model of this chapter, we analyzed the growth of a bacteria population in a petri dish. 
+We could have applied this to any other population to predict things such as the number of deer in a forest, how many people will be on the Earth, the spread of cancer through the bloodstream, the number of cell phones users in Brazil, the speed of computer processors, etc. 
+In our model, we assumed that the growth of the bacteria is proportional to the amount of bacteria currently present. 
+This an assumption about the flow in. 
+With this proportionality assumption, we obtained the ODE $y'=ky$ and solution $y=Ce^{kt}$.  
+There is a glaring error with this model, namely that as $t$ gets larger the population continues to grow without bound. 
+The petri dish can not support this kind of growth. Our model needs to be improved.
+Let's now fix this, but let's change the setting to the spread of a virus.
+
+% Logistic Growth, just set them up.  Solve with separable?  requires partial fraction decomposition. Good.
+\begin{problem}[Logistic Model Intro]
+ Suppose that a virus (like the bird flu) starts to spread in a city. Let $y(t)$ represent the number of people who have had the virus after $t$ days.  Initially, it seems reasonable to assume that $y'$ is proportional to $y$, as if we double the number of people who have the virus, then the virus will spread twice as fast. However, the model $y'=ky$ needs to be altered because exponential growth cannot occur forever.  There's only so many people. There are two ways to proceed.
+\begin{enumerate}
+\item 
+\note{I think it would be good to connect this to Newton's law of cooling at some point.  The Logistic model is like a meld of exponential growth and Newton's law of cooling.}%
+As the virus affects more people, we know the growth rate should decrease. Let's assume there are $M$ people in the town. If $y(t)$ ever equals $M$ (so everyone is infected), then we'd have $y'=0$. As $y$ gets closer to $M$, the growth rate $k$ should be small. Vice versa, if $y$ is far from $M$, then the growth rate $k$ should be large. Let's assume that $y'=ky$, but that $k$ is proportional to the difference $M-y$ between the maximum population and the current population. Why does $y'=c(M-y)y$?
+\item Let's analyze this problem in a different way. 
+Viruses spread when sick people interact with non sick people.  If $y$ is the number of sick people, then $M-y$ is the number healthy people. The product $(M-y)y$ is the number of possible interactions between healthy and sick people. What assumption should we make to obtain $y'=c(M-y)y$.
+\item
+\marginpar{\href{\urlvectorfieldplotter}{See the Vector Field Plotter}}%
+Remember that if we know the slope $y'$, then the vector field $\vec F(t,y) = (1,y')$ gives a field of tangent vectors to possible solution curves. Use software to construct a vector field plot of the the field $$\vec F(t,y) = (1,\frac{1}{3}(4-y)y)$$ where $0\leq t\leq 10$ and $-2\leq y\leq 6$. On your plot, draw several solution curves. This would model a scenario in which $M=4$ million residents and $k=1/3$ (about 1/3 of the time, an interaction between a sick and healthy person results in the healthy person getting sick). 
+%Do this problem in the linear algebra chapter, NOT HERE.
+%\item The ODE $y'=a(M-y)y$ is separable, as we can write $\frac{1}{(y)(M-y)}y'=a$. Find an implicit general solution to this ODE. You'll need the partial fraction decomposition 
+%$$ \frac{1}{(y)(M-y)} = \frac{A}{y}+\frac{B}{M-y}$$
+%to integrate the left hand side.
+\end{enumerate}
+
+\end{problem}
+
+
+
+
+\subsection*{\ideaB}
+\addcontentsline{toc}{subsection}{\ideaB}
+
+% Solve Mixing Model with Integrating factor. (Give them the set up)
+\begin{problem}
+Suppose a 50 gallon tank contains a solution of fertilizer which initially contains 10 lbs of fertilizer. We start pumping in 4 gallons per minute of a solution where the concentration of fertilizer is 1/3 lb per gallon. 
+Assume that the mixture remains evenly spread throughout the entire tank by constant stirring. 
+At the same time, 4 gallons per minute of the evenly stirred mixture flow through the outflow valve. 
+Let $y(t)$ represent the lbs of fertilizer in the tank after $t$ minutes.
+\begin{enumerate}
+ \item Explain why $\ds y' = \frac{4}{3}-\frac{4}{50}y$ with $y(0)=10$. 
+ \item After rewriting the ODE in the differential form $Mdx+Ndy=0$, find an integrating factor and use it to solve this IVP.
+ \item Plot your solution. Your plot should show the initial condition $y(0)=10$, and you should be able to see what $y(t)$ approaches as $t$ gets large.
+\end{enumerate}
+\end{problem}
+
+
+
+\subsection*{\ideaC}
+\addcontentsline{toc}{subsection}{\ideaC}
+% Solve Mixing Model with Laplace Transform (partial fraction) (make them set it up.)
+\begin{problem}
+Suppose a $5$ gallon tank contains a solution of fertilizer which initially contains $2$ lbs of fertilizer. We start pumping in $3$ gallons per minute of a solution where the concentration of fertilizer is 1/4 lb per gallon. 
+Assume that the mixture remains evenly spread throughout the entire tank by constant stirring. 
+At the same time, 3 gallons per minute of the evenly stirred mixture flow through the outflow valve. 
+Let $y(t)$ represent the lbs of fertilizer in the tank after $t$ minutes.
+\begin{enumerate}
+ \item 
+%3/4+3/5y = y', so sY-2 = (3/4)/s+(3/5)Y, or Y = (2s+3/4)/(s(s+3/5))
+State an IVP (both the ODE and IV) that models this situation.  
+ \item Use Laplace transforms to solve the ODE. After computing the Laplace transform of each side and solving for $Y$, you should obtain 
+$$Y= \frac{2s+(3/4)}{(s)(s+3/5)}.$$ You'll need to perform the partial fraction decomposition
+\marginpar{You can check your work with \href{\urlpartialfraction}{this partial fraction calculator}.}%
+$$\frac{2s+(3/4)}{(s)(s+3/5)} = \frac{A}{s}+\frac{B}{s+3/5}.$$ Once you've found $A$ and $B$, inverse Laplace transforms will get you the solution instantly.
+\end{enumerate}
+\end{problem}
+
+
+\subsection*{\ideaD}\addcontentsline{toc}{subsection}{\ideaD}
+The logistics model $y'=a(M-y)y$ can be rewritten in the form $y'=aMy-ay^2$, or perhaps more simply as $y'=Ay+By^2$.  
+\marginpar{It's not easy to discover the right substitution that will convert an ODE into something we can solve.  We call them Bernoulli ODEs because his discovery was quite clever.}%
+This ODE is separable, however if we allow $A$ and $B$ to depend on $x$, then we have the ODE $y'=A(x)y+B(x)y^2$ which is not separable.  Bernoulli discovered a way to solve any ODE of the form $y'=A(x)y+B(x)y^n$, by using the substitution $u=y^{1-n}$. 
+The next problem has you solve the logistics model by using this substitution.
+\begin{problem}
+ Consider the ODE $y'=3y+5y^2$.  
+\begin{enumerate}
+ \item 
+\marginpar{Since $u=y^{-1}$, we know $du = -y^{-2}dy$. Our ODE is $dy=(3y+5y^2)dx$.  If you combine these, you get $du=-y^{-2}(3y+5y^2)dx$.  Multiply the $y^{-2}$ through and remember that $u=y^{-1}$. }%
+Use the substitution $u=y^{1-2} = y^{-1}$ to rewrite the ODE in the form $Mdx+Ndu=0$. Show that $M=3u+5$ when $N=1$.
+ \item Then obtain an integrating factor to solve this ODE. After finding a solution, replace $u$ with $1/y$ and give an explicit solution by solving for $y$.
+ \item Generalize your work to state a general solution to $y'=Ay+By^2$. You have now solved every logistics model problem. In particular, what's the solution if $y'=aMy-ay^2$?
+\end{enumerate}
+\end{problem}
+
+
+
+
+\subsection*{\ideaC}\addcontentsline{toc}{subsection}{\ideaC}
+We've been looking at two main ways to solve ODEs.  One approach involves rewriting the ODE in the form $Mdx+Ndy=0$ and then finding a potential.  Sometimes we have to use an integrating factors.  Sometimes we have to change coordinates first.  Sometimes we have to do both (as in the logistics model problem).  
+
+The second approach is to use Laplace transforms. This replaces the integration problem with an algebra problem, often involving a partial fraction decomposition. Let's practice this process again.
+
+\begin{problem}
+Solve each IVP with Laplace transforms.  \marginpar{Check your work with \href{\urlpartialfraction}{this partial fraction calculator}.  The \href{\urllaplacetransforms}{Laplace transform calculator} will let you know if you have the correct answer.}%
+\begin{enumerate}
+ \item $y'+3y=2t$ where $y(0)=5$
+ \item $y'+3y=e^{2t}$ where $y(0)=5$
+\end{enumerate}
+\end{problem}
+
+Is there a connection between our two methods of solving ODEs? To answer this, let's solve a general problem with the integrating factor/potential approach.
+% General Solution to $y'=ay+f(t)$
+\begin{problem}
+ Consider the ODE $y'=ay+f(t)$, where $a$ is a constant and $f(t)$ represents any function of $t$. 
+\begin{enumerate}
+ \item Rewrite the ODE in differential form, and then use an appropriate integrating factor to solve the ODE. Because you do not know what $f(t)$ equals, your solution will involve an integral. However, you should be able to complete all integrals that do not involve $f(t)$, and then solve for $y$.
+ \item Compare and contrast the definition of the Laplace transform with your solution above.
+ \item Now consider the ODE $y'=a(t)y+f(t)$ where $a$ is now a function of $t$. Show that  
+$$y(t) = e^{\int a(t) dt}C+e^{\int a(t) dt} \int \left(e^{-\int a(t)dt} f(t) \right)dt$$ where $C$ is an arbitrary constant.
+\end{enumerate}
+\end{problem}
+
+The find a potential approach to solving ODEs came first.  The Laplace transform approach came much later. It wasn't until the 1900's that the Laplace transform approach gained a lot of momentum. Feel free to ask me in class about the history behind the Laplace transform. 
+\note{Give a reference.}
+
+In our table of Laplace transforms (Table \ref{laplacetable}) it states that
+$$\mathscr{L}\{\cos(\omega t)\} = \dfrac{s}{s^2+\omega^2}
+\quad \text{ and }\quad 
+\mathscr{L}\{\sin(\omega t)\}=\dfrac{\omega}{s^2+\omega^2}.$$ 
+
+\begin{problem}
+Pick one of the functions $\cos \omega t$ or $\sin \omega t$. Then use the definition of the Laplace transform to compute the Laplace transform and verify the above formula is correct.  Only do one, as the other is similar.
+  
+[Hint:  You'll want to use integration by parts twice. \marginpar{See the \href{https://content.byui.edu/items/664390b8-e9cc-43a4-9f3c-70362f8b9735/1/}{online text} for a complete solution. It's in chapter 4 there.}]
+\end{problem}
+
+
+\subsection*{\ideaA}\addcontentsline{toc}{subsection}{\ideaA}
+Systems of differential equations can model some pretty cool things.  The next model uses our proportionality assumptions to create a model for describing the rise and fall of populations in a predator/prey relationship.  If there are too many predators, or too much prey, can we model what will happen?
+\begin{problem}[Predator-Prey]\label{predator prey model}
+ In this problem, we'll build a mathematical model that describes the interaction between a predator and a prey, namely coyotes and deer. 
+\marginpar{We could similarly model whales versus plankton, or any other predator/prey relationship.}% 
+Let $x(t)$ and $y(t)$ represent the numbers of coyote and deer $t$ years from now in a certain forest. To create a model, we have to make some assumptions.  
+Suppose that in the absence of the deer, the coyote population cannot find enough other sources of food and will die off at a rate that is proportional to its current size (so $x'=-k_1 x$).  In the absence of the coyote population, the deer population will grow at a rate that is proportional to its current size (so $y' = ?$). If there are a lot of deer, then the coyotes have plenty of food and their numbers will increase. Let's assume that this increase is proportional to the possible number of interactions ($xy$) between the coyote and deer population.  Similarly, the deer population decreases at a rate that is proportional to this possible number of interactions.  
+\begin{enumerate}
+ \item Using sentences (actually write them out) explain why we have the differential equations $x' = -k_1 x+k_2xy$ and $y'=k_3 y-k_4 xy$.  Explain why the negative signs appear in this model.
+ \item Let's visualize what this model looks like. To do so, we need to choose some values for the constants (which we could discover through measurements if we worked for wildlife management). Let's use the numbers $k_1=.3$, $k_2=.002$, $k_3=.4$ and $k_4 = .005$. Plot the field $(x',y') = (-k_1 x+k_2xy,k_3 y-k_4 xy)$, using the bounds $0\leq x\leq 150$ and $0\leq y\leq 300$.
+ \item If the current population numbers are 120 coyotes and 200 deer, what should happen to both populations in the next year? What if there are only 60 coyotes and 200 deer?
+\end{enumerate}
+
+\end{problem}
+
+\subsection*{\ideaD}
+\addcontentsline{toc}{subsection}{\ideaD}
+Let's practice another change of coordinates (substitution) problem.  Remember that you need to get an equation that connects the differentials $du$ and $dy$ whenever you use a change of coordinates. 
+\begin{problem}
+Let's solve the ODE $y'=(x-y)^2$ by using the change of coordinates $x=x$ and $u=x-y$. 
+Remember to compute the differential $du$, and then separate variables to show that 
+$$\frac{1}{u^2-1}du=-dx.$$
+\marginpar{You can check your work with \href{\urlpartialfraction}{this partial fraction calculator}.}%
+Use a partial fraction decomposition to write $\ds\frac{1}{u^2-1}$ as the sum of two simpler fractions (factor the denominator). 
+After finishing the partial fraction decomposition, integrate and give an implicit general solution to the ODE. 
+\end{problem}
+
+
+
+
+
+\subsection*{\ideaC}
+\addcontentsline{toc}{subsection}{\ideaC}
+\begin{problem}
+Use Laplace transforms to solve the ODE $y'+3y=\cos(2t)$ where $y(0)=1$.  Consider the following hints:
+\begin{itemize}
+ \item 
+\marginpar{You can check your work with \href{\urlpartialfraction}{this partial fraction calculator}.}%
+You'll need to use the partial fraction decomposition 
+$$\frac{s}{(s+3)(s^2+4)} = \frac{A}{s+3}+\frac{Bs+C}{s^2+4}$$ as part of your work.  Remember that for a partial fraction decomposition, when the denominator is linear, you need a constant above, i.e. $A/(s+3)$. When the denominator is quadratic, you need a linear expression above it, i.e.
+$(Bs+C)/(s^2+1)$. 
+\item 
+When you compute the inverse Laplace transform of $(Bs+C)/(s^2+4)$, remember that you can break this up as two fractions. 
+\item If you end up with 13's in your denominators, you're on the right track. 
+\end{itemize}
+\end{problem}
+
+The next problem applies Newton's law of cooling to examine what happens if the temperature of the surrounding environment changes. Recall that Newton's law of cooling suggests that the rate of change of temperature of an object is proportional to the difference between the current temperature and the surrounding atmosphere.  If we let $y(t)$ be the temperature of the house at any time $t$, then we can write Newton's law of cooling as $$y'=k(A-y), y(0)=y_0.$$
+
+%It's currently really hard because of the variable $k$.  They don't have the right tools yet to solve this.  However, they will have those tools soon.  Maybe tell them $k$.   Then solve with Laplace transforms. 
+\begin{problem}
+ Suppose that during a summer day, the temperature outdoors fluctuates between 70$^\circ$F and 110$^\circ$F.  We can approximate this with a sine wave. If we let $t=0$ be noon, then we could obtain the temperature $A$ outdoors after $t$ hours using the formula 
+$A(t) = 20\sin(\frac{2\pi}{24} t)+90.$ 
+Suppose that the air conditioner breaks at noon (the house is at 70$^\circ$F at noon), and then by 6 pm in the evening, the temperature rises to 90$^\circ$F.
+\begin{enumerate}
+\item Use Newton's law of cooling to set up an IVP that would give the temperature of the house (see the paragraph before this problem).
+\item \marginpar{In class, we'll solve this with technology for any $k$, as well as graph and interpret the solution.}%
+Solving this ODE is quite involved, so let's simplify the computations. If we let $t=2\pi$ correspond to 1 full day, then the temperature of the surrounding atmosphere is $A(t) =20\sin(t)+90.$ If we let $k=1$ and measure temperature by 10 degree increments, we could write our IVP as 
+$$y'(t) = 2\sin(t)+9-y, \quad y(0)=7.$$
+Solve this IVP with Laplace transforms. 
+
+\marginpar{You can check your work with \href{\urlpartialfraction}{this partial fraction calculator}.}%
+[Hint: There are two partial fraction decompositions that we need to perform. One of them is $\dfrac{?}{s(s+1)} = \frac{A}{s}+\frac{B}{s+1}.$ The other is $\frac{?}{(s+1)(s^2+1)} = \frac{C}{s+1}+\frac{Ds+E}{s^2+1}$. Don't forget that the numerator is linear when the denominator is quadratic.]    
+\end{enumerate}
+\end{problem}
+
+
+\subsection*{\ideaE}\addcontentsline{toc}{subsection}{\ideaE}
+Let's now apply our knowledge about tank mixing problems to set up an IVP where there are two tanks.  This gets interesting when we realize we can replace the tanks with countries and the salt with goods that we import/export (or deer immigrating between sections of a forest, or studying traffic flow between nearby cities, etc.)
+
+\begin{problem}[Mixing Model System]\label{first mixing tank system problem}
+ Imagine that we have two tanks. The first tank contains 6 lbs of salt in 10 gallons of water. The second tank contains no salt in 20 gallons of water.  Each tank has an inlet valve, and an outlet value.  We attach hoses to the tanks, and have a pump transfer 2 gallon/minute of solution from tank 1 to tank 2, and vice versa from tank 2 to tank 1. So as time elapses, there are always 10 gallons in tank 1 and 20 gallons in tank 2. Our goal is to find the amount of salt in each tank at any time $t$. 
+\begin{enumerate}
+ \item We know there are initially 6 lbs of salt in tank 1, and no salt in tank 2. If we allow the pumps to transfer salt for enough time, explain why the salt content in tank 1 will drop to 2 lb, and the salt content in tank 2 should increase to 4 lbs.
+ \item Let $y_1(t)$ and $y_2(t)$ be the lbs of salt in tanks 1 and 2.  Explain why 
+$$y_1 ' = -\frac{2}{10}y_1+\frac{2}{20}y_2.$$ Obtain a similar equation for $y_2'$. 
+\item Write your ODEs in the matrix form 
+$$
+\begin{pmatrix}
+ y_1'\\y_2'
+\end{pmatrix}
+=
+\begin{bmatrix}
+ -2/10 & 2/20\\
+ ? & ?
+\end{bmatrix}
+\begin{pmatrix}
+ y_1\\y_2
+\end{pmatrix}
+$$
+\item 
+\marginpar{Remember you can use the \href{\urlvectorfieldplotter}{vector field plotter} to graph any vector field.}%
+Draw the vector field represented by your matrix (use bounds that include both $(6,0)$ and $(2,4)$). 
+Then sketch the solution ($y_1(t),y_2(t)$) to your IVP by starting at the point $(6,0)$ and following the field until the vectors no longer tell you to move. Does your answer agree with your reasoning in the first part of this problem?  
+%\item \marginpar{Don't forget that you can check your work with technology.  \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=systems_of_odes_grapher}{Please following this link} }%
+%Compute the eigenvalues and eigenvectors of the matrix $A$, and draw two lines through the origin to represent the eigenvector directions.
+\end{enumerate}
+
+\end{problem}
+
+
+
+%wait.  Do later..
+\begin{problem}
+%http://www.fabulousrocketeers.com/Photo_See_Ya.htm
+%Velocity/acceleration system of first order ODEs.  Do one without drag, and one with linear drag, and maybe even one with quadratic drag.
+On October 14, 2012, Felix Baumgartner jumped from a helium balloon at about 39,000 m above sea level (the highest ever parachute jump made by man). \marginpar{Felix had to wear a pressurized space suit because the altitude was so high.}
+Let $y(t)$ represent Felix's height $t$ seconds after jumping.  Let $v(t)$ represent his velocity.  
+We know that $y'(t) = v(t)$ and that $v'(t)=a(t)$. 
+The acceleration involves 2 parts.  We know that the total force acting on an object, by Newton's second law of motion, is $F_T=ma$.
+We'll assume that the force from gravity $F_G=mg$ is constant (probably not the best assumption with such a large fall), and that the force due to air resistance $F_R$ is proportional to Felix's velocity (so doubling his speed would provide twice as much resistance).  Our goal is to find Felix's top speed, his terminal velocity. 
+%, then find the top speed reached by the object.  Write this system in matrix form ...
+\begin{enumerate}
+ \item The total force $F_T=ma$ is the sum of the force from gravity $F_G = -mg$ and the force due to air resistance $F_R$, which we assumed was proportional to the velocity.  Use this information to obtain the ODE $v'=-g-\frac{k}{m}v$.  
+ \item 
+Solve the IVP $v'=-g-\frac{k}{m}v$ where $v(0)=0$. 
+\marginpar{My favorite approach on this one is an integrating factor.}%
+Solve for $v$ and then state his maximum speed (what happens as $t\to \infty$). Your answer will be in terms of $k$, $g$, and $m$. 
+ \item Integrate your solution for $v(t)$ to give Felix's height $y(t)$. Assume that $y(0)=h$. 
+\end{enumerate}
+\end{problem}
+
+
+
+
+\subsection*{\ideaA}\addcontentsline{toc}{subsection}{\ideaA}
+One of the main goals of this chapter is to help you see the huge range of applications where we can apply differential equations. The next application, Torricelli's law, allows us to understand how rapidly water will flow out of can that has a punctured hole in the bottom. This law connects the ideas that flow in and flow out must be the same, as well as providing another great application of proportionalities.
+
+\begin{problem}[Torricelli's Law]
+Suppose that we puncture a hole in the bottom of a cylindrical tank whose radius is $r$ m. As the height of the water will slowly drop, let $h(t)$ represent the water level in the tank after $t$ seconds. Assume that the hole we created has an area of $a$ square meters. 
+\begin{enumerate}
+ \item The tank of water has a certain potential energy (measured from the bottom of the tank). As water leave the tank, this potential energy drops.  For energy to be conserved, the kinetic energy of the water leaving must match the drop in potential energy of the water in the tank. The kinetic energy of a small mass $m$ is $K = \frac{1}{2}mv^2$.  The potential energy of a small mass located $h$ units up is $P=mgh$. Use this information to explain why $v=\sqrt{2gh}$. 
+ \item Let $V(t)$ be the volume of water in the tank at time $t$. If the water leaves at speed $v(t)$ through a hole whose area is $a$, explain why $\frac{dV}{dt} = -av$.
+ \item  Because the can is cylindrical, we know that $V(t) = \pi r^2 h(t)$. Use the three equations $v=\sqrt{2gh}$, $\frac{dV}{dt} = -av$, and $V(t) = \pi r^2 h(t)$ to explain why $h'$ is proportional to $\sqrt{h}$. What is the proportionality constant?
+ \item Solve the IVP $h' = \ds-\frac{a\sqrt{2g}}{\pi r^2}\sqrt{h}$ where $h(0)=h_0$.\marginpar{You can use your solution to determine how long it takes for tank to completely empty.} 
+\end{enumerate}
+You can read more about Torricelli's law in this 
+\href{http://books.google.com/books?id=s1-mZMg5fLgC&pg=PA176&lpg=PA176&dq=torricelli's+law+differential+equation+examples&source=bl&ots=03odLvcYgt&sig=3_fAXBnd0zeqd2ynFVBgw2JOI9Y&hl=en&sa=X&ei=zg6FUeWROc7migKjgoGQDQ&sqi=2&ved=0CEUQ6AEwAw#v=onepage&q=torricelli's\%20law\%20differential\%20equation\%20examples&f=false}{excellent online reference}.
 \end{problem}
 
 \begin{problem}
- Solve the ODE $y'+3y = \sin(2t)$ by using a Laplace transform. See the previous problem for help about what to do when no initial condition is given. 
+%Logistic growth with hunting as well. Might be really hard.  Not sure on this one.  I like the problem of deer.  Have them set up an ODE, and then use a vector plotter to visualize what happens.  They have to use software.  If they don't they can't access this problem.  They NEED to get used to using software.
+Let's analyze a deer population in a forested region. Data collection has shown that the forest can support about $M=2000$ deer, and that the number of deer $y(t)$ after $t$ years follows the logistics model $y' = k(M-y)y$ where $k = 1/5000$. Fish and game has decided to open the region up for hunting. They administer deer tags so that they can control how many deer die each year through hunting. Let's assume that the current number of deer is $y(0)=P$, and that fish and game issues tags to allow for about $h$ deer to die each year from hunting. 
+\begin{enumerate}
+ \item Explain why an appropriate model for the deer population with hunting allowed is $y' = k(M-y)y-h$. What are the units of $y$, $y'$, $h$, and $k$?
+ \item This ODE is rather complicated to solve. However, we can visualize the solution by looking at an appropriate vector field plot.  Explain why the vector field $\vec F(t,y) = (1, y')$ gives the tangent vectors to the solution. 
+ \item Remember that $k=1/5000$ and $M=2000$.  Let $h=100$, and then use \href{\urlvectorfieldplotter}{the Sage vector field plotter} to construct a plot of the vector field $F(t,y) = (1,k(2000-y)y-100)$. Discuss what you see and how it applies to the deer population (write a few sentences). In particular, what happens to the population of deer in the long run if the current population is $P=1900$, versus $P=1000$, versus $P=400$. 
+ \item Is there some level $h$ at which hunting can cause the deer population to go extinct? Consider drawing the vector field with $h=150$, and then with $h=250$. What recommendation would you give to fish and game if you wanted to keep the deer population alive? 
+\end{enumerate}
+%Interesting issue. Mathematica gives completely wrong graphs for this one.  It can't do the computations correctly.  Wow!
 \end{problem}
 
 
-\section{What Method Should I Use?}
-In this chapter, we've explored various different techniques to solve first order ODEs. Here's a list.
+
+\subsection*{\ideaD}\addcontentsline{toc}{subsection}{\ideaD}
+Let's return to practicing a few problems where we have to make a substitution.  Remember that if we let $y=xu$, then we need the differential $dy=udx+xdu$ to get rid of $dy$ in our ODE. If we make the substitution $u=y^{-3}$, then we need the differential $du=-3y^{-4}dy$ to get rid of $dy$ in our ODE.  The first step after making any substitution is to find appropriate differentials. 
+
+
+Remember that we say an ODE is a Bernoulli ODE if it can be written in the form $y'=a(x) y +b(x) y^n$.  To solve this ODE, we use the substitution $u=y^{1-n}$. Bernoulli showed that with this substitution, you will always succeed in converting the ODE into an ODE that has an integrating factor. 
+\begin{problem}
+Solve the ODE $y'=3y+7y^{12}$ by using a Bernoulli substitution (see the previous paragraph). Make sure you give an explicit solution (solve for $y$). Then generalize your work to give an explicit solution to $y'=ay+by^n$ where $a$, $b$, and $n$ are constants. 
+
+[Hint: The first step after letting  $u=y^{1-n}$ is to compute the differential $du$. Then get everything in terms of $x$ and $u$. Find an integrating factor.]
+\end{problem}
+
+
+\begin{problem}
+Consider the ODE $(A+By)dx+(Cx+Dy)dy=0$ where $A$, $B$, $C$, and $D$ are constants. 
+\begin{enumerate}
+ \item Why is this ODE not currently separable? Also, show that neither of our integrating factor formulas $F(x)$ or $F(y)$ are usable. 
+ \item Use the substitution $u=y/x$, so $y=xu$, to rewrite the ODE as 
+$$\frac{C+Du}{A+(B+C)u+Du^2}du=-\frac{1}{x}dx.$$
+ \item If $A=4$, $B=3$, $C=2$, and $D=1$, then use a partial fraction decomposition to simplify the left side above, and finally solve the ODE.  You may give an implicit solution.
+\end{enumerate}
+\end{problem}
+
+\subsection*{\ideaC}\addcontentsline{toc}{subsection}{\ideaC}
+Let's practice one more problem with Laplace transforms before we end this chapter.  Remember that when you perform a partial fraction decomposition, you need a constant above a linear denominator, and a linear expression above a quadratic denominator. 
+\begin{problem}
+Use Laplace transform to solve the IVP $y'+2y=5\cos(3t)$ where $y(0)=1$.
+
+If you wanted to use an integrating factor $F(x)$ on this problem, what integral would you have to perform? What does this have to do with Laplace transforms?
+\end{problem}
+
+%note Do later.
+\subsection*{\ideaE}\addcontentsline{toc}{subsection}{\ideaE}
+Let's now look at another position/velocity/acceleration model, but this time related to springs. 
+\begin{problem}
+Suppose we attach an object with mass $m$ to a spring.  We place the spring horizontally, and put the mass on a frictionless track. 
+We let go of the object, it starts to oscillate. We'll use the function $x(t)$ to keep track of the position of the spring at any time $t$, with $x=0$ corresponding to equilibrium (the mass is at rest). Robert Hooke (1635 -- 1703) showed that the force $F$ needed to displace an object attached to a spring is proportional to the displacement $x$. 
+\begin{enumerate}
+ \item Suppose the object has been displaced $x$ units. Explain why the force of the spring on the object is $F_S = -kx$. Since newton's second law of motion says that the total force acting on an object is $F_T=ma$,  explain why $v'=-\frac{k}{m}x$.  
+ \item We now have the system of ODEs $x'=v$ and $v'=-\frac{k}{m}x$.  Rewrite this system in the matrix form 
+$$\pvec{x'\\v'} = \begin{bmatrix}\rule{.3in}{.5pt}&\rule{.3in}{.5pt}\\\rule{.3in}{.5pt}&\rule{.3in}{.5pt}\end{bmatrix}\pvec{x\\v}.$$
+ If we let $k=3$ and $m=2$, draw the vector field associated with the matrix. 
+\marginpar{Use the \href{\urlvectorfieldplotter}{vector field plotter} to plot $\vec F(x,v) = (v,-\frac{3}{2}x)$.}
+What relationship do you see between $x$ and $v$?
+ \item Let $k=3$ and $m=2$.  Also, let $x(0)=5$ and $v(0)=7$.  Then compute the Laplace transform of both $x'=v$ and $v'=-\frac{k}{m}x$ (use $X$ and $V$ for the Laplace transforms of $x$ and $v$). Solve for $X$ in terms of $s$ and then invert Laplace transform both sides. You can now predict the exact position $x(t)$ of the spring at any time $t$. 
+
+[Hint: You should not need any partial fraction decompositions, though you'll have to take a square root of 3/2.]
+\end{enumerate}
+
+\end{problem}
+
+%note Do later
+\begin{problem}
+Consider the system of first order differential equations given by $x'=4y$ and $y'=x$.
+\begin{enumerate}
+ \item Write the system as a matrix product (state $A$) 
+$$\begin{bmatrix}x'\\y'\end{bmatrix}
+=A\begin{bmatrix}x\\y\end{bmatrix}
+=\begin{bmatrix}\rule{.3in}{.5pt}&\rule{.3in}{.5pt}\\\rule{.3in}{.5pt}&\rule{.3in}{.5pt}\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}.$$
+ \item Create a vector field plot of $\vec F(x,y) = A\begin{bmatrix}x\\y\end{bmatrix}$ (use software). Use your plot to guess a relationship between $x$ and $y$. Draw several curves representing this relationship.
+ \item Compute the Laplace transform of both $x'=4y$ and $y'=x$, where we'll use $x(0)=x_0$ and $y(0)=y_0$. Solve for $X$ and $Y$ to show that $\ds X(s) = \frac{x_0s+y_0}{s^2-4}$. What is $Y(s)$?
+ \item Use inverse Laplace transforms to state the solution $x(t)$ and $y(t)$ to this system. You can do this without needing a partial fraction decomposition if you use hyperbolic trig functions.
+\end{enumerate}
+
+%Use Laplace transforms on the system.  Solve the system for Y1 and Y2. This gets them very ready for the next chapter
+%Set up a system of ODEs problem.  Maybe with hyperbolas.  I could use $x'=y$ and $y'=x$.  Laplace will solve it, as will a graphical view. 
+\end{problem}
+
+
+
+
+
+\section*{Wrap up}
+\addcontentsline{toc}{section}{Wrap Up}
+
+In this chapter, we've explored various different techniques to solve first order ODEs and systems. Here's a list.
 \begin{itemize}
  \item Separation of variables: The easiest, if you can separate.
- \item Exact: The ODE has a potential. Use the sledgehammer.
+ \item Exact: The ODE has a potential. 
  \item Integrating Factors: Make the ODE exact.
  \item Substitution: Change variables so you can make the ODE exact.
  \item Laplace Transforms: Dodge integration. Replace it with algebra.
 \end{itemize}
-The Laplace transform works nicely on linear ODEs with constant coefficients. If we're missing an initial condition, the algebra gets a little uglier, but still doable. We'll be using the Laplace transform to discover solutions to higher order ODEs as the semester progresses. However, we could have solved every one of the problems we tackled with Laplace transforms by instead using our sledge hammer tool (make the ODE exact, through substitutions and/or integrating factors, and then find a potential). 
-\marginpar{I'm working on writing a paper to extend the sledgehammer approach to solve just about every ODE undergraduates tackle, and provide a uniform approach to working with ODEs.   I'm just waiting for an interested student to come and complete the project with me.}
-The sledgehammer tool will solve a much larger range of ODEs than the Laplace transform, and near the end of the semester we'll see it's true power in terms of matrices, eigenvalues, and eigenvectors. 
-
-So which method should you use? That depends on how much work you want to do.  The sledgehammer tool will solve EVERY problem we see. If an ODE is separable, it's generally much faster to just use separation of variables (which is really just using an integrating factor).  If the ODE is linear, with constant coefficients, and you have an initial condition, then a Laplace transform might be faster.  If all else fails, make the ODE exact and find a potential.
 
 \begin{problem}
  Which method would you use to solve each ODE below? If you opt for separation of variables, then show us how to separate.  If the ODE is exact, show us how you know.  If you decide to find an integrating factor, show us the integrating factor.  If you will use a substitution, what substitution will you use? If you decide to use Laplace transforms, take the Laplace transform of both sides.  In all cases, don't solve the ODE, rather just show us the first step in the solution process.
 \begin{enumerate}
  \item $x^2y'=4xy^2$, $y(2)=1$.
  \item $xy'=3y+x$, $y(2)=1$.
+ \item $3xy'=3y+x$, $y(2)=1$.
  \item $y'+8y=e^x$, $y(0)=1$.
- \item $y'+8y=y^2$, $y(0)=1$.
-\end{enumerate}
- 
-\end{problem}
-
-Let's end the chapter by considering another application. In Problem \ref{exponential growth application}, we considered the growth of bacteria in a petri dish.  We could have applied this to any other population (such as deer in a forest, people on the Earth, cancer cells spreading through the bloodstream, number of cell phones users in Brazil, speed of computer processors, etc.)  There is a problem with this model.  It works great for a little while, but physical systems cannot grow exponentially forever. Eventually the growth has to slow down.  In the example with the petri dish, eventually the bacteria will have gotten so large that it cannot support more growth. This is where our final problem begins.
-
-\begin{problem}
- Suppose that bacteria grow in a petri dish (if you don't like bacteria, then pick something else to put in here that interests you).  From Problem \ref{exponential growth application}, we used the model $y'=ky$ to express that the rate of growth $y'$ is directly proportional to the size $y$ of the population. We assumed that $k$ was constant.  Here's where we now make a change.  Instead of assuming that $k$ is constant, let's assume that as the population gets larger, that the constant $k$ decreases. In fact, if we let $M$ represent a theoretical maximum population, let's assume that $k$ is proportional to the difference between the current population and this theoretical maximum. 
-\begin{enumerate}
- \item (Express) Explain why $y'=-a(y-M)y$. 
- \item (Solve) Solve the ODE using separation of variables.  You'll need to perform a partial fraction decomposition on $\frac{1}{y(y-M)}$.
- \item (Interpret) Pick some constants for $a$, $M$, and the initial size of the population. Then graph your solution. You should obtain a logistics curve (please use a computer to check your work).
-\end{enumerate}
-
-\end{problem}
-
-\begin{problem}
- The ODE $y'=-a(y-M)y$ is a Bernoulli ODE.  Rewrite it in the form $y'+a(x)y=b(x)y^n$, and then use Bernoulli's substitution $u=y^{1-n}$ to solve the ODE.  
+ \item $y'+8y=y^4$, $y(0)=1$.
+\end{enumerate} 
 \end{problem}
  
 \begin{question}
@@ -496,16 +848,17 @@ Let's end the chapter by considering another application. In Problem \ref{expone
 \end{question}
 
 
+This concludes the chapter.  Look at the objectives at the beginning of the chapter. Can you now do all the things you were promised? 
 
 
+\begin{problem}[Lesson Plan Creation] \marginpar{This counts as 4 prep problems. My hope is that you spend at least an hour creating your one-page lesson plan.}
+Your assignment: organize what you've learned into a small collection of examples that illustrates the key concepts. I'll call this your one-page lesson plan. You may use both sides. The objectives at the beginning of the chapter give you a list of the key concepts. Once you finish your lesson plan, scan it into a PDF document (use any scanner on campus), and then upload the document to I-Learn.
 
-
-
-
-
-
-
-
-
-
+As you create this lesson plan, consider the following:
+\begin{itemize}
+ \item On the class period after making this plan, you'll have 30 minutes in class where you will get to teach a peer your examples. If you keep the examples simple, you'll be able to fully review the entire chapter.
+ \item When you take the final exam, I give you access to your lesson plans. Put on your lesson plan enough reminders to yourself that you'll be able to use this lesson plan as a reference in the future.  You'll want simple examples, together with notes to yourself about important parts.
+ \item Think ahead 2-5 years. If you make these lesson plans correctly, you'll be able to look back at your lesson plans for this semester. In about 10 pages, you can have the entire course summarized and easy for you to recall.
+\end{itemize}
+\end{problem}
 
