@@ -158,7 +158,7 @@ $(\pm 1, 0)$,
 $(0, \pm 1)$, 
 $(\pm 1, \pm 1)$, 
 $(\pm 1, \mp 1)$.  
-Remember, draw the vector $\vec F(x,y)$ with it's base at $(x,y)$, so at the point $(1,0)$, you should draw the vector $\vec F(1,0) = (1,2)$.  \marginpar{\href{\urlvectorfieldplotter}{Follow this link to a vector field plotter.}}%
+Remember, draw the vector $\vec F(x,y)$ with its base at $(x,y)$, so at the point $(1,0)$, you should draw the vector $\vec F(1,0) = (1,2)$.  \marginpar{\href{\urlvectorfieldplotter}{Follow this link to a vector field plotter.}}%
 Then use software to construct a plot of this field and print your plot to share with the class.  
  \item Are there any directions in which the vector field pushes things either straight out or straight in?  Which directions? Explain how you know this.
  \item
@@ -192,7 +192,7 @@ The dot product of
 $\vec a = (a_1,a_2,\ldots, a_n)$ and 
 $\vec b = (b_1,b_2,\ldots, b_n)$ is
 $$\vec a = (a_1,a_2,\ldots, a_n)\cdot\vec b = (b_1,b_2,\ldots, b_n)
-=a_1b_2+a_2b_2+\cdots+a_nb_n.
+=a_1b_1+a_2b_2+\cdots+a_nb_n.
 $$
 } 
 \end{review*}
@@ -207,12 +207,14 @@ This next problem connects differentials to vector fields and the gradient.
 \begin{problem}
  Consider the function $z=f(x,y) = x^2-y$. 
 \begin{enumerate}
- \item Compute the differential $dz$.  Then write the differential as the dot product $dz = (M,N)\cdot (dx,dy)$. Your job is to tell the class what the functions $M$ and $N$ are. The differential $dz$ is a linear combination of functions $M$ and $N$ using the scalar $dx$ and $dy$. 
+ \item Compute the differential $dz$.  Then write the differential as the dot product $dz = (M,N)\cdot (dx,dy)$. Your job is to tell the class what the functions $M$ and $N$ are. 
+%The differential $dz$ is a linear combination of functions $M$ and $N$ using the scalar $dx$ and $dy$. 
  \item\marginpar{\href{\urlvectorfieldplotter}{Vector Field Plotter}}% 
 The function $\vec F(x,y) = (M,N)$ is a vector field. You've called it the gradient $\nabla f$ and/or the derivative $Df$ of $f$. Draw this vector field by plotting several points by hand, and then use software to obtain a nice plot of the field.
  \item \marginpar{\href{\urllevelcurveplotter}{Level curve plotter.}}%
 Draw several level curves of the function by drawing $f(x,y)=-1$, $f(x,y)=0$, and $f(x,y)=4$.
- \item Now put your level curve plot and vector field plot on the same set of axes. What relationships exist between the level curves and the vector field? 
+ \item \marginpar{You can check all your work with the \href{\urllevelcurveplotter}{level curve plotter.}}%
+Now put your level curve plot and vector field plot on the same set of axes. What relationships exist between the level curves and the vector field? 
 \end{enumerate}
 \end{problem}
 
@@ -226,12 +228,12 @@ As you work on the two problems below, you'll need to review integration by subs
 
 \begin{problem}
  \marginpar{ \href{\urlpotentialcalculator}{Follow this link to a potential calculator in Sage to help you check your integration}.}%
-For each differential below, find a function $f(x,y)$ whose differential is given. You know you are correct if, after computing the differential, you get the the same result. This function $f(x,y)$ is often called a potential for the differential. 
+For each differential below, find a function $f(x,y)$ whose differential is given. You know you are correct if, after computing the differential, you get the the same result. We call this function $f(x,y)$ a potential. 
 \begin{enumerate}
  \item $e^{2x}dx + y\cos (y^2)dy$
  \item $(2x+3y)dx+(3x+\sin(2y))dy$
  \item $\ds\left(\frac{x}{1+x^2}+\arctan(y)\right)dx + \left(\frac{x}{1+y^2}+\frac{y}{\sqrt{1+y^2}}\right)dy$
-\item If you wanted all functions who differentials are given above, what should you add to each solution above?
+%\item If you wanted all functions who differentials are given above, what should you add to each solution above?
 \end{enumerate}
  Hint: This is really a question that asks you to review integration by substitution. 
 \end{problem}
@@ -277,7 +279,7 @@ $$
 
 %They struggled some with n\to infty versus x\to infinity.  Maybe have them do n=1000 first.  Then n=10000, then extrapolate (inductive reasoning instead of deductive reasoning?  Or maybe this one is better as is.)
 \begin{problem}
- Which function grows larger, the polynomial function $x^n$ or the exponential function $e^{ax}$? Is there a value of $n$ for which the function $x^n$ grows faster, in the long run, than the exponential function. To answer this, please complete the following questions.  In all your work below, you may assume that $a$ is a positive constant.
+ Which function grows more rapidly, the polynomial function $x^n$ or the exponential function $e^{ax}$? Is there a value of $n$ for which the function $x^n$ grows faster, in the long run, than the exponential function. To answer this, please complete the following questions.  In all your work below, you may assume that $a$ is a positive constant.
 \begin{itemize}
  \item Use L'Hopital's rule to compute $\ds\lim_{x\to\infty}\frac{x}{e^{ax}}$, $\ds\lim_{x\to\infty}\frac{x^2}{e^{ax}}$, and $\ds\lim_{x\to\infty}\frac{x^3}{e^{ax}}$.
  \item What is the tenth derivative of $x^{10}$ and $e^{ax}$? Use this, together with L'Hopital's rule, to compute $\ds\lim_{x\to\infty}\frac{x^{10}}{e^{ax}}$.
@@ -292,10 +294,14 @@ $$
 \begin{problem}
  On this problem, your job is to compute $\int_1^\infty \frac{1}{x^n}dx$. Please do the following:
 \begin{enumerate}
- \item Suppose for now that $n\neq 1$.  Compute the anti derivative $\ds\int\frac{1}{x^n}dx$.  Why did we assume $n\neq 1$?
- \item If we let $b$ be a big number, then compute the definite integral $\ds\int_1^b \frac{1}{x^n}dx$.  
- \item Consider the limit $\ds\lim_{b\to\infty}\int_1^b \frac{1}{x^n}dx$. If $n=2$, does this limit exist?  If $n=1/2$ does this limit exist?  For which values of $n$ does this limit exist (you should have an inequality for $n$), and what is the limit? 
- \item If $n=1$, does $\ds\lim_{b\to\infty}\int_1^b \frac{1}{x^n}dx$ exist? Explain.
+ %\item Suppose for now that $n\neq 1$.  Compute the anti derivative $\ds\int\frac{1}{x^n}dx$.  Why did we assume $n\neq 1$?
+ %\item If we let $b$ be a big number, then compute the definite integral $\ds\int_1^b \frac{1}{x^n}dx$.  
+ %\item Consider the limit $\ds\lim_{b\to\infty}\int_1^b \frac{1}{x^n}dx$. If $n=2$, does this limit exist?  If $n=1/2$ does this limit exist?  For which values of $n$ does this limit exist (you should have an inequality for $n$), and what is the limit? 
+ %\item If $n=1$, does $\ds\lim_{b\to\infty}\int_1^b \frac{1}{x^n}dx$ exist? Explain.
+\item Compute the integrals $\ds \int_1^{10} \frac{1}{x^2}dx$ and $\ds \int_1^{100} \frac{1}{x^2}dx$.  Then compute $\ds \lim_{b\to\infty}\int_1^{b} \frac{1}{x^2}dx$. 
+%\item Compute the integrals $\ds \int_1^{10} \frac{1}{x^{1/2}}dx$ and $\ds \int_1^{100} \frac{1}{x^{1/2}}dx$.  What is $\ds \int_1^{\infty} \frac{1}{x^{1/2}}dx$?
+\item Compute the integrals $\ds \int_1^{10} \frac{1}{x}dx$ and $\ds \int_1^{100} \frac{1}{x}dx$.  Then compute $\ds \int_1^{\infty} \frac{1}{x}dx$, which is just shorthand for $\ds \lim_{b\to\infty}\int_1^{b} \frac{1}{x}dx$.
+\item Compute $\ds \int_0^b e^{2x} dx$ and $\ds \int_0^b e^{-2x} dx$. For each, state the limit as $b\to \infty$. 
 \end{enumerate}
 \end{problem}
 
@@ -309,8 +315,8 @@ We are now prepared to define the Laplace transform, and use the definition to c
 Let $f(t)$ be a function that is defined for all $t\geq 0$.  
 Using the function $f(t)$, we define the Laplace transform of $f$ to be a new function $F$ where for each $s$ we obtain the value $F(s)$ by computing the integral
 \marginpar{Note that the Laplace transform of a function with independent variable $t$ is another function with a different independent variable $s$. After integration, all $t$'s will be removed from $F(s)$.  You can of course use any other letters besides $t$ and $s$.}
-$$F(s) = \mathscr{L}\{f(t)\}=\int_0^\infty e^{-st}f(t)dt.$$
-The domain of $F$ is the set of all $s$ such that the improper integral above has a limit. 
+$$F(s) = \mathscr{L}\{f(t)\}=\int_0^\infty e^{-st}f(t)dt = \lim_{b\to\infty} \int_0^b e^{-st}f(t)dt.$$
+The domain of $F$ is the set of all $s$ such that the improper integral above has a finite limit. 
 The function $f(t)$ is called the inverse Laplace transform of $F(s)$, and we write $f(t)=\mathscr{L}^{-1}(F(s))$.
 \end{definition}
 
@@ -318,8 +324,7 @@ We will use the Laplace transform throughout the semester to help us solve many 
 
 
 \begin{problem}
-Compute the integral $\ds\int_0^\infty e^{-st}dt$ and state for which $s$ the integral converges. 
-Then compute the the Laplace transform of $f(t)=1$? (If the last instruction seems redundant, then horray.) What is the Laplace transform of $f(t) = c$, a constant function? (Note, this is the same as asking, ``What is the Laplace transform of a linear combination of 1?'')
+Compute the definite integral $\ds\int_0^\infty e^{-st}dt$ and state the values $s$ for which the integral results in a finite limit. Now compute the the Laplace transform of $f(t)=1$? (If the previous instruction seems redundant, then horray.) What is the Laplace transform of $f(t) = c$, a constant function? (Note, this is the same as asking, ``What is the Laplace transform of a linear combination of 1?'')
 \end{problem}
 
 
@@ -349,8 +354,9 @@ It's time to review some facts about the connection between level curves, gradie
 \begin{problem}
 Consider the parametric curve given by $x=\cos t, y=2\sin t$.  
 \begin{enumerate}
- \item There are many ways to draw this curve.  Please construct a graph of $x$ versus $t$, a graph of $y$ versus $t$, a graph of $y$ versus $x$, and a 3D graph in $xyt$ space. 
- \item Show that this curve is a level curve of the function $f(x,y) = 4x^2+y^2$. [Hint: plug the equations for $x$ and $y$ into this curve, and see if you get a constant.] What is $f(x,y)$ at points along this curve?
+ \item There are many ways to draw this curve.  Please construct a graph of $x$ versus $t$, a graph of $y$ versus $t$, a graph of $y$ versus $x$, and a 3D graph in $xyt$ space. You should have 4 different graphs. 
+ \item \marginpar{Recall that a level curve of a function $z=f(x,y)$ is a curve such that the output $f(x,y)$ is the same for every point $(x,y)$ on the curve.}%
+Show that this curve is a level curve of the function $f(x,y) = 4x^2+y^2$. [Hint: plug the equations for $x$ and $y$ into this curve, and see if you get a constant.] What is $f(x,y)$ at points along this curve?
  \item Compute the differential $dz$ of $z=4x^2+y^2$. Then compute the differential 
 $\begin{pmatrix}dx\\dy\end{pmatrix}$ 
 of the curve 
@@ -360,6 +366,7 @@ $\begin{pmatrix}x\\y\end{pmatrix} =
 If we require that we stay on the level curve $x = \cos t$, $y=2\sin t$, then why must $dz=0$?  Show, by substitution, that $dz=0$ when we replace $x,y,dx,dy$ with what they equal in $dz = f_xdx+f_ydy$.
 \end{enumerate}
 \end{problem}
+
 
 The trigonometric functions allow us to parameterize circles and ellipses. 
 As the semester progresses, we'll need the functions 
@@ -373,9 +380,13 @@ Consider the curve given by $x=\cosh t$ and $y=\sinh t$.
 \begin{enumerate}
  \item 
 %Not sure I want this....\marginpar{\href{http://bmw.byuimath.com/dokuwiki/doku.php?id=parametric_curve_plotter}{Link to Parametric Curve Plotter}}%
-Compute $x(0) = \cosh(0)$ and $y(0)=\sinh(0)$, and then construct, using technology, a graph of $x$ versus $t$, a graph of $y$ versus $t$, and a graph of $y$ versus $x$. Please use technology.
- \item Show that this curve is a level curve of the function $f(x,y) = x^2-y^2$ by proving that $\cosh^2 t-\sinh^2t=1$. 
- \item Use the definition of $\cosh t$ and $\sinh t$ above to show that 
+Compute $x(0) = \cosh(0)$ and $y(0)=\sinh(0)$.
+%I got rid of this part. , and then construct, using technology, a graph of $x$ versus $t$, a graph of $y$ versus $t$, and a graph of $y$ versus $x$. Please use technology.
+ \item 
+\marginpar{Hint: Start by using the definitions above to rewrite each function in terms of exponentials.  Then square each, expand,  and subtract them.  After a little algebra, you should get the result.}%
+ Show that $\cosh^2 t-\sinh^2t=1$, which shows that the curve lies on the hyperbola $x^2-y^2=1$. 
+ \item Use the definition of $\cosh t$ and $\sinh t$ above to show that show that $\frac{d}{dt}\cosh t = \sinh t$ and $\frac{d}{dt}\sinh t = \cosh t$.
+In terms of differentials, you will have shown that 
 $$
 \begin{pmatrix}
  dx\\dy
@@ -388,7 +399,7 @@ d\begin{pmatrix}
 \begin{pmatrix}
  \sinh t\\ \cosh t
 \end{pmatrix}dt.$$ 
-In other words, show that $\frac{d}{dt}\cosh t = \sinh t$ and $\frac{d}{dt}\sinh t = \cosh t$. [Hint: Rewrite $\cosh t$ and $\sinh t$ in terms of exponentials and then differentiate.]
+[Hint: Rewrite $\cosh t$ and $\sinh t$ in terms of exponentials and then differentiate.]
 \item What's the angle between the gradient $(f_x, f_y) = (2x,-2y)$ and the tangent vectors $(dx,dy)$ to the curve at points along the level curve? (This question has an answer regardless of the curve, and regardless of the function.)
 \end{enumerate}
 
@@ -409,7 +420,7 @@ You've been using the derivative for at least a year to find the slope of a func
 Consider the derivative $y'=2x$.  
 \begin{enumerate}
  \item Give 2 different functions $y(x)$ so that $y'=2x$. There are infinitely many right answers.  Of those infinitely many, which one satisfies $y(0)=-4$?
- \item Explain why we can write 
+ \item Explain why writing
 $\begin{pmatrix}
   dx\\dy  
  \end{pmatrix}
@@ -417,10 +428,10 @@ $\begin{pmatrix}
 \begin{pmatrix}
   1\\2x  
  \end{pmatrix}
-dx$.  This gives us the vector field $\vec F(x,y) = (1,2x)$.  Construct a plot of this vector field, and add to your plot the graph of several of your curves from the first part. 
- \item Since $y'=2x$, we can also write this as $dy = 2x dx$ or as $0=2xdx+(-1)dy = (2x,-1)\cdot (dx,dy)$. This gives us another vector field $\vec G(x,y) = (2x,-1)$.  
-Construct a plot of this vector field, and add to your plot the graph of several of your curves from the first part. 
-Find a potential of this vector field. 
+dx$ is equivalent to writing $y'=2x$.  This gives us the vector field $\vec F(x,y) = (1,2x)$.  Construct a plot of this vector field, and add to your plot the graph of several of your curves from the first part. 
+ \item Since $y'=2x$ or alternately $dy = 2x dx$, we could also write $$0=2xdx+(-1)dy = (2x,-1)\cdot (dx,dy).$$ This gives us another vector field $\vec G(x,y) = (2x,-1)$.  
+ Construct a plot of this vector field, and add to your plot the graph of several of your curves from the first part. 
+ Find a potential of this vector field. 
 % \item Now repeat the three parts above if you change the derivative to be $y'=1$. 
 \end{enumerate}
 
@@ -481,7 +492,8 @@ Finding the potential of a vector field is one of the key methods needed to solv
 \begin{problem}
 Consider the IVP $y'=\dfrac{t^2-1}{y^4+1}$ with $y(0)=1$.  
 \begin{enumerate}
- \item Rewrite the ODE in the differential form $f(y)dy=g(t)dt$.  What are $f(y)$ and $g(t)$?
+ \item \marginpar{Get all the $y$'s on one side, and all the $t$'s on the other.  We'll call this ``separation of variables.''}%
+Rewrite the ODE in the differential form $f(y)dy=g(t)dt$.  What are $f(y)$ and $g(t)$?
  \item Find a potential for both sides, and state an implicit general solution to $y'=\dfrac{t^2-1}{y^4+1}$.
  \item Use the initial condition to solve the IVP. You may leave your answer in implicit form.  
 \end{enumerate}
@@ -512,8 +524,8 @@ Let's now add a few more facts to our list of Laplace transforms.
 \begin{problem}
 Show that the Laplace transform of $t$ is $\ds\mathscr{L}\{t^1\} = \frac{1}{s^2}$.
 Then compute the Laplace transforms of $t^3$, $t^4$, and so on until you see a pattern. 
-Use this pattern to state the Laplace transform of $t^10$ and $t^n$, provided $n$ is a positive integer.
-[Hint: Try the tabular method of integration-by-parts. After evaluating at 0 and $\infty$, all terms but 1 should be zero.]
+Use this pattern to state the Laplace transform of $t^{10}$ and $t^n$, provided $n$ is a positive integer.
+[Hint: Try the tabular method of integration-by-parts. After evaluating at 0 and $\infty$, all terms but one should be zero.]
 \end{problem}
 
 \begin{theorem}[The Laplace transform of a linear combination]\label{linear combination of laplace transforms}
@@ -542,6 +554,7 @@ Use this to prove that $$\mathscr{L}\{\cosh a t\} = \frac{s}{s^2-a^2}\quad \quad
 
 \subsection*{\ideaA}
 \addcontentsline{toc}{subsection}{\ideaA}
+
 
 We saw in the previous section that the Laplace transform of a linear combination of functions can be done if we know the Laplace transform of each function (see Theorem \ref{linear combination of laplace transforms} and problems \ref{laplace transform of linear combination practice} and \ref{laplace transform of cosh and sinh}).  
 We've also seen that the differential of a function is a linear combination of the partials derivatives (see problem \ref{linear combination first differential}).  
@@ -581,7 +594,7 @@ $$
 $$
 \begin{enumerate}
  \item Compute the linear combination of the vectors $\vec v_1$, $\vec v_2$, and $\vec v_3$ using the scalars in $\vec x$. 
- Then let
+\item Consider the matrix 
 $A =
 \begin{bmatrix}
  \vec v_1&
@@ -608,12 +621,26 @@ $$\vec v =
  -2x+3y+4z\\x-y\\2y+3z
 \end{pmatrix}
 $$
-as the linear combination $\vec v = x\vec v_1+y\vec v_2+z\vec v_3$. What are the vectors $\vec v_1$, $\vec v_2$, and $\vec v_3$.  
+as the linear combination $\vec v = x\vec v_1+y\vec v_2+z\vec v_3$. What are $\vec v_1$, $\vec v_2$, and $\vec v_3$.
+\item  
 \marginpar{You know you are correct if after multiplying your expression out you obtain $\vec v$. }%
 Then express $\vec v$ as the product $\vec v = A\begin{bmatrix}x\\y\\z\end{bmatrix}.$  What is the matrix $A$?  
 \end{enumerate}
 \end{problem}
 
+
+
+
+\begin{problem}
+ Consider the function $\pvec{x\\y\\z}=\pvec{3s+2t\\s-4t\\st}$.  
+\begin{enumerate}
+ \item Compute the differentials $dx$, $dy$, and $dz$.  Write your answer as a vector $$\pvec{dx\\dy\\dz}=\pvec{?\\?\\?}.$$
+ \item Write the the previous vector as the linear combination
+$$\pvec{dx\\dy\\dz}=\pvec{?\\?\\?}ds+\pvec{?\\?\\?}dt.$$
+ \item Rewrite the previous part as a matrix $A$ times $\pvec{ds\\dt}$. You should have a matrix $A$ so that $$\pvec{dx\\dy\\dz}=A\pvec{dx\\dy}.$$ In particular, how many rows and how many columns are in $A$?
+\end{enumerate}
+
+\end{problem}
 
 
 
@@ -753,25 +780,26 @@ The curves you just drew are called trajectories and/or flow lines (even though 
 
 
 
-
-\begin{problem}
-Consider the matrix
-$A = 
-\begin{bmatrix}
- -1&2\\3&1
-\end{bmatrix}.
-$
-We'll be analyzing the change of coordinates $\begin{bmatrix}x\\y\end{bmatrix} = A\begin{bmatrix}u\\v\end{bmatrix}$.  
-\begin{enumerate}
- \item Compute the matrix product $A\begin{bmatrix}u\\v\end{bmatrix}$ by considering linear combinations. Show how you used linear combinations of the columns of $A$.  Then give a formula for $x$, and a formula for $y$. 
- \item
-The line $v=0$ is transformed by $A$ to become the line parametrized by $(x,y) = (-1,3)u$. Similarly the line $u=0$ is transformed to be the line $(x,y)=(1,2)v$.  Draw these two lines in the $xy$ plane. On the same axes, also draw the lines given by $v=1,2$ and $u=1,2$.  You should have a grid. 
- \item 
-The unit square with bounds $0\leq u\leq 1$ and $0\leq v\leq 1$ is transformed by $A$ to become a parallelogram.  Shade this parallelogram in your picture, and then find the area of this parallelogram. 
- \item (Optional - We'll discuss this in class.) The circle $u=\cos t, v=\sin t$ is transformed by $A$ to become what object?  The original area inside the circle is $\pi$.  What's the area inside the transformed region?
-\end{enumerate}
-\end{problem}
-
+%%I decided to cut this problem. It doesn't quite fit in here, as it focuses on area through parallelograms.  Ignore it for now. 
+% \begin{problem}
+% Consider the matrix
+% $A = 
+% \begin{bmatrix}
+%  -1&2\\3&1
+% \end{bmatrix}.
+% $
+% We'll be analyzing the change of coordinates $\begin{bmatrix}x\\y\end{bmatrix} = A\begin{bmatrix}u\\v\end{bmatrix}$.  
+% \begin{enumerate}
+%  \item Compute the matrix product $A\begin{bmatrix}u\\v\end{bmatrix}$ by considering linear combinations. Show how you used linear combinations of the columns of $A$.  Then give a formula for $x$, and a formula for $y$. 
+%  \item
+% The line $v=0$ is transformed by $A$ to become the line parametrized by $(x,y) = (-1,3)u$. Similarly the line $u=0$ is transformed to be the line $(x,y)=(1,2)v$.  Draw these two lines in the $xy$ plane. 
+% On the same axes, also draw the lines given by $v=1$ and $v=2$ and by $u=1$ and $u=2$.  You should have a grid. 
+%  \item 
+% The unit square with bounds $0\leq u\leq 1$ and $0\leq v\leq 1$ is transformed by $A$ to become a parallelogram.  Shade this parallelogram in your picture, and then find the area of this parallelogram. 
+%  \item (Optional - We'll discuss this in class.) The circle $u=\cos t, v=\sin t$ is transformed by $A$ to become what object?  The original area inside the circle is $\pi$.  What's the area inside the transformed region?
+% \end{enumerate}
+% \end{problem}
+% 
 
 
 

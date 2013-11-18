@@ -197,7 +197,7 @@ We now solve an ODE using Laplace transforms. Remember that the Laplace transfor
   \item Apply the Laplace transform to both sides of the ODE. You should have an equation involving $Y(s)$. 
   \item Solve this equation for $Y$ to show that $\ds Y = \frac{3}{s-4}$. 
   \item Find the inverse transform of both sides of this equation to obtain the solution $y(t)$ to the IVP.  
-  \item Generalize your work to give a solution to $y'=ky$ where $y(0) = P$?  Compare this with problem \ref{exponential growth application}.
+  \item Generalize your work to give a solution to $y'=ky$ where $y(0) = P$.  Compare this with problem \ref{exponential growth application}.
  \end{enumerate}
 \end{problem}
 
@@ -236,7 +236,7 @@ This uneven heat distribution complicates the model, and we'd need partial diffe
 
  
 \begin{problem}[Newton's Law of Cooling]
- Suppose that you place an object in an oven.  The oven temperature is set to $A$ (you can use Fahrenheit, Celsius, or Kelvin). The letter $A$ is the temperature of the surrounding ``a''tmosphere. The object's initial temperature is $T_0$.  
+ Suppose that you place an object in an oven.  The oven temperature is set to $A$ (you can use Fahrenheit, Celsius, or Kelvin). The letter $A$ is the temperature of the surrounding \emph{a}tmosphere. The object's initial temperature is $T_0$.  
 Let $T(t)$ represent the temperature of the object $t$ minutes after we place the object in the oven. 
 If $T(t)$ is really close to $A$, then the rate at which $T$ increases should be pretty small, as the temperature of the object is almost the same as the temperature of the atmosphere.  
 If $T$ is really far from $A$, then the rate of temperature change should be a lot larger.  It appears that $T'$ depends on the difference $A-T$.  Newton conjectured that the rate at which the temperature changes is proportional to the difference $A-T$.
@@ -264,7 +264,7 @@ Solve the IVP,  obtaining a particular solution.
 
 
 \subsection*{\ideaB}\addcontentsline{toc}{subsection}{\ideaB}
-When we can't find a potential for an ODE, what do we do?  Let's first examine a problem we've already solved and solve it in two different ways. From our example, we'll find an answer to this questions.
+When we can't find a potential for an ODE, what do we do?  Let's first examine a problem we've already solved and solve it in two different ways. From our example, we'll find an answer to this question.
 
 
 \begin{problem}\label{integrating factor introduction}
@@ -295,12 +295,12 @@ $$
 \dfrac{\partial F}{\partial y}M+F\dfrac{\partial M}{\partial y} 
 = 
 \dfrac{\partial F}{\partial x}N+F\dfrac{\partial N}{\partial x} 
-$$
+.$$
 \item 
-\marginpar{Hint: Show that $$\frac{1}{F}dF = \frac{M_y-N_x}{N}dx$$ Then integrate both sides.}% 
+\marginpar{Hint: Show that $$\frac{1}{F}dF = \frac{M_y-N_x}{N}dx.$$ Then integrate (find a potential for) both sides.}% 
 Assume that $F$ only depends on $x$, so that $F(x,y)=F(x)$. Show that an integrating factor is
 $$\ds F(x)=e^{\int \frac{M_y-N_x}{N} dx} = \exp\left(\int \frac{M_y-N_x}{N} dx\right).$$
-\item If we instead assume that $F$ only depends on $y$, show that 
+\item (Optional) If we instead assume that $F$ only depends on $y$, show that 
 $$F(y)=e^{\int \frac{N_x-M_y}{M} dy} = \exp\left(\int \frac{N_x-M_y}{M} dy\right).$$
 \end{enumerate}
  
@@ -329,7 +329,7 @@ Also, the first problem can be separated.  I need to change it so they cannot se
 \marginpar{Remember to check your answer with the \href{\urlfirstorderodesolver}{First Order ODE Solver}.}%
 Solve each ODE by finding an appropriate integrating factor. 
 \begin{enumerate}
- \item  $y'+4xy = 3x$ \marginpar{Note:  You will need to simplifying things like $e^{2\ln x}$.  Remember that $a\ln b = \ln b^a$, which means $e^{a\ln b} = b^a$. This shows up quite a bit in all our work.}
+ \item  $y'+4xy = 3x$ \marginpar{Note:  You will need to simplify an expression like $e^{2\ln x}$.  Remember that $a\ln b = \ln b^a$, which means $e^{a\ln b} = b^a$. This shows up quite a bit in all our work.}
  \item  $2ydx+(8x+4y)dy=0$. Explain why $F(x)$ does not work. Use $F(y)$.
 % \item  $y'+3y=e^{2x}$ (Solve for $y$.)
 % \item  $y'-4y=e^{4x}$ (Solve for $y$.)
@@ -364,7 +364,7 @@ In this situation, if we let $u=y/x$ (so $y=xu$), show that we can rewrite the O
 $$\frac{u}{4+u^2}du = \frac{1}{x}dx.$$  This is a separable ODE, which we can solve.  Solve the ODE. 
 Give an implicit general solution in terms of $y$ and $x$. 
 
-[Hint: Since you have $y=xu$, you'll probably want to write $dy = ?dx+?du$.  This will allow you to get rid of the $dy$.]
+[Hint: Since you have $y=xu$, you'll probably want to write $dy = ?dx+?du$.  This will allow you to replace $dy$ in the original ODE.]
 \end{problem}
 
 \subsection*{\ideaC}\addcontentsline{toc}{subsection}{\ideaC}
@@ -378,7 +378,7 @@ Let's now use Laplace transforms to tackle a problem similar to the one we used 
 After computing the Laplace transform of both sides, show that 
 $$\ds Y = \frac{11s+7}{(s)(s-3)}.$$
  \item 
-\marginpar{This process is called a partial fraction decomposition. This problem first without looking for help from any outside source.  If you are stuck, then try googling ``partial fraction decomposition.''}%
+\marginpar{This process is called a partial fraction decomposition.Try this problem without looking for help from any outside source.  If you are stuck, then try googling ``partial fraction decomposition.''}%
 \marginpar{You can check your work with \href{\urlpartialfraction}{this partial fraction calculator}.}%
 The right hand side above is not in our Table of Laplace transforms. However, if we could rewrite the right hand side as 
 $$\frac{11s+7}{(s)(s-3)} = \frac{A}{s}+\frac{B}{s-3}$$ 
@@ -495,7 +495,7 @@ Remember that if we know the slope $y'$, then the vector field $\vec F(t,y) = (1
 
 \end{problem}
 
-
+%\end{document}
 
 
 \subsection*{\ideaB}
@@ -762,7 +762,7 @@ Solve the ODE $y'=3y+7y^{12}$ by using a Bernoulli substitution (see the previou
 
 
 \begin{problem}
-Consider the ODE $(A+By)dx+(Cx+Dy)dy=0$ where $A$, $B$, $C$, and $D$ are constants. 
+Consider the ODE $(Ax+By)dx+(Cx+Dy)dy=0$ where $A$, $B$, $C$, and $D$ are constants. 
 \begin{enumerate}
  \item Why is this ODE not currently separable? Also, show that neither of our integrating factor formulas $F(x)$ or $F(y)$ are usable. 
  \item Use the substitution $u=y/x$, so $y=xu$, to rewrite the ODE as 

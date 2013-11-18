@@ -9,7 +9,7 @@ After completing this chapter, you should be able to:
 \item Show how to solve various problems relating to conservation laws (such as stoichiometry, Kirchoff's electrical laws, Markov Processes, etc.) by finding the kernel of a matrix.
 \item Use Cramer's rule to solve systems, and explain when you would choose Cramer's rule over row reduction.
 \item Find interpolating polynomials, and use the transpose to solve the least squares regression problem.
-\item Appropriate apply the words span, basis, vector space, dimension, eigenspace, and linear transformation.
+\item Appropriate apply the words span, basis, vector space, dimension, eigenspace\skipnow{, and linear transformation}.
 \end{enumerate}
 
 
@@ -95,7 +95,7 @@ The vector $\vec n$ represents the path she must take through the swamp. Her goa
  \item Sally knows that the treasure is at $\vec b = c\vec v+\vec n$.  Since $\vec v\cdot \vec n = 0$, she decides to dot both sides of this equation, on the left, by the vector $\vec v$ to get $\vec v\cdot \vec b = \vec v\cdot (c\vec v+\vec n)$. Show that in general $$c = \dfrac{\vec v\cdot \vec b}{\vec v\cdot \vec v} 
 %= \dfrac{\vec v^T\vec b}{\vec v^T\vec v}.
 $$ Then show that with Sally's specific road vector $\vec v$ and treasure vector $\vec b$, the constant $c$ is $c=-2/5$. 
- \item We know that $c\vec v$ is as close to $\vec b$ as you can get along the road. Since $\vec b = c\vec v+\vec n$ and we know $c\vec v$, solve for $\vec n$. Then find the distance Sally will have to travel in the swamp (what's the length of $\vec n$)? 
+% \item We know that $c\vec v$ is as close to $\vec b$ as you can get along the road. Since $\vec b = c\vec v+\vec n$ and we know $c\vec v$, solve for $\vec n$. Then find the distance Sally will have to travel in the swamp (what's the length of $\vec n$)? 
 \end{enumerate}
  \end{problem}
  
@@ -116,7 +116,8 @@ Rewrite this system of equations as the vector equation (state $\vec v$ and $\ve
 $$\vec v m = \vec b \quad\quad\quad\Rightarrow\quad\quad\quad \bvec{?\\?\\?}m = \bvec{?\\?\\?}.$$
 Explain why there is no solution to this problem. 
   \item
-What should we choose the slope $m$ to equal so that $\vec v m$ will be as close to $\vec b$ as possible? [Hint: Multiply both sides on the left by the matrix $\vec v^T$.]
+What should we choose the slope $m$ to equal so that $\vec v m$ will be as close to $\vec b$ as possible? 
+%[Hint: Multiply both sides on the left by the matrix $\vec v^T$.]
  \end{enumerate}
 \end{problem}
 
@@ -177,7 +178,7 @@ The matrix $A$ was not square.  We can make the system square by adding the triv
 
 
 \begin{problem}\label{sally in city}
- After getting the treasure in the swamp, Sally moves on to find a treasure located in small town. She has a map of the town that shows the city blocks.  However, when she looks at a satellite image of the city it's slightly different than her map. Here are the two maps (the city map is on the left, the satellite on the right).
+ After getting the treasure in the swamp, Sally moves on to find a treasure located in a small town. She has a map of the town that shows the city blocks.  However, when she looks at a satellite image of the city it's slightly different than her map. Here are the two maps (the city map is on the left, the satellite on the right).
  \begin{center}
  \begin{tabular}{cc}
 \begin{tikzpicture}
@@ -213,9 +214,10 @@ City Map&Satellite View
 %She's currently standing at the point $A$ (which we'll consider the origin). Her GPS unit tells her that the treasure is located at the coordinates (). Our goal on this problem is to determine how she should follow the roads to get to the treasure.
 \begin{enumerate}
  \item If Sally goes up 2 blocks, and right 3 blocks, what are here $(x,y)$ coordinates (in hundreds of yards)?
- \item If Sally moves up $c_1$ blocks and right $c_2$ blocks, then what are her $(x,y)$ coordinates. Write your answer as a linear combination of vectors, and then as a matrix product $A\bvec{c_1\\c_2}=\bvec{x\\y}$. You can check if you are correct by computing $A\bvec{1\\0}=\bvec{1\\3}$ and $A\bvec{0\\1}=\bvec{2\\-1}$. 
+ \item If Sally moves up $c_1$ blocks and right $c_2$ blocks, then her $(x,y)$ coordinates are
+$$\bvec{x\\y}=\bvec{1\\3}c_1+\bvec{2\\-1}c_2.$$ Rewrite this linear combination as a matrix product $A\bvec{c_1\\c_2}=\bvec{x\\y}$ (What is the matrix $A$?). You can check if you are correct by computing $A\bvec{1\\0}=\bvec{1\\3}$ and $A\bvec{0\\1}=\bvec{2\\-1}$. 
  \item If the treasure is located at the $(x,y)$ coordinates $(0,7)$, what directions would you give her in terms of blocks? If the treasure is located at $(1,-7.5)$, what directions would you give?
- \item What does the determinant of the matrix $A$ have to do with the maps?
+% \item What is the determinant of $A$? 
 \end{enumerate}
 
 \end{problem}
@@ -351,7 +353,7 @@ Make a conjecture about the connection between the determinant of $A$, this matr
 \end{problem}
 
 
-In your work above, you should have noticed that you had to reverse the rows and columns of $B$ to make your conjecture.  This process of reversing rows and columns, called transposing a matrix, will show up in so many of our applications that we make a definition.
+In your work above, you should have noticed that you had to interchange the rows and columns of $B$ to make your conjecture.  This process of interchanging rows and columns, called transposing a matrix, will show up in so many of our applications that we make a definition.
 
 \begin{definition}[The Transpose $A^T$. Symmetric Matrix]
  If $A$ is an $m$ by $n$ matrix, then the transpose of $A$ is the $n$ by $m$ matrix formed by interchanging the rows and columns.  Row 1 is now column 1. Row 2 is now column 2.  Just think of each row as a vector, and then place those vectors in the columns of a new matrix.  We use the symbol $A^T$ to stand for the transpose of a matrix.
@@ -391,8 +393,8 @@ Here's your job. In the software link above, change the matrix $A$ to be several
  \item What do the eigenvectors tell you?
  \item Does anything special happen if the matrix is symmetric?
 \end{itemize}
-To be prepared for class, write answers to these questions using complete sentences.
-There are many great answers to the questions above. There are lots of patterns. 
+To be prepared for class, write answers to at least 4 of these questions using complete sentences.
+There are many great answers to the questions above. 
 
 Here are some matrices that might be useful to look at. Please type each of these in.  As you discover patterns, test them against these matrices. 
 $$
@@ -601,18 +603,18 @@ $$\bvec{
 This is a matrix equation of the form $A\vec x=\vec 0$, so the solutions are the kernel of $A$. Solve this matrix equation (find the kernel of $A$) and write your answer in terms of the free variables. Please use software to row reduce, and just share the key parts of your work (as shown below).
 $$\bvec{[cccc|c]*&*&*&*&*\\ *&*&*&*&*}\xrightarrow{\text{rref}}\bvec{[cccc|c]1&0&*&*&*\\ 0&1& *&*&*}\Rightarrow \pvec{A\\B\\c\\d}=\bvec{*\\ *\\ *\\ * }c+\bvec{*\\ *\\ *\\ * }d.$$
 
-\item 
-We can rewrite the two equations $c=c$ and $d=d$ as the equations $0=0$ and $0=0$. Adding two rows of zeros to our matrix equation yields
-$$\bvec{
-1 & 1 & -1& 0 \\
-3 &-2 & 0 & -1\\
-0 & 0 & 0 & 0\\
-0 & 0 & 0 & 0
-}\bvec{A\\B\\c\\d}=\bvec{0\\0\\0\\0}.$$
-Can you explain, from the definition of eigenvalues, why $\lambda =0$ is an eigenvalue of this matrix? Then find all eigenvectors of this matrix corresponding to $\lambda=0$.
+% \item 
+% We can rewrite the two equations $c=c$ and $d=d$ as the equations $0=0$ and $0=0$. Adding two rows of zeros to our matrix equation yields
+% $$\bvec{
+% 1 & 1 & -1& 0 \\
+% 3 &-2 & 0 & -1\\
+% 0 & 0 & 0 & 0\\
+% 0 & 0 & 0 & 0
+% }\bvec{A\\B\\c\\d}=\bvec{0\\0\\0\\0}.$$
+% Can you explain, from the definition of eigenvalues, why $\lambda =0$ is an eigenvalue of this matrix? Then find all eigenvectors of this matrix corresponding to $\lambda=0$.
 
 \item 
-Change the 4 by 4 matrix above to solve the partial fraction decomposition
+Change the 2 by 4 matrix above to solve the partial fraction decomposition
 $$
 \frac{cs+d}{(s-p)(s-q)} = \frac{A}{s-p}+\frac{B}{s-q}.
 $$
@@ -670,7 +672,7 @@ Consider the following traffic flow grid.
 \end{center}
 The numbers on the edges represent the number of vehicles that either enter or leave the system each hour.  The variables $x_1$, $x_2$, $x_3$, and $x_4$ represent the number of cars on each road. Assume that all streets are one-way streets where the arrows give the direction of traffic flow.
 \begin{enumerate}
- \item How do you know there are 400 total cars entering this network of roads each hour? Are all these cars leaving? Why is this a conservation problem?
+ \item How do you know there are 400 total cars entering this network of roads each hour? Are all these cars leaving? This is a conservation problem?
  \item The number of cars entering an intersection must match the number of cars leaving an intersection.  We can use this to build a system of equations for the traffic flows $x_1, x_2,x_3, x_4$.  Every hour at node $A$ there are 300 cars entering the intersection and $x_1+x_4$ cars leaving the intersection. This gives us an equation $x_1+x_4=300$. Continue in this fashion to obtain an equation at each intersection point. You should have a system of 4 equations with 4 unknowns.
  \item 
 Write your system of equations in the matrix form $A\vec x = \vec b$. What is $A$, what is $\vec x$, and what is $\vec b$? Is this system homogeneous or non homogeneous? 
@@ -679,7 +681,7 @@ $$
 \bvec{[cccc|c]*&*&*&*&*\\ *&*&*&*&*\\ *&*&*&*&*\\ *&*&*&*&*}
 \xrightarrow{\text{rref}}\bvec{[cccc|c]1&0&0&*&*\\ 0&1&0&*&*\\ 0&0&1&*&*\\ 0&0&0&0&0}\Rightarrow \pvec{x_1\\x_2\\x_3\\x_4}=\bvec{*\\ *\\ *\\ * }x_4+\bvec{*\\ *\\ *\\ * }.$$
 
- \item What's the minimum number and maximum number of cars that can be on the road $AD$ each hour? Explain.
+ \item (Challenge - we'll answer in class if you're unable) What's the minimum number and maximum number of cars that can be on the road $AD$ each hour? Explain.
 \end{enumerate}
 \end{problem}
 
@@ -894,7 +896,7 @@ $$\bvec{
 \bvec{A_x\\A_y\\D_x\\D_y\\B_y}
 =\bvec{0\\0\\0\\0}.$$
 Solve the system by giving a basis for the kernel. If $B_y=-8$, what is $A_x$?
- \item Continue to assume that $B_y$ is an unknown force. Let's change the distance $AD$ to be $d$, the distance $AC$ to be $4$, and the distance $CB$ to be $b$. We can then write the system of equations as 
+\skipnow{ \item Continue to assume that $B_y$ is an unknown force. Let's change the distance $AD$ to be $d$, the distance $AC$ to be $4$, and the distance $CB$ to be $b$. We can then write the system of equations as 
 $$\bvec{
 1&0&1&0&0\\
 0&1&0&1&1\\
@@ -903,7 +905,7 @@ $$\bvec{
 }
 \bvec{A_x\\A_y\\D_x\\D_y\\B_y}
 =\bvec{0\\0\\0\\0}.$$
-Solve the system by giving a basis for the kernel. 
+Solve the system by giving a basis for the kernel. }
 \end{enumerate}
 \end{problem}
 %end 16
@@ -1225,7 +1227,7 @@ The formula you developed above is the formula found in software programs.  It's
 
 
 
-
+\skipnow{
 
 
 %23
@@ -1273,7 +1275,7 @@ $$
 \end{problem}
 %end 23
 
-
+}
 
 
 
@@ -1342,7 +1344,7 @@ Assume that the voltage supplied from the battery $E$ and that the ohms $R_j$ on
 We've been using linear combinations to organize almost all our work.  The solutions to $A\vec x = \vec b$ are always a linear combination of some vectors.  The matrix product $A\vec x$ is a linear combination of the columns of $A$.  We can use the rref of a matrix to write each column as a linear combination of the pivot columns. Once we have a basis for the kernel, every other solution is a linear combination of these basis vectors.  The list goes on.
 
 You've been using operations that preserve linear combinations for quite some time.  This next problem has you show this.
-\begin{problem} Complete the following:\label{linear function examples}
+\begin{problem}[\mynow{Optional}] Complete the following:\label{linear function examples}
 \begin{enumerate}
  \item If we think of $A$ as a coordinate map $T(\vec x) = A\vec x$, then does $$A(c_1\vec x_1+c_2\vec x_2) = c_1A(\vec x_1)+c_2A(\vec x_2)?$$ Explain. (Your answer can be really short). This shows that a matrix coordinate transformation preserves linear combinations of vectors. 
  \item Explain why $\ds\frac{d}{dx}(c_1f_1(x)+c_2f_2(x)) = c_1\frac{d}{dx}(f_1)+c_2\frac{d}{dx}(f_2)$. What two differentiation rules are needed to explain why this is true?  Once you are finished, you'll have shown that the derivative operator preserves linear combinations of functions.
@@ -1391,7 +1393,7 @@ If you ever find yourself saying, ``Just do each part individually,'' chances ar
 %26
 If $A$ is a matrix, then the product $A\vec x$ is a linear transformation.  We'll often write this as $T(\vec x) = A\vec x$. Do you remember Candice's treasure map in Problem \ref{candice's treasure}.  Once she knew how to locate 2 linearly independent object on her map (the two trees), she could translate the entire map. Once we understand how the map transforms a basis for the domain, we understand the entire linear transformation.  
 
-\begin{problem}
+\begin{problem}[\mynow{Optional}]
  Suppose that we have a linear transformation $T:\mathbb{R}^3\to \mathbb{R}^2$. Since we are mapping vectors from 3D to 2D, we could think of this as a way of portraying a three dimensional world on a flat 2D screen (so computer animation). 
  
  We've been told that $T(1,0,0) = (1,3)$, $T(0,1,0) = (-2,4)$, and that $T(1,1,1)=(3,1)$. 
@@ -1407,7 +1409,7 @@ If $A$ is a matrix, then the product $A\vec x$ is a linear transformation.  We'l
 %end 26
 
 Not every function, transformation, or operator is linear. The next problem has you distinguish between a few examples.
-\begin{problem}
+\begin{problem}[\mynow{Optional}]
  Complete the following. When a variable is not listed as part of the domain, we assume it is constant. 
 \begin{enumerate}
  \item Show that $f(x)=ax^2$ is not linear ($a$ is a constant). [Does $f(c_1x_1+c_2x_2) = c_1f(x_1)+c_2f(x_2)$?]
@@ -1470,7 +1472,7 @@ $$
 \bvec{x_1\\x_2\\x_3\\x_4}=\bvec{x_1\\x_2\\x_3\\x_4}.
 $$
 \item Look at the structure of the matrix.  In particular, what do you notice about the columns of the matrix?
-\item Notice that the above equation can be written as $A\vec x = \lambda \vec x$. What is the eigenvalue $\lambda$?
+\item Notice that the above equation can be written as $A\vec x = \lambda \vec x$. What is the eigenvalue $\lambda$? (If we write $y=x$, then the slope is there, even though it appears to be missing.)
 \item Compute the eigenvector associated with this eigenvalue.  From your computation, which page is the most important?
 \end{enumerate}
 The world wide web consists of billion to trillions of pages. Modern computers can find eigenvectors of this size of a matrix extremely quickly.  
@@ -1622,7 +1624,7 @@ where we treated $m,n,p,q$ as free variables, what 4 by 8 matrix $A$ should we r
 
 
 
-
+\skipnow{
 
 %30
 \mysubsection{\ideanon}
@@ -1666,13 +1668,13 @@ What is the derivative at the other equilibrium point? Show that both eigenvalue
 
 
 
-
+}
 
 
 
 %31  Skip?
 \mysubsection{\idealin}
-\begin{problem}
+\begin{problem}[\mynow{Optional}]
  Let
 $A=
 \begin{bmatrix}
@@ -1744,7 +1746,7 @@ Let's assume that these trends continue over an extended period of time.
 
 
 
-
+\skipnow{
 \begin{problem}
 Consider three occupations, farming, manufacturing, and clothing.  Assume that goods are exchanged between the communities through barter only. Here is how the communities exchange their goods.
 \begin{itemize}
@@ -1802,7 +1804,7 @@ Solve the system. [You should obtain infinitely many solutions.]
 \end{enumerate}
 \end{problem}
 %end 33
-
+}
 
 
 

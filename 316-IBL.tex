@@ -51,6 +51,10 @@ Once you have finished the problems in the section and feel comfortable with the
 \newcommand{\WA}[1]{\marginpar{\href{#1}{See WolframAlpha}}}
 
 
+\newcommand{\skipnow}[1]{}
+\newcommand{\mynow}[1]{#1}
+
+
 \let\oldmarginpar\marginpar
 \renewcommand\marginpar[1]{\-\oldmarginpar{\raggedright\footnotesize #1}}
 %\renewcommand\marginpar[1]{\-\oldmarginpar[\raggedleft\footnotesize #1]{\raggedright\footnotesize #1}}
@@ -319,9 +323,12 @@ You don't have to do it all alone.  If you study with peers, you can help each o
 \input{01-Review-316}
 \input{01-Review-316-Problems}
 
+
+
 \chapter{First Order ODEs}
 \input{04-First-Order-ODEs}
 \input{04-First-Order-ODEs-Problems}
+
 
 \chapter{Linear Algebra Arithmetic}
 \input{02-Arithmetic}
@@ -341,13 +348,18 @@ You don't have to do it all alone.  If you study with peers, you can help each o
 \input{05-Homogeneous-ODEs-Problems}
 
 
+
 \chapter{Non Homogeneous ODEs}
 \input{06-Non-Homogeneous-ODEs}
 \input{06-Non-Homogeneous-ODEs-Problems}
 
+
+
 \chapter{Laplace Transforms}
 \input{07-Laplace-Transforms}
 \input{07-Laplace-Transforms-Problems}
+
+\end{document}
 
 \chapter{Power Series}
 \input{08-Power-Series}

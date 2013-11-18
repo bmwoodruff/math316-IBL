@@ -80,7 +80,7 @@ $$\begin{bmatrix}
 \begin{bmatrix}0\\0\\0\end{bmatrix}.$$ 
 \begin{enumerate}
  \item Give a basis for the kernel of $A$. In other words, solve this homogeneous matrix equation.
- \item Now solve the non homogeneous matrix equation
+ \item Solve the non homogeneous equation
 $\begin{bmatrix}
 \nvec{1\\-1\\2}&
 \nvec{0\\3\\1}&
@@ -95,7 +95,7 @@ $\begin{bmatrix}
 \end{enumerate}
 \end{problem}
 
-\begin{problem}
+\skipnow{\begin{problem}
 Let 
 $A=
 \begin{bmatrix}
@@ -109,7 +109,7 @@ $A=
  \item Give all solutions to $L(\vec x) = \vec b$.  Write your answer as a linear combination of vectors. 
 \end{enumerate}
 \end{problem}
-
+}
 \begin{problem}
  Consider the matrix equation $A\vec x = \vec b$.  Suppose that $\vec x_1$ and $\vec x_2$ are both solutions to this non homogeneous equation.
 \begin{enumerate}
@@ -118,12 +118,13 @@ $A=
  \item If $\vec x_p$ is a single particular solution to $A\vec x=\vec b$, and we know that a basis for the kernel is $\vec x_1,\vec x_2,\ldots, \vec x_n$, then explain why all solutions to $A\vec x = \vec b$ can be written in the form 
 $$\vec x=c_1\vec x_1+c_2\vec x_2+\cdots+ c_n\vec x_n +\vec x_p = \vec x_h+\vec x_p,$$ 
 where $\vec x_h = c_1\vec x_1+c_2\vec x_2+\cdots+ c_n\vec x_n$ is a general solution to the homogeneous equation $A\vec x = \vec 0$.  
- \item If we replace $A\vec x=\vec b$ with any linear function $L(y)=r$, does this result still hold? Namely, does the set of solutions to $L(y)=r$ equal $y=y_h+y_p$ where $y_p$ is a single solution to the problem, and $y_h$ is a general solution to the homogeneous equation $L(y)=0$?
+\skipnow{ \item If we replace $A\vec x=\vec b$ with any linear function $L(y)=r$, does this result still hold? Namely, does the set of solutions to $L(y)=r$ equal $y=y_h+y_p$ where $y_p$ is a single solution to the problem, and $y_h$ is a general solution to the homogeneous equation $L(y)=0$?}
 \end{enumerate}
 
 \end{problem}
 
-Look back at the last 4 problems. Do you notice how we solved a few problems using matrices and noticed a pattern, namely that the solution to $A\vec x=\vec b$ is simply $\vec x_h+\vec x_p$, where $\vec x_h$ is the general solution to the homogeneous equation $A\vec x=\vec 0$ (i.e. the kernel), and $\vec x_p$ is a single solution to the original equation.  
+
+Look back at the last few problems. Do you notice how we solved a few problems using matrices and noticed a pattern, namely that the solution to $A\vec x=\vec b$ is simply $\vec x_h+\vec x_p$, where $\vec x_h$ is the general solution to the homogeneous equation $A\vec x=\vec 0$ (i.e. the kernel), and $\vec x_p$ is a single solution to the original equation.  
 The last problem showed that this pattern continued for ANY linear function (operator, transformation). So if we can show something is linear, then the solution follows the same technique. 
 
 
@@ -238,7 +239,7 @@ The inverse transform is $A+Bt+Ce^{-3t}$. We can obtain $A$, $B$, and $C$ in ter
  \item For the homogeneous ODE $my''+ky'=0$, what are the zeros of the characteristic polynomial? Show that a general solution to this homogeneous ODE is $y_h(t) = c_1e^{-kt/m} + c_2$. We use the $h$ in the subscript to just remind us that the solution came from solving the homogeneous ODE. 
  \item
 \WA{http://www.wolframalpha.com/input/?i=dsolve+y\%27\%27\%2B5y\%27\%3D-32\%2C+y\%280\%29\%3D0+and+y\%27\%280\%29\%3D0}% 
-For simplicity, let's have $m=1$, $k=5$, and $g=-32$. Use Laplace transforms to solve the ODE $y''+5y'=-32$ if $y(0)=0$ and $y'(0)=0$. Make sure you check the link on the side to see if you have the correct answer. 
+For simplicity, let's have $m=1$, $k=5$, and $g=32$. Use Laplace transforms to solve the ODE $y''+5y'=-32$ if $y(0)=0$ and $y'(0)=0$. Make sure you check the link on the side to see if you have the correct answer. 
  \item Your solution involves 3 terms. Which terms are part of the homogeneous solution?  Which term is not part of the homogeneous solution? We call this term a particular solution and write $y_p$. Circle $y_p$ in your solution above. 
  \item
 \WA{http://www.wolframalpha.com/input/?i=dsolve+y\%27\%27\%2B5y\%27\%3D-32}%  
@@ -465,10 +466,10 @@ At this point, we need to practice the method of undetermined coefficients.  Rat
 \begin{problem}
  Consider a vertical mass spring system with $m=1$ kg, $c=5$ kg/s, and $k=6$ kg/s$^2$. Let's assume $g=-10$ m/s$^2$ (it makes the arithmetic simpler).   The 1 kg object is a magnetic brick. We turn on an electromagnet underneath the brick, and then slowly ramp up the force of the magnet be $2t$ N. When the magnet was turned on, the brick was motionless. Where is the brick after $t$ seconds?
 \begin{enumerate}
- \item Use software (see the link to the right) to solve the ODE $y''+5y'+6y=-10$ (gravity with no magnet). Explain why after sufficient time, the brick will stabilize 5/3 m below equilibrium. 
-\WA{http://www.wolframalpha.com/input/?i=y''\%2B5y'\%2B6y\%3D-10}
  \item Solve by hand the IVP $y''+5y'+6y=-10-2t$, where $y(0)=-5/3$ and $y'(0)=0$. Do so by finding $y_h$, guessing $y_p$, and then use derivatives to find the undetermined coefficients in your guess. Then use the initial conditions to find $c_1$ and $c_2$. Check your answer with software (see the link on the right). 
 \WA{http://www.wolframalpha.com/input/?i=y''\%2B5y'\%2B6y\%3D-10-2t\%2C\%20y(0)\%3D-5\%2F3\%2C\%20y'(0)\%3D0}
+ \item Use software (see the link to the right) to solve the ODE $y''+5y'+6y=-10$ (gravity with no magnet). Explain why after sufficient time, the brick will stabilize 5/3 m below equilibrium. 
+\WA{http://www.wolframalpha.com/input/?i=y''\%2B5y'\%2B6y\%3D-10}
  \item Use software to solve the IVP $y''+5y'+6y=-2t$, where $y(0)=0$ and $y'(0)=0$. What does this have to do with the previous part?
 \WA{http://www.wolframalpha.com/input/?i=y''\%2B5y'\%2B6y\%3D-2t\%2C\%20y(0)\%3D0\%2C\%20y'(0)\%3D0}
 \end{enumerate}
@@ -568,7 +569,7 @@ Consider the ODE $my''+cy'+ky=F\sin(\omega t)$.
 \begin{enumerate}
  \item What are the roots of the characteristic polynomial?
  \item We guess the steady-state solution (particular solution) is $y_p=A\cos(\omega t)+B\sin(\omega t)$.  Why do we never have to multiply the guess by $t$?
- \item Find the steady-state solution. As a hint, you'll probably find Cramer's useful when solving for $A$ and $B$ (because you'll get a linear system with variables as coefficients). 
+ \item Find the steady-state solution. As a hint, you'll probably find Cramer's Rule useful when solving for $A$ and $B$ (because you'll get a linear system with variables as coefficients). 
 \WA{http://www.wolframalpha.com/input/?i=m+y\%27\%27\%28t\%29\%2Bc+y\%27\%28t\%29\%2Bk+y\%28t\%29\%3DF+\%5Csin\%28w+t\%29}
 \end{enumerate}
  In class, we'll examine what it would take to get a really large amplitude for the steady-state solution (thus destroying the mechanical system).

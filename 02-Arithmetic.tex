@@ -11,6 +11,7 @@ After completing this chapter, you should be able to:
 \item Explain how to compute the inverse of a matrix. Then use the inverse to solve various problems such as finding $\vec x$ in $A\vec x = \vec b$ or finding $A$ in $AQ=QD$. 
 \item Show how to compute the determinant of a square matrix of any size. Be able to articulate the connection among determinants, linear dependence, and invertibility. 
 \item Explain how to see eigenvectors and the sign of eigenvalues in a vector field. Then use this knowledge to show how to obtain eigenvalues and eigenvectors from determinant and row reduction computations. 
+\marginpar{I've created video tutorials for many of the ideas in this chapter.  You can view them by \href{http://www.youtube.com/watch?v=Di1Gr1jVMMk&list=PL7A2089C33C8EFC84}{following this link to YouTube}. }
 \end{enumerate}
 
 %Technology links, especially to RREF.
@@ -26,7 +27,7 @@ After completing this chapter, you should be able to:
 \mysubsection{\ideaind}
 
 The heart of linear algebra has to deal with understanding relationships between vectors.  Vectors give us directions of motion.  They tell us how forces act on objects. We've seen already that vectors provide us with visual solutions to differential equations. One of our goals in this chapter is to become comfortable with working with linear combinations of vectors.  
-\marginpar{You may want to review the formal definition of a linear combination. See Definition \ref{def linear combination} on \pageref{def linear combination}.}
+\marginpar{You may want to review the formal definition of a linear combination. See Definition \ref{def linear combination} on page \pageref{def linear combination}.}
 Remember that given $n$ vectors  $\vec v_1, \vec v_2,\cdots,\vec v_n$ and $n$ scalars $c_1, c_2, \cdots, c_n$ we say their linear combination is the sum $$c_1\vec v_1+c_2\vec v_2+\cdots+c_n\vec v_n.$$
 
 \begin{problem}\label{sally in corn field with 2 directions}
@@ -318,7 +319,7 @@ A
 2&3&4&4\\
 1&2&0&6\\
 -1&1&2&0
-}.$$ We'll first obtain row echelon form, and then continue reducing the matrix until we obtain what is called reduced row echelon form. See the link on the right if you would like to watch a video of this reduction process.
+}.$$ We'll first obtain row echelon form, and then continue reducing the matrix until we obtain what is called reduced row echelon form.% See the link on the right if you would like to watch a video of this reduction process.
 \begin{enumerate}
  \item Apply Gaussian elimination to obtain a row echelon form for $A$. You should start by interchanging the first and second rows, so that you have a 1 in the upper left. Remember the pattern 
 \marginpar{We say a matrix is in row echelon form when (1) each nonzero row begins with a leading 1, (2) a leading 1 appears to the right of any leading one above it, and (3) any rows of all zeros appear at the bottom.}
@@ -347,7 +348,7 @@ $$
 0 & 0 & 1 & * \\
 }
 $$
-\item Let's now use row operations (instead of back substitution) to find the solution.  Starting on the right, and working left, use the 1's in each pivot column to reduce the matrix.  Use the pattern 
+\item Let's now use row operations (instead of back substitution) to find the solution.  Starting on the right, and working left, use the 1's in each pivot column to eliminate the nonzero numbers above each leading 1. Use the pattern 
 \marginpar{We say a matrix is in reduced row echelon form when the matrix is in row echelon form, and there are zeros above each pivot. }
 $$
 \bvec{[ccc|c]
@@ -387,7 +388,7 @@ We say that a matrix is in reduced row echelon form (rref) if
 The row reduction process we've described above may not always result in a unique solution. 
 
 \begin{problem}
-On this problem, you'll be using software to obtain the rref of a matrix.  The Sage command is ``A.rref()'' and the Mathematica command is ``RowReduce.'' 
+On this problem, you'll be using software to obtain the rref of a matrix.  The Sage command is ``A.rref()'' and the Mathematica command is ``RowReduce[A].'' 
 \marginpar{You can use the \href{\urlrref}{Sage RREF Calculator} to check your result. Follow the link.}%
 \begin{enumerate}
  \item 
@@ -434,7 +435,7 @@ $$
 \end{problem}
 
 \begin{definition}[Free Variable]
- The variables in a system of equations each correspond to column of the augmented matrix. Some of the columns are pivot columns, and some are not.  The variables corresponding to the nonpivot columns are called free variables.  You can choose these variables to be any number you want, and the write the solution to the system of equations in terms of the free variables. 
+ The variables in a system of equations each correspond to column of the augmented matrix. Some of the columns are pivot columns, and some are not.  The variables corresponding to the nonpivot columns we call free variables.  We can choose these variables to be any value we want, and we can write the solution to a system of equations in terms of these free variables. The variables that correspond to pivot columns we call basic variables. 
 \end{definition}
 
 \begin{problem}
@@ -525,16 +526,16 @@ If the vectors are not independent, then we say that the vectors are linearly de
 When a collection of vectors is linearly dependent, it is always possible to write one of the vectors as a linear combination of the others. We say the vectors are linearly dependent because one of the vectors depends on (can be obtained as a linear combination of) the other vectors.
 
 
-\begin{problem*}[9.5 (do this one)]
+\begin{problem}
  Are the vectors $\vec v_1 = (1,3,5)$, $ \vec v_2=(-1,0,1)$, and $\vec v_3=(0,3,1)$ linearly independent?  Solve the system $c_1\vec v_1+c_2\vec v_2+c_3\vec v_3=\vec 0$ to answer this question. If they are dependent, then write one of the vectors as a linear combination of the others.
 
  Are the vectors $\vec v_1 = (1,2,0)$, $ \vec v_2=(2,0,3)$, and $\vec v_3=(3,-2,6)$ linearly independent?  Solve the system $c_1\vec v_1+c_2\vec v_2+c_3\vec v_3=\vec 0$ to answer this question.  If they are dependent, then write one of the vectors as a linear combination of the others. 
 
 [Hint: Rewrite each of these problems as a system of 3 equations. From that system of equations, write down the corresponding augmented matrix (it will have a column of all zeros at the right).  Then use software to answer each problem.  You do  not need to show your reduction steps, rather show the matrix you reduced, and the rref.]
-\end{problem*}
+\end{problem}
 
 \begin{problem}\label{rocket booster problem}
-Imagine you are in a rocket traveling through space.  The rocket has 4 boosters on it.  The boosters provide thrust in a specific direction (vector), with the ability to adjust how strong the push should be in each direction (possibly even moving backwards in that direction - a two sided booster). The 4 boosters allow movement in the directions $(1,1,2)$, $(0,1,3)$, $(2,1,1)$, and $(-2,1,0)$.
+\marginpar{Imagine that each booster provides a thrust through the center of mass, so no rotation occurs. }Imagine you are in a rocket traveling through space.  The rocket has 4 boosters on it.  The boosters provide thrust in a specific direction (vector), with the ability to adjust how strong the push should be in each direction (possibly even moving backwards in that direction - a two sided booster). The 4 boosters allow movement in the directions $(1,1,2)$, $(0,1,3)$, $(2,1,1)$, and $(-2,1,0)$.
 \begin{enumerate}
  \item 
 \marginpar{Use the \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=rref\_calculator}{Sage RREF Calculator}.}%
@@ -624,12 +625,28 @@ Write $(5,-1,2)$ as a linear combination of the pivot columns.
  What connection is there between the rref of a matrix and the columns of the matrix?
 \end{question}
 
+\begin{definition}[Coordinates of a vector relative to independent vectors]
+Suppose that $\vec p_1,\vec p_2,\ldots,\vec p_k$ are a set of linearly independent vectors. Suppose that 
+$$\vec v = c_1\vec p_1+c_2\vec p_2+\cdots+c_k\vec p_k.$$
+Then we call the coefficients $c_1$, $c_2$, $\ldots$, $c_k$, the coordinates of $\vec v$ relative to the vectors $\vec p_1,\vec p_2,\ldots,\vec p_k$.
+\end{definition}
+\begin{theorem}[Coordinates of a vector relative to the pivot columns]
+Suppose that we row reduce an augmented matrix $A$ to obtain the reduced row echelon form $R$. 
+Suppose that the pivot columns of $A$ are $\vec p_1,\vec p_2,\ldots,\vec p_k$. Then these vectors are linearly independent.  Furthermore, if $\vec v$ is any column in the matrix $A$, then we can write 
+$$\vec v = c_1\vec p_1+c_2\vec p_2+\cdots+c_k\vec p_k,$$
+where the numbers $c_1$, $c_2$, $\ldots$, $c_k$, we call the coordinates of $\vec v$ relative to the pivot columns of $A$.  These coordinates are precisely the entries in the column of the reduced row echelon form $R$ that corresponds to the original column $\vec v$. 
+
+In summary, to obtain the coordinates of $j$th column of $A$ relative to the pivot columns of $A$, we just obtain the rref $R$ and then the coordinates are precisely the first $k$ entries in the $j$th column of $R$.  
+\end{theorem}
+
+
 \mysubsection{\ideaeig}
 \begin{problem}
 The following parts ask you to look for points in a vector field where the vector field pushes either straight outwards from the origin, or pulls straight towards the origin.
 \begin{enumerate}
 \item
-Consider the vector field $\vec F(x,y) = \bvec{3&2\\0&2}\bvec{x\\y} = \bvec{3x+2y\\2y}$. 
+Consider the vector field $\vec F(x,y) = \bvec{3&2\\0&2}\bvec{x\\y} = \bvec{3x+2y\\2y}$ which we could also write in the form
+$\vec F(x,y)=(3x+2y,2y)$. 
 Compute $\vec F(x,y)$ for each of $(x,y)$ equal to $(2,2)$, $(2,1)$, $(2,0)$, $(2,-1)$, and $(2,-2)$.  Then circle the two vectors $(x,y)$ where the output $F(x,y)$ is a linear combination of the input $(x,y)$. 
 For example, if $(x,y)=(-4,2)$, then we compute $\vec F(-4,2) = (-8, 4)$ and we see that $(-8,4) = 2(-4,2)$.  We have $\vec F(x,y) = 2(x,y)$.
  \item Suppose you knew that there was a direction in which the vector field 
@@ -637,7 +654,7 @@ $\vec F(x,y) = \bvec{2&5\\4&1}\bvec{x\\y} = \bvec{2x+5y\\4x+y}$ causes a radial 
 $$\bvec{2&5\\4&1}\bvec{x\\y} = 6\bvec{x\\y}.$$
 Find a nonzero vector $(x,y)$ that satisfies this equation.
 
-[Hint: Subtract $6\bvec{x\\y}$ from both sides. Combine terms to get a new matrix to row reduce, and then row reduce the matrix. You should find there are infinitely many correct answers.] 
+[Hint: Multiply out the left hand side, and then subtract $6\bvec{x\\y}$ from both sides. Combine terms to get a new matrix to row reduce, and then row reduce the matrix. You should find there are infinitely many correct answers. You just need to give one answer.] 
 
 \end{enumerate}
 \end{problem}
@@ -667,7 +684,7 @@ We would like to find the directions in which the vector field either pulls a po
 or pushes the point $(x,y)$ directly away from the origin.
 \begin{enumerate}
  \item Explain why we seek a solution to $$ A\bvec{x\\y} = c\bvec{x\\y}$$ where $c$ is some constant. Is $(x,y)=(0,0)$ a solution to this equation.  We call this the trivial solution.
- \item Subtract $c\bvec{x\\y}$ from both sides above.  Show that to find a nonzero $(x,y)$, we need to row reduce the matrix $\bvec{[cc|c]3-c&4&0\\2&1-c&0}$. Then use row operations to eliminate the 2 in the lower left of the matrix. [Hint: Take row 2 and multiply it by $(3-c)$.  Then add $-2$ times row 1 to row 2.]
+ \item Subtract $c\bvec{x\\y}$ from both sides above.  Show that to find a nonzero solution $(x,y)$, we need to row reduce the matrix $\bvec{[cc|c]3-c&4&0\\2&1-c&0}$. Then use row operations to eliminate the 2 in the lower left of the matrix. [Hint: Take row 2 and multiply it by $(3-c)$.  Then add $-2$ times row 1 to row 2.]
  \item We already know that $(x,y)=(0,0)$ is a solution.  We want a nonzero solution $(x,y)$. Explain why the bottom row must reduce to be all zeros?
  \item By forcing the bottom row to consist of all zeros, you should have a quadratic equation involving $c$. Solve this equation for $c$.  
  These are the scalars for which you can find a vector that either pushes directly out or pulls directly in. 
@@ -748,7 +765,7 @@ $$A=\begin{bmatrix}
 Use technology to show you the rref of $[A|I]$, or just use A.inverse() in Sage, or Inverse[A] in Mathematica.  
 Then show your row reduction steps by hand.
 
-Once you have obtained the inverse, use your work to write $(1,0,0)$ as a linear combination of the columns of $A$.  
+Once you have obtained the inverse, can you use your work to write $(1,0,0)$ as a linear combination of the columns of $A$. In other words, what are the coordinates of  $(1,0,0)$ relative to the columns of $A$?
 \end{problem}
 
 
@@ -766,7 +783,7 @@ $$\pvec{1\\0\\0}c_1+\pvec{0\\1\\1}c_2+\pvec{2\\3\\2}c_3+\pvec{0\\1\\-1}c_4=\pvec
  \item Suppose you have 5 vectors that are each 7 tall. Row reducing the 7 by 5 matrix obtained by placing these vectors in columns results in a matrix that has 3 rows of zeros at the bottom.  Why are the vectors linearly dependent?
  \item If you have a matrix with $n$ rows and $m$ columns, what must happen for the column vectors to be linearly independent?  How many rows of zeros would be at the bottom if the vectors are linearly independent. 
 \end{enumerate}
-[Hint: For all parts, think about the number of pivot columns.]
+[Hint: For all parts, think about the number of pivot columns. You are looking to see if there are any nonpivot columns.]
 \end{problem}
 
 
@@ -793,7 +810,7 @@ $[1,1,-2],
 [2,0,1],
 [1,-3,8]$.
 \end{itemize}
-For each team, use software to row reduce the appropriate 3 by 4 matrix that would tell the dependence relationships among the vectors. If you were in charge of picking a winning design, which team would you pick, and why?
+For each team, use software to row reduce the appropriate 3 by 4 matrix (remember to put vectors in columns, not rows) that would tell the dependence relationships among the vectors. If you were in charge of picking a winning design, which team would you pick, and why?
 \end{problem}
 
 
@@ -827,7 +844,7 @@ Use software to find the inverse of the matrix $A$ (state the matrix you row red
 Let $A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$. Obtain the rref of $[A | I]$ to show that the inverse of $A$ is 
 $$A^{-1}=\frac{1}{ad-bc}\begin{bmatrix}d&-b\\-c&a\end{bmatrix}.$$
 
-Are there any conditions under which a matrix would not have an inverse?  What are they, and why? Is there a number you could check to {\it determine} if a matrix has an inverse?
+Are there any conditions under which a matrix would not have an inverse?  What are they, and why? Is there a number you could check to {\it determine} if a matrix has an inverse? If you are struggling with reducing this symbolic matrix, please see the hint on the right.
 \end{problem}
 
 \mysubsection{\ideadet}
@@ -908,9 +925,9 @@ The problem above uses inductive reasoning (lots of examples) to suggest that th
  To find the area of the parallelogram with vertexes $O=(0,0)$, $P=(a,c)$, $Q=(b,d)$, and $R=(a+b,c+d)$, we need to find the length of $OP$ (the base $b$), and multiply it by the distance from $Q$ to $OP$ (the height $h$). Let $\vec b = \vec{OP}$ and let $\vec h$ be the shortest vector from the line $OP$ to the point $Q$. Complete the following:
 \begin{enumerate}
  \item Find the projection of $\vec {OQ}$ onto $\vec {OP}$. (You may need to look up a vector projection formula.) Part of this formula requires that you compute the length of $\vec b$.  
- \item Recall that we can obtain the vector $\vec h$ by computing $\vec h = \vec {OQ}-\text{proj}_{\vec{OP}}\vec{OQ}$. We call this vector is the vector component of $\vec {OQ}$ that is orthogonal to $\vec {OP}$. Compute $\vec h$.
+ \item Recall that we can obtain the vector $\vec h$ by computing $\vec h = \vec {OQ}-\text{proj}_{\vec{OP}}\vec{OQ}$. We call this the vector component of $\vec {OQ}$ that is orthogonal to $\vec {OP}$. Compute $\vec h$.
  \item The length of $\vec h$ is the distance $h$ from $Q$ to $OP$. Find the length of $\vec h$.
- \item We now have $b$ and $h$. Compute the product and simplify to show that the area of the parallelogram is $|ad-bc|$.
+ \item We now have $b$ and $h$. Compute the product and simplify to show that the area of the parallelogram is $|ad-bc|$.\marginpar{The algebra on this problem can get quite messy.}
 \end{enumerate}
 \end{problem}
 
@@ -964,7 +981,7 @@ Let $A$ be a square $n\times n$ matrix.
  \item Show that the eigenvalues are $\lambda = 7$ and $\lambda = -4$. You'll want to compute the determinant of $A-\lambda I = \bvec{5-\lambda&6\\3&-2-\lambda}$
  \item If we let $\lambda = 7$, find a nonzero vector $\vec x = (x,y)$ such that $A\vec x = 7\vec x$. You'll need to row reduce $\bvec{[cc|c]5-7&6&0\\3&-2-7&0}$.  
  \item If we let $\lambda = -4$, find a nonzero vector $\vec x = (x,y)$ such that $A\vec x = -4\vec x$.  
- \item If $\lambda = 6$, then what is the only solution $\vec x = (x,y)$ to $A\vec x = 6\vec x$? [Hint: this one can be answered without doing any row reduction.] 
+ \item If $\lambda = 6$, then what is the only solution $\vec x = (x,y)$ to $A\vec x = 6\vec x$? %[Hint: this one can be answered without doing any row reduction.] 
 \end{enumerate}
 
 \end{problem}
@@ -1310,7 +1327,7 @@ For larger matrices, how many row operations are needed to perform Gauss-Jordan 
 This question is extremely important to computer programming, as the answer related to the time needed for a computer to row reduce a million by million matrix, something that happens all the time since the advent of computers.
 
 %I don't think they will care.....  I'm moving on.
-\begin{problem}[Number of operations]
+\begin{problem*}[Number of operations - Challenge]
 Here's your challenge:  How many row operations are needed to fully reduce an $m$ by $n$ matrix, where $n>m$.
 \begin{itemize}
  \item For a 3 by 4 matrix, we would swap rows a maximum of 2 times (once for each row but the last).  We would need to multiply a row by some number 3 times (once for each leading 1). We would add a multiple of a row to another 3 times in the forward elimination and 3 times in the backward elimination (this puts the zeros above and below each pivot). We now have $2+3+6 = 11$ row operations.
@@ -1320,7 +1337,7 @@ Here's your challenge:  How many row operations are needed to fully reduce an $m
  \item Give a formula $f(n)$ so that for each $n$, the number $f(n)$ is the maximum number of row operations. We currently know $f(1)=1$, $f(2)=5$, $f(3)=11$, $f(4)=?$, $f(5)=?$, $f(6)=41$. 
 \end{itemize}
 If you've never see the online encyclopedia of integer sequences, please head to \href{http://oeis.org/}{http://oeis.org/}. Try the sequence 1, 5, 11, ....  
-\end{problem}
+\end{problem*}
 
 
 

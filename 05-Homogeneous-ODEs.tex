@@ -69,7 +69,7 @@ We place the spring horizontally, and put the mass on a frictionless track. We l
 \begin{itemize}
  \item Draw a picture of a horizontal track. On the left end of the track, put a wall. Put an object, like a square block, in the center of your track and draw a spring that connects the wall to the block.
  \item Explain why $mx''(t)=-kx(t)$. We generally just write $mx''=-kx$ (the $t$ is assumed).  
- \item If it takes $8 \text{ N} = 8$kg m/s$^2$ to move the object whose mass is 4 kg about $.3$ m, what is the spring constant $k$?  How far would a $12$ N force cause the object to move? Does the mass of the object matter?
+ \item If it takes $8 \text{ N} = 8$kg m/s$^2$ to move an object whose mass is 4 kg about $.3$ m, what is the spring constant $k$?  How far would a $12$ N force cause the same object to move? %Does the mass of the object matter?
 \end{itemize}
 \end{problem}
 
@@ -90,7 +90,7 @@ We need one more model before we start solving some ODEs.  We'll use the exact s
 \marginpar{We don't have to place the spring underwater to get the same affect.  We could use a dashpot to resist the motion. One type of dashpot is a cylindrical tube placed around a cylindrical object, so that as the object moves, its sides come in contact with the dashpot, resulting in friction that resists motion. See \href{http://en.wikipedia.org/wiki/Dashpot}{Wikipedia} for more info.}
 We now place the entire mass-spring system underwater. When it was exposed to air, we neglected air resistance. Now we'll have to take resistance into account.   
 \begin{problem}\label{mass-spring set up problem}
- When we have no resistance, the mass-spring system ODE is $F_T=F_S$, or $mx'' = -kx$.  Assume that the liquid applies a resistive force that is proportional to the velocity of the object.  If the object is resting, the liquid doesn't apply a force.  If you double the speed, then the resistive force doubles.  If you triple the speed, the resistive force triples. 
+ When we have no resistance, the mass-spring system ODE is $F_T=F_S$, or $mx'' = -kx$.  Let's place the mass-spring system underwater, and assume that the liquid applies a resistive force that is proportional to the velocity of the object.  If the object is resting, the liquid doesn't apply a force.  If you double the speed, then the resistive force doubles.  If you triple the speed, the resistive force triples. 
 \begin{enumerate}
  \item Modify the second order ODE $mx''=-kx$ to account for the resistive force of water. 
  \item Then show that we can write this 2nd order ODE as a system of ODEs in the matrix form
@@ -214,7 +214,10 @@ $$
 \begin{array}{c}
  -x_0 = (2-s)X+3Y\\
  -y_0 = 5X+(4-s)Y
-\end{array},
+\end{array}\mynow{
+\quad\Rightarrow\quad
+ \bvec{-x_0\\-y_0} = \bvec{(2-s)&3\\5&(4-s)}\bvec{X\\Y}
+,}
 $$
 where $X$ is the Laplace transform of $x(t)$ and $Y$ is the Laplace transform of $y(t)$. 
 Solve for $X$ and $Y$ (Cramer's rule should make this super fast). Do you see any connections between your solution here and your work with eigenvalues?
@@ -235,12 +238,12 @@ y(t)=Ce^{7t}+De^{-1t}
 \quad\Rightarrow\quad
 \bvec{x\\y}=\bvec{A\\C}e^{7t} + \bvec{B\\D}e^{-1t}
 $$
-How are the vectors $(A,C)$ and $(B,D)$ related to the eigenvectors in your bases from part 1? Can you write $(A,C)$ a scalar multiple of your eigenvector corresponding to $\lambda =7$?
+How are the vectors $(A,C)$ and $(B,D)$ related to the eigenvectors in your bases from part 1? %Can you write $(A,C)$ a scalar multiple of your eigenvector corresponding to $\lambda =7$?
 \end{enumerate}
 
 \end{problem}
 
-The previous problem shows us that if we know the eigenvalues $\lambda 1\neq \lambda_2$ and a corresponding eigenvectors $\vec x_1$ and $\vec x_2$ of a 2 by 2 matrix $A$, then the solutions to $\frac{d\vec x}{dt}=A\vec x$ are of the form $\vec x = \vec x_1 c_1 e^{\lambda_1 t}+\vec x_1 c_2 e^{\lambda_2 t}$.  Let's check this pattern one more time.
+The previous problem shows us that if we know the eigenvalues $\lambda_1\neq \lambda_2$ and a corresponding eigenvectors $\vec x_1$ and $\vec x_2$ of a 2 by 2 matrix $A$, then the solutions to $\frac{d\vec x}{dt}=A\vec x$ are of the form $\vec x = \vec x_1 c_1 e^{\lambda_1 t}+\vec x_1 c_2 e^{\lambda_2 t}$.  Let's check this pattern one more time.
 
 
 
@@ -277,9 +280,9 @@ $$
 \begin{array}{l}
  -x_0 = -sX+1V\\
  -v_0 = -6X+(-5-s)V
-\end{array},
+\end{array}
 $$
-and then solve for $X$ and $V$. (Try Cramer's rule.)
+and then solve for $X$ and $V$. (Use Cramer's rule and Theorem \ref{general partial fraction decomposition for a quadratic}.)
 \item 
 Perform appropriate partial fraction decompositions on $X$ and $B$. Use $A$ and $B$ as the numerators for $X$, and $C$ and $D$ for the numerators of $V$. 
 \item 
@@ -308,7 +311,7 @@ Compute the inverse Laplace transform of both $X$ and $V$. You should at this po
 
 \begin{problem}
 Consider the system of mixing tanks in Problem \ref{first mixing tank system problem}.   
-There were two tanks. The first tank contained 6 lbs of salt in 10 gallons of water, and the second tank contained no salt in 20 gallons of water. We attached hoses to the tanks and transfered 2 gallon/minute of solution from tank 1 to tank 2, and vice versa. Our was to find the amount of salt in each tank at any time $t$. 
+There were two tanks. The first tank contained 6 lbs of salt in 10 gallons of water, and the second tank contained no salt in 20 gallons of water. We attached hoses to the tanks and transfered 2 gallon/minute of solution from tank 1 to tank 2, and vice versa. Our goal is to find the amount of salt in each tank at any time $t$. 
 \begin{enumerate}
  \item If we let $y_1(t)$ and $y_2(t)$ represent the amount of salt in each tank after $t$ minutes, then we've already shown that we can write this as the system of differential equations
 $$
@@ -387,13 +390,13 @@ We just introduced a few new words. In the problems that follow, let's practice 
  \item Why is this ODE linear?  Modify it so it is no longer linear, and show us in class what would make it non linear.
  \item Is this ODE homogeneous?  Explain.
  \item Is this ODE constant coefficient? Explain.
- \item 
+\skipnow{ \item 
 \marginpar{We use $L(y)$ for the name of the operator because it is linear.  The $L$ here does not have any reference to the Laplace transform operator $\mathscr{L}$.}%
 Consider the operator $L(y) = y''+7y'+6y$. This operator takes a function $y$ and returns $y''+7y'+6y$. 
    Show that $L$ is a linear operator by showing that $L(c_1y_1+c_2y_2)=c_1L(y_1)+c_2L(y_2)$. 
  \item
 \marginpar{With matrices, we call the set of solutions to $A\vec x = \vec 0$ the \rule{1in}{.5pt} of $A$. We use the same word for linear operators. See Definition \ref{homogeneous and kernel of a matrix}.}%
- The solutions to the ODE are the solutions to $L(y)=0$.  In the language of linear operators, what do we call the set of functions $y$ such that $L(y)=0$? The set of solutions $y$ is called the \rule{1in}{.5pt} of $L$. 
+ The solutions to the ODE are the solutions to $L(y)=0$.  In the language of linear operators, what do we call the set of functions $y$ such that $L(y)=0$? The set of solutions $y$ is called the \rule{1in}{.5pt} of $L$. }
 \end{itemize}
 \end{problem}
 
@@ -483,11 +486,11 @@ Let try another problem, but this time let's not give any initial conditions. We
  \item Is the ODE linear? Is it homogeneous? Are the coefficients constant?
  \item Compute the Laplace transform of both sides and solve for $\mathscr{L}(y) = Y$. Since we don't have initial conditions, you'll have to use some place holder for $y(0)$ and $y'(0)$, like $c$ and $d$.  However, these variables $c$ and $d$ represent arbitrary constants.
  \item If we used a partial fraction decomposition, explain why we could write $$Y=\frac{A}{s+2}+\frac{B}{s+5}.$$ Without doing the partial fraction decomposition, explain why the general solution to $y(t)$ is a linear combination of $e^{-2t}$ and $e^{-5t}$, i.e. explain why $y(t)=Ae^{-2t}+Be^{-5t}$? 
- \item 
+\skipnow{ \item 
 \marginpar{You have already found the answers to all the blanks on the left. This just asks you to write your solution in terms of a basis for a kernel of a linear operator.}
 We can use the language of kernels and bases to connect this solution to our work with matrices. The kernel of the operator $L(y) = y''+7y'+10y$ is a vector space.  A basis for the kernel of $L$ is \rule{1in}{.5pt}.  The dimension of the kernel of $L$ is \rule{1in}{.5pt}. All solutions to $L(y)=0$ are linear combinations of these two basis elements. 
  \item 
-The polynomial $s^2+7s+10$ showed up in your work above. How are the zeros of this polynomial connected to the solution?
+The polynomial $s^2+7s+10$ showed up in your work above. How are the zeros of this polynomial connected to the solution?}
 \end{enumerate}
 \end{problem}
 
@@ -543,12 +546,12 @@ This next problem firmly connects what we are doing to eigenvalues and eigenvect
 \begin{enumerate}
  \item 
 \marginpar{Hint: Don't forget that you can write $y_1'=y_2$ as $y_1'=0y_1+1y_2$.  It's really easy to miss the 0 and 1 that are sitting in the problem.}%
-Write the system above in the matrix form $\pvec{y_1\\y_2}' = A \pvec{y_1\\y_2}$. 
-\item Find the eigenvalues of $A$, and use them to obtain a general solution $y(x)$ to the second order ODE. It should be a linear combination of two functions.
-\item We know that $y_2'=y'$.  Compute the derivative $y'$ from your solution above which gives us the solution $y_2$. Then organize your work in the vector form 
-$$\pvec{y\\y'}=\pvec{y_1\\y_2} = c_1\pvec{*\\ *}e^{\lambda _1 x}+c_2\pvec{*\\ *}e^{\lambda_2 x}.$$
-Fill in the asterisks.
-\item Compute the eigenvectors of $A$. What do they have to do with your solution above?
+Write the system above in matrix form $\pvec{y_1\\y_2}' = A \pvec{y_1\\y_2} = \bvec{*&*\\ *&*}\pvec{y_1\\y_2}$. 
+\item Find the eigenvalues and eigenvectors of $A$.
+\item We showed in the previous problem that the solution to $y''+9y'+20y=0$ is $y=c_1e^{-4t}+c_2e^{-5t}$.  
+We know that $y_2'=y' = -4c_1e^{-4t}-5c_2 c_2e^{-5t}$.  We can organize this work the vector form 
+$$\pvec{y\\y'}=\pvec{y_1\\y_2} = c_1\pvec{1\\ -4}e^{\lambda _1 x}+c_2\pvec{1\\ -5}e^{\lambda_2 x}.$$
+What does this this have to do with the eigenvalues and eigenvectors of the matrix?
 \end{enumerate}
 \end{problem}
 
@@ -650,7 +653,7 @@ Once we complete the square, we can apply the $s$-shifting theorem immediately.
 \begin{enumerate}
  \item $\dfrac{3}{s^4}$ and $\dfrac{3}{(s-5)^4}$
  \item $\dfrac{s+3}{(s+3)^2+4}$ and $\dfrac{1}{(s+3)^2+4}$
- \item $\dfrac{s}{(s+3)^2+4}$.
+ \item $\dfrac{s}{(s+3)^2+4}$. [Note:  You might want to add and subtract 3 from the numerator, so that you have $s=(s+3)-3$.  
 \end{enumerate}
 \end{enumerate}
 You can quickly check all your answers with software. See the \href{\urllaplacetransforms}{Laplace transform calculator} or use Mathematica. 
@@ -669,57 +672,31 @@ Let's now tackle some problem where the characteristic equation does not have re
 \end{enumerate} 
 \end{problem}
 
-The previous problem showed us how to tackle a problem where the roots of the characteristic polynomial are purely imaginary. What do we do if the roots repeat, or if they are complex of the form $a\pm bi$?  The next problem addresses this.  
+The previous problem showed us how to tackle a problem where the roots of the characteristic polynomial are purely imaginary. What do we do if the roots repeat, or if they are complex of the form $a\pm bi$?  The next two problems address this.  
 
-\begin{problem}
+\begin{problem}[Repeated Roots]
  Consider the ODE $y''+6y'+9y=0$.  
 \begin{enumerate}
  \item What are the zeros of the characteristic equation? From these zeros, guess a general solution. (It's OK if you're wrong.)
- \item Compute the Laplace transform of both sides of ODE. Then solve for $Y$ and show that 
-$$Y = \frac{A(s+3)+B}{(s+3)^2} =  \frac{A}{(s+3)}+\frac{B}{(s+3)^2}. $$
- \item Why does $y(t) = Ae^{-3t}+Bte^{-3t}$?  Explain? 
+ \item Compute the Laplace transform of both sides of ODE. Then solve for $Y$. 
+ \item Using a partial fraction decomposition, we can write 
+$$Y = \dfrac{A(s+3)+B}{(s+3)^2} =  \frac{A}{(s+3)}+\frac{B}{(s+3)^2}. $$
+Explain why this means we know $$y(t) = Ae^{-3t}+Bte^{-3t}.$$ 
  \item If $y(0)=7$ and $y'(0)=0$, then what are $A$ and $B$?
 \end{enumerate}
 \end{problem}
 
-\begin{problem}
+\begin{problem}[Complex Roots]
  Consider the ODE $y''+4y'+13y=0$.  
 \begin{enumerate}
  \item What are the zeros of the characteristic equation?
- \item Compute the Laplace transform of both sides of ODE. Then solve for $Y$ and complete the square to show that 
+ \item Compute the Laplace transform of both sides of ODE. Then solve for $Y$ and complete the square of the denominator. 
+ \item Using a partial fraction decomposition, we can write
 $$Y = \frac{A(s+2)+B}{(s+2)^2+3^2} = \frac{A(s+2)}{(s+2)^2+3^2} +  \frac{B}{(s+2)^2+3^2}. $$
- \item Use the $s$-shifting theorem to find $y(t)$. Use software to check if you are correct (Wolfram Alpha can give you the solution to this one).  
+Use the $s$-shifting theorem to solve for $y(t)$. Use software to check if you are correct (Wolfram Alpha can give you the solution to this one).  
 \end{enumerate}
 \end{problem}
 
-
-\begin{problem}
-Complete each of the following:
-\begin{enumerate}
- \item
-\marginpar{Your answer should involve sines and cosines.}%
- Consider the ODE $y''+2y'+5y=0$. Find the characteristic polynomial, complete the square (if needed), and state a general solution. 
- \item 
-\marginpar{What do you do with a repeated root?}%
-Consider the ODE $y''+6y'+9y=0$. Find the characteristic polynomial, complete the square (if needed), and state a general solution. 
- \item Consider the ODE $y''+4y'+3y=0$. Find the characteristic polynomial, complete the square (if needed), and state a general solution. 
-\end{enumerate}
-\end{problem}
-
-
-
-
-
-
-
-\begin{problem}
- Consider the ODE $ay''+by'+cy=0$. 
-\begin{enumerate}
- \item Obtain the characteristic equation. Complete the square.  State the zeros of the characteristic equation. [When you finish this problem, you will have proved the quadratic formula.]
- \item If we let $y_1=y$ and $y_2=y'$, we obtain the system of ODE $y_1'=y_2$ and $ay_2'+by_2+cy_1=0$.  
- Write this system in the  matrix form $\pvec{y_1\\y_2}' = A \pvec{y_1\\y_2}$ (state the matrix $A$), and then find the eigenvalues of $A$.  
-\end{enumerate}
-\end{problem}
 
 We can now solve EVERY second order homogeneous constant coefficient ODE.  All we have to do is find the characteristic equation. The zeros unlock a general solution of the ODE.
 
@@ -740,15 +717,45 @@ We can now solve EVERY second order homogeneous constant coefficient ODE.  All w
 \end{problem}
 
 
+\begin{problem}
+Complete each of the following:
+\begin{enumerate}
+ \item Consider the ODE $y''+4y'+3y=0$. Find the characteristic polynomial, complete the square (if needed), and state a general solution. 
+ \item 
+\marginpar{What do you do with a repeated root?}%
+Consider the ODE $y''+6y'+9y=0$. Find the characteristic polynomial, complete the square (if needed), and state a general solution. 
+ \item
+\marginpar{Your answer should involve sines and cosines.}%
+ Consider the ODE $y''+2y'+5y=0$. Find the characteristic polynomial, complete the square (if needed), and state a general solution. 
+\end{enumerate}
+\end{problem}
 
 
+
+
+
+
+
+\begin{problem*}[\mynow{Optional}]
+ Consider the ODE $ay''+by'+cy=0$. 
+\begin{enumerate}
+ \item Obtain the characteristic equation. Complete the square.  State the zeros of the characteristic equation. [When you finish this problem, you will have proved the quadratic formula.]
+ \item If we let $y_1=y$ and $y_2=y'$, we obtain the system of ODE $y_1'=y_2$ and $ay_2'+by_2+cy_1=0$.  
+ Write this system in the  matrix form $\pvec{y_1\\y_2}' = A \pvec{y_1\\y_2}$ (state the matrix $A$), and then find the eigenvalues of $A$.  
+\end{enumerate}
+\end{problem*}
+
+
+
+
+\skipnow{
 Have you noticed that every general solution above is a linear combination of two independent solutions?  Recall that we say a differential operator is linear if $L(y_1+y_2) = L(y_1)+L(y_2)$ and $L(cy_1)=cL(y_1)$ for functions $y_1$ and coefficients $c$.  
 \begin{problem}[Superposition Principle]\label{superposition principle}
  Suppose that $y_1$ and $y_2$ are both solutions to a linear differential equation $ay''+b y'+cy=0$.  Consider the linear operator $L(y) = ay''+by'+cy$.  Prove that any linear combination of $y_1$ and $y_2$ is also a solution to the ODE $L(y)=0$. (Hint:  Look at the last few problems in chapter 3, or just prove this directly.)  
 
  Many people refer to this fact as the superposition principle. To get a solution to a second order homogeneous ODE, all you need is two independent solutions. The general solution is any linear combination of them.
 \end{problem}
-
+}
 Now that we have a general solution, let's show how to quickly obtain the solution to an IVP. The key principle, is to first obtain a general solution. Differentiate your general solution, and then use your initial conditions to find the unknown constants.
 
 \begin{problem}
@@ -793,7 +800,7 @@ Now that we have a general solution, let's show how to quickly obtain the soluti
  Attach a mass of $m$ kg to a spring with modulus $k$ kg/s$^2$. 
 \begin{enumerate}
  \item Set up a differential equation whose solution gives the position $x(t)$ of the spring at any time $t$. Solve this ODE and give a basis for the set of solutions. 
- \item If we displace the mass $x_0$ cm from equilibrium, and give the object an initial velocity of $v_0$ cm/s to the right, then determine the position of the spring at any time $t$. (What linear combination of the basis functions will give the solution to the IVP?)
+ \item If we displace the mass $x_0$ cm from equilibrium, and give the object an initial velocity of $v_0$ cm/s to the right, then determine the position of the spring at any time $t$. %(What linear combination of the basis functions will give the solution to the IVP?)
  \item You should see that the solution is a linear combination of trig functions, hence will oscillate indefinitely. What is the period of oscillation? 
  \item If you doubled the spring constant $k$, would the period increase or decrease?
 
@@ -837,7 +844,8 @@ Each of the problems above dealt with undamped motion, there was no friction to 
  \item Explain why both $y(t) = c_1\cos t+c_2\sin t$ and also $y(t) = c_3 e^{it}+c_4e^{-it}$ are a general solution to this ODE.
  \item If $y(0)=1$ and $y'(0)=0$, show that $y(t)=\cos t=\dfrac{e^{it}+e^{-it}}{2}$.
  \item If $y(0)=0$ and $y'(0)=1$, show that $y(t)=\sin t=\dfrac{e^{it}-e^{-it}}{2i}$.
- \item The equations $\cos t=\dfrac{e^{it}+e^{-it}}{2}$ and $\sin t=\dfrac{e^{it}-e^{-it}}{2i}$ show us how to write $\cos t$ and $\sin t$ as a linear combination of $e^{it}$ and $e^{-it}$. Use these equations to write $e^{it}$ as a linear combination of $\cos t$ and $\sin t$.  You should obtain values for $A$ and $B$ when you write $e^{it} = A\cos t+B\sin t$. 
+ \item The equations $\cos t=\dfrac{e^{it}+e^{-it}}{2}$ and $\sin t=\dfrac{e^{it}-e^{-it}}{2i}$ show us how to write $\cos t$ and $\sin t$ as a linear combination of $e^{it}$ and $e^{-it}$. Use these equations to explain why $$e^{it} = \cos t+i\sin t.$$ 
+This formula is called Euler's identity. 
 \end{enumerate}
 
 \end{problem}
@@ -911,11 +919,12 @@ $\vec c =
 c_1\\c_2 
 \end{bmatrix}
 $.
-\item We now have $\vec y = QD\vec c$. When we let $t=0$, explain why $D$ equals the identity matrix. This means that $\vec y(0) = Q\vec c$.  Solving for $\vec c$ gives us $\vec c= Q^{-1}\vec y(0)$.  Compute the inverse of $Q$.
- \item \marginpar{You can check your work with technology.  \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=systems_of_odes_grapher}{Follow this link.} }%
+\item We now have $\vec y = QD\vec c$. When we let $t=0$, explain why $D$ equals the identity matrix. This means that $\vec y(0) = Q\vec c$.  Solving for $\vec c$ gives us $\vec c= Q^{-1}\vec y(0)$.% 
+\marginpar{You can check your work with technology.  \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=systems_of_odes_grapher}{Follow this link.} }%
 Since we know $\vec y = QD\vec c$ and $\vec c= Q^{-1}\vec y(0)$, this means 
 $$\vec y = QDQ^{-1}\vec y(0).$$
-You have found $Q$, $D$, and $Q^{-1}$. If we let $y_1(0)=a$ and $y_2(0)=b$ which means $\vec y(0)=(a,b)$, then multiply out the matrix product $QDQ^{-1}\vec y(0)$ and state the solution to this IVP.
+Compute $Q^{-1}$ and then compute the matrix product $QDQ^{-1}$.  
+\item Let $y_1(0)=a$ and $y_2(0)=b$ which means $\vec y(0)=(a,b)$. Multiply out the matrix product $QDQ^{-1}\vec y(0)$ and state the solution to this IVP.
 \end{enumerate}
 
 \end{problem}
@@ -935,7 +944,7 @@ $. Do so by stating $Q$, $D$, and $Q^{-1}$, and then perform the matrix product 
 \end{problem}
 
 Does the pattern above continue to work if we increase the size of the matrix?
-\begin{problem}
+\begin{problem*}[Optional]
  \marginpar{You can check your work with technology.  \href{http://bmw.byuimath.com/dokuwiki/doku.php?id=systems_of_odes_grapher}{Follow this link.} }%
  Solve the system of ODEs $\vec y '=A\vec y$ where 
 $A
@@ -943,10 +952,10 @@ $A
   2&1&1\\1&2&0\\0&0&4
  \end{bmatrix}
 $. Do so by stating $Q$, $D$, and $Q^{-1}$, and then perform the matrix product $QDQ^{-1}$. Finally, if we assume $\vec y(0) = (a,b,c)$, then give the solution to this system of IVPs by stating what $y_1(t)$ equals, what $y_2(t)$ equals, and what $y_3(t)$ equals. Please use technology to perform as much of the computations as you want. Just be prepared to tell us how you got each part.
-\end{problem}
+\end{problem*}
 
 Does the pattern even work if the eigenvalues are complex?
-\begin{problem}
+\begin{problem*}[Optional]
  Solve the system of ODEs $\vec y '=A\vec y$ where 
 $A
 =\begin{bmatrix}
@@ -964,7 +973,7 @@ Use Euler's formula $e^{it} = \cos t +i\sin t$ to simplify the product $QDQ^{-1}
 If $y_1(0)=5$ and $y_2(0)=7$, then what are $y_1(t)$ and $y_2(t)$. Then use software to check your answer. You should see that the solution in the $y_1y_2$ plane, along with the appropriate vector field, gives circular motion.
 \end{enumerate}
 
-\end{problem}
+\end{problem*}
 
 \begin{problem}
 Suppose that $\frac{d\vec y}{dt} = A\vec y$ is a linear system of ODEs.  Also suppose that $\vec y=\vec x e^{ct}$ is a nonzero solution to this system. Explain, using the definition of eigenvalues and eigenvectors, why we must have that $c$ is an eigenvalue, and $\vec x$ is an eigenvector corresponding to $c$. [Hint:  Look up the definition of eigenvalues and eigenvectors.  If you compute $\frac{d\vec y}{dt}$ and then place both $\vec y$ and $\frac{d\vec y}{dt}$ into the system $\frac{d\vec y}{dt}= A\vec y$, you should see the definition appear.] 

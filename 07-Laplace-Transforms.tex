@@ -113,9 +113,9 @@ Use the rules for $\cosh(t)$ and $\sinh(t)$ to tackle the last terms, rather tha
 \begin{problem}\label{compare distinct roots with s-shifting and cosh and sinh}
  Consider the IVP $y''+6y'+8y = 0$, $y(0)=2$, $y'(0)=3$.
 \begin{enumerate}
- \item Use Laplace transforms to solve the IVP. Use partial fraction decomposition to show that $\ds y(t) = \frac{11}{2}e^{-2t}-\frac{7}{2}e^{-4t}$.  
- \item Use Laplace transforms to solve the IVP. Note that we could complete the square to write $s^2+6s+8=(s+3)^2-1$.  Write your answer as a linear combination of $e^{-3t}\cosh(t)$ and $e^{-3t}\sinh(t)$.
- \item Remember that $\ds \cosh(t) = \frac{e^t+e^{-t}}{2}$ and $\ds \sinh(t) = \frac{e^t-e^{-t}}{2}$. Use this to show how your second solution is really the same as $\ds y(t) = \frac{11}{2}e^{-2t}-\frac{7}{2}e^{-4t}$.
+ \item Use Laplace transforms to solve the IVP. Use a partial fraction decomposition to write $Y = \frac{A}{s+2}+\frac{B}{S+4}$ and then show that $\ds y(t) = \frac{11}{2}e^{-2t}-\frac{7}{2}e^{-4t}$.  
+ \item Instead of using a partial fraction decomposition, instead notice that we could complete the square in the denomoinator to write $s^2+6s+8=(s+3)^2-1$. Use this approach to solve for $y(t)$ and write $y(t)$ as a linear combination of $e^{-3t}\cosh(t)$ and $e^{-3t}\sinh(t)$.
+ \item Remember that $\ds \cosh(t) = \frac{e^t+e^{-t}}{2}$ and $\ds \sinh(t) = \frac{e^t-e^{-t}}{2}$. Use this to show how your second solution involving hyperbolic trig functions is really the same as $\ds y(t) = \frac{11}{2}e^{-2t}-\frac{7}{2}e^{-4t}$.
 \end{enumerate}
 \end{problem}
 
@@ -149,9 +149,9 @@ We can use Laplace transforms to obtain quick solutions to problems with discont
  Consider an $RL$ circuit with $R=1$ ohms and $L=1$ Henry.  At time zero, there is no battery in the system.  After 2 seconds,  we connect a battery $E=12 V$ to the circuit.  Two seconds after connecting the battery, we disconnect it.  Our goal is to determine the current in the wire exactly 2 second after we disconnect the battery.
 \begin{enumerate}
  \item During the first  two seconds, we need to solve the IVP $I'+I=0$ where $I(0)=0$.  Solve this IVP and use your solution to show that the current after 2 seconds is $I(2)=0$.
- \item Between $t=2$ and $t=4$, we know $E=12$.  Solve the IVP $I'+I=12$, $I(2)=0$. What is $I(4)$, the current before the battery gets removed? Your answer will involve the constant $e^{2}$.
+ \item Between $t=2$ and $t=4$, we know $E=12$.  Solve the IVP $I'+I=12$, $I(2)=0$. Show that $I(4) = 12-12e^{-2}$. This is the current as the battery gets removed.
 \WA{http://www.wolframalpha.com/input/?i=y\%27\%2By\%3D12\%2C+y\%282\%29\%3D0}
- \item When we remove the battery, the ODE is $I'+I=0$. We know the initial condition $I(4)$ from the last part.  Solve the IVP, and state $I(6)$. 
+ \item When we remove the battery, the ODE is $I'+I=0$. We know the initial condition $I(4)=12-12e^{-2}$ from the previous part.  Solve the IVP, and state $I(6)$. 
  \item We can now predict the current at any time $t$. Use piecewise function notation to state the current in the form
 $$I(t) = 
 \begin{cases}
@@ -260,8 +260,8 @@ We now define the key function that allows us to work with piecewise defined fun
 \marginpar{In our work, it won't matter what we define $u(0)$ to equal. Here, we define $u(0)=1$, but we could have just as easily define $u(0)=0$ or $u(0)=1/2$.  This last option, the 1/2, comes in handy when working with Fourier series.}
 We define the Heaviside, or unit step function, to be the function
 $$u(t) = \begin{cases}0 &t<0 \\ 1 &t\geq 0\end{cases}.$$ 
-We'll most often shift this function right $a$ units (so we replace $t$ with $t-a$, which means we could write
-$$u(t-a) = \begin{cases}0 &t-a<0 \\ 1 &t-a\geq 0\end{cases}= \begin{cases}0 &t<a \\ 1 &t\geq a\end{cases}.$$ 
+We'll most often shift this function right $a$ units, so we replace $t$ with $t-a$, which means we could write
+$$u(t-a) = \begin{cases}0 &t-a<0 \\ 1 &t-a\geq 0\end{cases}\quad \quad \text{or}\quad u(t-a)= \begin{cases}0 &t<a \\ 1 &t\geq a\end{cases}.$$ 
 \end{definition}
 Why does this function matter.  It's like an on/off function.  If you multiply $f(t)$ by $u(t-a)$, then the function $f(t)u(t-a)$ is zero to the left of $a$, and is equal to $f(t)$ after $a$. If $a=3$, then look below for the graph of $y=u(t-3)$.
 \marginpar{Mathematica uses the name ``HeavisideTheta'' for the Heaviside function.  You'll see the symbol $\theta$ show up as the name of a function. }
@@ -336,11 +336,15 @@ It's time to look at the Laplace transform of the Heaviside function. This probl
 
 \begin{problem}[$t$-shifting Theorem]
  Suppose that $y=f(t)$ is a function for which you can find the Laplace transform.
- Show, using the definition of the Laplace transform, that 
+\begin{enumerate}
+ \item Show, using the definition of the Laplace transform, that we have
 $$\mathscr{L}\{f(t-a)u(t-a)\} = \mathscr{L}\{f(t)\}e^{-as}.$$
-In particular, this means that $\mathscr{L}\{1u(t-a)\}=\frac{1}{s}e^{-as}$.  Then show that
+ In particular, this means that $\mathscr{L}\{1u(t-a)\}=\frac{1}{s}e^{-as}$.  
+\item Then show that
 $$\mathscr{L}\{f(t)u(t-a)\} = \mathscr{L}\{f(t+a)\}e^{-as}.$$
-[Hint: Just write down the definition of the Laplace transform. You'll have to do a $u$ substitution, but you'll probably want to use a different variable, like $w$. Remember that $u(t-a)=0$ if you are below $a$, which should allow you to remove $u(t-a)$ from any integral, after updating the bounds.]
+\end{enumerate}
+[Hint: For the first part, just write down the definition of the Laplace transform. You'll have to do a substitution $w=t-a$. Remember that $u(t-a)=0$ if you are below $a$, which should allow you to remove $u(t-a)$ from any integral, after updating the bounds. In particular, you know that $$\int_0^\infty e^{-st}f(t-a)u(t-a)dt=\int_0^a e^{-st}f(t-a)(0)dt+\int_a^\infty e^{-st}f(t-a)(1)dt = 0+\int_a^\infty e^{-st}f(t-a)dt.$$]
+ 
 \end{problem}
 
 }
@@ -413,7 +417,7 @@ Suppose that $m = 1$, $c = 0$, and $k=4$. The spring is pushed upwards 1 unit, a
 
 
 \newcommand{\RocketInSpaceThroughJello}{
-\begin{problem}
+\begin{problem*}[Optional]
  We decide to launch a rocket.  We attach an engine to the rocket, and light it. Neglect the mass of the fuel.  The mass of the rocket and engine we'll assume is $4$ kg. Let's launch the rocket in space, so we can ignore the force due to gravity. \marginpar{Ask me in class to show you how to modify this to add in gravity, or come by and show me what you would do. It's a pretty fun switch.)} Since we are in space, we don't have air resistance, so instead let's assume that we've put some Jello out in space, and the rocket plans to fly through the Jello (something to slow it down). Assume that the force due to the Jello's resistance is proportional to the velocity of the rocket, with proportionality constant $8$ kg/s.  When we light the engine, for the first 2 seconds the force ramps up, following a linear path until it gives a force of $10$ N after 2 seconds.  Then for 15 more seconds the rocket maintains a force of $10$ N.  The force then starts to ramp down linearly, taking an additional 5 seconds until the force drops to zero. A picture of this force is below.
 \begin{center}
 \begin{tikzpicture}[xscale=.2,yscale=.2]
@@ -437,7 +441,7 @@ Suppose that $m = 1$, $c = 0$, and $k=4$. The spring is pushed upwards 1 unit, a
  \item The rocket will eventually get stuck in the Jello.  How far will it travel before the rocket stops moving? See the side for a hint.\marginpar{Why must every term in the problem that involves an exponential eventually vanish?  What's left over after you ignore all these terms?}
 \end{enumerate}
 
-\end{problem}
+\end{problem*}
 
 }
 
@@ -662,7 +666,7 @@ $$F(s)G(s) = \int_0^\infty\left[\int_0^p f(t) g(t-p) \, dt \right]e^{-sp}\, dp.$
 }
 
 \newcommand{\ObtainTheDiracAsTheDerivativeOfTheHeavisideWithConvolutions}{
-\begin{problem}\label{obtaining the dirac as the derivative of the heaviside}[Discovering the Dirac Delta $\delta(t-a) = u'(t-a)$]
+\begin{problem}[Discovering the Dirac Delta $\delta(t-a) = u'(t-a)$]\label{obtaining the dirac as the derivative of the heaviside}
  In problem \ref{convolution theorem applied to derivatives and 1}, we showed that $f'(t)*1 = f(t)-f(0)$ provided $f$ is a differentiable function.  Let's ignore this assumption, and just assume the result $f'(t)*1 = f(t)-f(0)$ holds always. Ignoring assumptions and using results blindly can be dangerous and lead to bogus results. However, it's also a way to make conjectures and find new results that actually do work. When mathematicians find useful results in this fashion (by blinding using tools that have no theoretical backing), they'll search for alternate proofs that the useful results work. This can sometimes take decades to fully complete, during which time other branches of science will often just start using the useful results without having a firm theoretical foundation.  Ask me in class about examples of this if you would like more information.
 \begin{enumerate}
  \item Let $f(t)=u(t-a)$, the Heaviside function, where $a>0$.  Explain why $u'(t-a)*1=u(t-a)$. We'll use the notation $\delta(t)=u'(t-a)$.  
@@ -712,8 +716,8 @@ Engineers often refer to both $u$ and $\delta$ as singularity functions. They us
 \ConvolutionIntroduction
 \ProofOfConvolutionTheorem
 \PracticeConvolutionWithExponentialAndDiscoverCommutativeRule
-\mysubsection{\idealtp}
-\RLCircuitWithBatteryInsertedAndRemovedUsingShifting %Requires MovingInitialConditions
+%\mysubsection{\idealtp}
+%\RLCircuitWithBatteryInsertedAndRemovedUsingShifting %Requires MovingInitialConditions
 \mysubsection{\ideaheav}
 \DevelopLaplaceTransformOfHeavisideFunction
 \PracticeForwardLaplaceOfHeaviside
